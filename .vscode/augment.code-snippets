@@ -1,0 +1,28 @@
+{
+  "header": {
+    "prefix": "!header",
+    "body": [
+      "local ADDON, ${1} = ...",
+      "",
+      "--      #",
+      "--     # #   #    #  ####  #    # ###### #    # #####",
+      "--    #   #  #    # #    # ##  ## #      ##   #   #",
+      "--   #     # #    # #      # ## # #####  # #  #   #",
+      "--   ####### #    # #  ### #    # #      #  # #   #",
+      "--   #     # #    # #    # #    # #      #   ##   #",
+      "--   #     #  ####   ####  #    # ###### #    #   #",
+      "--",
+      "-- World of Warcraft addon ecosystem, created by Erik Riklund (2024)",
+      "--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--"
+    ],
+  },
+  "not-implemented": {
+    "prefix": "!not-implemented", "body": "print(\"NOT IMPLEMENTED - ${1}\")"
+  },
+  "validate-param": {
+    "prefix": "!type-param", "body": "local ${1} = Type:Param(\"${1}\", ${1}, Type:${2}())"
+  },
+  "validate-schema": {
+    "prefix": "!type-schema", "body": "local ${1} = Type:Schema(${1}, {${2}})"
+  }
+}

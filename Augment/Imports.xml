@@ -1,0 +1,11 @@
+<Ui>
+  <Include file="Interface.lua" />
+  <Include file="Library/Typical/Error.lua" />
+  <Include file="Library/Typical/Types.lua" />
+  <Include file="Library/Typical/Validate.lua" />
+  <Include file="Library/Array.lua" />
+  <Include file="Library/Switch.lua" />
+  <Include file="Library/Table.lua" />
+  <Include file="Library/When.lua" />
+  <Script file="Framework/Main.lua" />
+</Ui>
