@@ -28,8 +28,10 @@
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 Switch = function(value, cases)
-  local cases = Type:Validate("cases", cases, Type:Table())
-  local match = cases[value] or cases["default"]
+  if type(cases) ~= "table" then
+    error("Expected type `table` for parameter 'cases'")
+  end
 
+  local match = cases[value] or cases["default"]
   return When(type(match) == "function", function() return match() end, match)
 end

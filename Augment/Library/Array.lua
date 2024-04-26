@@ -24,8 +24,9 @@ Array = {}
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 function Array:Merge(first, second)
-  local first = Type:Validate("first", first, Type:Array())
-  local second = Type:Validate("second", second, Type:Array())
+  if type(first) ~= "table" or type(second) ~= "table" then
+    error("Expected type `table` for both parameters")
+  end
 
   for _, value in second do
     table.insert(first, value)
@@ -48,9 +49,11 @@ end
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 function Array:Contains(target, value)
-  local target = Type:Validate("target", target, Type:Array())
+  if type(target) ~= "table" then
+    error("Expected type `table` for target")
+  end
 
-  if Type:GetType(value) ~= "undefined" then
+  if type(value) ~= "nil" then
     for _, v in ipairs(target) do
       if v == value then
         return true

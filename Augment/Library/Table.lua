@@ -16,7 +16,7 @@ Table = {}
 --
 -- Parameters:
 --   target (table): The table to be searched.
---   key (string): The key to locate within the table.
+--   key (any): The key to locate within the table.
 --
 -- Returns:
 --   1) `true`: If the key exists in the table.
@@ -24,8 +24,13 @@ Table = {}
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 function Table:HasKey(target, key)
-  local target = Type:Validate("target", target, Type:OneOf(Type:Table(), Type:Array()))
-  local key = Type:Validate("key", key, Type:String())
+  --
+  if type(target) ~= "table" then
+    error("Expected type `table` for target")
+  end
+  if type(key) == "nil" then
+    error("Missing parameter `key`")
+  end
 
   return target[key] ~= nil
 end
