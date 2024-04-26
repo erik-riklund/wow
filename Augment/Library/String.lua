@@ -1,4 +1,6 @@
 local ADDON, CORE = ...
+local Type = Type
+String = {}
 
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,4 +13,5 @@ local ADDON, CORE = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-CORE.Events = {Framework = {}, Game = {}}
+String.Empty = ""
+String.Space = " "

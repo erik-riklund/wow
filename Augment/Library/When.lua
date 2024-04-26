@@ -9,14 +9,12 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 
 --
--- When()
---
 -- Provides a conditional selection mechanism, similar to a compact if-else statement or a ternary operator.
 --
 -- Parameters:
---   `condition` (boolean): The boolean expression that determines which value to return.
---   `on_true` : The value or result of a function to be returned if the condition is true.
---   `on_false` : The value or result of a function to be returned if the condition is false.
+--   condition (boolean): The boolean expression that determines which value to return.
+--   on_true : The value or result of a function to be returned if the condition is true.
+--   on_false : The value or result of a function to be returned if the condition is false.
 
 -- Returns:
 --   The value associated with `on_true` if the condition is true.

@@ -13,6 +13,18 @@ local Error = Type.Errors
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
+--
+-- To determine whether a given input is considered an "array" or a more general "table".
+--
+-- Parameters:
+--   input: The value to be analyzed.
+--
+-- Returns:
+--   array: If the input meets the criteria of being array-like.
+--   table: If the input is a table but doesn't fit the array criteria.
+--   Otherwise: If the input is not a table, it returns the standard type of the input ("string", "number", etc.).
+--
+
 function Type:GetType(input)
   local input_type = type(input)
 
@@ -20,13 +32,16 @@ function Type:GetType(input)
     return input_type
   end
 
-  local numeric_indexes = false
   local is_empty = next(input) == nil
+  local entry_count = Table:KeyCount(input)
+  local numeric_indexes = #input
 
-  -- TODO > check for numeric indexes
-
-  return (is_empty or numeric_indexes and "array") or "table"
+  return ((is_empty or entry_count == numeric_indexes) and "array") or "table"
 end
+
+--
+
+--
 
 function Type:Param(name, value, callback)
   if self.Enabled then
@@ -37,6 +52,10 @@ function Type:Param(name, value, callback)
 
   return value -- type-checking is disabled
 end
+
+--
+
+--
 
 function Type:Schema(target, schema)
   if self.Enabled then
@@ -52,6 +71,18 @@ function Type:Schema(target, schema)
 
   return target -- type-checking is disabled
 end
+
+--
+-- Creates a basic type validator function that can be used to check whether a value matches an expected type.
+-- It also provides flexibility with default values and special handling for arrays and tables.
+--
+-- Parameters:
+--   expected_type (string): The expected data type (e.g., "string", "number", "table").
+--   default_value : The default value to use if the value being validated is nil.
+--
+-- Returns:
+--   A type validation function.
+--
 
 function Type:Validator(expected_type, default_value)
   return function(validation_type, key, value, quiet)
