@@ -1,5 +1,4 @@
 local ADDON, CORE = ...
-Type = {Enabled = true}
 
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -12,10 +11,12 @@ Type = {Enabled = true}
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-Type.Errors = {
-  INVALID_TYPE = "Expected type `%s` for %s '%s', recieved `%s`"
+Type = {
+  Enabled = true,
+  --
+  Errors = {
+    INVALID_TYPE = "Expected value of type `$expected_type` for '$property', recieved `$actual_type`",
+    INVALID_KEY_TYPE = "Expected key of type `$expected_type` for '$property', recieved `$actual_type`",
+    UNKNOWN_PROPERTY = "The schema does not define a property named '$property'"
+  }
 }
-
-function Type:Error(message, ...)
-  error(string.format(message, ...))
-end

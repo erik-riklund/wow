@@ -1,14 +1,19 @@
 <Ui>
   <Include file="Interface.lua" />
 
-  <Include file="Library/Typical/Error.lua" />
-  <Include file="Library/Typical/Types.lua" />
-  <Include file="Library/Typical/Validate.lua" />
-  
+  <Include file="Library/Typical/Interface.lua" />
+  <Include file="Library/Typical/Core.lua" />
+  <Include file="Library/Typical/Types/Array.lua" />
+  <Include file="Library/Typical/Types/Common.lua" />
+  <Include file="Library/Typical/Types/Composites.lua" />
+  <Include file="Library/Typical/Types/Record.lua" />
+  <Include file="Library/Typical/Types/Schema.lua" />
+  <Include file="Library/Typical/Types/Table.lua" />
+
   <Include file="Library/Markup/Parse.lua" />
   <Include file="Library/Markup/Parsers/Colorize.lua" />
   <Include file="Library/Markup/Parsers/Format.lua" />
-  
+
   <Include file="Library/Array.lua" />
   <Include file="Library/Debug.lua" />
   <Include file="Library/String.lua" />
@@ -16,6 +21,7 @@
   <Include file="Library/Table.lua" />
   <Include file="Library/When.lua" />
 
+  <Include file="Framework/Error.lua" />
   <Include file="Framework/Events.lua" />
   <Script file="Framework/Main.lua" />
 </Ui>

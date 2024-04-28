@@ -38,8 +38,13 @@ local Parsers = {
 --
 
 function Markup:Parse(text, variables)
-  local text = Type:Param("text", text, Type:String())
-  local variables = Type:Param("variables", variables, Type:Table({}))
+  --
+  if type(text) ~= "string" then
+    Throw("Expected type `string` for parameter 'text")
+  end
+  if type(variables) ~= "table" then
+    Throw("Expected type `table` for parameter 'variables'")
+  end
 
   for _, method in ipairs(Parsers) do
     local success, result = pcall(method, text, variables)

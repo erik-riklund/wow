@@ -14,7 +14,7 @@ Debug = {}
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 local type_colors = {
-  ["nil"] = "gray",
+  ["undefined"] = "gray",
   ["boolean"] = "olive",
   ["string"] = "yellow",
   ["number"] = "white",
@@ -26,15 +26,16 @@ local type_colors = {
 }
 
 --
--- Provides a formatted visual representation of a value, particularly helpful for
--- inspecting tables and arrays.
+--- Inspects a value and provides formatted output.
 --
--- Parameters:
---   target: The value to be inspected. This can be any data type, including numbers,
---           strings, booleans, tables, and arrays.
+-- This function offers type-aware output, with special handling for tables and arrays, 
+-- potentially providing recursive inspection. 
+--
+-- @param target any The value to be inspected.
 --
 
 function Debug:Inspect(target)
+  --
   local target_type = Type:GetType(target)
 
   if target_type == "table" or target_type == "array" then
@@ -51,16 +52,18 @@ function Debug:Inspect(target)
 end
 
 --
--- Provides a detailed, formatted, and recursive inspection of tables and arrays,
--- especially useful for debugging complex data structures.
+--- Recursively inspects tables and arrays, providing structured and formatted output.
 --
--- Parameters:
---   target: The table or array to be inspected.
---   depth (optional): An internal parameter to track the current level of recursion for formatting purposes.
---   prefix (optional): An internal parameter used to build up key prefixes for nested values.
+-- This function works in conjunction with `Debug:Inspect` to provide a detailed view of 
+-- complex data structures.
+--
+-- @param target table or array The table or array to be inspected.
+-- @param depth number (optional) The current recursion depth (used internally).
+-- @param prefix string (optional) A prefix string for the current element (used internally).
 --
 
 function Debug:InspectRecursive(target, depth, prefix)
+  --
   local target_type = Type:GetType(target)
 
   if target_type ~= "table" and target_type ~= "array" then
@@ -87,14 +90,16 @@ function Debug:InspectRecursive(target, depth, prefix)
         )
   )
 
-  local iterator, source = nil, nil
-  if is_array then
-    iterator, source = ipairs(target)
-  else
-    iterator, source = pairs(target)
+  local function GetIterator()
+    if is_array then
+      return ipairs(target)
+    else
+      return pairs(target)
+    end
   end
-
-  for key, value in iterator, source do
+  
+  for key, value in GetIterator() do
+    --
     local value_type = Type:GetType(value)
     value = (value_type == "string" and ('"%s"'):format(value)) or value
 
