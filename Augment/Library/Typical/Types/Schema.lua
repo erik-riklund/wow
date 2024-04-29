@@ -14,7 +14,22 @@ local Type = Type
 local Error = Type.Errors
 
 --
-
+--- Creates a validator function for enforcing schemas on tables. 
+--
+-- This function allows you to define complex validation rules for table structures, 
+-- including the types of individual keys and their corresponding values.
+--
+-- @param schema table A table defining the schema. Keys in the schema represent 
+--                  expected keys in the target table.  Values associated with these 
+--                  keys should be type validator functions (e.g., created using `Type:String`).
+--
+-- @return function A validator function with the following signature:
+--   * `property` (string): The name of the property being validated (top-level table key).
+--   * `target` (table): The table to validate against the schema.
+--     @return boolean true if the table matches the schema, false otherwise.
+--     @return table Additional details about the validation:
+--       * `value` (table): The validated table (potentially modified).
+--       * `error` (string): An error message if the validation failed.
 --
 
 function Type:Schema(schema)
@@ -60,6 +75,10 @@ function Type:Schema(schema)
       target[key] = result.value
     end
 
-    return true, {value = target} -- < debug
+    for key, value in pairs(target) do
+      -- check for invalid keys!
+    end
+
+    return true, {value = target}
   end
 end
