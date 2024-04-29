@@ -30,7 +30,7 @@ function Markup:Format(text, variables)
   table.sort(keys, function (a,b) return #a > #b end)
 
   for _, k in ipairs(keys) do
-    text = string.gsub(text, "$" .. k, variables[k])
+    text = string.gsub(text, ("$%s"):format(k), variables[k])
   end
 
   return text

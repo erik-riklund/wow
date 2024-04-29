@@ -21,6 +21,12 @@
   <Include file="Library/Table.lua" />
   <Include file="Library/When.lua" />
 
+  <Include file="Framework/EventHandler/Core.lua" />
+  <Include file="Framework/EventHandler/Listen.lua" />
+  <Include file="Framework/EventHandler/Dispatch.lua" />
+  <Include file="Framework/EventHandler/OnLoad.lua" />
+  <Include file="Framework/EventHandler/Events.lua" />
+
   <Include file="Framework/Error.lua" />
   <Include file="Framework/Events.lua" />
   <Script file="Framework/Main.lua" />
