@@ -1,4 +1,5 @@
 local ADDON, CORE = ...
+local PluginManager = CORE.PluginManager
 
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,23 +12,18 @@ local ADDON, CORE = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-CORE.EventHandler = {
-  --
-  Events = {
-    Blizzard = {},
-    Framework = {}
-  },
-  --
-  Listeners = {},
-  Subscriptions = {},
-  Reciever = CreateFrame("Frame")
-}
+--
 
-CORE.PluginManager = {
-  --
-  Plugins = {}
-}
+--
 
-CORE.ServiceHandler = {
-  Services = {}
-}
+CreatePlugin = function()
+  print("NOT IMPLEMENTED - CreatePlugin")
+end
+
+--
+
+--
+
+function PluginManager:CreatePlugin()
+  print("NOT IMPLEMENTED - PluginManager:CreatePlugin")
+end

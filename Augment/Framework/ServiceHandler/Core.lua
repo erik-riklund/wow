@@ -1,4 +1,5 @@
 local ADDON, CORE = ...
+local ServiceHandler = CORE.ServiceHandler
 
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,23 +12,17 @@ local ADDON, CORE = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-CORE.EventHandler = {
+Listen(
+  "PLUGIN_ADDED",
   --
-  Events = {
-    Blizzard = {},
-    Framework = {}
-  },
-  --
-  Listeners = {},
-  Subscriptions = {},
-  Reciever = CreateFrame("Frame")
-}
-
-CORE.PluginManager = {
-  --
-  Plugins = {}
-}
-
-CORE.ServiceHandler = {
-  Services = {}
-}
+  function(plugin)
+    --
+    function plugin:AddService(id, service)
+      ServiceHandler:AddService(id, service)
+    end
+    --
+    function plugin:GetService(id)
+      return ServiceHandler:GetService(id)
+    end
+  end
+)
