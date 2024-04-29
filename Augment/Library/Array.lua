@@ -11,15 +11,14 @@ Array = {}
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 
 --
--- Combines the elements of two arrays into a single, unified array.
+--- Modifies an array by appending elements from another array.
 --
--- Parameters:
---   first (array): The first array to be merged.
---   second (array): The second array to be merged.
+-- This function changes the first array by adding all elements from the second array 
+-- to its end. It assumes that both arrays contain elements of compatible types.
 --
--- Returns:
---   (array): A new array containing all elements from the original first array
---            followed by the elements of the second array.
+-- @param first table The array to be modified.
+-- @param second table The array whose elements will be added to 'first'.
+-- @return table The modified 'first' array.
 --
 
 function Array:Merge(first, second)
@@ -35,15 +34,15 @@ function Array:Merge(first, second)
 end
 
 --
--- Determines if a specified value exists within a given array.
+--- Checks if a value exists in an array (table with numerical indices).
 --
--- Parameters:
---   target (array): The array to be searched.
---   value : The value to locate within the array.
+-- This function is intended for arrays where values are stored in consecutive 
+-- numerical indices. 
 --
--- Returns:
---   true: If the value is found in the array.
---   false: If the value is not found in the array.
+-- @param target table The array to search.
+-- @param value any The value to search for.
+-- @return boolean True if the value is found in the array, False otherwise.
+-- @throws error If the target is not a table.
 --
 
 function Array:Contains(target, value)

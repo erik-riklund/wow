@@ -1,3 +1,4 @@
+--
 --      #                                             
 --     # #   #    #  ####  #    # ###### #    # ##### 
 --    #   #  #    # #    # ##  ## #      ##   #   #   
@@ -9,21 +10,20 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 
 --
---  Provides a switch-like control flow mechanism.
+--- Provides a switch-like control flow mechanism using a lookup table.
 --
---  Parameters:
---    value: The value to be compared against different cases.
---    cases (table): An associative table where:
---        Keys: Represent the potential values to match against.
---        Values: Can be either:
---            Functions to be executed if the corresponding key matches the value.
---            Direct values to be returned if the key matches.
---  
---  Returns:  
---   1) The result of executing the matched function (if a function was provided).
---   2) The direct value associated with the matched case (if no function was provided).
---   3) The value associated with the default case if no other case matches.
---   4) `nil` if no case matches and no default case is provided.
+-- This function offers more flexibility than traditional switch statements by 
+-- allowing arbitrary expressions as keys within the `cases` table, and it supports
+-- a default case.
+--
+-- @param value any The value to match against the keys in the `cases` table.
+-- @param cases table A table (dictionary) where keys represent potential matches, 
+--                    and values can be either:
+--                    * Functions to execute if the key matches the value.
+--                    * Any other value to directly return if the key matches.
+-- @return any The result of executing the matching function, the direct value, or 
+--             the result from the "default" case if no other match is found.
+-- @throws error If the 'cases' argument is not a table.
 --
 
 Switch = function(value, cases)

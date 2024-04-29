@@ -1,7 +1,4 @@
-local ADDON, CORE = ...
-local Type = Type
-Markup = {}
-
+--
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
 --    #   #  #    # #    # ##  ## #      ##   #   #
@@ -13,45 +10,60 @@ Markup = {}
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-local Parsers = {
+Markup = {
   --
-  function(text, variables)
-    return Markup:Colorize(text)
-  end,
+  Colors = {
+    green = "BCD856",
+    olive = "7D9039",
+    wheat = "F5DEB3",
+    white = "FFFFFF",
+    yellow = "EEC400",
+    burn = "AA552A",
+    orange = "FF8040",
+    teal = "86AFAF",
+    maroon = "AA0000",
+    gray = "B8B8B8",
+    taupe = "A39477",
+    redpink = "FF5555"
+  },
   --
-  function(text, variables)
-    return Markup:Format(text, variables)
-  end
+  Parsers = {
+    --
+    function(text, variables)
+      return Markup:Colorize(text)
+    end,
+    --
+    function(text, variables)
+      return Markup:Format(text, variables)
+    end
+  }
 }
 
 --
--- Applies a series of parsing methods to transform a text string, potentially
--- adding formatting or other structural changes. It also supports additional
--- arguments to be passed to the final string.format() transformation.
+--- Processes a markup text string, performing substitutions based on provided variables.
 --
--- Parameters:
---   text (string): The input text string to be processed.
---   ... : (variable arguments): Additional arguments to be passed to string.format().
+-- This function assumes the existence of a `Parsers` table containing parser functions.
+-- Each parser function is applied to the text in sequence, potentially modifying it to
+-- replace markup patterns with values from the `variables` table.
 --
--- Returns:
---   (string): The final text string after all parsing methods have been applied.
+-- @param text string The markup text to process.
+-- @param variables table A table containing variables to substitute into the markup text.
+-- @return string The processed text with markup substitutions performed.
+-- @throws error If 'text' is not a string or 'variables' is not a table.
 --
 
 function Markup:Parse(text, variables)
   --
   if type(text) ~= "string" then
-    Throw("Expected type `string` for parameter 'text")
+    error("Expected type `string` for parameter 'text")
   end
   if type(variables) ~= "table" then
-    Throw("Expected type `table` for parameter 'variables'")
+    error("Expected type `table` for parameter 'variables'")
   end
 
-  for _, method in ipairs(Parsers) do
-    local success, result = pcall(method, text, variables)
-
-    if success then
-      text = result
-    end
+  for _, method in ipairs(self.Parsers) do
+    --
+    text = method(text, variables)
   end
 
   return text

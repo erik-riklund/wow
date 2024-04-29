@@ -12,15 +12,12 @@ Table = {}
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
--- Determines whether a specified key exists within a given table.
+--- Checks if a key exists in a table (dictionary).
 --
--- Parameters:
---   target (table): The table to be searched.
---   key (any): The key to locate within the table.
---
--- Returns:
---   1) true: If the key exists in the table.
---   2) false: If the key does not exist in the table.
+-- @param target table The table to search.
+-- @param key any The key to search for.
+-- @return boolean True if the key exists in the target table, False otherwise.
+-- @throws error If the 'target' is not a table or the 'key' is missing.
 --
 
 function Table:HasKey(target, key)
@@ -36,13 +33,11 @@ function Table:HasKey(target, key)
 end
 
 --
--- Extracts all keys from a given table and returns them as an array.
+--- Gets all the keys from a table (dictionary).
 --
--- Parameters:
---   target (table): The table whose keys will be collected.
---
--- Returns:
---   (array) An array containing all the keys present in the target table.
+-- @param target table The table to get the keys from.
+-- @return table A new table containing all the keys from the target table.  
+-- @throws error If the target is not a table.
 --
 
 function Table:GetKeys(target)
@@ -59,13 +54,11 @@ function Table:GetKeys(target)
 end
 
 --
--- Counts the number of keys within a given table.
+--- Counts the number of keys in a table (dictionary).
 --
--- Parameters:
---   target (table): The table whose keys will be counted.
---
--- Returns:
---   (number) The total count of keys found within the target table.
+-- @param target table The table to count the keys of.
+-- @return number The number of keys in the target table.
+-- @throws error If the 'target' is not a table.
 --
 
 function Table:KeyCount(target)
