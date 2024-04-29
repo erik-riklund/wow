@@ -13,26 +13,24 @@ local T = Type
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-local EventHandler = CORE.EventHandler
-local PluginManager = CORE.PluginManager
-local Plugins = PluginManager.Plugins
-
 --
 
 --
 
-CreatePlugin = function(id, context)
+Locale = function(context, locale, content, default)
   --
-  local id = T:Check("id", id, T:String())
   local context = T:Check("context", context, T:Table())
+  local locale = T:Check("locale", locale, T:String())
+  local content = T:Check("content", content, T:Record(T:String(), T:String()))
+  local default = T:Check("default", default, T:Boolean(false))
 
-  if Table:HasKey(Plugins, id) then
-    Throw("Unable to register plugin '$id' due to a non-unique identifier", {id = id})
-  end
+  -- TODO > locale registration
+end
 
-  context.id = id
+--
 
-  -- what do we need to add to the context here? anything..?
+--
 
-  EventHandler:Dispatch("PLUGIN_ADDED", context)
+DefaultLocale = function(context, locale, content)
+  Locale(context, locale, content, true)
 end

@@ -27,6 +27,11 @@
   <Include file="Framework/EventHandler/OnLoad.lua" />
   <Include file="Framework/EventHandler/Events.lua" />
 
+  <Include file="Framework/LocaleHandler/Core.lua" />
+  <Include file="Framework/LocaleHandler/Register.lua" />
+
+  <Include file="Framework/PluginManager/CreatePlugin.lua" />
+
   <Include file="Framework/ServiceHandler/Core.lua" />
   <Include file="Framework/ServiceHandler/Register.lua" />
 

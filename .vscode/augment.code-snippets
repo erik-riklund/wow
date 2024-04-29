@@ -4,6 +4,7 @@
     "body": [
       "local ADDON, ${1} = ...",
       "",
+      "--",
       "--      #",
       "--     # #   #    #  ####  #    # ###### #    # #####",
       "--    #   #  #    # #    # ##  ## #      ##   #   #",
@@ -19,10 +20,7 @@
   "not-implemented": {
     "prefix": "!not-implemented", "body": "print(\"NOT IMPLEMENTED - ${1}\")"
   },
-  "validate-param": {
-    "prefix": "!type-param", "body": "local ${1} = Type:Param(\"${1}\", ${1}, Type:${2}())"
-  },
-  "validate-schema": {
-    "prefix": "!type-schema", "body": "local ${1} = Type:Schema(${1}, {${2}})"
+  "check-param": {
+    "prefix": "!type-param", "body": "local ${1} = T:Check(\"${1}\", ${1}, T:${2}())"
   }
 }

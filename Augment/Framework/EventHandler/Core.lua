@@ -16,17 +16,19 @@ local Events = EventHandler.Events
 EventHandler.Reciever:SetScript(
   "OnEvent",
   --
-  function(event, ...)
+  function(self, event, ...)
     --
+    local args = ...
+
     Switch(
       event,
       {
         ADDON_LOADED = function()
-          EventHandler:OnLoad(...)
+          EventHandler:OnLoad(args)
         end,
         --
         default = function()
-          EventHandler:Dispatch(event, ...)
+          EventHandler:Dispatch(event, args)
         end
       }
     )

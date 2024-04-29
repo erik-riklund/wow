@@ -1,6 +1,5 @@
-local ADDON, CORE = ...
+local ADDON, App = ...
 
---
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
 --    #   #  #    # #    # ##  ## #      ##   #   #
@@ -12,21 +11,12 @@ local ADDON, CORE = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-local ServiceHandler = CORE.ServiceHandler
-
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-
-Listen(
-  "PLUGIN_ADDED",
+DefaultLocale(
+  App,
   --
-  function(plugin)
-    --
-    function plugin:AddService(id, service)
-      ServiceHandler:AddService(id, service)
-    end
-    --
-    function plugin:GetService(id)
-      return ServiceHandler:GetService(id)
-    end
-  end
+  "enUS",
+  {
+    a = "alpha",
+    b = "beta"
+  }
 )

@@ -1,7 +1,6 @@
 local ADDON, CORE = ...
-local ServiceHandler = CORE.ServiceHandler
-local Services = ServiceHandler.Services
 
+--
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
 --    #   #  #    # #    # ##  ## #      ##   #   #
@@ -11,6 +10,11 @@ local Services = ServiceHandler.Services
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+
+local ServiceHandler = CORE.ServiceHandler
+local Services = ServiceHandler.Services
+
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --

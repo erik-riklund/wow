@@ -1,5 +1,5 @@
 local ADDON, CORE = ...
-local Event = CORE.EventHandler
+local EventHandler = CORE.EventHandler
 
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -24,14 +24,14 @@ local Event = CORE.EventHandler
 
 OnLoad = function(addon, callback)
   --
-  if not Event.Subscriptions["ADDON_LOADED"] then
+  if not EventHandler.Subscriptions["ADDON_LOADED"] then
     --
-    Event.Reciever:RegisterEvent("ADDON_LOADED")
-    Event.Subscriptions["ADDON_LOADED"] = true
+    EventHandler.Reciever:RegisterEvent("ADDON_LOADED")
+    EventHandler.Subscriptions["ADDON_LOADED"] = true
   end
 
-  Event.Listeners["ADDON_LOADED"] = Event.Listeners["ADDON_LOADED"] or {}
-  Event.Listeners["ADDON_LOADED"][addon] = callback
+  EventHandler.Listeners["ADDON_LOADED"] = EventHandler.Listeners["ADDON_LOADED"] or {}
+  EventHandler.Listeners["ADDON_LOADED"][addon] = callback
 end
 
 --
@@ -42,7 +42,7 @@ end
 
 function EventHandler:OnLoad(addon)
   --
-  local callback = Event.Listeners["ADDON_LOADED"][addon]
+  local callback = EventHandler.Listeners["ADDON_LOADED"][addon]
   
   if callback then callback() end
 end
