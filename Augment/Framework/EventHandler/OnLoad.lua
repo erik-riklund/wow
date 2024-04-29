@@ -16,7 +16,7 @@ local Event = CORE.EventHandler
 --- Registers a callback function to be executed specifically when the 'ADDON_LOADED' event occurs.
 --
 -- This function handles the registration of 'ADDON_LOADED' event listeners and ensures
--- necessary subscriptions for this event. It associates callbacks with specific addon names. 
+-- necessary subscriptions for this event. It associates callbacks with specific addon names.
 --
 -- @param addon string The name of the addon.
 -- @param callback function The function to be called when the 'ADDON_LOADED' event is triggered.
@@ -42,7 +42,7 @@ end
 
 function EventHandler:OnLoad(addon)
   --
-  if Event.Listeners["ADDON_LOADED"][addon] then
-    Event.Listeners["ADDON_LOADED"][addon]();
-  end
+  local callback = Event.Listeners["ADDON_LOADED"][addon]
+  
+  if callback then callback() end
 end
