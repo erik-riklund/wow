@@ -16,14 +16,14 @@ local PluginManager = CORE.PluginManager
 
 --
 
-CreatePlugin = function()
-  print("NOT IMPLEMENTED - CreatePlugin")
+CreatePlugin = function(id)
+  return PluginManager:CreatePlugin(id)
 end
 
 --
 
 --
 
-function PluginManager:CreatePlugin()
+function PluginManager:CreatePlugin(id)
   print("NOT IMPLEMENTED - PluginManager:CreatePlugin")
 end

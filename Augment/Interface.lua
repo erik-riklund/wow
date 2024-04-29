@@ -13,21 +13,41 @@ local ADDON, CORE = ...
 
 CORE.EventHandler = {
   --
+  -- Contains lists of standard and framework-specific events,
+  -- used to block invocation of internal events from plugins.
+  --
   Events = {
     Blizzard = {},
     Framework = {}
   },
   --
+  -- Used to store callback functions registered for events.
+  --
   Listeners = {},
+  --
+  -- Used to keep track of which events the event reciever is subscribed to.
+  --
   Subscriptions = {},
+  --
+  -- The frame used to listen for standard events.
+  --
   Reciever = CreateFrame("Frame")
 }
 
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+
 CORE.PluginManager = {
+  --
+  -- Used to store references to each registered plugin's context.
   --
   Plugins = {}
 }
 
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+
 CORE.ServiceHandler = {
+  --
+  -- The internal registry used to keep track of registered services.
+  --
   Services = {}
 }
