@@ -16,7 +16,7 @@ CORE.EventHandler = {
   -- Contains lists of standard and framework-specific events,
   -- used to block invocation of internal events from plugins.
   --
-  Events = {Blizzard = {}, Framework = {}},
+  Events = {Framework = {}, Plugins = {}},
   --
   -- Used to store callback functions registered for events.
   --
@@ -35,9 +35,13 @@ CORE.EventHandler = {
 
 CORE.LocaleHandler = {
   --
+  --
+  --
+  Locale = GetLocale(),
+  --
   -- Used to store references to the registered locales for plugins.
   --
-  Locales = {}
+  Strings = {}
 }
 
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--

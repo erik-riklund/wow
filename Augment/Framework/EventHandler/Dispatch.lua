@@ -20,13 +20,14 @@ local T = Type
 -- event is allowed, it forwards the dispatch call to the internal `EventHandler:Dispatch`
 -- function.
 --
+-- @param plugin table The plugin context from which the event is dispatched.
 -- @param event string The name of the event to dispatch.
 -- @param ... Additional arguments to pass to the event handler.
 --
 
-Dispatch = function(event, ...)
+Dispatch = function(plugin, event, ...)
   --
-  if EventHandler:NotRestricted(event) then
+  if EventHandler:IsInvokable(plugin, event) then
     EventHandler:Dispatch(event, ...)
   end
 end

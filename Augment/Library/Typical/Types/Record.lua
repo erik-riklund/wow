@@ -78,6 +78,7 @@ function Type:Record(property_type, value_type)
         }
       end
 
+      --
       local value_success, value_result = value_type(key, value)
 
       if not value_success then

@@ -29,6 +29,7 @@
 
   <Include file="Framework/LocaleHandler/Core.lua" />
   <Include file="Framework/LocaleHandler/Register.lua" />
+  <Include file="Framework/LocaleHandler/Retrieve.lua" />
 
   <Include file="Framework/PluginManager/CreatePlugin.lua" />
 

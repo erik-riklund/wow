@@ -12,25 +12,50 @@ local T = Type
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+local LocaleHandler = CORE.LocaleHandler
+local Locale = LocaleHandler.Locale
+local Strings = LocaleHandler.Strings
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
-
+--- Registers a set of translation strings for a specific plugin and locale.
+--
+-- This function stores translations organized by plugin ID and locale. It expects translations
+-- to be provided as a record (key-value table) where both keys and values are strings.
+--
+-- @param plugin table A plugin context object.
+-- @param locale string The locale code (e.g., "enUS", "deDE") for the translations.
+-- @param content table A record where keys represent translation keys and values are the 
+--                       corresponding translated strings.
+-- @param default boolean (Optional) Indicates if this locale should be the default for the plugin.
+-- @throws error If the plugin object is missing an 'id' field or if a locale already exists 
+--               for the specified plugin.
 --
 
-Locale = function(context, locale, content, default)
+function LocaleHandler:RegisterLocale(plugin, locale, content, default)
   --
-  local context = T:Check("context", context, T:Table())
+  local plugin = T:Check("plugin", plugin, T:Table())
   local locale = T:Check("locale", locale, T:String())
   local content = T:Check("content", content, T:Record(T:String(), T:String()))
   local default = T:Check("default", default, T:Boolean(false))
 
-  -- TODO > locale registration
-end
+  if not plugin.id then
+    Throw("Expected a plugin context for parameter 'plugin'")
+  end
 
---
+  if Strings[plugin.id] and Strings[plugin.id][locale] then
+    Throw(
+      "The locale `$locale` already exists for plugin $plugin",
+      {
+        locale = locale,
+        plugin = plugin.id
+      }
+    )
+  end
 
---
+  Strings[plugin.id] = Strings[plugin.id] or {}
 
-DefaultLocale = function(context, locale, content)
-  Locale(context, locale, content, true)
+  Strings[plugin.id][locale] = function(key)
+    return content[key]
+  end
 end
