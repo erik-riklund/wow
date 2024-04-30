@@ -49,7 +49,7 @@ function LocaleHandler:GetString(plugin_id, key)
   end
 
   return Markup:Parse(
-    "[Missing translation: $key, $locale, $plugin]",
+    "[Missing localized string: $key, $locale, $plugin]",
     {
       key = key,
       locale = locale,

@@ -29,25 +29,25 @@ Listen(
 --
 --- Registers a default translation record within the localization system.
 --
--- @param plugin table  The plugin context object.
+-- @param plugin_id string The ID of the plugin.
 -- @param locale string The locale code (e.g., "enUS", "deDE") for the translation.
 -- @param content record A record containing the localized strings, where the keys
 --                       are identifiers and the values are the translated strings.
 --
 
-DefaultLocale = function(plugin, locale, content)
-  LocaleHandler:RegisterLocale(plugin, locale, content, true)
+DefaultLocale = function(plugin_id, locale, content)
+  LocaleHandler:RegisterLocale(plugin_id, locale, content, true)
 end
 
 --
 --- Registers a translation record within the localization system.
 --
--- @param plugin table  The plugin context object.
+-- @param plugin_id string The ID of the plugin.
 -- @param locale string The locale code (e.g., "enUS", "deDE") for the translation.
 -- @param content record A record containing the localized strings, where the keys
 --                       are identifiers and the values are the translated strings.
 --
 
-Locale = function(plugin, locale, content)
-  LocaleHandler:RegisterLocale(plugin, locale, content)
+Locale = function(plugin_id, locale, content)
+  LocaleHandler:RegisterLocale(plugin_id, locale, content)
 end

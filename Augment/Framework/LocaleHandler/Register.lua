@@ -23,7 +23,7 @@ local Strings = LocaleHandler.Strings
 -- This function stores translations organized by plugin ID and locale. It expects translations
 -- to be provided as a record (key-value table) where both keys and values are strings.
 --
--- @param plugin table A plugin context object.
+-- @param plugin_id string The ID of the plugin.
 -- @param locale string The locale code (e.g., "enUS", "deDE") for the translations.
 -- @param content table A record where keys represent translation keys and values are the 
 --                       corresponding translated strings.
@@ -32,30 +32,26 @@ local Strings = LocaleHandler.Strings
 --               for the specified plugin.
 --
 
-function LocaleHandler:RegisterLocale(plugin, locale, content, default)
+function LocaleHandler:RegisterLocale(plugin_id, locale, content, default)
   --
-  local plugin = T:Check("plugin", plugin, T:Table())
+  local plugin_id = T:Check("plugin", plugin_id, T:String())
   local locale = T:Check("locale", locale, T:String())
   local content = T:Check("content", content, T:Record(T:String(), T:String()))
   local default = T:Check("default", default, T:Boolean(false))
 
-  if not plugin.id then
-    Throw("Expected a plugin context for parameter 'plugin'")
-  end
-
-  if Strings[plugin.id] and Strings[plugin.id][locale] then
+  if Strings[plugin_id] and Strings[plugin_id][locale] then
     Throw(
       "The locale `$locale` already exists for plugin $plugin",
       {
         locale = locale,
-        plugin = plugin.id
+        plugin = plugin_id
       }
     )
   end
 
-  Strings[plugin.id] = Strings[plugin.id] or {}
+  Strings[plugin_id] = Strings[plugin_id] or {}
 
-  Strings[plugin.id][locale] = function(key)
+  Strings[plugin_id][locale] = function(key)
     return content[key]
   end
 end
