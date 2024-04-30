@@ -33,11 +33,33 @@ end
 --- flexibility in the types you allow.
 ---
 --- @param default_value any (optional) This parameter is not used by the validator.
---- @return function A validator function that always returns true.
+--- @return function A validator function that returns true for all values (not nil).
 --
 
 function Type:Any(default_value)
   return self:Not(self:Undefined())
+end
+
+--
+--- Creates a validator function that performs a flexible or "partial" validation against a schema.
+--
+-- This function allows for missing properties in the validated object compared to the schema
+-- and only checks for the existence and type correctness of properties that are present.
+--
+-- @param schema table A table defining the schema. Keys represent expected keys in the 
+--                  target table.  Values associated with these keys should be type 
+--                  validator functions (e.g., created using `Type:String`).
+-- @return function A validator function with the following signature:
+--   * `property` (string): The name of the property being validated (top-level table key).
+--   * `target` (table): The table to validate against the schema.
+--     @return boolean True if the table partially matches the schema, false otherwise.
+--     @return table Additional details about the validation:
+--       * `value` (table): The validated table (potentially with unmatched properties removed).
+--       * `error` (string): An error message if any properties failed validation.
+--
+
+function Type:Partial(schema)
+  return self:Schema(schema, true)
 end
 
 --
@@ -122,7 +144,7 @@ function Type:Not(excluded_type)
   end
 
   return function(property, value)
-    local undefined, result = excluded_type(property, value)
-    return not undefined, result
+    local success, result = excluded_type(property, value)
+    return (not success), result
   end
 end

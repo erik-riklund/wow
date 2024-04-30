@@ -1,5 +1,6 @@
-local ADDON, App = ...
+local ADDON, CORE = ...
 
+--
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
 --    #   #  #    # #    # ##  ## #      ##   #   #
@@ -10,14 +11,16 @@ local ADDON, App = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+local Variables = CORE.SavedVariableHandler
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-OnLoad(
-  ADDON,
+--
+
+--
+
+function Variables:Load(plugin)
   --
-  function()
-    --
-    CreatePlugin(ADDON, App)
-    
-    Debug:Inspect(App)
-  end
-)
+  local plugin = T:Check("plugin", plugin, T:Partial({id = T:String()}))
+
+  print("NOT IMPLEMENTED - Variables:Load")
+end

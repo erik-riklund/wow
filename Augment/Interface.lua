@@ -55,6 +55,10 @@ CORE.PluginManager = {
 
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
+CORE.SavedVariableHandler = {}
+
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+
 CORE.ServiceHandler = {
   --
   -- The internal registry used to keep track of registered services.

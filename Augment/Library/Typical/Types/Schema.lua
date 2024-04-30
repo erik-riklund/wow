@@ -14,14 +14,16 @@ local Type = Type
 local Error = Type.Errors
 
 --
---- Creates a validator function for enforcing schemas on tables. 
+--- Creates a validator function for enforcing schemas on tables.
 --
--- This function allows you to define complex validation rules for table structures, 
+-- This function allows you to define complex validation rules for table structures,
 -- including the types of individual keys and their corresponding values.
 --
--- @param schema table A table defining the schema. Keys in the schema represent 
---                  expected keys in the target table.  Values associated with these 
+-- @param schema table A table defining the schema. Keys in the schema represent
+--                  expected keys in the target table.  Values associated with these
 --                  keys should be type validator functions (e.g., created using `Type:String`).
+-- @param partial boolean (optional) Signals whether the schema should be loosely matched, only validating
+--                                   the provided keys and not throwing errors for missing keys.
 --
 -- @return function A validator function with the following signature:
 --   * `property` (string): The name of the property being validated (top-level table key).
@@ -32,10 +34,10 @@ local Error = Type.Errors
 --       * `error` (string): An error message if the validation failed.
 --
 
-function Type:Schema(schema)
+function Type:Schema(schema, partial)
   --
-  local schema = schema or {}
-  local schema_type = self:GetType(schema)
+  local schema = Type:Check("schema", schema or {}, Type:Record(Type:String(), Type:Function()))
+  local partial = Type:Check("partial", partial, Type:Boolean(false))
 
   return function(property, target)
     --
@@ -59,24 +61,34 @@ function Type:Schema(schema)
 
       if not success then
         --
-        Debug:Inspect(result)
-        return false, {
-          error = Catch(
-            Error.INVALID_TYPE,
-            {
-              property = key,
-              actual_type = result.actual_type,
-              expected_type = result.expected_type
-            }
-          )
-        }
+        if not partial and result.value == nil then
+          --
+          return false, {
+            error = Catch(
+              Error.INVALID_TYPE,
+              {
+                property = key,
+                actual_type = result.actual_type,
+                expected_type = result.expected_type
+              }
+            )
+          }
+        end
       end
 
       target[key] = result.value
     end
 
-    for key, value in pairs(target) do
-      -- check for invalid keys!
+    if not partial then
+      for key, _ in pairs(target) do
+        --
+        if not schema[key] then
+          --
+          return false, {
+            error = Catch(Error.UNKNOWN_PROPERTY, {property = key})
+          }
+        end
+      end
     end
 
     return true, {value = target}

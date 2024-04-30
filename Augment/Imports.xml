@@ -33,6 +33,9 @@
 
   <Include file="Framework/PluginManager/CreatePlugin.lua" />
 
+  <Include file="Framework/SavedVariableHandler/Core.lua" />
+  <Include file="Framework/SavedVariableHandler/Loader.lua" />
+
   <Include file="Framework/ServiceHandler/Core.lua" />
   <Include file="Framework/ServiceHandler/Register.lua" />
 
