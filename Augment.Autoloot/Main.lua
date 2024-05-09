@@ -1,4 +1,4 @@
-local ADDON, CORE = ...
+local ADDON, APP = ...
 
 --
 --      #
@@ -11,6 +11,10 @@ local ADDON, CORE = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Array = CORE.Data.Structures.Array
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
+OnLoad(
+  ADDON,
+  function()
+    print("Hello world")
+  end
+)

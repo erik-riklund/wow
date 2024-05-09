@@ -1,7 +1,6 @@
 {
   "header": {
-    "prefix": "!header",
-    "body": [
+    "prefix": "!header", "body": [
       "local ADDON, ${1} = ...",
       "",
       "--",
@@ -18,5 +17,33 @@
     ],
   },
 
-  "include": { "prefix": "!include", "body": "<Include file=\"${1}\" />" }
+  "include": {
+    "prefix": "!include", "body": "<Include file=\"${1}\" />"
+  },
+
+  "function": {
+    "prefix": "!function", "body": [
+      "--",
+      "--[ ${1} ]",
+      "--",
+      "-- ???",
+      "--",
+      "${1} = function()",
+      "  print(\"${1} - not implemented\")",
+      "end"
+    ]
+  },
+
+  "method": {
+    "prefix": "!method", "body": [
+      "--",
+      "--[ ${1} ]",
+      "--",
+      "-- ???",
+      "--",
+      "function ${1}(${2})",
+      "  print(\"${1} - not implemented\")",
+      "end"
+    ]
+  }
 }

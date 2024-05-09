@@ -11,7 +11,7 @@ local ADDON, CORE = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Number = CORE.Wrappers.Number -- create a local reference
+local Number = CORE.Data.Primitive.Number
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --

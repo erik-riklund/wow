@@ -11,11 +11,11 @@ local ADDON, CORE = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Type, Map = CORE.Type, CORE.Wrappers.Map
+local TypeChecker, Map = CORE.Utils.TypeChecker, CORE.Data.Structures.Map
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Type:GetType ]
+--[ TypeChecker:GetType ]
 --
 -- Inspect the provided `value` to determine its type. New types introduced are `undefined` (nil),
 -- `array` (tables with numeric indexes), and `map` (tables with associative keys).
@@ -23,7 +23,7 @@ local Type, Map = CORE.Type, CORE.Wrappers.Map
 -- Other types used are the built-in Lua types:
 -- string, number, boolean, function, userdata, thread
 --
-function Type:GetType(value)
+function TypeChecker:GetType(value)
   --
   local actual_type = type(value)
   --
@@ -42,11 +42,11 @@ function Type:GetType(value)
 end
 
 --
---[ Type:GetTableType ]
+--[ TypeChecker:GetTableType ]
 --
 -- Determines if a given table is considered an array (only numeric indexes) or an associative map.
 --
-function Type:GetTableType(table)
+function TypeChecker:GetTableType(table)
   --
   local tree = Map:New({"any", "any"}, table)
   --

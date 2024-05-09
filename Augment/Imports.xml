@@ -10,4 +10,9 @@
   <Include file="Core/Data/Primitive/Number.lua" />
   <Include file="Core/Data/Structures/Array.lua" />
   <Include file="Core/Data/Structures/Map.lua" />
+
+  <Include file="Framework/Events.lua" />
+  <Include file="Framework/Events/GameEvents.lua" />
+  <Include file="Framework/Events/Listeners.lua" />
+  <Include file="Framework/Events/OnLoad.lua" />
 </Ui>

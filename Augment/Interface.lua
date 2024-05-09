@@ -76,11 +76,11 @@ CORE.Events = {
   --
   -- ???
   --
-  Listeners = CORE.Data.Structures.Map:New({"string", "array<function>"}),
+  Listeners = Object:Extend("EventListenerManager", "static"),
   --
   --[ Subscriptions ]
   --
   -- ???
   --
-  Subscriptions = CORE.Data.Structures.Array:New("string")
+  Subscriptions = Object:Extend("EventSubscriptionHandler", "static")
 }
