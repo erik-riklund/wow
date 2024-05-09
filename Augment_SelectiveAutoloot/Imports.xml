@@ -1,4 +1,0 @@
-<Ui>
-  <Include file="Locale/enUS.lua" />
-  <Script file="Core/Main.lua" />
-</Ui>
