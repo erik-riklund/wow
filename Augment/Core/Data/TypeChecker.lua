@@ -36,30 +36,3 @@ function TypeChecker:Inspect(value)
     }
   )
 end
-
---
---[ TypeChecker:Check ]
---
--- ???
---
-function TypeChecker:Check(value, options)
-  local expected_type, default_value = Destructure(options, {"type", "default"})
-  local validator = self:GetValidator(expected_type)
-
-  
-end
-
---
---[ TypeChecker:GetValidator ]
---
--- ???
---
-function TypeChecker:GetValidator(expected_type)
-  if type(expected_type) ~= "string" then
-    error("Expected type `string` for parameter 'expected_type'")
-  end
-
-  return function(value)
-    return self:Inspect(value) == expected_type
-  end
-end
