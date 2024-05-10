@@ -1,5 +1,3 @@
-local ADDON, APP = ...
-
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -12,16 +10,16 @@ local ADDON, APP = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-OnLoad(
-  ADDON,
-  function()
-    print("Hello world")
-
-    local tree = Map:New({"string", "array(function)"})
-    local list = Array:New(T:Or({"string", "number"}))
+--
+--[ Destructure ]
+--
+-- ???
+--
+Destructure = function(table, keys)
+  local values = {}
+  for _, key in ipairs(keys) do
+    table.insert(values, table[key])
   end
-)
 
-function test(one, two)
-  local one = APP.TypeChecker:Check(one, {type = "string", default = "Yadda!"})
+  return unpack(values)
 end

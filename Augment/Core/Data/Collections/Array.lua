@@ -22,7 +22,7 @@ local Array = Packages:Add("Core.Data.Collections", Collection:Extend("Array"))
 -- ???
 --
 function Array:Init(content_type, initial_state)
-  self.parent:Init(("array(%s)"):format(content_type))
+  self.parent:Init(("array(%s)"):format(content_type or "any"))
   self._content = initial_state or {}
 end
 
