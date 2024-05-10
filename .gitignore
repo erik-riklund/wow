@@ -1,4 +1,6 @@
 /*/
+*.min.lua
+
 !.vscode/
 !.vscode/*
 

@@ -2,6 +2,7 @@
   "header": {
     "prefix": "!header", "body": [
       "local ADDON, ${1} = ...",
+      "local Packages = CORE.Packages",
       "",
       "--",
       "--      #",
@@ -44,6 +45,17 @@
       "function ${1}(${2})",
       "  print(\"${1} - not implemented\")",
       "end"
+    ]
+  },
+
+  "property": {
+    "prefix": "!property", "body": [
+      "--",
+      "--[ @${2} ]",
+      "--",
+      "-- ???",
+      "--",
+      "${1}.${2} = ${3}"
     ]
   }
 }

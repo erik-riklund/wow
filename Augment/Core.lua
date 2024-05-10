@@ -1,4 +1,5 @@
 local ADDON, CORE = ...
+local Object = CORE.Object
 
 --
 --      #
@@ -11,14 +12,17 @@ local ADDON, CORE = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Events = CORE.Events
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Events:OnLoad ]
+--[ Frame ]
+--
+-- Stores a reference to the frame used to listen for game events.
+--
+CORE.Frame = CreateFrame("Frame")
+
+--
+--[ Packages ]
 --
 -- ???
 --
-function Events:OnLoad()
-  print("Events:OnLoad - not implemented")
-end
+CORE.Packages = Object:Extend("Packages", "static")
