@@ -22,8 +22,12 @@ OnLoad(
   end
 )
 
--- function test(one, two, three)
---   local one = T:Check("one", one, "number")
---   local two = T:Check("two", two, {"string", "Default value!"})
---   local three = T:Check("three", three, "map(string, array(function))")
--- end
+function test(one, two, three, four)
+  local one = T:Check("one", one, "number")
+  local two = T:Check("two", two, {"string", "Default value!"})
+  local three = T:Check("three", three, "map(string, array(function))")
+  
+  local four = T:Check("four", four, {
+    alpha = {"string","default value here!"}
+  })
+end
