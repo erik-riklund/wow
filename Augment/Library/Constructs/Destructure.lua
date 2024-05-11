@@ -15,7 +15,7 @@
 --
 -- ???
 --
-Destructure = function(table, keys)
+destructure = function(table, keys)
   local values = {}
   for _, key in ipairs(keys) do
     table.insert(values, table[key])

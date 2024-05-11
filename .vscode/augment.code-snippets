@@ -2,7 +2,6 @@
   "header": {
     "prefix": "!header", "body": [
       "local ADDON, ${1} = ...",
-      "local Packages = CORE.Packages",
       "",
       "--",
       "--      #",
@@ -22,6 +21,16 @@
     "prefix": "!include", "body": "<Include file=\"${1}\" />"
   },
 
+  "documentation": {
+    "prefix": "!documentation", "body": [
+      "--",
+      "--[ ${1} ]",
+      "--",
+      "-- ???",
+      "--"
+    ]
+  },
+
   "function": {
     "prefix": "!function", "body": [
       "--",
@@ -29,33 +38,9 @@
       "--",
       "-- ???",
       "--",
-      "${1} = function()",
+      "${1} = function(${2})",
       "  print(\"${1} - not implemented\")",
       "end"
-    ]
-  },
-
-  "method": {
-    "prefix": "!method", "body": [
-      "--",
-      "--[ ${1} ]",
-      "--",
-      "-- ???",
-      "--",
-      "function ${1}(${2})",
-      "  print(\"${1} - not implemented\")",
-      "end"
-    ]
-  },
-
-  "property": {
-    "prefix": "!property", "body": [
-      "--",
-      "--[ @${2} ]",
-      "--",
-      "-- ???",
-      "--",
-      "${1}.${2} = ${3}"
     ]
   }
 }

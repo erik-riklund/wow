@@ -14,10 +14,8 @@
 --[ Switch ]
 --
 -- Provides a switch-like control flow mechanism using a lookup table.
--- * value [any]: The value used to search for a matching case.
--- * cases [table]: Lookup table specifying values or operations for each possible case.
 --
-Switch = function(value, cases)
+switch = function(value, cases)
   if type(cases) ~= "table" then
     error("Expected type `table` for parameter 'cases'")
   end

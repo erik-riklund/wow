@@ -1,8 +1,10 @@
 ## Interface: 100207
 ## Dependencies: Augment
 
-## Title: Augment: Autoloot
-## Notes: Highly configurable enhanced autoloot addon
+## Title: Augment: Selective autoloot
+## Notes: Highly configurable autoloot plugin
 ## Version: 1.0.0
 
 ## X-Website: https://github.com/erik-riklund/wow/augment
+
+Imports.xml

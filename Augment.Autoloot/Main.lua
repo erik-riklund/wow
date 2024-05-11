@@ -15,13 +15,6 @@ local ADDON, APP = ...
 OnLoad(
   ADDON,
   function()
-    print("Hello world")
-
-    local tree = Map:New({"string", "array(function)"})
-    local list = Array:New(T:Or({"string", "number"}))
+    print("Hello?")
   end
 )
-
-function test(one, two)
-  local one = APP.TypeChecker:Check(one, {type = "string", default = "Yadda!"})
-end
