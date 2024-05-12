@@ -44,6 +44,10 @@
     ]
   },
 
+  "exception": {
+    "prefix": "!exception", "body": "Exception:Throw(\"${1}\")"
+  },
+
   "type-is": {
     "prefix": "!type-is", "body": "local ${1} = T:Is(\"${2}\", ${1})"
   }

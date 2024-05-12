@@ -9,7 +9,7 @@
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Type, Object = Import({"Core.TypeHandler","Core.Object"})
+local Type, Object = Import({"Core.TypeHandler", "Core.Object"})
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
@@ -19,6 +19,7 @@ local Type, Object = Import({"Core.TypeHandler","Core.Object"})
 --
 local Array =
   Object(
+  "Array",
   {
     --
     --[ _types ]

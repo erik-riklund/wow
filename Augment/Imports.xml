@@ -1,12 +1,10 @@
 <Ui>
+  <Include file="Core/Exception.lua" />
   <Include file="Core/PackageHandler.lua" />
   <Include file="Core/Constructs/Destructure.lua" />
   <Include file="Core/Constructs/Switch.lua" />
-
   <Include file="Core/Object.lua" />
-  <Include file="Core/Exception.lua" />
   <Include file="Core/Task.lua" />
-  
   <Include file="Core/TypeHandler.lua" />
   <Include file="Core/Types/Array.lua" />
   <Include file="Core/Types/Map.lua" />

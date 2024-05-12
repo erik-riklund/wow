@@ -18,16 +18,11 @@ local error = error
 --
 Exception = {
   --
-  --[ InvalidType ]
+  --[ Throw ]
   --
   -- ???
   --
-  InvalidType = function(self, expected_type, actual_type)
-    error(("Expected type `%s`, recieved `%s`"):format(expected_type, actual_type))
+  Throw = function(self, message, ...)
+    error(message:format(...))
   end
 }
-
---
--- ???
---
-Export("Core.Exception", Exception)

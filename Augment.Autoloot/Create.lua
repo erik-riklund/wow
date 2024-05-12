@@ -16,3 +16,9 @@ local ADDON, APP = ...
 -- ???
 --
 CreatePlugin(ADDON, APP)
+
+OnLoad(
+  ADDON,
+  function()
+  end
+)

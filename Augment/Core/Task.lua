@@ -39,10 +39,12 @@ local Task = {
       error(("Expected type `function` for 'callback', recieved `%s`"):format(type(callback)))
     end
 
+    local args = ...
+
     C_Timer.After(
       0,
       function()
-        callback(...)
+        callback(args)
       end
     )
   end

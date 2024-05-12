@@ -19,6 +19,7 @@ local Type, Object = Import({"Core.TypeHandler", "Core.Object"})
 --
 local Map =
   Object(
+  "Map",
   {
     --
     --[ _types ]

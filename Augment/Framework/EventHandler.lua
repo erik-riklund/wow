@@ -11,7 +11,15 @@ local ADDON, Framework = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Type, Map, Array = Import({"Core.TypeHandler", "Core.Types.Map", "Core.Types.Array"})
+local Type, Task, Map, Array =
+  Import(
+  {
+    "Core.TypeHandler",
+    "Core.Task",
+    "Core.Types.Map",
+    "Core.Types.Array"
+  }
+)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
@@ -19,7 +27,7 @@ local Type, Map, Array = Import({"Core.TypeHandler", "Core.Types.Map", "Core.Typ
 --
 -- ???
 --
-Framework.EventHandler = {
+local EventHandler = {
   --
   --[ _frame ]
   --
@@ -31,7 +39,7 @@ Framework.EventHandler = {
   --
   -- ???
   --
-  _subscriptions = Array:Create("string"),
+  _subscriptions = Map:Create("string", "boolean"),
   --
   --[  ]
   --
@@ -46,6 +54,10 @@ Framework.EventHandler = {
   Listen = function(self, event, callback)
     local event, callback = Type:Is("string", event), Type:Is("function", callback)
 
+    if not self._subscriptions:Has(event) then
+      self:_subscribe(event)
+    end
+
     -- ???
   end,
   --
@@ -57,6 +69,30 @@ Framework.EventHandler = {
     local event = Type:Is("string", event)
 
     -- ???
+  end,
+  --
+  --[ OnLoad ]
+  --
+  -- ???
+  --
+  OnLoad = function(self, addon, callback)
+    local addon, callback = Type:Is("string", addon), Type:Is("function", callback)
+
+    -- ???
+  end,
+  --
+  --[ _subscribe ]
+  --
+  -- ???
+  --
+  _subscribe = function(self, event)
+    if not self._frame then
+      self._frame = CreateFrame("Frame")
+      self._frame:SetScript("OnEvent", self.Dispatch)
+    end
+
+    pcall(function() self._frame:RegisterEvent(event) end)
+    self._subscriptions:Set(event, true)
   end
 }
 
@@ -66,4 +102,22 @@ Framework.EventHandler = {
 -- ???
 --
 OnLoad = function(addon, callback)
+  EventHandler:OnLoad(addon, callback)
 end
+
+--
+-- ???
+--
+EventHandler:Listen(
+  "PLUGIN_ADDED",
+  function(plugin)
+    print("New plugin added.")
+  end
+)
+
+--
+-- We maintain an internal reference to be able to dispatch events from within the framework.
+-- While the event API exposed to plugins is limited to events reserved upon plugin initialization,
+-- using the event dispatcher directly allow us to trigger any event required using this reference.
+--
+Framework.EventHandler = EventHandler
