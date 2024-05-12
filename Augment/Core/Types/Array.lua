@@ -1,4 +1,3 @@
-local T = TypeHandler
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -10,13 +9,15 @@ local T = TypeHandler
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+local Type, Object = Import({"Core.TypeHandler","Core.Object"})
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
 --[ Array ]
 --
 -- A dynamic ordered collection of values adhering to a specific type.
 --
-Array =
+local Array =
   Object(
   {
     --
@@ -37,7 +38,7 @@ Array =
     -- Creates a new Array instance, specifying the expected type for its values.
     --
     Constructor = function(self, value_type)
-      self._types = T:Is("string", value_type)
+      self._types = Type:Is("string", value_type)
       self:SetType(("array(%s)"):format(value_type))
     end,
     --
@@ -46,7 +47,7 @@ Array =
     -- Appends a new value to the end of the array, ensuring the value matches the defined type.
     --
     Push = function(self, value)
-      table.insert(self._values, T:Is(self._types, value))
+      table.insert(self._values, Type:Is(self._types, value))
     end,
     --
     --[ Length ]
@@ -70,10 +71,10 @@ Array =
     -- ???
     --
     Contains = function(self, search_value)
-      local search_value = T:Is(self._types, search_value)
+      local search_value = Type:Is(self._types, search_value)
 
-      for index, value in ipairs(self._values) do
-        if value == search_value then
+      for index = 1, #self._values do
+        if self._values[index] == search_value then
           return true, index
         end
       end
@@ -82,3 +83,8 @@ Array =
     end
   }
 )
+
+--
+-- ???
+--
+Export("Core.Types.Array", Array)

@@ -1,12 +1,16 @@
 <Ui>
-  <Include file="Library/Object.lua" />
-  <Include file="Library/Constructs/Destructure.lua" />
-  <Include file="Library/Constructs/Switch.lua" />
-  <Include file="Library/Exception.lua" />
+  <Include file="Core/PackageHandler.lua" />
+  <Include file="Core/Constructs/Destructure.lua" />
+  <Include file="Core/Constructs/Switch.lua" />
+
+  <Include file="Core/Object.lua" />
+  <Include file="Core/Exception.lua" />
+  <Include file="Core/Task.lua" />
   
   <Include file="Core/TypeHandler.lua" />
   <Include file="Core/Types/Array.lua" />
   <Include file="Core/Types/Map.lua" />
 
-  <Include file="Framework/Events.lua" />
+  <Include file="Framework/EventHandler.lua" />
+  <Include file="Framework/PluginManager.lua" />
 </Ui>

@@ -26,3 +26,8 @@ Exception = {
     error(("Expected type `%s`, recieved `%s`"):format(expected_type, actual_type))
   end
 }
+
+--
+-- ???
+--
+Export("Core.Exception", Exception)

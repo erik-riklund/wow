@@ -1,5 +1,3 @@
-local ADDON, Framework = ...
-
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -13,46 +11,49 @@ local ADDON, Framework = ...
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ EventHandler ]
+--[ PackageHandler ]
 --
 -- ???
 --
-Framework.EventHandler = {
+local PackageHandler = {
   --
-  --[ _subscriptions ]
-  --
-  -- ???
-  --
-  _subscriptions = Array:Create("string"),
-  --
-  --[  ]
+  --[ _packages ]
   --
   -- ???
   --
-  _listeners = Map:Create("string", "array(function)"),
+  _packages = {},
   --
-  --[ Listen ]
+  --[ Add ]
   --
   -- ???
   --
-  Listen = function(self)
-    print("Listen - not implemented")
+  Add = function(self, package, content)
+    print("Add - not implemented")
   end,
   --
-  --[ Dispatch ]
+  --[ Use ]
   --
   -- ???
   --
-  Dispatch = function(self)
-    print("Dispatch - not implemented")
+  Import = function(self, packages)
+    print("Use - not implemented")
   end
 }
 
 --
---[ OnLoad ]
+--[ Import ]
 --
 -- ???
 --
-OnLoad = function(addon, callback)
-  print("OnLoad - not implemented")
+Import = function(packages)
+  return Framework.PackageHandler:Import(packages)
+end
+
+--
+--[ Export ]
+--
+-- ???
+--
+Export = function(package, content)
+  Framework.PackageHandler:Add(package, content)
 end

@@ -1,4 +1,5 @@
 local error, type = error, type
+
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -16,12 +17,17 @@ local error, type = error, type
 --
 -- Pseudo-class wrapper providing shared functionality for objects.
 --
-Object = function(class)
+local Object = function(class_name, class)
+  if type(class_name) ~= "string" then
+    error(("Expected type `string` for 'class_name', recieved `%s`"):format(type(class_name)))
+  end
+
   if type(class) ~= "table" then
     error(("Expected type `table` for 'class', recieved `%s`"):format(type(class)))
   end
 
   class.__index = class
+  class._name = class_name
 
   setmetatable(
     class,
@@ -58,6 +64,14 @@ Object = function(class)
         --
         SetType = function(self, object_type)
           self._type = object_type
+        end,
+        --
+        --[ GetName ]
+        --
+        -- Returns the name of the class that the object is an instance of.
+        --
+        GetName = function(self)
+          return self._name
         end
       }
     }
@@ -65,3 +79,8 @@ Object = function(class)
 
   return class
 end
+
+--
+-- ???
+--
+Export("Core.Object", Object)

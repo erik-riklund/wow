@@ -42,5 +42,9 @@
       "  print(\"${1} - not implemented\")",
       "end"
     ]
+  },
+
+  "type-is": {
+    "prefix": "!type-is", "body": "local ${1} = T:Is(\"${2}\", ${1})"
   }
 }

@@ -16,7 +16,7 @@ local error = error
 --
 -- A utility module for handling runtime type checking.
 --
-TypeHandler = {
+local TypeHandler = {
   --
   --[ Inspect ]
   --
@@ -46,9 +46,14 @@ TypeHandler = {
     local actual_type = self:Inspect(value)
 
     if actual_type ~= expected_type and not (expected_type == "any" and actual_type ~= "undefined") then
-      Exception:InvalidType(expected_type, actual_type)
+      error(("Expected type `%s`, recieved `%s`"):format(expected_type, actual_type))
     end
 
     return value
   end
 }
+
+--
+-- ???
+--
+Export("Core.TypeHandler", TypeHandler)

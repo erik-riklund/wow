@@ -12,9 +12,7 @@ local ADDON, APP = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
-OnLoad(
-  ADDON,
-  function()
-    print("Hello?")
-  end
-)
+--
+-- ???
+--
+CreatePlugin(ADDON, APP)
