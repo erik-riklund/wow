@@ -11,7 +11,7 @@
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Switch ]
+--[ switch ]
 --
 -- Provides a switch-like control flow mechanism using a lookup table.
 --

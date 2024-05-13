@@ -1,4 +1,4 @@
-local ADDON, APP = ...
+local ADDON, Framework = ...
 
 --
 --      #
@@ -12,13 +12,5 @@ local ADDON, APP = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
---
--- ???
---
-CreatePlugin(ADDON, APP)
-
-OnLoad(
-  ADDON,
-  function()
-  end
-)
+OnLoad = function(addon, callback)
+end

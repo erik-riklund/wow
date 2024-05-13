@@ -54,6 +54,4 @@ local TypeHandler = {
 }
 
 --
--- ???
---
-Export("Core.TypeHandler", TypeHandler)
+Export("TypeHandler", TypeHandler)

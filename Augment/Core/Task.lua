@@ -53,4 +53,4 @@ local Task = {
 --
 -- ???
 --
-Export("Core.Task", Task)
+Export("Task", Task)
