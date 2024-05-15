@@ -1,18 +1,8 @@
 <Ui>
+  <Include file="Constructs.lua" />
+  <Include file="Exception.lua" />
+  <Include file="Packages.lua" />
 
-  <Include file="Core/Exception.lua" />
-  <Include file="Core/PackageHandler.lua" />
-  <Include file="Core/TypeHandler.lua" />
-  <Include file="Core/Task.lua" />
-
-  <Include file="Core/Collections/Map.lua" />
-  <Include file="Core/Collections/List.lua" />
-  <Include file="Core/Constructs/Destructure.lua" />
-  <Include file="Core/Constructs/Switch.lua" />
-
-  <Include file="API/CreatePlugin.lua" />
-  <Include file="API/OnLoad.lua" />
-
-  <Include file="Testing.lua" />
-
+  <Include file="Packages/Types/Inspect.lua" />
+  <Include file="Packages/Types/Assert.lua" />
 </Ui>

@@ -44,6 +44,19 @@
     ]
   },
 
+  "method": {
+    "prefix": "!method", "body": [
+      "--",
+      "--[ ${1} ]",
+      "--",
+      "-- ???",
+      "--",
+      "${1} = function(self)",
+      "  print(\"${1} - not implemented\")",
+      "end"
+    ]
+  },
+
   "exception": {
     "prefix": "!exception", "body": "Exception:Throw(\"${1}\")"
   },

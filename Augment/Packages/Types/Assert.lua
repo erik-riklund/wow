@@ -1,4 +1,3 @@
-local error = error
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -10,19 +9,17 @@ local error = error
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+local Inspect = Import({"Types.Inspect"})
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Exception ]
+--[ Assert ]
 --
 -- ???
 --
-Exception = {
-  --
-  --[ Throw ]
-  --
-  -- ???
-  --
-  Throw = function(self, message, ...)
-    error(message:format(...))
-  end
-}
+local Assert = function()
+  print("Assert - not implemented")
+end
+
+--
+Export("Types.Assert", Assert)

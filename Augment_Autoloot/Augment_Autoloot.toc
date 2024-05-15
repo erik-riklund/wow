@@ -1,0 +1,10 @@
+## Interface: 100207
+## Dependencies: Augment
+
+## Title: Augment: Autoloot
+## Notes: Selective autoloot component for the Augment ecosystem
+## Version: 1.0.0
+
+## X-Website: https://github.com/erik-riklund/wow/augment
+
+Imports.xml
