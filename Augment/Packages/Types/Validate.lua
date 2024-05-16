@@ -9,14 +9,20 @@
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+local check = import({"types.check"})
+--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ schema ]
+--[ validate ]
 --
 -- ???
 --
-local schema = function()
+local validate = function(schema, target)
+  schema = check("table", schema)
+  target = check("table", target)
+
+  -- ???
 end
 
 --
-export("types.schema", schema)
+export("types.validate", validate)
