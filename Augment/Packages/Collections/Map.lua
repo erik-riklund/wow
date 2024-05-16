@@ -13,13 +13,13 @@
 --
 --[ map_methods ]
 --
--- ???
+-- A collection of methods for manipulating and accessing map data structures.
 --
 local map_methods = {
   --
   --[ get ]
   --
-  -- ???
+  -- Retrieves the value associated with a given key.
   --
   get = function(self, key)
     key = check(self._type["key"], key)
@@ -28,7 +28,7 @@ local map_methods = {
   --
   --[ set ]
   --
-  -- ???
+  -- Sets a value for a given key, ensuring both key and value types match the expected types.
   --
   set = function(self, key, value)
     key = check(self._type["key"], key)
@@ -43,7 +43,7 @@ local map_methods = {
   --
   --[ get_type ]
   --
-  -- ???
+  -- Returns a string representation of the map's type, including its key and value types.
   --
   get_type = function(self)
     return ("map(%s, %s)"):format(self._type["key"], self._type["value"])
@@ -53,7 +53,8 @@ local map_methods = {
 --
 --[ map ]
 --
--- ???
+-- A constructor function to create a new map with specified
+-- key and value types, and optional initial content.
 --
 local map = function(key_type, value_type --[[optional]], initial_content)
   key_type = check("string", key_type)
@@ -66,26 +67,26 @@ local map = function(key_type, value_type --[[optional]], initial_content)
       --
       --[ _type ]
       --
-      -- ???
+      -- Stores the expected data types for keys and values in the map.
       --
       _type = {key = key_type, value = value_type},
       --
       --[ _entries ]
       --
-      -- ???
+      -- Tracks the number of key-value pairs in the map.
       --
       _entries = 0,
       --
       --[ _content ]
       --
-      -- ???
+      -- The internal table that stores the map's key-value pairs.
       --
       _content = {}
     },
     --
     --[ __index ]
     --
-    -- ???
+    -- Metatable field that provides access to map methods when called on a map object.
     --
     {
       __index = map_methods

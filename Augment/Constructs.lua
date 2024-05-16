@@ -13,7 +13,7 @@
 --
 --[ destructure ]
 --
--- ???
+-- Extracts specific values from a table based on a list of keys.
 --
 destructure = function(table, keys)
   local values = {}

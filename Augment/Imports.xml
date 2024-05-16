@@ -4,5 +4,6 @@
   <Include file="Packages.lua" />
 
   <Include file="Packages/Types/Inspect.lua" />
-  <Include file="Packages/Types/Assert.lua" />
+  <Include file="Packages/Types/Check.lua" />
+  <Include file="Packages/Types/Schema.lua" />
 </Ui>

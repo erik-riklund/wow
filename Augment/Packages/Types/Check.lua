@@ -15,7 +15,8 @@ local inspect = import({"types.inspect"})
 --
 --[ check ]
 --
--- ???
+-- Asserts that a value matches the expected type, using the 'inspect' function
+-- for type inspection. Throws an error if the types do not match.
 --
 local check = function(expected_type, value)
   local actual_type = inspect(value)

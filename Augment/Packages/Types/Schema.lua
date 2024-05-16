@@ -1,4 +1,3 @@
-local error = error
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -12,19 +11,12 @@ local error = error
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ throw ]
+--[ schema ]
 --
--- Throws a Lua error with a formatted message.
+-- ???
 --
-throw = function(message, ...)
-  error(message:format(...))
+local schema = function()
 end
 
 --
---[ catch ]
---
--- Formats an error message string using the provided arguments.
---
-catch = function(message, ...)
-  return message:format(...)
-end
+export("types.schema", schema)

@@ -14,14 +14,15 @@ local type = type
 --
 --[ packages ]
 --
--- ???
+-- A private table that stores registered packages and their associated content.
 --
 local _packages = {}
 
 --
 --[ export ]
 --
--- ???
+-- Registers a new package with the specified name and content.
+-- Throws an error if the package name is invalid or already exists.
 --
 export = function(package, content)
   if type(package) ~= "string" then
@@ -38,7 +39,8 @@ end
 --
 --[ Load ]
 --
--- ???
+-- Retrieves the content of a registered package by its name. Throws an error
+-- if the package name is invalid or the package does not exist.
 --
 local load = function(package)
   if type(package) ~= "string" then
@@ -55,7 +57,8 @@ end
 --
 --[ import ]
 --
--- ???
+-- Loads and returns the content of multiple packages specified in an array.
+-- Throws an error if the input is not a table of package names.
 --
 import = function(packages)
   if type(packages) ~= "table" then
