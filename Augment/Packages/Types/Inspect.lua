@@ -11,11 +11,11 @@
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Inspect ]
+--[ inspect ]
 --
 -- ???
 --
-local Inspect = function(value)
+local inspect = function(value)
   local actual_type = type(value)
 
   return switch(
@@ -24,11 +24,11 @@ local Inspect = function(value)
       default = actual_type,
       ["nil"] = "undefined",
       ["table"] = function()
-        return (value.GetType and value:GetType()) or "table"
+        return (value.get_type and value:get_type()) or "table"
       end
     }
   )
 end
 
 --
-Export("Types.Inspect", Inspect)
+export("types.inspect", inspect)

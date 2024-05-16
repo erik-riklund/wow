@@ -9,17 +9,22 @@
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local Inspect = Import({"Types.Inspect"})
+local inspect = import({"types.inspect"})
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Assert ]
+--[ check ]
 --
 -- ???
 --
-local Assert = function()
-  print("Assert - not implemented")
+local check = function(expected_type, value)
+  local actual_type = inspect(value)
+  assert(actual_type == expected_type,
+    catch("Expected type `%s`, recieved `%s`", expected_type, actual_type)
+  )
+
+  return value
 end
 
 --
-Export("Types.Assert", Assert)
+export("types.check", check)

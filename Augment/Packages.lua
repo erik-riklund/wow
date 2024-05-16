@@ -19,17 +19,17 @@ local type = type
 local _packages = {}
 
 --
---[ Export ]
+--[ export ]
 --
 -- ???
 --
-Export = function(package, content)
+export = function(package, content)
   if type(package) ~= "string" then
-    Throw("Expected type `string` for 'package'")
+    throw("Expected type `string` for 'package'")
   end
 
   if _packages[package] ~= nil then
-    Throw("Unable to register package '%s' as it already exists", package)
+    throw("Unable to register package '%s' as it already exists", package)
   end
 
   _packages[package] = content
@@ -40,26 +40,26 @@ end
 --
 -- ???
 --
-local Load = function(package)
+local load = function(package)
   if type(package) ~= "string" then
-    Throw("Expected type `string` for 'package'")
+    throw("Expected type `string` for 'package'")
   end
 
   if _packages[package] == nil then
-    Throw("The requested package '%s' does not exist", package)
+    throw("The requested package '%s' does not exist", package)
   end
 
   return _packages[package]
 end
 
 --
---[ Import ]
+--[ import ]
 --
 -- ???
 --
-Import = function(packages)
+import = function(packages)
   if type(packages) ~= "table" then
-    Throw("Expected an array of package names for 'packages'")
+    throw("Expected an array of package names for 'packages'")
   end
 
   local imported_packages = {}

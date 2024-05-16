@@ -12,10 +12,19 @@ local error = error
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ Throw ]
+--[ throw ]
 --
 -- ???
 --
-Throw = function(message, ...)
+throw = function(message, ...)
   error(message:format(...))
+end
+
+--
+--[ catch ]
+--
+-- ???
+--
+catch = function(message, ...)
+  return message:format(...)
 end
