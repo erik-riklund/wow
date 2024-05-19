@@ -1,9 +1,17 @@
 <Ui>
-  <Include file="Constructs.lua" />
-  <Include file="Exception.lua" />
-  <Include file="Packages.lua" />
+  <Include file="constructs.lua" />
+  <Include file="exception.lua" />
+  <Include file="packages.lua" />
 
-  <Include file="Packages/Types/Inspect.lua" />
-  <Include file="Packages/Types/Check.lua" />
-  <Include file="Packages/Types/Schema.lua" />
+  <Include file="packages/type/inspect.lua" />
+  <Include file="packages/type/validate/simple.lua" />
+  <Include file="packages/type/validate/multiple.lua" />
+  <Include file="packages/type/validate/schema.lua" />
+  <Include file="packages/type/params/required.lua" />
+  <Include file="packages/type/params/optional.lua" />
+  <Include file="packages/type/schema/property.lua" />
+  <Include file="packages/type/validate.lua" />
+  <Include file="packages/type/params.lua" />
+
+  <Include file="api/plugin.lua" />
 </Ui>

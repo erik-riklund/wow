@@ -1,7 +1,7 @@
 {
   "header": {
     "prefix": "!header", "body": [
-      "local ADDON, ${1} = ...",
+      "local addon, ${1} = ...",
       "",
       "--",
       "--      #",
@@ -38,26 +38,10 @@
       "--",
       "-- ???",
       "--",
-      "${1} = function(${2})",
+      "${1} = function(...)",
+      "  local params = declare({...}, {${2}})",
       "  print(\"${1} - not implemented\")",
       "end"
     ]
-  },
-
-  "method": {
-    "prefix": "!method", "body": [
-      "--",
-      "--[ ${1} ]",
-      "--",
-      "-- ???",
-      "--",
-      "${1} = function(self)",
-      "  print(\"${1} - not implemented\")",
-      "end"
-    ]
-  },
-
-  "type-is": {
-    "prefix": "!type-is", "body": "${1} = check(\"${2}\", ${1})"
   }
 }

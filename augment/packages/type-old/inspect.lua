@@ -13,9 +13,7 @@
 --
 --[ inspect ]
 --
--- Inspects the given value and returns a string representation of its type.
--- Special handling is provided for nil values (returns "undefined") and tables
--- (attempts to use the object's `get_type` method, if available).
+-- ???
 --
 local inspect = function(value)
   local actual_type = type(value)
@@ -32,5 +30,4 @@ local inspect = function(value)
   )
 end
 
---
-export("types.inspect", inspect)
+export("type.inspect", inspect)

@@ -9,23 +9,17 @@
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local inspect = import({"types.inspect"})
+local type, validate = import({"type.inspect","type.validate"})
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
---[ check ]
+--[ required ]
 --
--- Asserts that a value matches the expected type, using the 'inspect' function
--- for type inspection. Throws an error if the types do not match.
+-- ???
 --
-local check = function(expected_type, value)
-  local actual_type = inspect(value)
-  assert(actual_type == expected_type,
-    catch("Expected type `%s`, recieved `%s`", expected_type, actual_type)
-  )
-
-  return value
+local required = function(name, expected_type)
+  return function(value)
+  end
 end
 
---
-export("types.check", check)
+export("type.required", required)

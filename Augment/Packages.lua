@@ -44,7 +44,7 @@ end
 --
 local load = function(package)
   if type(package) ~= "string" then
-    throw("Expected type `string` for 'package'")
+    throw("Expected type `string` for 'package'.")
   end
 
   if _packages[package] == nil then
@@ -67,7 +67,7 @@ import = function(packages)
 
   local imported_packages = {}
   for i = 1, #packages do
-    table.insert(imported_packages, Load(packages[i]))
+    table.insert(imported_packages, load(packages[i]))
   end
 
   return unpack(imported_packages)

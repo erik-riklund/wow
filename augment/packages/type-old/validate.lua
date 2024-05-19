@@ -9,7 +9,7 @@
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local check = import({"types.check"})
+local type = import({"type.inspect"})
 --~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
 --
@@ -17,20 +17,29 @@ local check = import({"types.check"})
 --
 -- ???
 --
-local validate = function(schema, target)
-  schema = check("table", schema)
-  target = check("table", target)
+local validate = function(value, expected_type)
+  local actual_type = type(value)
 
-  for key, _ in pairs(target) do
-    if not schema[key] then
-      throw("The property '%s' does not exist in the specified schema", key)
-    end
-  end
+  return switch(
+    type(expected_type),
+    {
+      string = function()
+        if actual_type ~= expected_type then
+          return nil, {actual_type = actual_type, expected_type = expected_type}
+        end
 
-  for key, expected_type in pairs(schema) do
-    
-  end
+        return value -- type validation passed!
+      end,
+      --
+      table = function()
+        if #expected_type > 0 then
+          -- ???
+        else
+          -- ???
+        end
+      end
+    }
+  )
 end
 
---
-export("types.validate", validate)
+export("type.validate", validate)
