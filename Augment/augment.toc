@@ -1,9 +1,0 @@
-## Interface: 100207
-
-## Title: Augment
-## Notes: The backend component for the Augment ecosystem
-## Version: 1.0.0
-
-## X-Website: https://github.com/erik-riklund/wow/augment
-
-imports.xml
