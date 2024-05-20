@@ -8,7 +8,8 @@
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+--
+
 local switch, type, simple, multiple, schema =
   _G.switch,
   import(
@@ -19,13 +20,7 @@ local switch, type, simple, multiple, schema =
       "type.validate.schema"
     }
   )
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
---
---[ validate ]
---
--- ???
---
 export(
   "type.validate",
   function(value, param)

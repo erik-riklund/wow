@@ -8,13 +8,8 @@
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+--
 
---
---[ inspect ]
---
--- ???
---
 export(
   "type.inspect",
   function(value)

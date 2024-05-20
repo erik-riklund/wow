@@ -10,7 +10,8 @@ local addon, framework = ...
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+--
+
 local params, required, optional =
   import(
   {
@@ -19,13 +20,7 @@ local params, required, optional =
     "type.params.optional"
   }
 )
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
 
---
---[ plugin ]
---
--- ???
---
 plugin = function(...)
   local args =
     params(

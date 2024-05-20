@@ -8,15 +8,16 @@
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local pairs, type = _G.pairs, import({"type.inspect"})
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+--
 
---
---[ validate.schema ]
---
--- ???
---
+local pairs, type =
+  _G.pairs,
+  import(
+    {
+      "type.inspect"
+    }
+  )
+
 export(
   "type.validate.schema",
   function(target, param)
@@ -35,7 +36,7 @@ export(
       end
     end
 
-    --
+    -- validate the content of the target table
 
     local validate = import({"type.validate"})
     for key, property in pairs(schema) do

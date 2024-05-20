@@ -13,7 +13,7 @@
       "--   #     #  ####   ####  #    # ###### #    #   #",
       "--",
       "-- World of Warcraft addon ecosystem, created by Erik Riklund (2024)",
-      "--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--"
+      "--"
     ],
   },
 
@@ -22,26 +22,10 @@
   },
 
   "documentation": {
-    "prefix": "!documentation", "body": [
-      "--",
-      "--[ ${1} ]",
-      "--",
-      "-- ???",
-      "--"
-    ]
+    "prefix": "!documentation", "body": "--[[\n    ???\n  ]]"
   },
 
-  "function": {
-    "prefix": "!function", "body": [
-      "--",
-      "--[ ${1} ]",
-      "--",
-      "-- ???",
-      "--",
-      "${1} = function(...)",
-      "  local params = declare({...}, {${2}})",
-      "  print(\"${1} - not implemented\")",
-      "end"
-    ]
+  "args": {
+    "prefix": "!args", "body": "local args = params({...}, {${1}})"
   }
 }

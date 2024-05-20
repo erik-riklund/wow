@@ -8,15 +8,16 @@
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local type, simple = import({"type.inspect", "type.validate.simple"})
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+--
 
---
---[ validate.multiple ]
---
--- ???
---
+local type, simple =
+  import(
+  {
+    "type.inspect",
+    "type.validate.simple"
+  }
+)
+
 export(
   "type.validate.multiple",
   function(value, param)

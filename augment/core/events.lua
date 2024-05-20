@@ -1,3 +1,5 @@
+local addon, framework = ...
+
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -10,14 +12,15 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
-export(
-  "type.params.optional",
-  function(name, expected_type, default_value)
-    return {
-      name = name,
-      type = expected_type,
-      default = default_value,
-      optional = true
-    }
-  end
+local map, list, frame =
+  import(
+  {
+    "collections.map",
+    "collections.list",
+    "ui.generic.frame"
+  }
 )
+
+local _events = list("string")
+local _listeners = map("string", "list(function)")
+local _frame = frame("augment.events", {hidden = true})

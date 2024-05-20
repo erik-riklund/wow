@@ -8,21 +8,20 @@
 --   #     #  ####   ####  #    # ###### #    #   #
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
-local throw, type, validate = _G.throw, import({"type.inspect", "type.validate"})
---~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--~--
+--
 
---
---[ params ]
---
--- ???
---
+local throw, type, validate =
+  _G.throw,
+  import(
+    {
+      "type.inspect",
+      "type.validate"
+    }
+  )
+
 export(
   "type.params",
   function(args, params)
-    --
-    -- validate the argument types
-
     local args_t = type(args)
     if args_t ~= "table" then
       throw("Expected type `table` for 'args', recieved `%s`", args_t)
@@ -39,7 +38,11 @@ export(
     local params_n = #params
 
     if args_n > params_n then
-      throw("Expected up to %d arguments, recieved %d", params_n, args_n)
+      if params_n == 0 then
+        throw("Expected no arguments")
+      end
+
+      throw("Expected %d (or fewer) arguments", params_n)
     end
 
     -- validate the actual argument values

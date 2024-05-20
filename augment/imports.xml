@@ -13,5 +13,12 @@
   <Include file="packages/type/validate.lua" />
   <Include file="packages/type/params.lua" />
 
+  <Include file="packages/collections/list.lua" />
+  <Include file="packages/collections/map.lua" />
+
+  <Include file="packages/ui/generic/frame.lua" />
+
+  <Include file="core/events.lua" />
+
   <Include file="api/plugin.lua" />
 </Ui>
