@@ -13,6 +13,9 @@
   <Include file="packages/type/validate.lua" />
   <Include file="packages/type/params.lua" />
 
+  <Include file="packages/task/sync.lua" />
+  <Include file="packages/task/async.lua" />
+
   <Include file="packages/debug/inspect.lua" />
 
   <Include file="packages/collections/list.lua" />
