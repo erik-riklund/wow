@@ -1,5 +1,3 @@
-local _, _C = ...
-
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -13,9 +11,12 @@ local _, _C = ...
 --
 
 --
---[ ??? ]--
+--- ???
 --
---- 
-
-_G.plugin = function(id, context)
+--- @param name string
+--- @param expected_type any
+--- @return {name: string, type: any}
+--
+_G.required = function(name, expected_type)
+  return { name = name, type = expected_type }
 end

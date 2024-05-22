@@ -1,0 +1,10 @@
+<Ui>
+  <Include file="library/utils/switch.lua" />
+  <Include file="library/type/_imports.xml" />
+
+  <Include file="main.lua" />
+  <Include file="context.lua" />
+  <Include file="modules.lua" />
+
+  <Include file="api/plugin.lua" />
+</Ui>

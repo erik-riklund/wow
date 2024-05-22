@@ -1,7 +1,7 @@
 {
   "header": {
     "prefix": "!header", "body": [
-      "local addon, ${1} = ...",
+      "local ${1:_ID}, ${2:_C} = ...",
       "",
       "--",
       "--      #",
@@ -21,23 +21,15 @@
     "prefix": "!include", "body": "<Include file=\"${1}\" />"
   },
 
-  "documentation": {
-    "prefix": "!documentation", "body": "--[[\n    ???\n  ]]"
+  "section": {
+    "prefix": "!section", "body": "--\n--[ ${1:???} ]--"
   },
 
-  "params": {
-    "prefix": "!params", "body": "--[[ ${1} ]]"
+  "documentation": {
+    "prefix": "!documentation", "body": "--\n--- ${1:???}\n--\n--- @${2}\n--"
   },
 
   "args": {
     "prefix": "!args", "body": "local args = params({...}, {${1}})"
-  },
-
-  "spacer": {
-    "prefix": "!spacer", "body": "--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  --"
-  },
-
-  "section": {
-    "prefix": "!section", "body": "--\n--[ ${1:???} ]--"
   }
 }
