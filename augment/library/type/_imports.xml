@@ -1,8 +1,0 @@
-<Ui>
-  <Include file="typeof.lua" />
-  <Include file="validate.lua" />
-  <Include file="params.lua" />
-  <Include file="params/required.lua" />
-  <Include file="params/optional.lua" />
-  <Include file="schema/property.lua" />
-</Ui>

@@ -1,10 +1,11 @@
 <Ui>
   <Include file="library/utils/switch.lua" />
-  <Include file="library/type/_imports.xml" />
+  <Include file="library/utils/exception.lua" />
+  
+  <Include file="library/type/typeof.lua" />
+  <Include file="library/type/compare.lua" />
+  <Include file="library/type/declare.lua" />
 
+  <Include file="core/exports.lua" />
   <Include file="main.lua" />
-  <Include file="context.lua" />
-  <Include file="modules.lua" />
-
-  <Include file="api/plugin.lua" />
 </Ui>

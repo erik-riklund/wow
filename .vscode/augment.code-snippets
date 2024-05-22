@@ -1,9 +1,7 @@
 {
   "header": {
     "prefix": "!header", "body": [
-      "local ${1:_ID}, ${2:_C} = ...",
-      "",
-      "--",
+      "${1:local _addon, _context = ...\n}--",
       "--      #",
       "--     # #   #    #  ####  #    # ###### #    # #####",
       "--    #   #  #    # #    # ##  ## #      ##   #   #",
@@ -30,6 +28,6 @@
   },
 
   "args": {
-    "prefix": "!args", "body": "local args = params({...}, {${1}})"
+    "prefix": "!args", "body": "local args = declare({...}, {${1}})"
   }
 }

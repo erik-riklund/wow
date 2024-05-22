@@ -1,5 +1,3 @@
-local _ID, _C = ...
-
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -12,4 +10,4 @@ local _ID, _C = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
-_C.id = _ID
+export()
