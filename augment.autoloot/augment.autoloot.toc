@@ -7,4 +7,4 @@
 
 ## X-Website: https://github.com/erik-riklund/wow/augment
 
-imports.xml
+_imports.xml
