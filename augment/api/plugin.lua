@@ -32,5 +32,5 @@ plugin = function(...)
     }
   )
 
-  -- plugin context initialization ...
+  framework.channel.dispatch("PLUGIN_ADDED", args.context)
 end

@@ -35,5 +35,12 @@
     "TipTacItemRef": true,
     "TooltipCleaner": true,
     "X": true
-  }
+  },
+  "Lua.diagnostics.globals": [
+    "CreateFrame",
+    "destructure",
+    "switch",
+    "export",
+    "import"
+  ]
 }

@@ -25,7 +25,19 @@
     "prefix": "!documentation", "body": "--[[\n    ???\n  ]]"
   },
 
+  "params": {
+    "prefix": "!params", "body": "--[[ ${1} ]]"
+  },
+
   "args": {
     "prefix": "!args", "body": "local args = params({...}, {${1}})"
+  },
+
+  "spacer": {
+    "prefix": "!spacer", "body": "--  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  --"
+  },
+
+  "section": {
+    "prefix": "!section", "body": "--\n--[ ${1:???} ]--"
   }
 }

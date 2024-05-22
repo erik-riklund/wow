@@ -28,7 +28,7 @@ destructure = function(table, keys)
     table.insert(values, table[key])
   end
 
-  return unpack(values)
+  return table.unpack(values)
 end
 
 --

@@ -70,5 +70,6 @@ import = function(packages)
     table.insert(imported_packages, load(packages[i]))
   end
 
+  ---@diagnostic disable-next-line: deprecated
   return unpack(imported_packages)
 end
