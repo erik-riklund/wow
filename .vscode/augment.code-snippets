@@ -28,6 +28,10 @@
   },
 
   "args": {
-    "prefix": "!args", "body": "local args = declare({...}, {${1}})"
+    "prefix": "!args", "body": "local ${1} = declare({...}, {${2}})"
+  },
+
+  "param": {
+    "prefix": "!param", "body": "param(\"${1}\",\"${2}\"${3:,{\\}})"
   }
 }

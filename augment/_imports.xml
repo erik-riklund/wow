@@ -4,6 +4,7 @@
   
   <Include file="library/type/typeof.lua" />
   <Include file="library/type/compare.lua" />
+  <Include file="library/type/param.lua" />
   <Include file="library/type/declare.lua" />
 
   <Include file="core/exports.lua" />
