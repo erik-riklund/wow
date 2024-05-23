@@ -11,14 +11,15 @@
 --
 
 --
---- ???
+--- This function acts as a judge, evaluating whether a given value aligns with a specified standard,
+--- and providing feedback on the outcome of the comparison.
 --
 --- @param expected_type string
 ---
 --- @params
---- * value: any - 
---- * expected_type: string - 
---- * default_value: any - 
+--- * value: any            - The input value to be compared against the expected type.
+--- * expected_type: string - A string representing the desired data type.
+--- * default_value: any    - (optional) A value to use if the value is `nil`.
 --
 _G.compare = function(value, expected_type, default_value)
   local actual_type = typeof(value or default_value)

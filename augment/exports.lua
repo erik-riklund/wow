@@ -25,15 +25,21 @@ local _exports = {}
 --
 _G.export = function(...)
   --
-  local module, component_id, component, context =
+  local module, id, component, context =
       declare({ ... }, {
-        param("module", "string", { empty = false }),
-        param("component_id", "string"),
+        param("module", "string", { allow_empty = false }),
+        param("id", "string", { allow_empty = false }),
         param("component", "any"),
         param("context", "table", { optional = true })
       })
 
-  --
+  _exports[module] = _exports[module] or {}
+
+  ensure(_exports[module][id] == nil,
+    "Failed to export component to module '%s', the component '%s' already exists", module, id
+  )
+
+  _exports[module][id] = { component = component, owner = context }
 end
 
 --
@@ -42,17 +48,19 @@ end
 --- @params
 ---
 --- * module: string    - The identifier for the module that the component is a part of.
---- * components: array - A list of identifiers (strings) specifying which component(s) to import.
+--- * components: array - An array of identifiers (strings) specifying the component(s) to import.
 --- * context?: table   - Must be supplied to verify ownership of protected components.
 --
 _G.import = function(...)
   --
   local module, components, context =
       declare({ ... }, {
-        param("module", "string"),
-        param("components", "array"),
+        param("module", "string", { allow_empty = false }),
+        param("components", "array", { allow_empty = false }),
         param("context", "table", { optional = true })
       })
+
+  ensure(_exports[module] ~= nil, "Import failed, unknown module '%s'", module)
 
   --
 end
