@@ -9,8 +9,3 @@
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
-
-export("test", "dummy", function() print("Hello from exported func!") end)
-
-local dummy = import("test", { "dummy" })
-print(typeof(dummy))

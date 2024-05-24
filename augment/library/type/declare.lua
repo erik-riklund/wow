@@ -43,7 +43,7 @@ _G.declare = function(args, params)
       if result.error then throw(exception, index, param.name, result.error) end
 
       local arg_type = type(args[index])
-      if not param.allow_empty and (arg_type == "string" or arg_type == "table") and #args[index] == 0 then
+      if param.allow_empty == false and (arg_type == "string" and #args[index] == 0 or arg_type == "table" and next(args[index]) == nil) then
         throw(exception, index, param.name, "Empty argument values are not allowed")
       end
 

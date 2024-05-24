@@ -11,7 +11,7 @@
 --
 
 --
---- This function acts as a judge, evaluating whether a given value aligns with a specified standard,
+--- This function acts as a judge, evaluating whether a given value aligns with the specified standard,
 --- and providing feedback on the outcome of the comparison.
 --
 --- @param expected_type string

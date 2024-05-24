@@ -9,5 +9,6 @@
   <Include file="library/type/declare.lua" />
 
   <Include file="exports.lua" />
+  <Include file="core/tasks.lua" />
   <Include file="main.lua" />
 </Ui>

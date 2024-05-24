@@ -13,7 +13,8 @@
 local _exports = {}
 
 --
---- ???
+--- `_G.export` acts as a registrar, adding a named component to a designated module within the system,
+--- optionally associating it with a specific owner for access control.
 --
 --- @params
 ---
@@ -43,7 +44,8 @@ _G.export = function(...)
 end
 
 --
---- ???
+--- The _G.import function acts as a retriever, fetching specific components from a designated module
+--- within the system. It can also verify ownership permissions before granting access to protected components.
 --
 --- @params
 ---
@@ -60,7 +62,25 @@ _G.import = function(...)
         param("context", "table", { optional = true })
       })
 
-  ensure(_exports[module] ~= nil, "Import failed, unknown module '%s'", module)
+  ensure(_exports[module] ~= nil,
+    "Import failed, unknown module '%s'", module
+  )
 
-  --
+  local _imports = {}
+  
+  for _, id in ipairs(components) do
+    local _import = _exports[module][id]
+
+    ensure(_import ~= nil,
+      "Import failed, unknown component '%s' in module '%s'", id, module
+    )
+
+    ensure(_import.owner == nil or _import.owner == context,
+      "Import denied, the component '%s' in module '%s' is protected", id, module
+    )
+
+    table.insert(_imports, _import.component)
+  end
+
+  return unpack(_imports)
 end
