@@ -19,19 +19,11 @@
     "prefix": "!include", "body": "<Include file=\"${1}\" />"
   },
 
-  "section": {
-    "prefix": "!section", "body": "--\n--[ ${1:???} ]--"
-  },
-
   "documentation": {
-    "prefix": "!documentation", "body": "--\n--- ${1:???}\n--\n--- @${2}\n--"
+    "prefix": "!documentation", "body": "--\n--- ${1:???}\n--\n--- @\n--"
   },
 
-  "args": {
-    "prefix": "!args", "body": "local ${1} = declare({...}, {${2}})"
-  },
-
-  "param": {
-    "prefix": "!param", "body": "param(\"${1}\",\"${2}\"${3:,{\\}})"
+  "type-as": {
+    "prefix": "!type-as", "body": "--[[@as ${1}]]"
   }
 }

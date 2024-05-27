@@ -1,0 +1,49 @@
+--- @meta
+--
+--      #
+--     # #   #    #  ####  #    # ###### #    # #####
+--    #   #  #    # #    # ##  ## #      ##   #   #
+--   #     # #    # #      # ## # #####  # #  #   #
+--   ####### #    # #  ### #    # #      #  # #   #
+--   #     # #    # #    # #    # #      #   ##   #
+--   #     #  ####   ####  #    # ###### #    #   #
+--
+-- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
+--
+
+--
+--- Represents a typed function parameter, used in conjunction with `declare`
+--- to enforce strict runtime type checking of provided arguments.
+--
+--- @class param
+--
+--- @field name string
+--- @field expected_type string|table<string, string|table>
+--- @field optional? boolean
+--- @field default? any
+--
+
+--
+--- Represents a typed schema property, ...
+--
+--- @class property
+--
+--- @field expected_type string|table<string, string|table>
+--- @field optional? boolean
+--- @field default? any
+--
+
+--
+--- ???
+--
+--- @class compare_result
+--
+--- @field success boolean
+--- @field error? string
+--
+
+--
+--- ???
+--
+--- @class schema: { [string]: property|schema }
+--

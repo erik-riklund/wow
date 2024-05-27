@@ -1,14 +1,4 @@
 <Ui>
-  <Include file="library/utils/ensure.lua" />
-  <Include file="library/utils/switch.lua" />
-  <Include file="library/utils/throw.lua" />
-  
-  <Include file="library/type/typeof.lua" />
-  <Include file="library/type/compare.lua" />
-  <Include file="library/type/param.lua" />
-  <Include file="library/type/declare.lua" />
-
-  <Include file="exports.lua" />
-  <Include file="core/tasks.lua" />
-  <Include file="main.lua" />
+  <Include file="utils/errors.lua" />
+  <Include file="utils/typing/_imports.xml" />
 </Ui>

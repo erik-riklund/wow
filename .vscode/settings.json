@@ -41,6 +41,7 @@
     "empty-block"
   ],
   "Lua.diagnostics.globals": [
-    "C_Timer"
+    "C_Timer",
+    "GetTime"
   ]
 }

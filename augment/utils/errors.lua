@@ -11,11 +11,21 @@
 --
 
 --
---- This function acts as an alarm bell, signaling when something unexpected or undesirable
---- has occurred within the code, and providing a description of the problem.
+--- Raises an error, optionally formatting the provided error message with additional details.
 --
 --- @param message string
+--- @param ... string|number
 --
-_G.throw = function(message, ...)
+_G.exception = function(message, ...)
   error(... and message:format(...) or message)
+end
+
+--
+--- Prints a warning message to the console, optionally formatting it with additional details.
+--
+--- @param message string
+--- @param ... string|number
+--
+_G.warning = function(message, ...)
+  print(... and message:format(...) or message)
 end
