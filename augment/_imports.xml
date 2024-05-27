@@ -1,4 +1,5 @@
 <Ui>
   <Include file="utils/errors.lua" />
   <Include file="utils/typing/_imports.xml" />
+  <Include file="tests/_imports.xml" />
 </Ui>

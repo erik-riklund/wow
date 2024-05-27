@@ -1,7 +1,7 @@
 <Ui>
-  <Include file="examine.lua" />
   <Include file="param.lua" />
   <Include file="property.lua" />
-  <Include file="compare.lua" />
-  <Include file="declare.lua" />
+  <Include file="examine.lua" />
+  <Include file="validate/type.lua" />
+  <Include file="validate/schema.lua" />
 </Ui>

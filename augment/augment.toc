@@ -1,4 +1,5 @@
 ## Interface: 100207
+## OptionalDeps: WoWUnit
 
 ## Title: Augment
 ## Notes: The backend component for the Augment ecosystem

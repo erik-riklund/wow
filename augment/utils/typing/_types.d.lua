@@ -12,38 +12,38 @@
 --
 
 --
---- Represents a typed function parameter, used in conjunction with `declare`
---- to enforce strict runtime type checking of provided arguments.
+--- Acts as a blueprint for defining the structure and data types of complex objects,
+--- similar to a template for creating structured documents.
 --
---- @class param
---
---- @field name string
---- @field expected_type string|table<string, string|table>
---- @field optional? boolean
---- @field default? any
+--- @class schema: {[string]: property|schema}
 --
 
 --
---- Represents a typed schema property, ...
+--- Acts as a building block for defining a single attribute within a larger
+--- schema, specifying the attribute's expected data type, whether it is optional,
+--- and a default value if applicable.
 --
 --- @class property
 --
---- @field expected_type string|table<string, string|table>
+--- @field type string|schema
 --- @field optional? boolean
 --- @field default? any
 --
 
 --
---- ???
+--- Represents a named element that can be passed into a function, specifying its expected
+--- data type and other validation rules, similar to a variable with additional constraints.
 --
---- @class compare_result
---
---- @field success boolean
---- @field error? string
+--- @class parameter: property
+--- @field name string
 --
 
 --
---- ???
+--- Encapsulates the outcome of a validation process, storing the potentially modified value
+--- and an optional error message if the validation failed.
 --
---- @class schema: { [string]: property|schema }
+--- @class validation_result
+--
+--- @field value any
+--- @field error? string
 --

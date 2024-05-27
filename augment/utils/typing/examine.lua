@@ -11,21 +11,23 @@
 --
 
 --
---- Examine the given `value` to determine its data type, returned as a string representation.
--- * Possible return values are `undefined`, `boolean`, `string`, `number`, `function`, `userdata`, or `thread`.
--- * Extended types for tables include `array` for numerically indexed tables, `hashmap` for associative tables, or `table` for empty tables.
--- * In addition, it supports the return of custom types for objects that implement the `getType` method.
+--- Determines the type of a given value, recognizing custom types
+--- for objects and distinguishing between lists (numerically indexed tables),
+--- maps (tables with non-numeric keys), and empty tables.
 --
 --- @param value any
 --- @return string
 --
-_G.examine = function(value)
-  local actual_type = type(value)
+function _G.examine(value)
+  local value_type = type(value)
 
-  if actual_type == "table" then
-    if value.getType then return value:getType() end
-    return #value > 0 and "array" or next(value) ~= nil and "hashmap" or "table"
+  if value_type == 'table' then
+    if value.is then
+      return value:is() -- object with a custom type
+    end
+
+    return #value > 0 and 'list' or next(value) ~= nil and 'map' or 'table'
   end
 
-  return actual_type == "nil" and "undefined" or actual_type
+  return value_type == 'nil' and 'undefined' or value_type
 end

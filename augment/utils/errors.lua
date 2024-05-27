@@ -16,7 +16,7 @@
 --- @param message string
 --- @param ... string|number
 --
-_G.exception = function(message, ...)
+function _G.exception(message, ...)
   error(... and message:format(...) or message)
 end
 
@@ -26,6 +26,6 @@ end
 --- @param message string
 --- @param ... string|number
 --
-_G.warning = function(message, ...)
+function _G.warning(message, ...)
   print(... and message:format(...) or message)
 end

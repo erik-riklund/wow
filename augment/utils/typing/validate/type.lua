@@ -1,0 +1,21 @@
+--
+--      #
+--     # #   #    #  ####  #    # ###### #    # #####
+--    #   #  #    # #    # ##  ## #      ##   #   #
+--   #     # #    # #      # ## # #####  # #  #   #
+--   ####### #    # #  ### #    # #      #  # #   #
+--   #     # #    # #    # #    # #      #   ##   #
+--   #     #  ####   ####  #    # ###### #    #   #
+--
+-- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
+--
+
+--
+--- ???
+--
+--- @param target any
+--- @param options property|parameter
+--
+--- @return validation_result
+--
+function _G.validate_type(target, options) end

@@ -34,6 +34,7 @@
     "TipTacTalents": true,
     "TipTacItemRef": true,
     "TooltipCleaner": true,
+    "WoWUnit": true,
     "X": true
   },
   "Lua.diagnostics.disable": [
@@ -42,6 +43,7 @@
   ],
   "Lua.diagnostics.globals": [
     "C_Timer",
-    "GetTime"
+    "GetTime",
+    "WoWUnit"
   ]
 }
