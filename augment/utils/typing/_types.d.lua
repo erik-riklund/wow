@@ -34,7 +34,7 @@
 --- Represents a named element that can be passed into a function, specifying its expected
 --- data type and other validation rules, similar to a variable with additional constraints.
 --
---- @class parameter: property
+--- @class parameter : property
 --- @field name string
 --
 
@@ -46,4 +46,18 @@
 --
 --- @field value any
 --- @field error? string
+--
+
+--
+--- Represents an ordered collection of elements, where each element is associated
+--- with a numerical index.
+--
+--- @class list<value>: {[integer]: value}
+--
+
+--
+--- Represents an unordered collection of key-value pairs, where each unique key is
+--- associated with a corresponding value.
+--
+--- @class map<key,value>: {[key]: value}
 --
