@@ -15,7 +15,7 @@
 --- Acts as a blueprint for defining the structure and data types of complex objects,
 --- similar to a template for creating structured documents.
 --
---- @class schema: {[string]: property|schema}
+--- @class schema : {[string]: property|schema}
 --
 
 --
@@ -52,12 +52,12 @@
 --- Represents an ordered collection of elements, where each element is associated
 --- with a numerical index.
 --
---- @class list<value>: {[integer]: value}
+--- @class list<value> : {[integer]: value}
 --
 
 --
 --- Represents an unordered collection of key-value pairs, where each unique key is
 --- associated with a corresponding value.
 --
---- @class map<key,value>: {[key]: value}
+--- @class map<key,value> : {[key]: value}
 --

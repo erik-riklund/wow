@@ -11,7 +11,9 @@ if not WoWUnit then return end
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
-local equal = WoWUnit.AreEqual
+local equal, mock, revert =
+    WoWUnit.AreEqual, WoWUnit.Replace, WoWUnit.ClearReplaces
+
 local _test = WoWUnit('utils.typing')
 
 --
@@ -80,21 +82,59 @@ end
 --
 
 function _test:validate_schema()
-  local schema = (
-    {
-      alpha = property.required('string'),
-      beta = property.required(
-        {
-          b_alpha = property.required('string'),
-          b_beta = property.optional('number', 1)
-        }
-      ),
-      charlie = property.optional('number'),
-      delta = property.optional('list', { 1, 2, 3 })
-    }
-  ) --[[@as schema]]
+  equal(
+    "@root: Unexpected property 'alpha', please verify your schema",
+    validate_schema({ alpha = 1 }, { beta = property.required('string') }).error
+  )
+  equal(
+    "@root/alpha: Expected a value of type `string` but recieved `undefined`",
+    validate_schema({}, { alpha = property.required('string') }).error
+  )
+  equal(
+    "@root/alpha/beta: Expected a value of type `string` but recieved `table`",
+    validate_schema({ alpha = { beta = {} } }, { alpha = property.required({ beta = property.required('string') }) })
+    .error
+  )
+  equal(
+    "@root/alpha/beta/charlie: Expected a value of type `string` but recieved `number`",
+    validate_schema({ alpha = { beta = { charlie = 1 } } },
+      { alpha = property.required({ beta = property.required({ charlie = property.required('string') }) }) }).error
+  )
 
-  equal('@root/bogus: Unexpected property, please verify your schema', validate_schema({ bogus = true }, schema).error)
-  equal('@root/alpha: Expected a value of type `string` but recieved `undefined`',
-    validate_schema({ beta = {} }, schema).error)
+  equal(
+    { alpha = 'Hello world' },
+    validate_schema({ alpha = 'Hello world' }, { alpha = property.required('string') }).value
+  )
+  equal(
+    { alpha = 'Hello world' },
+    validate_schema({ alpha = 'Hello world' },
+      { alpha = property.required('string'), beta = property.optional('number') }).value
+  )
+  equal(
+    { alpha = 'Hello world', beta = 12345 },
+    validate_schema({ alpha = 'Hello world' },
+      { alpha = property.required('string'), beta = property.optional('number', 12345) }).value
+  )
+end
+
+--
+-- parameter declaration
+--
+
+function _test:declare()
+  mock('exception',
+    function(message, ...)
+      return ... and message:format(...) or message
+    end
+  )
+
+  equal(
+    "Too many arguments provided, please check your function call and ensure the correct number of arguments are used",
+    declare({ 'one', 'two' }, { param.required('test', 'string') })
+  )
+  equal(
+    { 'Hello world' }, { declare({ 'Hello world' }, { param.required('test', 'string') }) }
+  )
+
+  revert()
 end

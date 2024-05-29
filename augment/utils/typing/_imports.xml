@@ -4,4 +4,5 @@
   <Include file="examine.lua" />
   <Include file="validate/type.lua" />
   <Include file="validate/schema.lua" />
+  <Include file="declare.lua" />
 </Ui>
