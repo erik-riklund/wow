@@ -16,7 +16,7 @@
 --- Represents a blueprint for validating complex data structures (e.g., tables, objects),
 --- defining the expected types and validation rules for each property or nested structure.
 --
---- @class schema : {[string]: validation_options|schema}
+--- @class schema : {[string]: validation_options}
 --
 
 --#endregion
@@ -38,7 +38,7 @@
 --
 --- @class validation_options
 --
---- @field type string|schema
+--- @field expect string|schema
 --- @field optional boolean
 --- @field default? any
 --
@@ -53,6 +53,7 @@
 --- @class validation_result
 --
 --- @field error? string
+--- @field path? string
 --- @field value any
 --
 
