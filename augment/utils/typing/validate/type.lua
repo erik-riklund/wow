@@ -17,7 +17,7 @@
 --- If the value does not match, it returns an error message indicating the mismatch.
 --
 --- @param value any
---- @param options property|parameter
+--- @param options argument
 --
 --- @return validation_result
 --

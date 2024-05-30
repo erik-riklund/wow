@@ -59,7 +59,7 @@ function _G.validate_schema(target, schema, parent)
           target[key], property.type --[[@as schema]], ('%s/%s'):format(parent or '', key)
         )
       else -- simple type validation
-        validation_result = validate_type(target[key], property --[[@as property]])
+        validation_result = validate_type(target[key], property --[[@as argument]])
       end
 
       if validation_result.error then

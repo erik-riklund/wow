@@ -21,11 +21,11 @@ local _test = WoWUnit('utils.typing')
 --
 
 function _test:param()
-  equal({ name = 'test', type = 'string' }, param.required('test', 'string'))
-  equal({ name = 'test', type = 'string', optional = true }, param.optional('test', 'string'))
+  equal({ type = 'string' }, argument.required('string'))
+  equal({ type = 'string', optional = true }, argument.optional('string'))
   equal(
-    { name = 'test', type = 'string', optional = true, default = 'Hello world' },
-    param.optional('test', 'string', 'Hello world')
+    { type = 'string', optional = true, default = 'Hello world' },
+    argument.optional('string', 'Hello world')
   )
 end
 
@@ -34,9 +34,9 @@ end
 --
 
 function _test:property()
-  equal({ type = 'string' }, property.required('string'))
-  equal({ type = 'string', optional = true }, property.optional('string'))
-  equal({ type = 'string', optional = true, default = 'Hello world' }, property.optional('string', 'Hello world'))
+  equal({ type = 'string' }, argument.required('string'))
+  equal({ type = 'string', optional = true }, argument.optional('string'))
+  equal({ type = 'string', optional = true, default = 'Hello world' }, argument.optional('string', 'Hello world'))
 end
 
 --
@@ -84,36 +84,36 @@ end
 function _test:validate_schema()
   equal(
     "@root: Unexpected property 'alpha', please verify your schema",
-    validate_schema({ alpha = 1 }, { beta = property.required('string') }).error
+    validate_schema({ alpha = 1 }, { beta = argument.required('string') }).error
   )
   equal(
     "@root/alpha: Expected a value of type `string` but recieved `undefined`",
-    validate_schema({}, { alpha = property.required('string') }).error
+    validate_schema({}, { alpha = argument.required('string') }).error
   )
   equal(
     "@root/alpha/beta: Expected a value of type `string` but recieved `table`",
-    validate_schema({ alpha = { beta = {} } }, { alpha = property.required({ beta = property.required('string') }) })
+    validate_schema({ alpha = { beta = {} } }, { alpha = argument.required({ beta = argument.required('string') }) })
     .error
   )
   equal(
     "@root/alpha/beta/charlie: Expected a value of type `string` but recieved `number`",
     validate_schema({ alpha = { beta = { charlie = 1 } } },
-      { alpha = property.required({ beta = property.required({ charlie = property.required('string') }) }) }).error
+      { alpha = argument.required({ beta = argument.required({ charlie = argument.required('string') }) }) }).error
   )
 
   equal(
     { alpha = 'Hello world' },
-    validate_schema({ alpha = 'Hello world' }, { alpha = property.required('string') }).value
+    validate_schema({ alpha = 'Hello world' }, { alpha = argument.required('string') }).value
   )
   equal(
     { alpha = 'Hello world' },
     validate_schema({ alpha = 'Hello world' },
-      { alpha = property.required('string'), beta = property.optional('number') }).value
+      { alpha = argument.required('string'), beta = argument.optional('number') }).value
   )
   equal(
     { alpha = 'Hello world', beta = 12345 },
     validate_schema({ alpha = 'Hello world' },
-      { alpha = property.required('string'), beta = property.optional('number', 12345) }).value
+      { alpha = argument.required('string'), beta = argument.optional('number', 12345) }).value
   )
 end
 
@@ -122,19 +122,24 @@ end
 --
 
 function _test:declare()
-  mock('exception',
-    function(message, ...)
-      return ... and message:format(...) or message
-    end
-  )
+  --
+  --- ???
+  --
+  --- @param alpha string
+  --- @param beta? number
+  --- @param charlie? table
+  --
+  --- @return table
+  --
+  local function dummy(alpha, beta, charlie)
+    alpha, beta, charlie = declare(
+      { alpha, argument.required('string') },
+      { beta, argument.optional('number', 12345) },
+      { charlie, argument.optional('table') }
+    )
 
-  equal(
-    "Too many arguments provided, please check your function call and ensure the correct number of arguments are used",
-    declare({ 'one', 'two' }, { param.required('test', 'string') })
-  )
-  equal(
-    { 'Hello world' }, { declare({ 'Hello world' }, { param.required('test', 'string') }) }
-  )
+    return { alpha = alpha, beta = beta, charlie = charlie }
+  end
 
-  revert()
+  equal({ alpha = "Hello world", beta = 12345 }, dummy("Hello world"))
 end

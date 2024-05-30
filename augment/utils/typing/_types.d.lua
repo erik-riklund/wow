@@ -15,7 +15,7 @@
 --- Acts as a blueprint for defining the structure and data types of complex objects,
 --- similar to a template for creating structured documents.
 --
---- @class schema : {[string]: property|schema}
+--- @class schema : {[string]: argument|schema}
 --
 
 --
@@ -23,19 +23,11 @@
 --- schema, specifying the attribute's expected data type, whether it is optional,
 --- and a default value if applicable.
 --
---- @class property
+--- @class argument
 --
 --- @field type string|schema
 --- @field optional? boolean
 --- @field default? any
---
-
---
---- Represents a named element that can be passed into a function, specifying its expected
---- data type and other validation rules, similar to a variable with additional constraints.
---
---- @class parameter : property
---- @field name string
 --
 
 --

@@ -10,29 +10,29 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
-_G.property = {}
+_G.argument = {}
 
 --
---- Defines a blueprint for a required property within an object,
---- specifying the expected data type for its value.
+--- Establishes a required function argument or schema property with a strict
+--- data type constraint.
 --
 --- @param expected_type string|schema
---- @return property
+--- @return argument
 --
-function property.required(expected_type)
+function argument.required(expected_type)
   return { type = expected_type }
 end
 
 --
---- Defines a blueprint for an optional property within an object,
---- specifying its expected data type and a default value to be used
---- if the property is not provided.
+--- Creates a definition for a function argument or schema property that
+--- is not required (optional). It also specifies the expected data type and
+--- an optional default value to use if the argument is not provided.
 --
 --- @param expected_type string|schema
 --- @param default_value? any
 --
---- @return property
+--- @return argument
 --
-function property.optional(expected_type, default_value)
+function argument.optional(expected_type, default_value)
   return { type = expected_type, optional = true, default = default_value }
 end
