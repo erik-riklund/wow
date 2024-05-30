@@ -1,3 +1,4 @@
+local _addon, _core = ...
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -10,16 +11,9 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
---
---- ???
---
---- @class declaration : {[1]: any, [2]: argument}
---
+--#region [declare: globals]
 
---
---- ???
---
---- @param ... declaration
---- @return any ...
---
-function _G.declare(...) end
+local declare, examine, required, optional = _G.typical.declare, _G.typical.examine, _G.typical.required,
+    _G.typical.optional
+
+--#endregion

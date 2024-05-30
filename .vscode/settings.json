@@ -44,5 +44,25 @@
   "Lua.diagnostics.globals": [
     "C_Timer",
     "WoWUnit"
+  ],
+  "better-comments.tags": [
+    {
+      "tag": "#region",
+      "color": "#C6610B",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#endregion",
+      "color": "#696969",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
   ]
 }

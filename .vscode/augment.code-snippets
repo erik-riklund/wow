@@ -23,6 +23,10 @@
     "prefix": "!documentation", "body": "--\n--- ${1:???}\n--\n--- @\n--"
   },
 
+  "function": {
+    "prefix": "!function", "body": "--#region [function: ${1}]\n\n--\n--- ???\n--\n--- @\n--\nlocal function ${1}() end\n\n--#endregion"
+  },
+
   "type-as": {
     "prefix": "!type-as", "body": "--[[@as ${1}]]"
   }
