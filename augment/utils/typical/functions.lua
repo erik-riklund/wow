@@ -10,10 +10,11 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
---#region [declare variables]
+--#region [scoped variables]
 
 local examine, validate, validate_schema, required, optional, declare
-local type_error, type = _G.exception.type_error, _G.type
+local ipairs, throw, type_error, type, unpack = _G.ipairs, _G.exception.throw,
+    _G.exception.type_error, _G.type, _G.unpack
 
 --#endregion
 --#region [function: examine]
@@ -30,8 +31,8 @@ function examine(value)
   local value_type = type(value)
 
   if value_type == 'table' then
-    if value.is then
-      return value:is() --[[object with a custom type]]
+    if type(value.is) == 'function' then
+      return value:is() -- note: object with a custom type
     end
 
     return #value > 0 and 'list' or next(value) ~= nil and 'map' or 'table'
@@ -44,7 +45,12 @@ end
 --#region [function: validate]
 
 --
---- ???
+--- Acts as a gatekeeper, ensuring that a given value adheres to a set of predefined
+--- validation rules (the options). It first checks for basic type compatibility and,
+--- if necessary, delves deeper to examine complex data structures according to a schema.
+--
+--- If the value passes all checks, it is returned (possibly modified); otherwise,
+--- the first encountered violation is reported.
 --
 --- @param value any
 --- @param options validation_options
@@ -58,7 +64,7 @@ function validate(value, options, parent)
   )
 
   --#region [simple type validation]
-  
+
   if type(options.expect) == 'string' then
     --#region Explanation of the simple type validation logic:
     --
@@ -83,7 +89,7 @@ function validate(value, options, parent)
       end
     end
   end
-  
+
   --#endregion
   --#region [schema validation]
 
@@ -97,7 +103,7 @@ function validate(value, options, parent)
       result.path = schema_result.path
     end
   end
-  
+
   --#endregion
 
   return result
@@ -107,7 +113,13 @@ end
 --#region [function: validate_schema]
 
 --
---- ???
+--- Recursively validates a complex data structure (table) against a predefined schema,
+--- ensuring that each property in the table conforms to its corresponding definition in the schema.
+--
+--- It performs nested validations for properties with complex types (defined by another schema)
+--- and tracks the path to the property where any validation error occurs. If the data structure
+--- passes all checks, the potentially modified structure is returned; otherwise, a detailed error
+--- message pinpointing the invalid property and its path is returned.
 --
 --- @param target table
 --- @param schema schema
@@ -124,7 +136,8 @@ function validate_schema(target, schema, parent)
 
   for property, _ in pairs(target) do
     if schema[property] == nil then
-      --
+      result.error = "Unexpected property: '" .. property .. "' is not defined in the schema"
+      return result
     end
   end
 
@@ -146,7 +159,7 @@ function validate_schema(target, schema, parent)
     if property_validation.error then
       result.error = property_validation.error
       result.path = property_validation.path or heritage
-      
+
       break -- abort the rest of the validation process
     end
 
@@ -159,7 +172,7 @@ function validate_schema(target, schema, parent)
   --#region [root-level error formatting]
 
   if not parent and result.error then
-    result.error = ("\"%s\": %s"):format(result.path, result.error)
+    result.error = ("Schema validation failed @ \"%s\": %s"):format(result.path, result.error)
   end
 
   --#endregion
@@ -171,7 +184,8 @@ end
 --#region [function: required]
 
 --
---- ???
+--- Generates validation options for a required parameter or property,
+--- specifying the expected data type and marking it as not optional.
 --
 --- @param expected_type string|schema
 --- @return validation_options
@@ -184,7 +198,9 @@ end
 --#region [function: optional]
 
 --
---- ???
+--- Generates validation options for an optional parameter or property,
+--- specifying the expected data type, marking it as optional, and providing
+--- a default value to be used if the value is not provided.
 --
 --- @param expected_type string|schema
 --- @param default_value? any
@@ -199,15 +215,38 @@ end
 --#region [function: declare]
 
 --
---- ???
+--- Validates a sequence of values against their corresponding parameter definitions,
+--- ensuring they meet the specified type and validation criteria. If all values pass
+--- validation, they are unpacked and returned as individual arguments; otherwise,
+--- the first validation error is thrown, halting execution.
 --
 --- @param ... parameter
 --- @return any ...
 --
-function declare(...) end
+function declare(...)
+  local arguments = ({} --[[@as list<any>]])
+  
+  for i, parameter in ipairs({ ... }) do
+    local value, options = parameter[1], parameter[2]
+    local result = validate(value, options)
+
+    if result.error then
+      --#region Why use return with throw?
+      -- We do this for testing purposes, to allow mocking of the `throw`
+      -- method to return the error messages instead of triggering a Lua error.
+      --#endregion
+
+      return throw("Type error for argument #%d: %s", i, result.error)
+    end
+
+    table.insert(arguments, result.value)
+  end
+
+  return unpack(arguments)
+end
 
 --#endregion
---#region [declare api]
+--#region [api]
 
 _G.typical = {
   declare = declare,

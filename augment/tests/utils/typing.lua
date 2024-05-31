@@ -82,7 +82,7 @@ function test.validate()
   )
 
   equal(
-    "\"/c\": Expected a value of type `map` but recieved `list`",
+    "Schema validation failed @ \"/c\": Expected a value of type `map` but recieved `list`",
     validate(
       {
         a = 'alpha',
@@ -125,7 +125,7 @@ function test.validate()
   )
 
   equal(
-    "\"/b/c\": Expected a value of type `number` but recieved `string`",
+    "Schema validation failed @ \"/b/c\": Expected a value of type `number` but recieved `string`",
     validate(
       {
         a = 'alpha',

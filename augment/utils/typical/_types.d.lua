@@ -58,3 +58,23 @@
 --
 
 --#endregion
+--#region [type: list<v>]
+
+--
+--- Represents an ordered collection of elements of a specific type `v`,
+--- where each element is accessed by a numerical index.
+--
+--- @class list<v> : {[integer]: v}
+--
+
+--#endregion
+--#region [type: map<k,v>]
+
+--
+--- Represents an unordered collection of key-value pairs, where each unique
+--- key of type `k` is associated with a corresponding value of type `v`.
+--
+--- @class map<k,v> : {[k]: v}
+--
+
+--#endregion
