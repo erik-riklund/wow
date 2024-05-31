@@ -31,8 +31,8 @@ function examine(value)
   local value_type = type(value)
 
   if value_type == 'table' then
-    if type(value.is) == 'function' then
-      return value:is() -- note: object with a custom type
+    if type(value.__type) == 'function' then
+      return value:__type() -- note: object with a custom type
     end
 
     return #value > 0 and 'list' or next(value) ~= nil and 'map' or 'table'
@@ -66,7 +66,7 @@ function validate(value, options, parent)
   --#region [simple type validation]
 
   if type(options.expect) == 'string' then
-    --#region Explanation of the simple type validation logic:
+    --#region Explanation of the type validation logic:
     --
     -- 1. Check if there is a value (not nil) OR the parameter is required (not optional).
     --    If so, and the actual type doesn't match the expected type, proceed to the next step.
@@ -224,6 +224,10 @@ end
 --- @return any ...
 --
 function declare(...)
+  if _G.typical._production == true then
+    return ... -- no validation performed in production mode!
+  end
+
   local arguments = ({} --[[@as list<any>]])
   
   for i, parameter in ipairs({ ... }) do
@@ -253,7 +257,8 @@ _G.typical = {
   examine = examine,
   optional = optional,
   required = required,
-  validate = validate
+  validate = validate,
+  _production = false
 }
 
 --#endregion
