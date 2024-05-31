@@ -1,5 +1,7 @@
 <Ui>
   <Include file="utils/errors.lua" />
-  <Include file="utils/typing/_imports.xml" />
+  <Include file="utils/typical/functions.lua" />
   <Include file="tests/_imports.xml" />
+  
+  <Script file="main.lua" />
 </Ui>

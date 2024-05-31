@@ -1,4 +1,5 @@
 if not WoWUnit then return end
+
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,39 +12,17 @@ if not WoWUnit then return end
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
-local equal, mock, revert =
-    WoWUnit.AreEqual, WoWUnit.Replace, WoWUnit.ClearReplaces
+local test = WoWUnit('utils: typical')
+local func = function() end
+local task = coroutine.create(func)
+local equal, mock, revert = WoWUnit.AreEqual, WoWUnit.Replace, WoWUnit.ClearReplaces
+local type_error = _G.exception.type_error
 
-local _test = WoWUnit('utils.typing')
+--#region [function: test.examine]
 
---
--- param class
---
+function test.examine()
+  local examine = _G.typical.examine
 
-function _test:param()
-  equal({ type = 'string' }, argument.required('string'))
-  equal({ type = 'string', optional = true }, argument.optional('string'))
-  equal(
-    { type = 'string', optional = true, default = 'Hello world' },
-    argument.optional('string', 'Hello world')
-  )
-end
-
---
--- property class
---
-
-function _test:property()
-  equal({ type = 'string' }, argument.required('string'))
-  equal({ type = 'string', optional = true }, argument.optional('string'))
-  equal({ type = 'string', optional = true, default = 'Hello world' }, argument.optional('string', 'Hello world'))
-end
-
---
--- type evaluator
---
-
-function _test:examine()
   equal('undefined', examine(nil))
   equal('string', examine('1'))
   equal('number', examine(1))
@@ -51,95 +30,131 @@ function _test:examine()
   equal('table', examine({}))
   equal('list', examine({ 1, 2, 3 }))
   equal('map', examine({ alpha = 'a', beta = 'b' }))
-  equal('thread', examine(coroutine.create(function() end)))
+  equal('thread', examine(task))
   equal('function', examine(function() end))
 end
 
---
--- type validator
---
+--#endregion
+--#region [function: test.validate]
 
-function _test:validate_type()
-  equal(nil, validate_type(nil, { type = 'undefined' }).error)
-  equal(nil, validate_type('1', { type = 'string' }).error)
-  equal(nil, validate_type(1, { type = 'number' }).error)
-  equal(nil, validate_type(true, { type = 'boolean' }).error)
-  equal(nil, validate_type(function() end, { type = 'function' }).error)
-  equal(nil, validate_type(coroutine.create(function() end), { type = 'thread' }).error)
-  equal(nil, validate_type({}, { type = 'table' }).error)
-  equal(nil, validate_type({ 1 }, { type = 'list' }).error)
-  equal(nil, validate_type({}, { type = 'list' }).error)
-  equal(nil, validate_type({ alpha = 'a' }, { type = 'map' }).error)
-  equal(nil, validate_type({}, { type = 'map' }).error)
+function test.validate()
+  local validate, required, optional =
+      _G.typical.validate, _G.typical.required, _G.typical.optional
 
-  equal("Expected a value of type `string` but recieved `number`", validate_type(1, { type = 'string' }).error)
-  equal("Expected a value of type `any` but recieved `undefined`", validate_type(nil, { type = 'any' }).error)
-  equal("Expected a value of type `map` but recieved `list`", validate_type({ 1 }, { type = 'map' }).error)
+  --#region [simple types]
+
+  equal(nil, validate('hello', required('string')).error)
+  equal(nil, validate(1, required('number')).error)
+  equal(nil, validate(true, required('boolean')).error)
+  equal(nil, validate(func, required('function')).error)
+  equal(nil, validate(task, required('thread')).error)
+
+  equal(nil, validate({}, required('table')).error)
+  equal(nil, validate({ 1, 2, 3 }, required('list')).error)
+  equal(nil, validate({}, required('list')).error)
+  equal(nil, validate({ a = 'alpha' }, required('map')).error)
+  equal(nil, validate({}, required('map')).error)
+
+  equal(type_error('string', 'number'), validate(1, required('string')).error)
+  equal(type_error('any', 'undefined'), validate(nil, required('any')).error)
+  equal(type_error('map', 'list'), validate({ 1, 2, 3 }, required('map')).error)
+
+  --#endregion
+  --#region [flat schema]
+
+  equal(
+    {
+      a = 'alpha',
+      b = 123
+    },
+    validate(
+      {
+        a = 'alpha'
+      },
+      required(
+        {
+          a = required('string'),
+          b = optional('number', 123),
+          c = optional('table')
+        }
+      )
+    ).value
+  )
+
+  equal(
+    "Schema validation failed @ \"/c\": Expected a value of type `map` but recieved `list`",
+    validate(
+      {
+        a = 'alpha',
+        c = { 1, 2, 3 }
+      },
+      required(
+        {
+          a = required('string'),
+          b = optional('number', 123),
+          c = optional('map')
+        }
+      )
+    ).error
+  )
+
+  --#endregion
+  --#region [nested schemas]
+
+  equal(
+    {
+      a = 'alpha',
+      b = { c = 1 }
+    },
+    validate(
+      {
+        a = 'alpha',
+        b = { c = 1 }
+      },
+      required(
+        {
+          a = required('string'),
+          b = required(
+            {
+              c = required('number')
+            }
+          )
+        }
+      )
+    ).value
+  )
+
+  equal(
+    "Schema validation failed @ \"/b/c\": Expected a value of type `number` but recieved `string`",
+    validate(
+      {
+        a = 'alpha',
+        b = { c = '1' }
+      },
+      required(
+        {
+          a = required('string'),
+          b = required(
+            {
+              c = required('number')
+            }
+          )
+        }
+      )
+    ).error
+  )
+
+  --#endregion
 end
 
---
--- schema validator
---
+--#endregion
+--#region [function: test.declare]
 
-function _test:validate_schema()
-  equal(
-    "@root: Unexpected property 'alpha', please verify your schema",
-    validate_schema({ alpha = 1 }, { beta = argument.required('string') }).error
-  )
-  equal(
-    "@root/alpha: Expected a value of type `string` but recieved `undefined`",
-    validate_schema({}, { alpha = argument.required('string') }).error
-  )
-  equal(
-    "@root/alpha/beta: Expected a value of type `string` but recieved `table`",
-    validate_schema({ alpha = { beta = {} } }, { alpha = argument.required({ beta = argument.required('string') }) })
-    .error
-  )
-  equal(
-    "@root/alpha/beta/charlie: Expected a value of type `string` but recieved `number`",
-    validate_schema({ alpha = { beta = { charlie = 1 } } },
-      { alpha = argument.required({ beta = argument.required({ charlie = argument.required('string') }) }) }).error
-  )
+function test.declare()
+  local declare, required, optional =
+      _G.typical.declare, _G.typical.required, _G.typical.optional
 
-  equal(
-    { alpha = 'Hello world' },
-    validate_schema({ alpha = 'Hello world' }, { alpha = argument.required('string') }).value
-  )
-  equal(
-    { alpha = 'Hello world' },
-    validate_schema({ alpha = 'Hello world' },
-      { alpha = argument.required('string'), beta = argument.optional('number') }).value
-  )
-  equal(
-    { alpha = 'Hello world', beta = 12345 },
-    validate_schema({ alpha = 'Hello world' },
-      { alpha = argument.required('string'), beta = argument.optional('number', 12345) }).value
-  )
+  -- ???
 end
 
---
--- parameter declaration
---
-
-function _test:declare()
-  --
-  --- ???
-  --
-  --- @param alpha string
-  --- @param beta? number
-  --- @param charlie? table
-  --
-  --- @return table
-  --
-  local function dummy(alpha, beta, charlie)
-    alpha, beta, charlie = declare(
-      { alpha, argument.required('string') },
-      { beta, argument.optional('number', 12345) },
-      { charlie, argument.optional('table') }
-    )
-
-    return { alpha = alpha, beta = beta, charlie = charlie }
-  end
-
-  equal({ alpha = "Hello world", beta = 12345 }, dummy("Hello world"))
-end
+--#endregion

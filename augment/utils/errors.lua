@@ -10,22 +10,33 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
+_G.exception = {}
+
+--#region [method: throw]
+
 --
---- Raises an error, optionally formatting the provided error message with additional details.
+--- ???
 --
 --- @param message string
 --- @param ... string|number
 --
-function _G.exception(message, ...)
+function _G.exception.throw(message, ...)
   error(... and message:format(...) or message)
 end
 
+--#endregion
+--#region [method: type_error]
+
 --
---- Prints a warning message to the console, optionally formatting it with additional details.
+--- ???
 --
---- @param message string
---- @param ... string|number
+--- @param expected_type string
+--- @param actual_type string
 --
-function _G.warning(message, ...)
-  print(... and message:format(...) or message)
+--- @return string
+--
+function _G.exception.type_error(expected_type, actual_type)
+  return ("Expected a value of type `%s` but recieved `%s`"):format(expected_type, actual_type)
 end
+
+--#endregion
