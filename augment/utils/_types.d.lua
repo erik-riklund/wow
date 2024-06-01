@@ -1,4 +1,4 @@
-local _addon, _core = ...
+---@meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -10,19 +10,4 @@ local _addon, _core = ...
 --
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
-
---#region [ "global" variables ]
-
---
---- ???
---
-local modules = {}
-
---#region: type-checking functions
-local declare = _G.typical.declare
-local required = _G.typical.required
-local optional = _G.typical.optional
---#endregion
-
---#endregion
 

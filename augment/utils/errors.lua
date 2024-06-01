@@ -25,6 +25,7 @@ function _G.exception.throw(message, ...)
 end
 
 --#endregion
+
 --#region [method: type_error]
 
 --

@@ -20,7 +20,8 @@
 --- @class schema : {[string]: validation_options}
 --
 
---#endregion
+--#endregion [type: schema]
+
 --#region [type: parameter]
 
 --
@@ -30,7 +31,8 @@
 --- @class parameter : {[1]: any, [2]: validation_options}
 --
 
---#endregion
+--#endregion [type: parameter]
+
 --#region [type: validation_options]
 
 --
@@ -44,7 +46,8 @@
 --- @field default? any
 --
 
---#endregion
+--#endregion [type: validation_options]
+
 --#region [type: validation_result]
 
 --
@@ -58,7 +61,8 @@
 --- @field value any
 --
 
---#endregion
+--#endregion [type: validation_result]
+
 --#region [type: list<v>]
 
 --
@@ -68,14 +72,15 @@
 --- @class list<v> : {[integer]: v}
 --
 
---#endregion
+--#endregion [type: list<v>]
+
 --#region [type: map<k,v>]
 
 --
 --- Represents an unordered collection of key-value pairs, where each unique
 --- key of type `k` is associated with a corresponding value of type `v`.
 --
---- @class map<k,v> : {[k]: v}
+--- @class map<k,v> : { [k]:v }
 --
 
---#endregion
+--#endregion [type: map<k,v>]

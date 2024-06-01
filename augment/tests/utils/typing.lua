@@ -1,4 +1,5 @@
 if not WoWUnit then return end
+local WoWUnit = _G.WoWUnit --[[@as WoWUnit]]
 
 --
 --      #
@@ -13,9 +14,13 @@ if not WoWUnit then return end
 --
 
 local test = WoWUnit('utils: typical')
+
+local equal = WoWUnit.AreEqual
+local mock = WoWUnit.Replace
+local revert = WoWUnit.ClearReplaces
+
 local func = function() end
 local task = coroutine.create(func)
-local equal, mock, revert = WoWUnit.AreEqual, WoWUnit.Replace, WoWUnit.ClearReplaces
 local type_error = _G.exception.type_error
 
 --#region [function: test.examine]
@@ -35,6 +40,7 @@ function test.examine()
 end
 
 --#endregion
+
 --#region [function: test.validate]
 
 function test.validate()
@@ -148,13 +154,46 @@ function test.validate()
 end
 
 --#endregion
+
 --#region [function: test.declare]
 
 function test.declare()
   local declare, required, optional =
       _G.typical.declare, _G.typical.required, _G.typical.optional
 
-  -- ???
+  mock(_G, 'error', function(message) return message end)
+
+  equal(
+    { 1, 'hello world' },
+    {
+      declare(
+        { 1, required('number') },
+        { 'hello world', optional('string') }
+      )
+    }
+  )
+
+  equal(
+    { 1 },
+    {
+      declare(
+        { 1, required('number') },
+        { nil, optional('string') }
+      )
+    }
+  )
+
+  equal(
+    { 1, 'howdy world' },
+    {
+      declare(
+        { 1, required('number') },
+        { nil, optional('string', 'howdy world') }
+      )
+    }
+  )
+
+  revert()
 end
 
 --#endregion

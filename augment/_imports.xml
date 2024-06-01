@@ -1,7 +1,8 @@
 <Ui>
-  <Include file="utils/errors.lua" />
-  <Include file="utils/typical/functions.lua" />
-  <Include file="tests/_imports.xml" />
+  <Include file="utils/errors.lua"/>
+  <Include file="utils/typical/functions.lua"/>
+  <Include file="utils/functions.lua"/>
+  <Include file="tests/_imports.xml"/>
   
-  <Script file="main.lua" />
+  <Script file="main.lua"/>
 </Ui>

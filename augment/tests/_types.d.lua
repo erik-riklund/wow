@@ -1,4 +1,4 @@
-local _addon, _core = ...
+---@meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,18 +11,16 @@ local _addon, _core = ...
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
---#region [ "global" variables ]
+--#region [ class: WoWUnit ]
 
 --
 --- ???
 --
-local modules = {}
+--- @class WoWUnit
+--
+--- @field AreEqual fun(a: any, b:any)
+--- @field Replace fun(table: any, key: any, replace?: any)
+--- @field ClearReplaces fun()
+--
 
---#region: type-checking functions
-local declare = _G.typical.declare
-local required = _G.typical.required
-local optional = _G.typical.optional
 --#endregion
-
---#endregion
-

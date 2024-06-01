@@ -10,13 +10,14 @@
 -- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
 --
 
---#region [scoped variables]
+--#region [localized variables]
 
 local examine, validate, validate_schema, required, optional, declare
 local ipairs, throw, type_error, type, unpack = _G.ipairs, _G.exception.throw,
     _G.exception.type_error, _G.type, _G.unpack
 
 --#endregion
+
 --#region [function: examine]
 
 --
@@ -42,6 +43,7 @@ function examine(value)
 end
 
 --#endregion
+
 --#region [function: validate]
 
 --
@@ -63,10 +65,10 @@ function validate(value, options, parent)
     { value = value or options.default } --[[@as validation_result]]
   )
 
-  --#region [simple type validation]
+  --#region: simple type validation
 
   if type(options.expect) == 'string' then
-    --#region Explanation of the type validation logic:
+    --#region: Explanation of the type validation logic:
     --
     -- 1. Check if there is a value (not nil) OR the parameter is required (not optional).
     --    If so, and the actual type doesn't match the expected type, proceed to the next step.
@@ -91,7 +93,8 @@ function validate(value, options, parent)
   end
 
   --#endregion
-  --#region [schema validation]
+
+  --#region: schema validation
 
   if type(options.expect) == 'table' then
     local schema_result = validate_schema(
@@ -110,6 +113,7 @@ function validate(value, options, parent)
 end
 
 --#endregion
+
 --#region [function: validate_schema]
 
 --
@@ -132,7 +136,7 @@ function validate_schema(target, schema, parent)
     { value = target } --[[@as validation_result]]
   )
 
-  --#region [property validation]
+  --#region: property validation
 
   for property, _ in pairs(target) do
     if schema[property] == nil then
@@ -142,19 +146,21 @@ function validate_schema(target, schema, parent)
   end
 
   --#endregion
-  --#region [schema validation]
+
+  --#region: schema validation
 
   for property, options in pairs(schema) do
     local heritage = (parent or '') .. '/' .. property
 
-    --#region [property validation]
+    --#region: property validation
 
     local property_validation = validate(
       target[property], options, type(options.expect) == 'table' and heritage or nil
     )
 
     --#endregion
-    --#region [validation error]
+
+    --#region: validation error
 
     if property_validation.error then
       result.error = property_validation.error
@@ -169,7 +175,8 @@ function validate_schema(target, schema, parent)
   end
 
   --#endregion
-  --#region [root-level error formatting]
+
+  --#region: root-level error formatting
 
   if not parent and result.error then
     result.error = ("Schema validation failed @ \"%s\": %s"):format(result.path, result.error)
@@ -181,6 +188,7 @@ function validate_schema(target, schema, parent)
 end
 
 --#endregion
+
 --#region [function: required]
 
 --
@@ -195,6 +203,7 @@ function required(expected_type)
 end
 
 --#endregion
+
 --#region [function: optional]
 
 --
@@ -212,6 +221,7 @@ function optional(expected_type, default_value)
 end
 
 --#endregion
+
 --#region [function: declare]
 
 --
@@ -225,7 +235,7 @@ end
 --
 function declare(...)
   if _G.typical._production == true then
-    return ... -- no validation performed in production mode!
+    return ... -- note: no validation performed in production mode!
   end
 
   local arguments = ({} --[[@as list<any>]])
@@ -235,7 +245,7 @@ function declare(...)
     local result = validate(value, options)
 
     if result.error then
-      --#region Why use return with throw?
+      --#region: Why use return with throw?
       -- We do this for testing purposes, to allow mocking of the `throw`
       -- method to return the error messages instead of triggering a Lua error.
       --#endregion
@@ -250,6 +260,7 @@ function declare(...)
 end
 
 --#endregion
+
 --#region [api]
 
 _G.typical = {
