@@ -11,15 +11,12 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---#region [ type: task ]
+--#region [ type: plugin ]
 
 --
 --- ???
 --
---- @class task
---
---- @field callback function
---- @field arguments list<any>
+--- @class plugin
 --
 
 --#endregion

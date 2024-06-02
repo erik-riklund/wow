@@ -7,7 +7,7 @@
 --   #     # #    # #    # #    # #      #   ##   #
 --   #     #  ####   ####  #    # ###### #    #   #
 --
--- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
+-- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
 --#region [localized variables]
@@ -64,6 +64,10 @@ function validate(value, options, parent)
   local result = (
     { value = value or options.default } --[[@as validation_result]]
   )
+
+  if _G.typical._production == true then
+    return result -- note: no validation performed in production mode!
+  end
 
   --#region: simple type validation
 
@@ -234,10 +238,6 @@ end
 --- @return any ...
 --
 function declare(...)
-  if _G.typical._production == true then
-    return ... -- note: no validation performed in production mode!
-  end
-
   local arguments = ({} --[[@as list<any>]])
   
   for i, parameter in ipairs({ ... }) do

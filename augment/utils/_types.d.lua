@@ -8,6 +8,6 @@
 --   #     # #    # #    # #    # #      #   ##   #
 --   #     #  ####   ####  #    # ###### #    #   #
 --
--- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
+-- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 

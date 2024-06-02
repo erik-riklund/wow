@@ -2,7 +2,7 @@
 ## OptionalDeps: WoWUnit
 
 ## Title: Augment
-## Notes: The backend component for the Augment ecosystem
+## Notes: The core component for the Augment framework
 ## Version: 1.0.0
 
 ## X-Website: https://github.com/erik-riklund/wow/augment

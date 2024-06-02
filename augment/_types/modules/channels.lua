@@ -11,15 +11,15 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---#region [ type: task ]
+--#region [ type: channel.line ]
 
 --
 --- ???
 --
---- @class task
+--- @class channel.line
 --
---- @field callback function
---- @field arguments list<any>
+--- @field owner plugin
+--- @field private boolean
 --
 
 --#endregion

@@ -10,7 +10,7 @@ local WoWUnit = _G.WoWUnit --[[@as WoWUnit]]
 --   #     # #    # #    # #    # #      #   ##   #
 --   #     #  ####   ####  #    # ###### #    #   #
 --
--- World of Warcraft addon ecosystem, created by Erik Riklund (2024)
+-- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
 local test = WoWUnit('utils: typical')
