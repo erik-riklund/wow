@@ -53,6 +53,6 @@
   },
 
   "region": {
-    "prefix": "!region", "body": "--#region${1}\n--#endregion\n"
+    "prefix": "!region", "body": "--#region${1}\n--#endregion"
   }
 }
