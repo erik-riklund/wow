@@ -13,5 +13,5 @@
 
 --
 --- @class library.exception
---- @field throw? fun(message: string, ...: string | number)
+--- @field throw fun(message: string, ...: string | number)
 --

@@ -17,5 +17,6 @@ local _, CORE = ...
 
 CORE.libs = {
   exception = {},
-  type = { production_mode = false }
+  type = { production_mode = false },
+  utilities = {}
 }

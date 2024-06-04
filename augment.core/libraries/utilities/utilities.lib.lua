@@ -12,14 +12,19 @@ local ADDON, CORE = ...
 --
 
 --- @cast CORE framework
-local self = CORE.libs.exception
+local self = CORE.libs.utilities
 
---#region [method: throw]
+--#region [method: when]
 
 --- ???
 --
-self.throw = function(message, ...)
-  return error(... and string.format(message, ...) or message)
+self.when = function(value, cases, ...)
+  if type(cases) ~= 'table' then
+    error("Expected type `table` for 'cases'")
+  end
+
+  local matched_case = cases[value] or cases.default
+  return type(matched_case) == 'function' and matched_case(...) or matched_case
 end
 
 --#endregion

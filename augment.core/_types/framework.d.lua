@@ -22,4 +22,5 @@
 --
 --- @field exception library.exception
 --- @field type library.type
+--- @field utilities library.utilities
 --

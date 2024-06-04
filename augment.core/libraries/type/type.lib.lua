@@ -1,5 +1,3 @@
----@diagnostic disable: need-check-nil
-
 local _, CORE = ...
 --
 --      #
@@ -42,7 +40,6 @@ end
 
 --#region [method: validate]
 
---
 --- Acts as a gatekeeper, ensuring that a given value adheres to a set of predefined
 --- validation rules (the options). It first checks for basic type compatibility and,
 --- if necessary, delves deeper to examine complex data structures according to a schema.
@@ -106,7 +103,6 @@ end
 
 --#region [method: validate_schema]
 
---
 --- Recursively validates a complex data structure (table) against a predefined schema,
 --- ensuring that each property in the table conforms to its corresponding definition in the schema.
 --
@@ -175,7 +171,6 @@ end
 
 --#region [method: required]
 
---
 --- Generates validation options for a required parameter or property,
 --- specifying the expected data type and marking it as not optional.
 --
@@ -187,7 +182,6 @@ end
 
 --#region [method: optional]
 
---
 --- Generates validation options for an optional parameter or property,
 --- specifying the expected data type, marking it as optional, and providing
 --- a default value to be used if the value is not provided.
@@ -200,7 +194,6 @@ end
 
 --#region [method: declare]
 
---
 --- Validates a sequence of values against their corresponding parameter definitions,
 --- ensuring they meet the specified type and validation criteria. If all values pass
 --- validation, they are unpacked and returned as individual arguments; otherwise,
