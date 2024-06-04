@@ -1,7 +1,7 @@
 {
   "header": {
     "prefix": "!header", "body": [
-      "${1:local _addon, _context = ...\n}--",
+      "${1:local ADDON, CORE = ...\n}--",
       "--      #",
       "--     # #   #    #  ####  #    # ###### #    # #####",
       "--    #   #  #    # #    # ##  ## #      ##   #   #",
@@ -11,7 +11,9 @@
       "--   #     #  ####   ####  #    # ###### #    #   #",
       "--",
       "-- World of Warcraft addon framework, created by Erik Riklund (2024)",
-      "--"
+      "--",
+      "",
+      "--- @cast CORE framework"
     ],
   },
 

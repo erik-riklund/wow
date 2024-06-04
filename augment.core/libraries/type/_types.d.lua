@@ -1,4 +1,4 @@
----@meta
+--- @meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -17,10 +17,10 @@
 --- Represents a blueprint for validating complex data structures (e.g., tables, objects),
 --- defining the expected types and validation rules for each property or nested structure.
 --
---- @class schema : {[string]: validation_options}
+--- @class type.schema : {[string]: type.validation.options}
 --
 
---#endregion [type: schema]
+--#endregion
 
 --#region [type: parameter]
 
@@ -28,40 +28,40 @@
 --- Represents a value passed to a function or property, along with the
 --- associated rules for validating its type and other criteria.
 --
---- @class parameter : {[1]: any, [2]: validation_options}
+--- @class type.parameter : {[1]: any, [2]: type.validation.options}
 --
 
---#endregion [type: parameter]
+--#endregion
 
---#region [type: validation_options]
+--#region [type: validation.options]
 
 --
 --- Encapsulates rules used to validate a parameter, including its expected data type,
 --- whether it's optional, and a potential default value.
 --
---- @class validation_options
+--- @class type.validation.options
 --
---- @field expect string|schema
+--- @field expect string|type.schema
 --- @field optional boolean
 --- @field default? any
 --
 
---#endregion [type: validation_options]
+--#endregion
 
---#region [type: validation_result]
+--#region [type: validation.result]
 
 --
 --- Encapsulates the outcome of a validation process, indicating whether an error occurred
 --- and providing the resulting value (which may be modified from the original).
 --
---- @class validation_result
+--- @class type.validation.result
 --
 --- @field error? string
 --- @field path? string
 --- @field value any
 --
 
---#endregion [type: validation_result]
+--#endregion
 
 --#region [type: list<v>]
 
@@ -72,7 +72,7 @@
 --- @class list<v> : {[integer]: v}
 --
 
---#endregion [type: list<v>]
+--#endregion
 
 --#region [type: map<k,v>]
 
@@ -83,4 +83,4 @@
 --- @class map<k,v> : { [k]:v }
 --
 
---#endregion [type: map<k,v>]
+--#endregion

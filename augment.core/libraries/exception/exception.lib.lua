@@ -1,4 +1,4 @@
----@meta
+local ADDON, CORE = ...
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,12 +11,14 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---#region [ type: generic.frame_options ]
+--- @cast CORE framework
+local self = CORE.libs.exception
 
 --
 --- ???
 --
---- @class generic.frame_options
+--- @
 --
-
---#endregion
+self.throw = function(message, ...)
+  return error(... and string.format(message, ...) or message)
+end

@@ -1,8 +1,8 @@
 ## Interface: 100207
 ## OptionalDeps: WoWUnit
 
-## Title: Augment
-## Notes: The core component for the Augment framework
+## Title: Augment.Core
+## Notes: The framework for the Augment ecosystem
 ## Version: 1.0.0
 
 ## X-Website: https://github.com/erik-riklund/wow/augment

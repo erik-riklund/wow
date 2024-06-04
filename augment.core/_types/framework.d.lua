@@ -1,4 +1,4 @@
----@meta
+--- @meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,15 +11,15 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---#region [ type: task ]
-
 --
---- ???
+--- @class framework
 --
---- @class task
---
---- @field callback function
---- @field arguments list<any>
+--- @field libs libraries
 --
 
---#endregion
+--
+--- @class libraries
+--
+--- @field exception library.exception
+--- @field type library.type
+--

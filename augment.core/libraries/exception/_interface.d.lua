@@ -1,4 +1,4 @@
----@meta
+--- @meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,3 +11,7 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
+--
+--- @class library.exception
+--- @field throw? fun(message: string, ...: string | number)
+--
