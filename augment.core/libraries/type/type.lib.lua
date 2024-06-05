@@ -14,7 +14,7 @@ local _, CORE = ...
 --- @cast CORE framework
 
 local self = CORE.libs.type
-local throw = CORE.libs.exception.throw
+self.production_mode = false
 
 --#region [method: examine]
 
@@ -212,7 +212,7 @@ self.declare = function(...)
       -- method to return the error messages instead of triggering a Lua error.
       --#endregion
 
-      return throw("Type error for argument #%d: %s", i, result.error)
+      return CORE.libs.exception.throw("Type error for argument #%d: %s", i, result.error)
     end
 
     table.insert(arguments, result.value)

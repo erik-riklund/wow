@@ -16,7 +16,5 @@ local _, CORE = ...
 --- @cast CORE framework
 
 CORE.libs = {
-  exception = {},
-  type = { production_mode = false },
-  utilities = {}
+  exception = {}, type = {}, utilities = {}
 }

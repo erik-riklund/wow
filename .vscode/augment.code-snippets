@@ -19,8 +19,9 @@
 
   "test-suite": {
     "prefix": "!test", "body": [
-      "if not WoWUnit then return end",
-      "local WoWUnit = _G.WoWUnit --[[@as WoWUnit]]\n",
+      "local _, CORE = ...",
+      "",
+      "--",
       "--      #",
       "--     # #   #    #  ####  #    # ###### #    # #####",
       "--    #   #  #    # #    # ##  ## #      ##   #   #",
@@ -30,11 +31,17 @@
       "--   #     #  ####   ####  #    # ###### #    #   #",
       "--",
       "-- World of Warcraft addon framework, created by Erik Riklund (2024)",
-      "--\n",
-      "local test = WoWUnit('${1}')\n",
+      "--",
+      "",
+      "--- @cast CORE framework",
+      "",
+      "if not WoWUnit then return end",
+      "local WoWUnit = _G.WoWUnit --[[@as WoWUnit]]",
+      "local test = WoWUnit('${1}')",
+      "",
       "local equal = WoWUnit.AreEqual",
       "local mock = WoWUnit.Replace",
-      "local revert = WoWUnit.ClearReplaces\n"
+      "local revert = WoWUnit.ClearReplaces"
     ]
   },
 

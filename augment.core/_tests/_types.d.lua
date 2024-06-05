@@ -11,16 +11,16 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---
---- @class framework
---
---- @field libs libraries
---
+--#region [ class: WoWUnit ]
 
 --
---- @class libraries
+--- ???
 --
---- @field exception library.exception
---- @field type      library.type
---- @field utilities library.utilities
+--- @class WoWUnit
 --
+--- @field AreEqual fun(a: any, b:any)
+--- @field Replace fun(table: any, key: any, replace?: any)
+--- @field ClearReplaces fun()
+--
+
+--#endregion
