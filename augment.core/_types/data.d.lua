@@ -1,5 +1,5 @@
-local ADDON, CORE = ...
---
+--- @meta
+
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
 --    #   #  #    # #    # ##  ## #      ##   #   #
@@ -11,15 +11,32 @@ local ADDON, CORE = ...
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---- @cast CORE framework
-local self = CORE.libs.exception
+--#region [type: object]
 
---#region [method: throw]
-
+--
 --- ???
 --
-self.throw = function(message, ...)
-  error(... and string.format(message, ...) or message)
-end
+--- @alias object boolean | string | number | table | function | thread | userdata
+--
+
+--#endregion
+
+--#region [type: list<v>]
+
+--
+--- ???
+--
+--- @class list<value>: { [integer]: value }
+--
+
+--#endregion
+
+--#region [type: dictionary<key, value>]
+
+--
+--- ???
+--
+--- @class dictionary<key, value>: { [key]: value }
+--
 
 --#endregion

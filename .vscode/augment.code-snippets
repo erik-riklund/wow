@@ -1,7 +1,8 @@
 {
   "header": {
     "prefix": "!header", "body": [
-      "${1:local ADDON, CORE = ...\n}--",
+      "${1:local ADDON, CORE = ...}",
+      "",
       "--      #",
       "--     # #   #    #  ####  #    # ###### #    # #####",
       "--    #   #  #    # #    # ##  ## #      ##   #   #",
@@ -11,9 +12,7 @@
       "--   #     #  ####   ####  #    # ###### #    #   #",
       "--",
       "-- World of Warcraft addon framework, created by Erik Riklund (2024)",
-      "--",
-      "",
-      "--- @cast CORE framework"
+      "--"
     ],
   },
 
@@ -33,8 +32,6 @@
       "-- World of Warcraft addon framework, created by Erik Riklund (2024)",
       "--",
       "",
-      "--- @cast CORE framework",
-      "",
       "if not WoWUnit then return end",
       "local WoWUnit = _G.WoWUnit --[[@as WoWUnit]]",
       "local test = WoWUnit('${1}')",
@@ -50,7 +47,7 @@
   },
 
   "documentation": {
-    "prefix": "!documentation", "body": "--\n--- ${1:???}\n--\n--- @\n--"
+    "prefix": "!documentation", "body": "--\n--- ${1:???}\n${2:--\n--- @\n}--"
   },
 
   "function": {

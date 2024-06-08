@@ -1,8 +1,9 @@
 ## Interface: 100207
+## Dependencies: augment.core
 ## OptionalDeps: WoWUnit
 
-## Title: augment: core
-## Notes: The framework for the Augment ecosystem
+## Title: augment: selective autoloot
+## Notes: ...
 ## Version: 1.0.0
 
 ## X-Website: https://github.com/erik-riklund/wow/augment

@@ -1,4 +1,3 @@
---- @meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -11,16 +10,4 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---
---- @class framework
---
---- @field libs libraries
---
-
---
---- @class libraries
---
---- @field exception library.exception
---- @field type      library.type
---- @field utilities library.utilities
---
+-- local plugin = augment.create_plugin('autoloot')
