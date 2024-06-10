@@ -43,7 +43,8 @@
   ],
   "Lua.diagnostics.globals": [
     "C_Timer",
-    "WoWUnit"
+    "WoWUnit",
+    "CreateFrame"
   ],
   "better-comments.tags": [
     {

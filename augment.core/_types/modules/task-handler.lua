@@ -1,3 +1,4 @@
+--- @meta
 --
 --      #
 --     # #   #    #  ####  #    # ###### #    # #####
@@ -10,5 +11,15 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
-local plugin = augment.plugin.create('autoloot')
-augment.plugin.onload(plugin, function() end)
+--#region [type: task]
+
+--
+--- ???
+--
+--- @class task
+--
+--- @field callback function
+--- @field arguments list<any>
+--
+
+--#endregion

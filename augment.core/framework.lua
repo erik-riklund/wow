@@ -15,8 +15,8 @@
 -- single lookup for each function, and allows the minifier to uglify them,
 -- potentially reducing the size of the distributed bundle.
 
-local _ipairs, _next, _pairs, _string, _table, _type, _unpack =
-    ipairs, next, pairs, string, table, type, unpack
+local _coroutine, _ipairs, _next, _pairs, _string, _table, _type, _unpack =
+    coroutine, ipairs, next, pairs, string, table, type, unpack
 --#endregion
 
 --#region [function: exception] @ version 1.0.0
@@ -39,7 +39,7 @@ end
 --
 --- Responsible for validating parameters and schemas based on provided expectations.
 --
-local type_checker = { production = false }
+local typechecker = { production = false }
 
 --#region (examine) @ revision 2024-06-08
 
@@ -50,7 +50,7 @@ local type_checker = { production = false }
 --- @param value any
 --- @return string
 --
-function type_checker:examine(value)
+function typechecker:examine(value)
   local value_type = _type(value)
 
   if value_type == 'table' then
@@ -73,7 +73,7 @@ end
 --- @param ... type.parameter
 --- @return ...
 --
-function type_checker:declare(...)
+function typechecker:declare(...)
   local arguments = ({} --[[@as list<any>]])
 
   for i, parameter in _ipairs({ ... }) do
@@ -113,7 +113,7 @@ end
 --
 --- @return type.validation.result
 --
-function type_checker:validate(value, options, parent)
+function typechecker:validate(value, options, parent)
   local result = (
     { value = value or options.default } --[[@as type.validation.result]]
   )
@@ -137,7 +137,7 @@ function type_checker:validate(value, options, parent)
     if (value ~= nil or options.optional ~= true) and actual_type ~= expected_type then
       if not ((expected_type == 'list' or expected_type == 'map') and actual_type == 'table') then
         if expected_type ~= 'any' or expected_type == 'any' and actual_type == 'undefined' then
-          result.error = string.format('Expected a value of type `%s` but recieved `%s`', expected_type, actual_type)
+          result.error = _string.format('Expected a value of type `%s` but recieved `%s`', expected_type, actual_type)
         end
       end
     end
@@ -176,7 +176,7 @@ end
 --
 --- @return type.validation.result
 --
-function type_checker:validate_schema(target, schema, parent)
+function typechecker:validate_schema(target, schema, parent)
   local result = (
     { value = target } --[[@as type.validation.result]]
   )
@@ -223,7 +223,7 @@ end
 --- @param expected_type string|type.schema
 --- @return type.validation.options
 --
-function type_checker:required(expected_type)
+function typechecker:required(expected_type)
   return { expect = expected_type, optional = false }
 end
 
@@ -241,7 +241,7 @@ end
 --
 --- @return type.validation.options
 --
-function type_checker:optional(expected_type, default_value)
+function typechecker:optional(expected_type, default_value)
   return { expect = expected_type, optional = true, default = default_value }
 end
 
@@ -254,14 +254,15 @@ end
 --
 --- Responsible for managing the import and export of code packages within the system.
 --
-local package_handler = {}
+local packagehandler = {}
 
 --
 --- Stores the exported packages, indexed by their names.
 --
+--- @private
 --- @type dictionary<string, object>
 --
-package_handler._exports = {}
+packagehandler._exports = {}
 
 --#region (import) @ revision 2024-06-08
 
@@ -271,7 +272,7 @@ package_handler._exports = {}
 --- @param ... string
 --- @return ...
 --
-function package_handler:import(...)
+function packagehandler:import(...)
   local imports = ({} --[[@as list<object>]])
 
   for _, package in _ipairs({ ... }) do
@@ -291,7 +292,7 @@ end
 --- @param package string
 --- @param content object
 --
-function package_handler:export(package, content)
+function packagehandler:export(package, content)
   if self._exports[package] ~= nil then
     return exception("Export failed, the package '%s' already exists", package)
   end
@@ -306,10 +307,11 @@ end
 --
 --- Retrieves a specific package's content from the internal repository.
 --
+--- @private
 --- @param package string
 --- @return unknown
 --
-function package_handler:_load(package)
+function packagehandler:_load(package)
   return self._exports[package] or exception("Import failed, unknown package '%s'", package)
 end
 
@@ -317,19 +319,265 @@ end
 
 --#endregion
 
---#region [module: plugin handler] @ version 1.0.0
+--#region [module: background tasks] @ version 1.0.0
+
+--
+--- Responsible for managing and executing tasks.
+--
+local taskhandler = {}
+
+--
+--- The list of tasks awaiting execution.
+--
+--- @private
+--- @type list<task>
+--
+taskhandler._tasks = {}
+
+--
+--- Coroutine that handles the execution of tasks from the queue.
+--
+--- @private
+--- @type thread
+--
+taskhandler._process = nil
+
+--#region (queue) @ revision 2024-06-09
+
+--
+--- Adds a new task to the execution queue.
+--
+--- @param callback function
+--
+function taskhandler:queue(callback, ...)
+  if _type(callback) == 'function' then
+    _table.insert(self._tasks, { callback = callback, arguments = { ... } } --[[@as task]])
+    if _coroutine.status(self._process) == 'suspended' then _coroutine.resume(self._process) end
+  end
+end
+
+--#endregion
+
+--#region (_execute) @ revision 2024-06-09
+
+--
+--- Executes a single task by calling its callback function with the provided arguments.
+--
+--- @private
+--- @param task task
+--
+function taskhandler:_execute(task)
+  local success, result = pcall(task.callback, _unpack(task.arguments))
+  if not success then --[[todo: implement warnings!]] end
+end
+
+--#endregion
+
+--#region (_setup) @ revision 2024-06-09
+
+--
+--- Initializes the coroutine responsible for processing tasks in the queue.
+--
+--- @private
+--
+function taskhandler:_setup()
+  if self._process == nil then
+    self._process = _coroutine.create(
+      function()
+        while true do
+          while #self._tasks > 0 do
+            self:_execute(_table.remove(self._tasks, 1) --[[@as task]])
+          end
+
+          _coroutine.yield()
+        end
+      end
+    )
+  end
+end
+
+--#endregion
+
+--#endregion
+
+--#region [module: game events] @ version 1.0.0
+
+--
+--- Responsible for handling and dispatching in-game events.
+--
+local eventhandler = {}
+
+--
+--- Hidden frame used for registering and receiving events.
+--
+--- @private
+--- @type table
+--
+eventhandler._frame = nil
+
+--
+--- Stores event listeners, mapping event names to listeners.
+--
+--- @private
+--- @type dictionary<string, list<function>>
+--
+eventhandler._listeners = {}
+
+--#region (_setup) @ revision 2024-06-09
+
+--
+--- Initializes the event handler.
+--
+--- @private
+--
+function eventhandler:_setup()
+  self._frame = CreateFrame('Frame')
+  self._frame:RegisterEvent('ADDON_LOADED')
+  self._frame:SetShown(false)
+
+  self._frame:SetScript('OnEvent',
+    function(_, event, ...)
+      --- @cast event string
+      self:_dispatch(event, ...)
+    end
+  )
+end
+
+--#endregion
+
+--#region (_dispatch) @ revision 2024-06-09
+
+--
+--- The core event dispatcher, triggering registered callbacks when events occur.
+--- Special handling is implemented for the `ADDON_LOADED` event.
+--
+--- @param event string
+--
+function eventhandler:_dispatch(event, ...)
+  --#region: Handling of plugin initialization callbacks
+  -- For the ADDON_LOADED event, we employ some special logic. A plugin may register
+  -- multiple callbacks for its `onload` event, but once the registered callbacks have
+  -- been executed, the list is emptied as a plugin will never load more than once.
+  --#endregion
+
+  if event == 'ADDON_LOADED' then
+    local addon = ... --- @cast addon string
+    local callbacks = self._listeners[event .. addon]
+
+    if _type(callbacks) == 'table' then
+      for _, listener in _ipairs(callbacks) do
+        taskhandler:queue(listener)
+      end
+
+      self._listeners[event .. addon] = nil
+    end
+
+    return -- note: execution ends here when the event is ADDON_LOADED
+  end
+
+  --#region: Handling of other events
+  -- For other events, we simply iterate over the listeners and queue them for execution.
+  -- The arguments passed to the event are passed along to the listeners.
+  --#endregion
+
+  if _type(self._listeners[event]) == 'table' then
+    for _, listener in _ipairs(self._listeners[event]) do
+      taskhandler:queue(listener, ...)
+    end
+  end
+end
+
+--#endregion
+
+--#region (subscribe) @ revision 2024-06-10
+
+--
+--- Subscribes a callback function to a specific event.
+--
+--- @param event string
+--- @param callback function
+--
+function eventhandler:subscribe(event, callback)
+  if self._frame == nil then self:_setup() end
+
+  assert(event ~= 'ADDON_LOADED',
+    "Initialization callbacks may only be registered through plugin contexts"
+  )
+
+  if self._listeners[event] == nil then
+    self._listeners[event] = {}
+    self._frame:RegisterEvent(event)
+  end
+
+  _table.insert(self._listeners[event], callback)
+end
+
+--#endregion
+
+--#region (unsubscribe) @ revision 2024-06-10
+
+--
+--- Unsubscribes a callback function from a specific event.
+--
+--- @param event string
+--- @param callback function
+--
+function eventhandler:unsubscribe(event, callback)
+  if _type(self._listeners[event]) == 'table' then
+    for index, listener in _ipairs(self._listeners[event]) do
+      if listener == callback then
+        _table.remove(self._listeners[event], index)
+      end
+    end
+
+    if #self._listeners[event] == 0 then
+      self._frame:UnregisterEvent(event)
+    end
+  end
+end
+
+--#endregion
+
+--#region (onload) @ revision 2024-06-10
+
+--
+--- Registers a callback function to be executed when a specific addon is loaded.
+--
+--- @param addon string
+--- @param callback function
+--
+function eventhandler:onload(addon, callback)
+  local event = 'ADDON_LOADED' .. addon
+  if self._frame == nil then self:_setup() end
+
+  if _type(self._listeners[event]) ~= 'table' then
+    self._listeners[event] = {}
+  end
+
+  _table.insert(self._listeners[event], callback)
+end
+
+--#endregion
+
+--#endregion
+
+--#region [module: communication system] @ version 1.0.0
 
 --
 --- ???
 --
-local plugin_handler = {}
+local radiochannel = {}
+
+--#endregion
+
+--#region [module: plugins] @ version 1.0.0
 
 --
 --- ???
 --
---- @type dictionary<string, plugin.context>
---
-plugin_handler._plugins = {}
+local pluginhandler = {}
+
+--#region (create_plugin) @ revision 2024-06-09
 
 --
 --- ???
@@ -337,11 +585,22 @@ plugin_handler._plugins = {}
 --- @param id string
 --- @return plugin.context
 --
-function plugin_handler:create_context(id) end
+function pluginhandler:create_plugin(id)
+  local context = ({ id = id } --[[@as plugin.context]])
+
+  -- todo: implement API integration methods and services?
+
+  return context
+end
 
 --#endregion
 
---#region [API] @ version 1.0.0
+--#endregion
+
+--#region [module: services] @ version 1.0.0
+--#endregion
+
+--#region: API @ version 1.0.0
 
 --
 --- The API for the AUGMENT framework.
@@ -349,6 +608,9 @@ function plugin_handler:create_context(id) end
 _G.augment =
 {
   exception = exception,
+
+  channel = {},
+  event = {},
 
   package =
   {
@@ -359,7 +621,7 @@ _G.augment =
     --- @return ...
     --
     import = function(...)
-      return package_handler:import(...)
+      return packagehandler:import(...)
     end,
 
     --
@@ -369,14 +631,14 @@ _G.augment =
     --- @param content object
     --
     export = function(package, content)
-      package_handler:export(package, content)
+      packagehandler:export(package, content)
     end
   },
 
   plugin =
   {
     create = function(id)
-      return plugin_handler:create_context(id)
+      return pluginhandler:create_plugin(id)
     end
   },
 
@@ -390,7 +652,7 @@ _G.augment =
     --- @return string
     --
     examine = function(value)
-      return type_checker:examine(value)
+      return typechecker:examine(value)
     end,
 
     --
@@ -403,7 +665,7 @@ _G.augment =
     --- @return ...
     --
     declare = function(...)
-      return type_checker:declare(...)
+      return typechecker:declare(...)
     end,
 
     --
@@ -414,7 +676,7 @@ _G.augment =
     --- @return type.validation.options
     --
     required = function(expected_type)
-      return type_checker:required(expected_type)
+      return typechecker:required(expected_type)
     end,
 
     --
@@ -428,7 +690,7 @@ _G.augment =
     --- @return type.validation.options
     --
     optional = function(expected_type, default_value)
-      return type_checker:optional(expected_type, default_value)
+      return typechecker:optional(expected_type, default_value)
     end
   }
 }
