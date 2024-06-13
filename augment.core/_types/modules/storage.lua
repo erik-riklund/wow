@@ -11,15 +11,16 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---#region [type: plugin] @ version 1.0.0
+--#region [type: plugin.storage] @ version 1.0.0
 
 --
---- @class plugin
+--- ???
 --
---- @field id string
---- @field storage plugin.storage
+--- @class plugin.storage
 --
---- @field onload fun(self: plugin, callback: function)
+--- @field _variables table
+--- @field get fun(variable_path: string): unknown
+--- @field set fun(variable_path: string, content: unknown)
 --
 
 --#endregion

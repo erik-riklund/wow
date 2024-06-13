@@ -15,9 +15,11 @@
 -- single lookup for each function, and it allows the minifier to mangle them,
 -- potentially reducing the size of the distributed bundle.
 
-local _coroutine, _ipairs, _next, _pairs, _string, _table, _type, _unpack =
-    coroutine, ipairs, next, pairs, string, table, type, unpack
+local _assert, _coroutine, _ipairs, _next, _pairs, _string, _table, _type, _unpack =
+    assert, coroutine, ipairs, next, pairs, string, table, type, unpack
 --#endregion
+
+--#region (utility functions)
 
 --#region [function: exception] @ version 1.0.0
 
@@ -31,6 +33,41 @@ local _coroutine, _ipairs, _next, _pairs, _string, _table, _type, _unpack =
 local exception = function(message, ...)
   error(... and _string.format(message, ...) or message)
 end
+
+--#endregion
+
+--#region [function: split] @ version 1.0.0
+
+--
+--- Divides a string into a list of substrings, using a specified separator
+--- to determine the boundaries between them. If the separator is not found in
+--- the target string, the entire string is returned as a single-element array.
+--
+--- @param target string
+--- @param separator string
+--
+--- @return list<string>
+--
+local split = function(target, separator)
+  _assert(
+    _type(target) == 'string' and _type(separator) == 'string',
+    "Expected both 'target' and 'separator' to be strings"
+  )
+
+  if _string.find(target, separator) then
+    local result = ({} --[[@as list<string>]])
+
+    for piece in _string.gmatch(target, '([^' .. separator .. ']+)') do
+      _table.insert(result, piece)
+    end
+
+    return result
+  end
+
+  return { target } -- note: only used when the separator isn't found
+end
+
+--#endregion
 
 --#endregion
 
@@ -187,15 +224,6 @@ end
 
 --#endregion
 
---#region [module: saved variables] @ version 1.0.0
-
---
---- ???
---
-local storage = {}
-
---#endregion
-
 --#region [module: game events] @ version 1.0.0
 
 --
@@ -296,7 +324,7 @@ end
 function herald:subscribe(event, callback)
   if self._frame == nil then self:_setup() end
 
-  assert(event ~= 'ADDON_LOADED',
+  _assert(event ~= 'ADDON_LOADED',
     "Initialization callbacks may only be registered through plugin contexts"
   )
 
@@ -427,6 +455,75 @@ local linguist = {}
 
 --#endregion
 
+--#region [module: saved variables] @ version 1.0.0
+
+--
+--- ???
+--
+local storage = {}
+
+--#region (get) @ revision 2024-06-13
+
+--
+--- ???
+--
+--- @param variable_path string
+--- @return unknown | nil
+--
+function storage:get(variable_path)
+  --- @cast self plugin.storage
+  local target = self._variables
+  local variable = variable_path
+
+  if _string.find(variable_path, '.') then
+
+  end
+
+  return target[variable]
+end
+
+--#endregion
+
+--#region (set) @ revision 2024-06-13
+
+--
+--- ???
+--
+--- @param variable_path string
+--- @param content unknown
+--
+function storage:set(variable_path, content)
+  --- @cast self plugin.storage
+end
+
+--#endregion
+
+--#region: ??? @ revision 2024-06-13
+
+--
+--- ???
+--
+walkietalkie:recieve(
+  'PLUGIN_ADDED', function(plugin)
+    --- @cast plugin plugin
+
+    herald:onload(
+      plugin.id, function()
+        local target = 'augment_storage_' .. _string.gsub(plugin.id, '-', '_')
+        _G[target] = _type(_G[target]) == 'table' and _G[target] or {}
+
+        plugin.storage = setmetatable(
+          { _variables = _G[target] }, { __index = storage }
+        )
+      end
+    )
+  end
+)
+
+--#endregion
+
+--#endregion
+
 --#region: plugin-specific API @ version 1.0.0
 
 --
@@ -462,7 +559,10 @@ local architect = {}
 --- @return plugin
 --
 function architect:create_plugin(id)
-  return setmetatable({ id = id }, { __index = plugin_api })
+  local context = setmetatable({ id = id }, { __index = plugin_api })
+  walkietalkie:transmit('PLUGIN_ADDED', context)
+
+  return context
 end
 
 --#endregion
@@ -543,8 +643,10 @@ _G.augment =
 
   },
 
-  utility = {
-    exception = exception
+  utility =
+  {
+    exception = exception,
+    string = { split = split }
   }
 }
 
