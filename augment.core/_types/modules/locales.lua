@@ -11,10 +11,15 @@
 -- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
---#region [type: plugin.context] @ version 1.0.0
+--#region [type: locale] @ version 1.0.0
 
 --
---- @class plugin.context
+--- ???
+--
+--- @class locale
+--
+--- @field content dictionary<string, string>
+--- @field default? boolean
 --
 
 --#endregion
