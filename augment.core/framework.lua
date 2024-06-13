@@ -41,7 +41,7 @@ end
 --
 --- Divides a string into a list of substrings, using a specified separator
 --- to determine the boundaries between them. If the separator is not found in
---- the target string, the entire string is returned as a single-element array.
+--- the target string, the entire string is returned as a single-element list.
 --
 --- @param target string
 --- @param separator string
@@ -476,7 +476,7 @@ function storage:get(variable_path)
   local variable = variable_path
 
   if _string.find(variable_path, '.') then
-
+    -- todo: this is where we currently are... traveling to Rhodos now, cya in a week!
   end
 
   return target[variable]
