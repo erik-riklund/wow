@@ -15,8 +15,8 @@
 -- single lookup for each function, and it allows the minifier to mangle them,
 -- potentially reducing the size of the distributed bundle.
 
-local _assert, _coroutine, _ipairs, _next, _pairs, _string, _table, _type, _unpack =
-    assert, coroutine, ipairs, next, pairs, string, table, type, unpack
+local _assert, _coroutine, _error, _ipairs, _next, _pairs, _rawget, _string, _table, _type, _unpack =
+    assert, coroutine, error, ipairs, next, pairs, rawget, string, table, type, unpack
 --#endregion
 
 --#region (utility functions)
@@ -36,7 +36,7 @@ end
 
 --#endregion
 
---#region [function: split] @ version 1.0.0
+--#region [function: string_split] @ version 1.0.0
 
 --
 --- Divides a string into a list of substrings, using a specified separator
@@ -48,7 +48,7 @@ end
 --
 --- @return list<string>
 --
-local split = function(target, separator)
+local string_split = function(target, separator)
   _assert(
     _type(target) == 'string' and _type(separator) == 'string',
     "Expected both 'target' and 'separator' to be strings"
@@ -66,6 +66,83 @@ local split = function(target, separator)
 
   return { target } -- note: only used when the separator isn't found
 end
+
+--#endregion
+
+--#region [function: table_walk] @ version 1.0.0
+
+--
+--- Traverses a nested table (like a directory structure) using a dot-separated path string.
+--- returning a reference to the target table if the path is complete or `build_mode` is enabled
+--- (which will create missing intermediate tables), otherwise `nil`.
+--
+--- @param target table
+--- @param path string
+--- @param build_mode? boolean
+--
+--- @return table | nil
+--
+local table_walk = function(target, path, build_mode)
+  _assert(
+    _type(target) == 'table' and _type(path) == 'string',
+    "Expected a table for 'target' and a string for 'path'"
+  )
+
+  local reference = target
+  local heritage = string_split(path, '.')
+
+  build_mode = _type(build_mode) == 'boolean' and build_mode or false
+
+  --#region: Obtain the reference for the given 'path'
+  -- Iterates over the segments of the given `path`, using each segment to navigate
+  -- deeper into the `target` table. If a segment is missing in the table and `build_mode`
+  -- is true, an empty table is created at that position to continue the traversal.
+  --
+  -- If `build_mode` is false, the process is aborted when a missing segment is encountered.
+  --#endregion
+  for _, ancestor in _ipairs(heritage) do
+    if _type(reference[ancestor]) ~= 'table' then
+      if not build_mode then
+        return nil -- note: cancel the process when not in build mode.
+      end
+
+      reference[ancestor] = {}
+    end
+
+    reference = reference[ancestor] --[[@as table]]
+  end
+
+  return reference
+end
+
+--#endregion
+
+--#region [function: table_readonly] @ version 1.0.0
+
+--- @type table
+local immutable_table
+
+--
+--- ???
+--
+--- @param target table
+--- @return table
+--
+local table_readonly = function(target)
+  _assert(_type(target) == 'table', "Expected a table for 'target'")
+  return setmetatable(target, immutable_table)
+end
+
+immutable_table = {
+  __newindex = function()
+    _error('Attempt to modify readonly table', 2)
+  end,
+
+  __index = function(table, key)
+    local value = _rawget(table, key)
+    return _type(value) == 'table' and table_readonly(value --[[@as table]]) or value
+  end
+}
 
 --#endregion
 
@@ -467,16 +544,17 @@ local storage = {}
 --
 --- ???
 --
---- @param variable_path string
+--- @param parent string | nil
+--- @param variable string
 --- @return unknown | nil
 --
-function storage:get(variable_path)
+function storage:get(parent, variable)
   --- @cast self plugin.storage
   local target = self._variables
-  local variable = variable_path
 
-  if _string.find(variable_path, '.') then
-    -- todo: this is where we currently are... traveling to Rhodos now, cya in a week!
+  if parent ~= nil then
+    local t = table_walk(target, parent)
+    if t ~= nil then target = t end
   end
 
   return target[variable]
@@ -489,11 +567,19 @@ end
 --
 --- ???
 --
---- @param variable_path string
+--- @param parent string | nil
+--- @param variable string
 --- @param content unknown
 --
-function storage:set(variable_path, content)
+function storage:set(parent, variable, content)
   --- @cast self plugin.storage
+  local target = self._variables
+
+  if parent ~= nil then
+    target = table_walk(target, parent, true) --[[@as table]]
+  end
+
+  target[variable] = content
 end
 
 --#endregion
@@ -509,6 +595,9 @@ walkietalkie:recieve(
 
     herald:onload(
       plugin.id, function()
+        --#region: Naming convention for saved variables
+        -- todo: Add an explanation of the naming convention for saved variables here...
+        --#endregion
         local target = 'augment_storage_' .. _string.gsub(plugin.id, '-', '_')
         _G[target] = _type(_G[target]) == 'table' and _G[target] or {}
 
@@ -571,83 +660,132 @@ end
 
 --#region: API @ version 1.0.0
 
---
---- The API for the AUGMENT framework.
---
-_G.augment =
-{
-  channel =
+--- @type API
+_G.augment = table_readonly(
   {
-    --
-    --- Broadcasts a message to all functions listening on a specific channel.
-    --
-    --- @param channel string
-    --
-    transmit = function(channel, ...)
-      walkietalkie:transmit(channel, ...)
-    end,
+    channel =
+    {
+      --
+      --- Broadcasts a message to all functions listening on a specific channel.
+      --
+      transmit = function(channel, ...)
+        walkietalkie:transmit(channel, ...)
+      end,
 
-    --
-    --- Registers a function to listen for messages on a specific channel.
-    --
-    --- @param channel string
-    --- @param callback function
-    --
-    recieve = function(channel, callback)
-      walkietalkie:recieve(channel, callback)
-    end
-  },
+      --
+      --- Registers a function to listen for messages on a specific channel.
+      --
+      recieve = function(channel, callback)
+        walkietalkie:recieve(channel, callback)
+      end
+    },
 
-  event =
-  {
+    package =
+    {
+      --
+      --- Returns one or more specified packages from the package repository.
+      --
+      import = function(...)
+        return warehouse:import(...)
+      end,
 
-  },
+      --
+      --- Export a package with the specified name to the package repository.
+      --
+      export = function(package, content)
+        warehouse:export(package, content)
+      end
+    },
 
-  package =
-  {
-    --
-    --- Returns one or more specified packages from the package repository.
-    --
-    --- @param ... string
-    --- @return ...
-    --
-    import = function(...)
-      return warehouse:import(...)
-    end,
+    plugin =
+    {
+      --
+      --- ???
+      --
+      create = function(id)
+        return architect:create_plugin(id)
+      end
+    },
 
-    --
-    --- Export a package with the specified name to the package repository.
-    --
-    --- @param package string
-    --- @param content object
-    --
-    export = function(package, content)
-      warehouse:export(package, content)
-    end
-  },
+    
+  } --[[@as API]]
+)
 
-  plugin =
-  {
-    --
-    --- ???
-    --
-    --- @param id string
-    --
-    create = function(id)
-      return architect:create_plugin(id)
-    end
-  },
+-- _G.augment =
+-- {
+--   channel =
+--   {
+--     --
+--     --- Broadcasts a message to all functions listening on a specific channel.
+--     --
+--     --- @param channel string
+--     --
+--     transmit = function(channel, ...)
+--       walkietalkie:transmit(channel, ...)
+--     end,
 
-  service =
-  {
+--     --
+--     --- Registers a function to listen for messages on a specific channel.
+--     --
+--     --- @param channel string
+--     --- @param callback function
+--     --
+--     recieve = function(channel, callback)
+--       walkietalkie:recieve(channel, callback)
+--     end
+--   },
 
-  },
+--   event =
+--   {
 
-  utility =
-  {
-    exception = exception,
-    string = { split = split }
-  }
-}
+--   },
+
+--   package =
+--   {
+--     --
+--     --- Returns one or more specified packages from the package repository.
+--     --
+--     --- @param ... string
+--     --- @return ...
+--     --
+--     import = function(...)
+--       return warehouse:import(...)
+--     end,
+
+--     --
+--     --- Export a package with the specified name to the package repository.
+--     --
+--     --- @param package string
+--     --- @param content object
+--     --
+--     export = function(package, content)
+--       warehouse:export(package, content)
+--     end
+--   },
+
+--   plugin =
+--   {
+--     --
+--     --- ???
+--     --
+--     --- @param id string
+--     --
+--     create = function(id)
+--       return architect:create_plugin(id)
+--     end
+--   },
+
+--   service =
+--   {
+
+--   },
+
+--   utility =
+--   {
+--     exception = exception,
+--     string = { split = string_split },
+--     table = { readonly = table_readonly, walk = table_walk }
+--   }
+-- }
 
 --#endregion
