@@ -1,6 +1,5 @@
 ## Interface: 100207
-## Dependencies: augment.core
-## OptionalDeps: WoWUnit
+## Dependencies: augment.core, augment.plugin.config
 
 ## Title: augment: selective autoloot
 ## Notes: ...

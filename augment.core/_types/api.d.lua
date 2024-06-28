@@ -15,21 +15,18 @@
 --#region [type: API]
 
 --
---- The API for the AUGMENT framework.
---
 --- @class API
 --
 --- @field channel API.channel
 --- @field package API.package
 --- @field plugin API.plugin
+--- @field utility API.utility
 --
 
 --#endregion
 
 --#region [type: API.channel]
 
---
---- ???
 --
 --- @class API.channel
 --
@@ -42,8 +39,6 @@
 --#region [type: API.package]
 
 --
---- ???
---
 --- @class API.package
 --
 --- @field import fun(...: string): ...
@@ -55,8 +50,6 @@
 --#region [type: API.plugin]
 
 --
---- ???
---
 --- @class API.plugin
 --
 --- @field create fun(id: string): plugin
@@ -66,6 +59,26 @@
 
 --#region [type: API.utility]
 
--- todo: continue here!
+--
+--- @class API.utility
+--
+--- @field string API.utility.string
+--- @field table API.utility.table
+--
+--- @field exception fun(message: string, ...: string | number)
+--
+
+--
+--- @class API.utility.string
+--
+--- @field split fun(target: string, separator: string): list<string>
+--
+
+--
+--- @class API.utility.table
+--
+--- @field readonly fun(target: table): table
+--- @field walk fun(target: table, path: string, build_mode?: boolean): table | nil
+--
 
 --#endregion

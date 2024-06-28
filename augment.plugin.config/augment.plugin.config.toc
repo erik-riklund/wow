@@ -1,7 +1,8 @@
 ## Interface: 100207
+## Dependencies: augment.core
 
-## Title: augment: core
-## Notes: The framework for the Augment ecosystem
+## Title: augment: config plugin
+## Notes: ...
 ## Version: 1.0.0
 
 ## X-Website: https://github.com/erik-riklund/wow/augment

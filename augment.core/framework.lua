@@ -7,7 +7,7 @@
 --   #     # #    # #    # #    # #      #   ##   #
 --   #     #  ####   ####  #    # ###### #    #   #
 --
--- World of Warcraft addon development framework, created by Erik Riklund (2024)
+-- World of Warcraft addon framework, created by Erik Riklund (2024)
 --
 
 --#region: locally scoped global variables
@@ -31,7 +31,7 @@ local _assert, _coroutine, _error, _ipairs, _next, _pairs, _rawget, _string, _ta
 --- @param ... string | number
 --
 local exception = function(message, ...)
-  error(... and _string.format(message, ...) or message)
+  _error(... and _string.format(message, ...) or message, 2)
 end
 
 --#endregion
@@ -72,7 +72,7 @@ end
 --#region [function: table_walk] @ version 1.0.0
 
 --
---- Traverses a nested table (like a directory structure) using a dot-separated path string.
+--- Traverses a nested table (like a directory structure) using a dot-separated path string,
 --- returning a reference to the target table if the path is complete or `build_mode` is enabled
 --- (which will create missing intermediate tables), otherwise `nil`.
 --
@@ -123,7 +123,9 @@ end
 local immutable_table
 
 --
---- ???
+--- Transforms a regular Lua table into a read-only table, preventing any modifications
+--- to its contents or nested tables. Any attempt to modify the table or its nested values
+--- will raise an error.
 --
 --- @param target table
 --- @return table
@@ -402,7 +404,7 @@ function herald:subscribe(event, callback)
   if self._frame == nil then self:_setup() end
 
   _assert(event ~= 'ADDON_LOADED',
-    "Initialization callbacks may only be registered through plugin contexts"
+    "ADDON_LOADED may only be registered through the plugin API"
   )
 
   if self._listeners[event] == nil then
@@ -535,15 +537,15 @@ local linguist = {}
 --#region [module: saved variables] @ version 1.0.0
 
 --
---- ???
+--- Provides persistent storage for plugin data.
 --
 local storage = {}
 
 --#region (get) @ revision 2024-06-13
 
 --
---- ???
---
+--- Retrieves a value from the plugin's storage based on its name and optionally its parent key.
+---
 --- @param parent string | nil
 --- @param variable string
 --- @return unknown | nil
@@ -565,7 +567,7 @@ end
 --#region (set) @ revision 2024-06-13
 
 --
---- ???
+--- Stores a value in the plugin's storage under the specified name and optional parent key.
 --
 --- @param parent string | nil
 --- @param variable string
@@ -584,10 +586,11 @@ end
 
 --#endregion
 
---#region: ??? @ revision 2024-06-13
+--#region: plugin storage initialization @ revision 2024-06-13
 
 --
---- ???
+--- Initializes storage for a newly added plugin, ensuring the
+--- saved variables are available for storage operations.
 --
 walkietalkie:recieve(
   'PLUGIN_ADDED', function(plugin)
@@ -596,8 +599,11 @@ walkietalkie:recieve(
     herald:onload(
       plugin.id, function()
         --#region: Naming convention for saved variables
-        -- todo: Add an explanation of the naming convention for saved variables here...
+        -- Saved variable names are prefixed with 'augment_storage_' followed by the plugin's ID,
+        -- with hyphens replaced by underscores. This ensures uniqueness and prevents conflicts
+        -- with other global variables.
         --#endregion
+
         local target = 'augment_storage_' .. _string.gsub(plugin.id, '-', '_')
         _G[target] = _type(_G[target]) == 'table' and _G[target] or {}
 
@@ -616,12 +622,12 @@ walkietalkie:recieve(
 --#region: plugin-specific API @ version 1.0.0
 
 --
---- ???
+--- Provides an interface to allow plugins to interact with the framework.
 --
 local plugin_api = {}
 
 --
---- ???
+--- Registers a callback function to be executed when the plugin has finished loading.
 --
 --- @param self plugin
 --- @param callback function
@@ -635,14 +641,14 @@ end
 --#region [module: plugins] @ version 1.0.0
 
 --
---- ???
+--- Responsible for creating and managing plugins.
 --
 local architect = {}
 
 --#region (create_plugin) @ revision 2024-06-09
 
 --
---- ???
+--- Creates a new plugin instance with the specified ID and broadcasts its creation.
 --
 --- @param id string
 --- @return plugin
@@ -660,7 +666,11 @@ end
 
 --#region: API @ version 1.0.0
 
+--
+--- The API for the AUGMENT framework.
+--
 --- @type API
+--
 _G.augment = table_readonly(
   {
     channel =
@@ -678,6 +688,13 @@ _G.augment = table_readonly(
       recieve = function(channel, callback)
         walkietalkie:recieve(channel, callback)
       end
+    },
+
+    locale =
+    {
+      --
+      --- ???
+      --
     },
 
     package =
@@ -700,92 +717,58 @@ _G.augment = table_readonly(
     plugin =
     {
       --
-      --- ???
+      --- Create and return a new plugin instance with the specified ID.
       --
       create = function(id)
         return architect:create_plugin(id)
       end
     },
 
-    
+    --
+    --- Collection of utility functions.
+    --
+    utility =
+    {
+      --
+      --- Raises a formatted error message, optionally using provided values to
+      --- fill in placeholders within the message string.
+      --
+      exception = exception,
+
+      --
+      --- String-related utility functions.
+      --
+      string =
+      {
+        --
+        --- Divides a string into a list of substrings, using a specified separator
+        --- to determine the boundaries between them. If the separator is not found in
+        --- the target string, the entire string is returned as a single-element list.
+        --
+        split = string_split
+      },
+
+      --
+      --- Table-related utility functions.
+      --
+      table =
+      {
+        --
+        --- Transforms a regular Lua table into a read-only table, preventing any modifications
+        --- to its contents or nested tables. Any attempt to modify the table or its nested values
+        --- will raise an error.
+        --
+        readonly = table_readonly,
+
+        --
+        --- Traverses a nested table (like a directory structure) using a dot-separated path string,
+        --- returning a reference to the target table if the path is complete or `build_mode` is enabled
+        --- (which will create missing intermediate tables), otherwise `nil`.
+        --
+        walk = table_walk
+      }
+    }
   } --[[@as API]]
 )
-
--- _G.augment =
--- {
---   channel =
---   {
---     --
---     --- Broadcasts a message to all functions listening on a specific channel.
---     --
---     --- @param channel string
---     --
---     transmit = function(channel, ...)
---       walkietalkie:transmit(channel, ...)
---     end,
-
---     --
---     --- Registers a function to listen for messages on a specific channel.
---     --
---     --- @param channel string
---     --- @param callback function
---     --
---     recieve = function(channel, callback)
---       walkietalkie:recieve(channel, callback)
---     end
---   },
-
---   event =
---   {
-
---   },
-
---   package =
---   {
---     --
---     --- Returns one or more specified packages from the package repository.
---     --
---     --- @param ... string
---     --- @return ...
---     --
---     import = function(...)
---       return warehouse:import(...)
---     end,
-
---     --
---     --- Export a package with the specified name to the package repository.
---     --
---     --- @param package string
---     --- @param content object
---     --
---     export = function(package, content)
---       warehouse:export(package, content)
---     end
---   },
-
---   plugin =
---   {
---     --
---     --- ???
---     --
---     --- @param id string
---     --
---     create = function(id)
---       return architect:create_plugin(id)
---     end
---   },
-
---   service =
---   {
-
---   },
-
---   utility =
---   {
---     exception = exception,
---     string = { split = string_split },
---     table = { readonly = table_readonly, walk = table_walk }
---   }
--- }
 
 --#endregion
