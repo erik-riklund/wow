@@ -46,6 +46,10 @@
     "prefix": "!include", "body": "<Include file=\"${1}\" />"
   },
 
+  "comment": {
+    "prefix": "--", "body": "--\n--- ???\n--"
+  },
+
   "documentation": {
     "prefix": "!documentation", "body": "--\n--- ${1:???}\n${2:--\n--- @\n}--"
   },

@@ -11,4 +11,5 @@
 --
 
 local plugin = augment.plugin.create('autoloot')
-plugin:onload(function() print("Hello world") end)
+--plugin:onload(function() print("Hello world from the autolooter!") end)
+

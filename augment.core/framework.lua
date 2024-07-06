@@ -91,7 +91,7 @@ local table_walk = function(target, path, build_mode)
   local reference = target
   local heritage = string_split(path, '.')
 
-  build_mode = _type(build_mode) == 'boolean' and build_mode or false
+  build_mode = _type(build_mode) == 'boolean' and build_mode == true
 
   --#region: Obtain the reference for the given 'path'
   -- Iterates over the segments of the given `path`, using each segment to navigate
@@ -534,6 +534,15 @@ local linguist = {}
 
 --#endregion
 
+--#region [module: tooltip handler] @ version 1.0.0
+
+--
+--- ???
+--
+local tooltip = {}
+
+--#endregion
+
 --#region [module: saved variables] @ version 1.0.0
 
 --
@@ -664,7 +673,7 @@ end
 
 --#endregion
 
---#region: API @ version 1.0.0
+--#region: framework API @ version 1.0.0
 
 --
 --- The API for the AUGMENT framework.
@@ -724,6 +733,13 @@ _G.augment = table_readonly(
       end
     },
 
+    tooltip =
+    {
+      --
+      --- ???
+      --
+    },
+
     --
     --- Collection of utility functions.
     --
@@ -770,5 +786,23 @@ _G.augment = table_readonly(
     }
   } --[[@as API]]
 )
+
+--#endregion
+
+--#region (service: widget handler) @ version 1.0.0
+
+--
+--- ???
+--
+local widget = {}
+
+--#endregion
+
+--#region (service: configuration handler) @ version 1.0.0
+
+--
+--- ???
+--
+local config = {}
 
 --#endregion

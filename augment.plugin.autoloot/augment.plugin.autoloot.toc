@@ -1,5 +1,5 @@
 ## Interface: 100207
-## Dependencies: augment.core, augment.plugin.config
+## Dependencies: augment.core
 
 ## Title: augment: selective autoloot
 ## Notes: ...
