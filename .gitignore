@@ -1,7 +1,8 @@
 /*/
 *.min.lua
+framework-old.lua
 
 !.vscode/
 !.vscode/*
 
-!augment.*/
+!Augment/
