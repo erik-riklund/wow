@@ -1,8 +1,8 @@
 /*/
 *.min.lua
-framework-old.lua
 
 !.vscode/
 !.vscode/*
 
-!Augment/
+!Cogspinner/
+!EnhancedInformation/
