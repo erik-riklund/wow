@@ -1,68 +1,46 @@
 {
-  "header": {
-    "prefix": "!header", "body": [
-      "${1:local ADDON, CORE = ...}",
-      "",
-      "--      #",
-      "--     # #   #    #  ####  #    # ###### #    # #####",
-      "--    #   #  #    # #    # ##  ## #      ##   #   #",
-      "--   #     # #    # #      # ## # #####  # #  #   #",
-      "--   ####### #    # #  ### #    # #      #  # #   #",
-      "--   #     # #    # #    # #    # #      #   ##   #",
-      "--   #     #  ####   ####  #    # ###### #    #   #",
-      "--",
-      "-- World of Warcraft addon framework, created by Erik Riklund (2024)",
-      "--"
+  "logo":
+  {
+    "body":
+    [
+      "--    ____                      _                       ",
+      "--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ ",
+      "--  | |   / _ \\ / _` / __| '_ \\| | '_ \\| '_ \\ / _ \\ '__|",
+      "--  | |__| (_) | (_| \\__ \\ |_) | | | | | | | |  __/ |   ",
+      "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
+      "--              |___/    |_|                            "
     ],
+
+    "prefix": "!logo"
   },
 
-  "test-suite": {
-    "prefix": "!test", "body": [
-      "local _, CORE = ...",
-      "",
+  "as":
+  {
+    "body": "--[[@as ${1}]]",
+    "prefix": "!as"
+  },
+
+  "module":
+  {
+    "body":
+    [
+      "--#region [module: ${1}] @ version 1.0.0",
+      "--#endregion"
+    ],
+
+    "prefix": "!module"
+  },
+
+  "method":
+  {
+    "body":
+    [
       "--",
-      "--      #",
-      "--     # #   #    #  ####  #    # ###### #    # #####",
-      "--    #   #  #    # #    # ##  ## #      ##   #   #",
-      "--   #     # #    # #      # ## # #####  # #  #   #",
-      "--   ####### #    # #  ### #    # #      #  # #   #",
-      "--   #     # #    # #    # #    # #      #   ##   #",
-      "--   #     #  ####   ####  #    # ###### #    #   #",
+      "--- ?",
       "--",
-      "-- World of Warcraft addon framework, created by Erik Riklund (2024)",
-      "--",
-      "",
-      "if not WoWUnit then return end",
-      "local WoWUnit = _G.WoWUnit --[[@as WoWUnit]]",
-      "local test = WoWUnit('${1}')",
-      "",
-      "local equal = WoWUnit.AreEqual",
-      "local mock = WoWUnit.Replace",
-      "local revert = WoWUnit.ClearReplaces"
-    ]
-  },
+      "function ${1}:${2}(${3}) end"
+    ],
 
-  "include": {
-    "prefix": "!include", "body": "<Include file=\"${1}\" />"
-  },
-
-  "comment": {
-    "prefix": "--", "body": "--\n--- ???\n--"
-  },
-
-  "documentation": {
-    "prefix": "!documentation", "body": "--\n--- ${1:???}\n${2:--\n--- @\n}--"
-  },
-
-  "function": {
-    "prefix": "!function", "body": "--#region [function: ${1}]\n\n--\n--- ???\n--\n--- @\n--\nlocal function ${1}() end\n\n--#endregion"
-  },
-
-  "type-as": {
-    "prefix": "!type-as", "body": "--[[@as ${1}]]"
-  },
-
-  "region": {
-    "prefix": "!region", "body": "--#region${1}\n--#endregion"
+    "prefix": "!method"
   }
 }

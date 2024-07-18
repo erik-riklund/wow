@@ -1,0 +1,10 @@
+## Interface: 100207
+## Dependencies: Cogspinner
+
+## Title: Enhanced Information
+## Notes: ?
+## Version: 1.0.0
+
+## X-Website: https://github.com/erik-riklund/wow/EnhancedInformation
+
+main.lua
