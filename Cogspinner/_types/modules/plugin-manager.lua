@@ -9,7 +9,8 @@
 
 --#region (type: plugin.context)
 
---- @class plugin.context
+--- ?
+--- @class plugin
 --- @field id string The unique identifier for the plugin.
 
 --#endregion

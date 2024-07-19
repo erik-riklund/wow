@@ -70,8 +70,17 @@
   ],
   "better-comments.tags": [
     {
-      "tag": "#region [",
+      "tag": "#region [module:",
       "color": "#C6610B",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [core module:",
+      "color": "#9F4F0A",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",

@@ -5,4 +5,4 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
-local plugin = cogspinner.create_plugin('enhanced_information')
+-- local plugin = cogspinner.create_plugin('enhanced_information')

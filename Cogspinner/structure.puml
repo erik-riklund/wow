@@ -1,0 +1,12 @@
+@startuml Cogspinner
+class API
+class eventhandler
+class mainframe
+class taskprocessor
+
+taskprocessor -> mainframe
+
+eventhandler -up-> mainframe
+eventhandler -up-> taskprocessor
+API -up-> eventhandler
+@enduml
