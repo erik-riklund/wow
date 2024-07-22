@@ -1,0 +1,138 @@
+@startuml Cogspinner
+
+skinparam ComponentBackgroundColor GhostWhite
+skinparam ComponentBorderColor #565656
+skinparam ComponentFontName Candara
+skinparam ComponentFontStyle normal
+skinparam ComponentFontSize 14pt
+skinparam ComponentStereotypeFontSize 11pt
+skinparam ComponentStereotypeFontStyle bold
+skinparam ComponentStereotypeFontColor #515151
+skinparam InterfaceBackgroundColor Orange
+skinparam NoteFontName Candara
+skinparam NoteFontStyle bold
+skinparam NoteFontSize 12pt
+skinparam NoteFontColor black
+skinparam NoteBackgroundColor #FEFFDD
+skinparam NoteBorderColor #96968D
+skinparam ArrowFontName Candara
+skinparam ArrowFontSize 13pt
+skinparam ArrowFontStyle bold
+
+[channel manager] as channel <<module>>
+[data store] as data <<module>>
+[event handler] as event <<module>>
+[exchange manager] as exchange <<module>>
+[locale manager] as locale <<module>>
+[core frame provider] as coreframe <<core module>>
+[plugin manager] as plugin <<module>>
+[service manager] as service <<module>>
+[task processor] as task <<core module>>
+[tooltip controller] as tooltip <<module>>
+[utilities] <<library>>
+
+() " " as API
+() " " as pluginAPI
+
+' NOTES:
+
+note as API_note
+Developers can access select modules and
+libraries through the framework's API.
+end note
+
+note as pluginAPI_note
+Each plugin operates within its own isolated context,
+using a dedicated API to interact with specific modules.
+end note
+
+note as utilities_note
+A handy toolbox of helper functions for
+simplifying routine development tasks.
+end note
+
+note as plugin_note
+Manages the creation of plugin contexts, maintaining a registry of unique
+plugin identifiers to prevent conflicts and ensure proper isolation.
+end note
+
+note as exchange_note
+Provides a robust import/export system that
+empowers plugins to share resources effectively.
+end note
+
+note as data_note
+Provides an optimized system for streamlined access
+and manipulation of saved variables.
+end note
+
+note as locale_note
+Enables dynamic locale handling, empowering plugins
+to cater to a wide range of user preferences.
+end note
+
+note as channel_note
+Provides a robust event-driven system enabling plugins to
+seamlessly register, trigger, and respond to custom events.
+end note
+
+note as task_note
+Enables seamless background task processing by handling
+queuing and execution of background tasks, freeing up
+resources for other operations.
+end note
+
+note as coreframe_note
+?
+end note
+
+note as event_note
+?
+end note
+
+note as service_note
+?
+end note
+
+note as tooltip_note
+?
+end note
+
+' note bindings:
+
+API .up. API_note
+channel .. channel_note
+data .. data_note
+event .. event_note
+exchange .. exchange_note
+coreframe .. coreframe_note
+locale .. locale_note
+pluginAPI .. pluginAPI_note
+plugin .. plugin_note
+service .. service_note
+task .. task_note
+tooltip .. tooltip_note
+utilities .right. utilities_note
+
+' END NOTES.
+
+' module relationships
+task --> coreframe
+channel --> task
+event --> coreframe
+event --> task
+
+' ' API relationships
+API .left. exchange
+API .. plugin
+API .. service
+API .. tooltip
+API .right. utilities
+plugin --> pluginAPI : <<create>>
+
+' plugin API relationships
+pluginAPI .. channel
+pluginAPI .. data
+pluginAPI .. event
+pluginAPI .right. locale
+@enduml
