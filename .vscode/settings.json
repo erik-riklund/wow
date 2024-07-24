@@ -57,6 +57,11 @@
     "TipTacTalents": true,
     "TipTacItemRef": true,
     "TooltipCleaner": true,
+    "WeakAuras":true,
+    "WeakAurasArchive":true,
+    "WeakAurasModelPaths":true,
+    "WeakAurasOptions":true,
+    "WeakAurasTemplates":true,
     "WoWUnit": true
   },
   "Lua.diagnostics.disable": [
@@ -81,6 +86,15 @@
     {
       "tag": "#region [core module:",
       "color": "#9F4F0A",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [library:",
+      "color": "#9E810A",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",

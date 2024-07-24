@@ -1,7 +1,7 @@
-## Interface: 100207
+## Interface: 110000
 
 ## Title: Cogspinner (framework)
-## Notes: The core module for the Cogspinner framework
+## Notes: The secret sauce that brings the extraordinary features and dazzling functionalities to life.
 ## Version: 1.0.0
 
 ## X-Website: https://github.com/erik-riklund/wow/Cogspinner
