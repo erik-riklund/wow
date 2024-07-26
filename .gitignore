@@ -2,7 +2,8 @@
 *.min.lua
 
 !.vscode/
-!.vscode/*
+!.archive/
 
 !Cogspinner/
 !EnhancedInformation/
+!SelectiveAutoloot/
