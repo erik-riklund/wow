@@ -1,5 +1,6 @@
 {
   "files.exclude": {
+    ".archive": true,
     "Auctionator": true,
     "Baganator": true,
     "Baganator-ElvUI": true,
@@ -57,21 +58,16 @@
     "TipTacTalents": true,
     "TipTacItemRef": true,
     "TooltipCleaner": true,
-    "WeakAuras":true,
-    "WeakAurasArchive":true,
-    "WeakAurasModelPaths":true,
-    "WeakAurasOptions":true,
-    "WeakAurasTemplates":true,
+    "WeakAuras": true,
+    "WeakAurasArchive": true,
+    "WeakAurasModelPaths": true,
+    "WeakAurasOptions": true,
+    "WeakAurasTemplates": true,
     "WoWUnit": true
   },
   "Lua.diagnostics.disable": [
     "trailing-space",
     "empty-block"
-  ],
-  "Lua.diagnostics.globals": [
-    "C_Timer",
-    "WoWUnit",
-    "CreateFrame"
   ],
   "better-comments.tags": [
     {
@@ -95,6 +91,24 @@
     {
       "tag": "#region [library:",
       "color": "#9E810A",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [function:",
+      "color": "#B8B846",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [event:",
+      "color": "#B8B846",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
