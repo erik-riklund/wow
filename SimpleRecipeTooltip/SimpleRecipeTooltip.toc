@@ -1,0 +1,9 @@
+## Interface: 110000
+## Title: Simple Recipe Tooltip
+## Author: Ghuul
+## Version: 1.0.7
+## Notes: 
+## DefaultState: Enabled
+## LoadOnDemand: 0
+
+controller.lua

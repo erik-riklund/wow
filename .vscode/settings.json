@@ -107,8 +107,8 @@
       "italic": false
     },
     {
-      "tag": "#region [event:",
-      "color": "#B8B846",
+      "tag": "#region [class:",
+      "color": "#93B033",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -160,5 +160,11 @@
       "bold": false,
       "italic": false
     }
+  ],
+  "Lua.diagnostics.globals": [
+    "message",
+    "TooltipDataProcessor",
+    "SetTooltipMoney",
+    "SELL_PRICE"
   ]
 }

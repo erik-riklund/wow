@@ -35,11 +35,26 @@
   {
     "body":
     [
+      "--",
       "--- ?",
+      "--",
       "function ${1}:${2}(${3}) end"
     ],
 
     "prefix": "!method"
+  },
+
+  "function":
+  {
+    "body":
+    [
+      "--",
+      "--- ?",
+      "--",
+      "local function ${1}(${2}) end"
+    ],
+
+    "prefix": "!function"
   },
 
   "type":

@@ -1,8 +1,10 @@
 ## Interface: 110000
-## Author: Ghuul
-## Version: 2.0.0
 ## Title: Selective Autoloot
+## Author: Ghuul
+## Version: 1.7.2
 ## Notes: Custom autoloot system
-## SavedVariables: SelectiveAutolootConfig
-
-main.lua
+## DefaultState: Enabled
+## LoadOnDemand: 0
+config/settings.lua
+config/itemlist.lua
+core.lua

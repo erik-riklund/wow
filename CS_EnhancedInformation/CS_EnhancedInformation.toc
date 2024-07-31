@@ -1,7 +1,7 @@
 ## Interface: 110000
 ## Dependencies: Cogspinner
 
-## Title: Enhanced Information
+## Title: Enhanced Information (Cogspinner plugin)
 ## Notes: ?
 ## Version: 1.0.0
 

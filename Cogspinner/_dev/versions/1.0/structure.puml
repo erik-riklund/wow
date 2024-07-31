@@ -80,9 +80,8 @@ trigger, and respond to custom events.
 end note
 
 note as task_note
-Enables seamless background task processing
-by handling queuing and execution of background
-tasks, freeing up resources for other operations.
+Enables seamless background task processing by
+handling queuing and execution of background tasks.
 end note
 
 note as event_note

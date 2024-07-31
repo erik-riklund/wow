@@ -1,17 +1,6 @@
-﻿--    _____      _           _   _
---   / ____|    | |         | | (_)
---  | (___   ___| | ___  ___| |_ ___   _____
---   \___ \ / _ \ |/ _ \/ __| __| \ \ / / _ \
---   ____) |  __/ |  __/ (__| |_| |\ V /  __/
---  |_____/ \___|_|\___|\___|\__|_| \_/ \___|
---     /\        | |      | |           | |
---    /  \  _   _| |_ ___ | | ___   ___ | |_
---   / /\ \| | | | __/ _ \| |/ _ \ / _ \| __|
---  / ____ \ |_| | || (_) | | (_) | (_) | |_
--- /_/    \_\__,_|\__\___/|_|\___/ \___/ \__|
---
--- by Ghuul (2024) v1.8
---
+﻿---------------------------------------------
+-- Ghuul Addons: Selective Autoloot v1.7.2 --
+---------------------------------------------
 
 SAConfig = {}
 SAItemList = {}
@@ -39,7 +28,7 @@ SAConfig["JUNK_SKINNING_OVERRIDE"] = 0
 
 -- The tradeskill subtypes that should be looted:
 -- https://wowpedia.fandom.com/wiki/ItemType
-SAConfig["TRADESKILL_SUBTYPES"] = { "Cloth", "Herb", "Leather", "Metal & Stone" }
+SAConfig["TRADESKILL_SUBTYPES"] = {"Cloth","Herb","Leather","Metal & Stone"}
 
 -- This determines the quality cap for autolooting tradeskill items with the aforementioned subtypes:
 -- Common = 1, Uncommon = 2, Rare = 3, Epic = 4 (default is 3, which will loot tradegoods below rare quality)
@@ -47,11 +36,11 @@ SAConfig["TRADESKILL_QUALITY_CAP"] = 3
 
 -- These currency types will not be looted:
 SAConfig["CURRENCY_IGNORE"] = {
-  -- Shadowlands
-  "Soul Ash", "Soul Cinders", "Cosmic Flux", "Cyphers of the First Ones",
-  -- Draenor & Legion
-  "Garrison Resources", "Order Resources"
-}
+    -- Shadowlands
+    "Soul Ash","Soul Cinders","Cosmic Flux","Cyphers of the First Ones",
+    -- Draenor & Legion
+    "Garrison Resources","Order Resources"
+    }
 
 -- Autoloot rare/epic BoP weapons and armor?
 SAConfig["LOOT_GEAR"] = 1
@@ -65,3 +54,4 @@ SAConfig["LOOT_GEAR_PLAYER_LEVEL"] = 60
 -- Should appearances be taken into account? If so, only known ones will be looted:
 -- (Note: All items must be looted manually once, even if the appearance is unlocked already from a different item)
 SAConfig["LOOT_GEAR_ONLY_KNOWN"] = 1
+
