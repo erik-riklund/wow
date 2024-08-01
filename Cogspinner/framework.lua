@@ -5,7 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
--- ADDON DEVELOPMENT FRAMEWORK
+-- < ADDON DEVELOPMENT FRAMEWORK >
 -- created by Erik Riklund (2024)
 --
 -- [Add project description here]
@@ -194,57 +194,53 @@ end
 
 --#endregion
 
---#region [core module: task processor] @ version 1.0.0
-
-local task = {}
-
---#endregion
-
---#region [module: exchange manager] @ version 1.0.0
-
-local exchange = {}
-
---#endregion
-
---#region [module: service manager] @ version 1.0.0
-
-local service = {}
-
---#endregion
-
 --#region [module: event handler] @ version 1.0.0
 
-local event = {}
+--
+--- ?
+--
+local event_handler =
+{
+  --
+  --- ?
+  --
+  listeners = map(),
+
+  --
+  --- ?
+  --
+  frame = CreateFrame('Frame', 'CogspinnerEventFrame')
+}
 
 --#endregion
 
---#region [module: channel manager] @ version 1.0.0
-
-local channel = {}
-
---#endregion
-
---#region [module: data store] @ version 1.0.0
+--#region [module: storage controller] @ version 1.0.0
 
 --
 --- ?
 --
-local store = {}
+local storage_controller =
+{
+  --
+  --- @param self storage_instance
+  --- @param variable string
+  --
+  get = function(self, variable) end,
 
---
---- ?
---
-local storage = {}
+  --
+  --- @param self storage_instance
+  --- @param variable string
+  --- @param value unknown
+  --
+  set = function(self, variable, value) end,
 
---#endregion
+  --
+  --- @param self storage_instance
+  --- @param variable string
+  --
+  drop = function(self, variable) self:set(variable, nil) end
+}
 
---#region [module: locale manager] @ version 1.0.0
-
-local locale = {}
-
---#endregion
-
---#region [module: tooltip controller] @ version 1.0.0
 --#endregion
 
 --#region: plugin API @ version 1.0.0
@@ -254,6 +250,13 @@ local locale = {}
 --
 local plugin_api = {}
 
+--
+--- ?
+--- @param self plugin
+--- @param callback function
+--
+function plugin_api.onload(self, callback) end
+
 --#endregion
 
 --#region [module: plugin manager] @ version 1.0.0
@@ -261,7 +264,7 @@ local plugin_api = {}
 --
 --- ?
 --
-local plugin = {
+local plugin_manager = {
   -- ?
   registry = list()
 }
@@ -271,7 +274,9 @@ local plugin = {
 --- @param identifier string
 --- @return plugin
 --
-function plugin:create(identifier)
+function plugin_manager:create(identifier)
+  identifier = string.gsub(identifier, '-', '_')
+
   if self.registry:contains(identifier) then
     throw('Unable to register plugin with non-unique identifier `%s`', identifier)
   end
@@ -280,8 +285,6 @@ function plugin:create(identifier)
   local context = setmetatable(
     { id = identifier }, { __index = plugin_api }
   )
-
-  -- todo: broadcast through the channel system?
 
   return context
 end
@@ -295,7 +298,7 @@ _G.cogspinner =
 {
   -- ?
   --- @param identifier string
-  plugin = function(identifier) return plugin:create(identifier) end,
+  plugin = function(identifier) return plugin_manager:create(identifier) end,
 
   -- A handy toolbox of helper functions for simplifying routine development tasks.
   utility = {

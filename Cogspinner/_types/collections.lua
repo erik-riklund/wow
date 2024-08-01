@@ -26,6 +26,8 @@
 --- ?
 --- @class map_instance
 --- @field data map<unknown, unknown>
+--- @field get fun(self: map_instance, key: unknown): unknown
+--- @field set fun(self: map_instance, key: unknown, value: unknown)
 --- @field has fun(self: map_instance, key: unknown): boolean
 --- @field contains fun(self: map_instance, value: unknown): boolean
 

@@ -12,5 +12,6 @@
 --- ?
 --- @class plugin
 --- @field id string The unique identifier for the plugin.
+--- @field onload fun(self: plugin, callback: function)
 
 --#endregion
