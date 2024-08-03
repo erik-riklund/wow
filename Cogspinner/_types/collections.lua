@@ -21,26 +21,26 @@
 
 --#endregion
 
---#region (type: map_instance)
+--#region (type: map.instance)
 
 --- ?
---- @class map_instance
+--- @class map.instance
 --- @field data map<unknown, unknown>
---- @field get fun(self: map_instance, key: unknown): unknown
---- @field set fun(self: map_instance, key: unknown, value: unknown)
---- @field has fun(self: map_instance, key: unknown): boolean
---- @field contains fun(self: map_instance, value: unknown): boolean
+--- @field get fun(self: map.instance, key: unknown): unknown
+--- @field set fun(self: map.instance, key: unknown, value: unknown)
+--- @field has fun(self: map.instance, key: unknown): boolean
+--- @field contains fun(self: map.instance, search_value: unknown): unknown|nil
 
 --#endregion
 
---#region (type: list_instance)
+--#region (type: list.instance)
 
 --- ?
---- @class list_instance
+--- @class list.instance
 --- @field data map<number, unknown>
---- @field get fun(self: list_instance, index: number): unknown | nil
---- @field contains fun(self: list_instance, value: unknown): boolean
---- @field indexof fun(self: list_instance, value: unknown): number
---- @field insert fun(self: list_instance, value: unknown, position: number?)
+--- @field get fun(self: list.instance, index: number): unknown | nil
+--- @field contains fun(self: list.instance, value: unknown): boolean
+--- @field indexof fun(self: list.instance, value: unknown): number
+--- @field insert fun(self: list.instance, value: unknown, position: number?)
 
 --#endregion

@@ -24,7 +24,7 @@
   {
     "body":
     [
-      "--#region [module: ${1}] @ version 1.0.0",
+      "--#region [module: ${1}]",
       "--#endregion"
     ],
 

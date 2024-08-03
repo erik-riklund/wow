@@ -20,7 +20,7 @@ local coroutine, string, table = coroutine, string, table
 
 --#region [library: utilities]
 
---#region [function: throw] @ version 1.0.0
+--#region [function: throw]
 
 --
 --- Raises a formatted error message, optionally using provided values to fill in placeholders
@@ -34,29 +34,57 @@ end
 
 --#endregion
 
---#region [class: map] @ version 1.0.0
+--#region [class: map]
 
 --
---- ?
+--- Provides functionality for creating and manipulating custom map (key-value) objects.
 --
-local map_controller = {
-  has = function(key) end,
-  contains = function(value) end
+local map_controller =
+{
+  --
+  --- @param self map.instance
+  --- @param key unknown
+  --
+  get = function(self, key) return self.data[key] end,
+
+  --
+  --- @param self map.instance
+  --- @param key unknown
+  --- @param value unknown
+  --
+  set = function(self, key, value) self.data[key] = value end,
+
+  --
+  --- @param self map.instance
+  --- @param key unknown
+  --
+  has = function(self, key) return self:get(key) ~= nil end,
+
+  --
+  --- @param self map.instance
+  --- @param search_value unknown
+  --
+  contains = function(self, search_value)
+    for key, value in pairs(self.data) do
+      if value == search_value then return key end
+    end
+  end
 }
 
 --
---- ?
---- @param initial_content map<unknown, unknown>?
---- @return map_instance
+--- Creates a new map instance, optionally initialized with provided key-value pairs.
+---
+--- @param initial_content map<unknown, unknown>? (optional) A table of initial key-value pairs for the map.
+--- @return map.instance
 --
 local function map(initial_content)
-  initial_content = type(initial_content) == 'table' and initial_content or {}
+  initial_content = (type(initial_content) == 'table' and initial_content) or {}
   return setmetatable({ data = initial_content }, { __index = map_controller })
 end
 
 --#endregion
 
---#region [class: list] @ version 1.0.0
+--#region [class: list]
 
 --
 --- Provides functionality for creating and manipulating custom list objects.
@@ -64,19 +92,19 @@ end
 local list_controller =
 {
   --
-  --- @param self list_instance
+  --- @param self list.instance
   --- @param index number
   --
   get = function(self, index) return self.data[index] end,
 
   --
-  --- @param self list_instance
+  --- @param self list.instance
   --- @param value unknown
   --
   contains = function(self, value) return self:indexof(value) ~= -1 end,
 
   --
-  --- @param self list_instance
+  --- @param self list.instance
   --- @param value unknown
   --
   indexof = function(self, value)
@@ -88,7 +116,7 @@ local list_controller =
   end,
 
   --
-  --- @param self list_instance
+  --- @param self list.instance
   --- @param value unknown
   --- @param position number?
   --
@@ -101,16 +129,16 @@ local list_controller =
 --- Creates a new list instance, optionally initialized with provided values.
 ---
 --- @param initial_values list<unknown>? (optional) An array of initial values for the list.
---- @return list_instance
+--- @return list.instance
 --
 local function list(initial_values)
-  initial_values = type(initial_values) == 'table' and initial_values or {}
+  initial_values = (type(initial_values) == 'table' and initial_values) or {}
   return setmetatable({ data = initial_values }, { __index = list_controller })
 end
 
 --#endregion
 
---#region [function: string_split] @ version 1.0.0
+--#region [function: string_split]
 
 --
 --- Divides a string into a list of substrings, using a specified separator
@@ -143,7 +171,16 @@ end
 
 --#endregion
 
---#region [function: table_walk] @ version 1.0.0
+--#region [function: string_contains]
+
+--
+--- ?
+--
+local string_contains = function() end
+
+--#endregion
+
+--#region [function: table_walk]
 
 --
 --- Traverses a nested table (like a directory structure) using a dot-separated path string,
@@ -152,11 +189,13 @@ end
 --
 --- @param target table
 --- @param path string
---- @param build_mode? boolean
+--- @param options { build_mode: boolean? }?
 --
 --- @return table?
 --
-local table_walk = function(target, path, build_mode)
+local table_walk = function(target, path, options)
+  options = options or { build_mode = false }
+
   assert(
     type(target) == 'table' and type(path) == 'string',
     "Expected a table for 'target' and a string for 'path'"
@@ -165,7 +204,7 @@ local table_walk = function(target, path, build_mode)
   local reference = target
   local heritage = string_split(path, '.')
 
-  build_mode = type(build_mode) == 'boolean' and build_mode == true
+  local build_mode = type(options.build_mode) == 'boolean' and options.build_mode == true
 
   --#region: Obtain the reference for the given 'path'
   -- Iterates over the segments of the given `path`, using each segment to navigate
@@ -194,7 +233,7 @@ end
 
 --#endregion
 
---#region [module: event handler] @ version 1.0.0
+--#region [module: event handler]
 
 --
 --- ?
@@ -214,7 +253,7 @@ local event_handler =
 
 --#endregion
 
---#region [module: storage controller] @ version 1.0.0
+--#region [module: storage handler]
 
 --
 --- ?
@@ -222,28 +261,48 @@ local event_handler =
 local storage_controller =
 {
   --
-  --- @param self storage_instance
+  --- @param self storage.instance
   --- @param variable string
   --
-  get = function(self, variable) end,
+  get = function(self, variable)
+    -- todo: implementation
+  end,
 
   --
-  --- @param self storage_instance
+  --- @param self storage.instance
   --- @param variable string
   --- @param value unknown
   --
-  set = function(self, variable, value) end,
+  set = function(self, variable, value)
+    local target = self.data
+
+    -- todo: implementation
+  end,
 
   --
-  --- @param self storage_instance
+  --- @param self storage.instance
   --- @param variable string
   --
   drop = function(self, variable) self:set(variable, nil) end
 }
 
+--
+--- ?
+--
+local storage_handler = {}
+
+--
+--- ?
+--- @param plugin plugin
+--- @param options storage.options?
+--
+function storage_handler:setup(plugin, options)
+  -- todo: implementation
+end
+
 --#endregion
 
---#region: plugin API @ version 1.0.0
+--#region: plugin API
 
 --
 --- ?
@@ -259,50 +318,62 @@ function plugin_api.onload(self, callback) end
 
 --#endregion
 
---#region [module: plugin manager] @ version 1.0.0
+--#region [module: plugin manager]
 
 --
 --- ?
 --
-local plugin_manager = {
-  -- ?
-  registry = list()
-}
+local plugin_manager = { registry = list() }
 
 --
 --- ?
 --- @param identifier string
+--- @param options plugin.create.options?
 --- @return plugin
 --
-function plugin_manager:create(identifier)
-  identifier = string.gsub(identifier, '-', '_')
+function plugin_manager:create(identifier, options)
+  options = options or {}
+
+  if string.match(identifier, '^[a-zA-Z0-9-]+$') == nil then
+    throw('Invalid plugin identifier, may only contain `a-z`, `A-Z` and `0-9`')
+  end
 
   if self.registry:contains(identifier) then
     throw('Unable to register plugin with non-unique identifier `%s`', identifier)
   end
 
   self.registry:insert(identifier)
-  local context = setmetatable(
-    { id = identifier }, { __index = plugin_api }
-  )
+  local context = setmetatable({ id = identifier }, { __index = plugin_api })
+
+  -- storage module extension:
+  if type(options.storage) == 'table' then
+    storage_handler:setup(context --[[@as plugin]], options.storage)
+  end
+
+  -- todo: other context extensions based on options!
 
   return context
 end
 
 --#endregion
 
---#region: framework API @ version 1.0.0
+--#region: framework API
 
 -- The API for the Cogspinner framework.
 _G.cogspinner =
 {
-  -- ?
+  --- ?
   --- @param identifier string
-  plugin = function(identifier) return plugin_manager:create(identifier) end,
+  --- @param options plugin.create.options
+  plugin = function(identifier, options)
+    return plugin_manager:create(identifier, options)
+  end,
 
-  -- A handy toolbox of helper functions for simplifying routine development tasks.
+  --- A handy toolbox of helper functions for simplifying routine development tasks.
   utility = {
-    throw = throw, collection = { list = list, map = map }
+    throw = throw,
+    collection = { list = list, map = map },
+    string = { contains = string_contains, split = string_split }
   }
 }
 
