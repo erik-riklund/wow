@@ -17,15 +17,17 @@
 
 --#endregion
 
---#region (type: plugin.storage)
+--#region (type: plugin.options)
 
---- @class plugin.storage
+--- @class plugin.options
+--- @field storage storage.options?
 
 --#endregion
 
---#region (type: plugin.create.options)
+--#region (type: plugin.storage)
 
---- @class plugin.create.options
---- @field storage storage.options?
+--- @class plugin.storage
+--- @field account storage.instance
+--- @field character storage.instance
 
 --#endregion

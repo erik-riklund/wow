@@ -171,40 +171,27 @@ end
 
 --#endregion
 
---#region [function: string_contains]
-
---
---- ?
---
-local string_contains = function() end
-
---#endregion
-
 --#region [function: table_walk]
 
 --
---- Traverses a nested table (like a directory structure) using a dot-separated path string,
---- returning a reference to the target table if the path is complete or `build_mode` is enabled
---- (which will create missing intermediate tables), otherwise `nil`.
+--- Traverses a nested table (like a directory structure) using a list of path names,
+--- returning a reference to the target table if the path is complete or `build_mode`
+--- is enabled (which will create missing intermediate tables), otherwise `nil`.
 --
 --- @param target table
---- @param path string
+--- @param path list<unknown>
 --- @param options { build_mode: boolean? }?
 --
---- @return table?
+--- @return table|nil
 --
 local table_walk = function(target, path, options)
-  options = options or { build_mode = false }
-
   assert(
-    type(target) == 'table' and type(path) == 'string',
-    "Expected a table for 'target' and a string for 'path'"
+    type(target) == 'table' and type(path) == 'table',
+    "Expected tables for 'target' and 'path'"
   )
 
   local reference = target
-  local heritage = string_split(path, '.')
-
-  local build_mode = type(options.build_mode) == 'boolean' and options.build_mode == true
+  options = options or { build_mode = false }
 
   --#region: Obtain the reference for the given 'path'
   -- Iterates over the segments of the given `path`, using each segment to navigate
@@ -214,13 +201,17 @@ local table_walk = function(target, path, options)
   -- If `build_mode` is false, the process is aborted when a missing segment is encountered.
   --#endregion
 
-  for _, ancestor in ipairs(heritage) do
-    if type(reference[ancestor]) ~= 'table' then
-      if not build_mode then
+  for i, ancestor in ipairs(path) do
+    if not reference[ancestor] then
+      if not options.build_mode then
         return nil -- note: cancel the process when not in build mode.
       end
 
       reference[ancestor] = {}
+    end
+
+    if type(reference[ancestor]) ~= 'table' then
+      throw('Unexpected non-table value encountered at `%s`', table.concat(path, '.', 1, i))
     end
 
     reference = reference[ancestor] --[[@as table]]
@@ -233,71 +224,103 @@ end
 
 --#endregion
 
---#region [module: event handler]
+--#region [module: events]
 
---
---- ?
---
-local event_handler =
-{
-  --
-  --- ?
-  --
-  listeners = map(),
 
-  --
-  --- ?
-  --
-  frame = CreateFrame('Frame', 'CogspinnerEventFrame')
-}
 
 --#endregion
 
---#region [module: storage handler]
+--#region [module: storage]
 
 --
---- ?
+--- Provides methods for managing and accessing saved variables.
 --
 local storage_controller =
 {
   --
   --- @param self storage.instance
-  --- @param variable string
+  --- @param variable_path string
+  --- @return unknown
   --
-  get = function(self, variable)
-    -- todo: implementation
+  get = function(self, variable_path)
+    local target, variable = self:resolve(variable_path, false)
+    return (type(target) == 'table' and target[variable]) or nil
   end,
 
   --
   --- @param self storage.instance
-  --- @param variable string
+  --- @param variable_path string
   --- @param value unknown
   --
-  set = function(self, variable, value)
-    local target = self.data
-
-    -- todo: implementation
+  set = function(self, variable_path, value)
+    local target, variable = self:resolve(variable_path, true)
+    target[variable] = value
   end,
 
   --
   --- @param self storage.instance
-  --- @param variable string
+  --- @param variable_path string
   --
-  drop = function(self, variable) self:set(variable, nil) end
+  drop = function(self, variable_path)
+    local target, variable = self:resolve(variable_path, false)
+    if type(target) == 'table' then target[variable] = nil end
+  end,
+
+  --
+  --- @private
+  --- @param self storage.instance
+  --- @param variable_path string
+  --- @param build_mode boolean
+  --- @return table|nil, string
+  --
+  resolve = function(self, variable_path, build_mode)
+    local target = self.data --[[@as table|nil]]
+    local variable = variable_path
+
+    if string.find(variable_path, '.') then
+      local ancestors = string_split(variable_path, '.')
+      variable = table.remove(ancestors) --[[@as string]]
+
+      target = table_walk(target --[[@as table]], ancestors, { build_mode = build_mode })
+    end
+
+    return target, variable
+  end
 }
 
 --
---- ?
+--- A module that sets up and configures storage for plugins.
 --
 local storage_handler = {}
 
 --
---- ?
---- @param plugin plugin
---- @param options storage.options?
+--- Sets up storage for a plugin based on the provided options.
+---
+--- @param plugin plugin The plugin for which storage should be set up.
+--- @param options storage.options? (optional) Configuration options for storage.
 --
 function storage_handler:setup(plugin, options)
-  -- todo: implementation
+  options = (type(options) == 'table' and options) or {}
+
+  plugin:onload(
+    function()
+      for _, level in ipairs({ 'account', 'character' }) do
+        if options[level] then
+          --#region: Plugin storage initialization
+          -- Load the saved variables, as specified in the options, and assign a
+          -- storage controller to each of the variables (account and character).
+          --#endregion
+
+          local variable = string.format('__%s_%s', plugin.id, level)
+          _G[variable] = _G[variable] or {}
+
+          plugin.data[level] = setmetatable(
+            { data = _G[variable] }, { __index = storage_controller }
+          )
+        end
+      end
+    end
+  )
 end
 
 --#endregion
@@ -314,11 +337,13 @@ local plugin_api = {}
 --- @param self plugin
 --- @param callback function
 --
-function plugin_api.onload(self, callback) end
+function plugin_api.onload(self, callback)
+  -- todo: implementation
+end
 
 --#endregion
 
---#region [module: plugin manager]
+--#region [module: plugins]
 
 --
 --- ?
@@ -328,11 +353,11 @@ local plugin_manager = { registry = list() }
 --
 --- ?
 --- @param identifier string
---- @param options plugin.create.options?
+--- @param options plugin.options?
 --- @return plugin
 --
 function plugin_manager:create(identifier, options)
-  options = options or {}
+  options = (type(options) == 'table' and options) or {}
 
   if string.match(identifier, '^[a-zA-Z0-9-]+$') == nil then
     throw('Invalid plugin identifier, may only contain `a-z`, `A-Z` and `0-9`')
@@ -345,7 +370,7 @@ function plugin_manager:create(identifier, options)
   self.registry:insert(identifier)
   local context = setmetatable({ id = identifier }, { __index = plugin_api })
 
-  -- storage module extension:
+  -- storage module:
   if type(options.storage) == 'table' then
     storage_handler:setup(context --[[@as plugin]], options.storage)
   end
@@ -364,16 +389,19 @@ _G.cogspinner =
 {
   --- ?
   --- @param identifier string
-  --- @param options plugin.create.options
+  --- @param options plugin.options
   plugin = function(identifier, options)
     return plugin_manager:create(identifier, options)
   end,
 
   --- A handy toolbox of helper functions for simplifying routine development tasks.
-  utility = {
+  utility =
+  {
     throw = throw,
+
     collection = { list = list, map = map },
-    string = { contains = string_contains, split = string_split }
+    string = { split = string_split },
+    table = { walk = table_walk }
   }
 }
 
