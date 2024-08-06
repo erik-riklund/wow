@@ -5,7 +5,7 @@
 ## Author: Ghuul
 ## Version: 1.0
 
-## SavedVariables: __DevAddon_account
-## SavedVariablesPerCharacter: __DevAddon_character
+## SavedVariables: __CS_DevAddon_account
+## SavedVariablesPerCharacter: __CS_DevAddon_character
 
 main.lua

@@ -30,6 +30,8 @@
 --- @field set fun(self: map.instance, key: unknown, value: unknown)
 --- @field has fun(self: map.instance, key: unknown): boolean
 --- @field contains fun(self: map.instance, search_value: unknown): unknown|nil
+--- @field size fun(self: map.instance): number
+--- @field values fun(self: map.instance): unknown
 
 --#endregion
 
@@ -42,5 +44,8 @@
 --- @field contains fun(self: list.instance, value: unknown): boolean
 --- @field indexof fun(self: list.instance, value: unknown): number
 --- @field insert fun(self: list.instance, value: unknown, position: number?)
+--- @field remove fun(self: list.instance, position: number?): unknown | nil
+--- @field length fun(self: list.instance): number
+--- @field values fun(self: list.instance): unknown
 
 --#endregion

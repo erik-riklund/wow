@@ -8,7 +8,7 @@
 -- < ADDON DEVELOPMENT FRAMEWORK >
 -- created by Erik Riklund (2024)
 --
--- [Add project description here]
+-- ???
 --
 
 --#region: locally scoped global variables
@@ -68,7 +68,24 @@ local map_controller =
     for key, value in pairs(self.data) do
       if value == search_value then return key end
     end
-  end
+  end,
+
+  --
+  --- @param self map.instance
+  --
+  size = function(self)
+    local count = 0
+    for _ in pairs(self.data) do
+      count = count + 1
+    end
+
+    return count
+  end,
+
+  --
+  --- @param self map.instance
+  --
+  values = function(self) return pairs(self.data) end
 }
 
 --
@@ -122,7 +139,25 @@ local list_controller =
   --
   insert = function(self, value, position)
     table.insert(self.data, position or (#self.data + 1), value)
-  end
+  end,
+
+  --
+  --- @param self list.instance
+  --- @param position number?
+  --
+  remove = function(self, position)
+    return table.remove(self.data, position or #self.data)
+  end,
+
+  --
+  --- @param self list.instance
+  --
+  length = function(self) return #self.data end,
+
+  --
+  --- @param self list.instance
+  --
+  values = function(self) return ipairs(self.data) end
 }
 
 --
@@ -224,9 +259,163 @@ end
 
 --#endregion
 
+--#region: framework resources
+
+--
+--- ?
+--
+local frame = CreateFrame('Frame', 'CogspinnerFrame')
+
+--
+--- ?
+--
+frame:RegisterEvent('ADDON_LOADED')
+
+--#endregion
+
+--#region [module: tasks]
+
+--
+--- ?
+--
+local task_handler = { jobs = list() }
+
+--
+--- ?
+--
+local task_process = coroutine.create(
+  function()
+    local frame_limit = 0.0166 -- note: 60fps
+
+    while true do
+      local start_time = GetTime()
+
+      while task_handler.jobs:length() > 0 and (GetTime() - start_time) < frame_limit do
+        local task = task_handler.jobs:remove(1) --[[@as task]]
+        local success = pcall(task.callback, unpack(
+          (type(task.arguments) == 'table' and task.arguments) or {}
+        ))
+
+        if not success then
+          -- todo: implement error handling?
+        end
+      end
+
+      coroutine.yield()
+    end
+  end
+)
+
+--
+--- ?
+--- @param callback function
+--- @param ... unknown
+--
+function task_handler:queue(callback, ...)
+  self.jobs:insert({ callback = callback, arguments = { ... } } --[[@as task]])
+end
+
+--
+--- ?
+--
+frame:SetScript('OnUpdate', function()
+  if coroutine.status(task_process) == 'suspended' then
+    if task_handler.jobs:length() > 0 then coroutine.resume(task_process) end
+  end
+end)
+
+--#endregion
+
 --#region [module: events]
 
+--
+--- ?
+--
+local event_handler = { listeners = map() }
 
+--
+--- ?
+--
+event_handler.listeners:set('ADDON_LOADED', map())
+
+--
+--- ?
+--- @param plugin_id string
+--- @param options event.listener.options
+--
+function event_handler:listen(plugin_id, options)
+  if not self.listeners:has(options.event) then
+    frame:RegisterEvent(options.event)
+    self.listeners:set(options.event, list())
+  end
+
+  if options.event == 'ADDON_LOADED' then
+    local plugins = self.listeners:get('ADDON_LOADED') --[[@as map.instance]]
+    if not plugins:has(plugin_id) then plugins:set(plugin_id, list()) end
+
+    local plugin_listeners = plugins:get(plugin_id) --[[@as list.instance]]
+
+    plugin_listeners:insert(
+      { plugin_id = plugin_id, callback = options.callback, trigger = 'once' } --[[@as event.listener]]
+    )
+  else
+    local listeners = self.listeners:get(options.event) --[[@as list.instance]]
+
+    listeners:insert(
+      {
+        plugin_id = plugin_id,
+        callback = options.callback,
+        callback_id = options.callback_id,
+        trigger = options.trigger
+      } --[[@as event.listener]]
+    )
+  end
+end
+
+--
+--- ?
+--- @param event string
+--- @param plugin_id string
+--- @param callback_id string?
+--
+function event_handler:silence(event, plugin_id, callback_id)
+  if event ~= 'ADDON_LOADED' and self.listeners:has(event) then
+
+  end
+end
+
+--
+--- ?
+--
+frame:SetScript('OnEvent',
+  function(self, event, ...)
+    if event == 'ADDON_LOADED' then
+      --#region: ?
+      -- ?
+      --#endregion
+
+      local addon_id = ...
+      local plugins = event_handler.listeners:get('ADDON_LOADED') --[[@as map.instance]]
+
+      if plugins:has(addon_id) then
+        local listeners = plugins:get(addon_id) --[[@as list.instance]]
+
+        for _, listener in listeners:values() do
+          --- @cast listener event.listener
+          task_handler:queue(listener.callback)
+        end
+
+        plugins:set(addon_id, nil)
+      end
+    else
+      --#region: ?
+      -- ?
+      --#endregion
+
+      -- todo: implementation...
+    end
+  end
+)
 
 --#endregion
 
@@ -333,12 +522,28 @@ end
 local plugin_api = {}
 
 --
---- ?
 --- @param self plugin
 --- @param callback function
 --
 function plugin_api.onload(self, callback)
-  -- todo: implementation
+  self:listen({ event = 'ADDON_LOADED', callback = callback, trigger = 'once' })
+end
+
+--
+--- @param self plugin
+--- @param options event.listener.options
+--
+function plugin_api.listen(self, options)
+  event_handler:listen(self.id, options)
+end
+
+--
+--- @param self plugin
+--- @param event WowEvent
+--- @param callback_id string?
+--
+function plugin_api.silence(self, event, callback_id)
+  event_handler:silence(event, self.id, callback_id)
 end
 
 --#endregion
@@ -359,8 +564,12 @@ local plugin_manager = { registry = list() }
 function plugin_manager:create(identifier, options)
   options = (type(options) == 'table' and options) or {}
 
-  if string.match(identifier, '^[a-zA-Z0-9-]+$') == nil then
-    throw('Invalid plugin identifier, may only contain `a-z`, `A-Z` and `0-9`')
+  --#region: ?
+  -- ???
+  --#endregion
+
+  if string.match(identifier, '^[a-zA-Z0-9_]+$') == nil then
+    throw('Invalid plugin identifier, may only contain underscores, letters (`a-z`, `A-Z`) and numbers.')
   end
 
   if self.registry:contains(identifier) then
@@ -370,12 +579,13 @@ function plugin_manager:create(identifier, options)
   self.registry:insert(identifier)
   local context = setmetatable({ id = identifier }, { __index = plugin_api })
 
-  -- storage module:
-  if type(options.storage) == 'table' then
-    storage_handler:setup(context --[[@as plugin]], options.storage)
-  end
+  --#region: ?
+  -- ???
+  --#endregion
 
-  -- todo: other context extensions based on options!
+  if type(options.storage) == 'table' then
+    storage_handler:setup(context, options.storage)
+  end
 
   return context
 end

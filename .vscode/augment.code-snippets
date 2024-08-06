@@ -69,5 +69,17 @@
     ],
 
     "prefix": "!type"
+  },
+
+  "documentation": 
+  {
+    "body":
+    [
+      "--",
+      "--- ?",
+      "--"
+    ],
+
+    "prefix": "!-?"
   }
 }

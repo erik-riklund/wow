@@ -11,9 +11,11 @@
 
 --- ?
 --- @class plugin
---- @field id string "The unique identifier for the plugin."
---- @field data plugin.storage "?"
+--- @field id string
+--- @field data plugin.storage
 --- @field onload fun(self: plugin, callback: function)
+--- @field listen fun(self: plugin, options: event.listener.options)
+--- @field silence fun(self: plugin, event: string, callback_id: string?)
 
 --#endregion
 
