@@ -18,12 +18,12 @@ local plugin = cogspinner.plugin(addon_name, {
   storage = { account = true, character = true }
 })
 
---#region: event handling
+--#region: event handling through the plugin API
 
 -- ?
 plugin:listen(
   {
-    event = 'BAG_OPEN',
+    event = 'PLAYER_STARTED_MOVING',
 
     callback = function()
       print('This callback will run on every trigger of the event.')
@@ -34,13 +34,13 @@ plugin:listen(
 -- ?
 plugin:listen(
   {
-    event = 'BAG_OPEN',
+    event = 'PLAYER_STARTED_MOVING',
     trigger = 'once',
 
     callback = function()
       print(
-        'This callback will run only on the first trigger of the event,'
-        .. ' as the `trigger` option is set to \'once\'.'
+        'As the `trigger` option is set to \'once\', this callback'
+        .. ' will run only on the first trigger of the event.'
       )
     end
   }
@@ -49,30 +49,30 @@ plugin:listen(
 -- ?
 plugin:listen(
   {
-    event = 'BAG_OPEN',
-    callback_id = 'BAG_OPEN_TEST',
+    event = 'PLAYER_STARTED_MOVING',
+    callback_id = 'test',
 
     callback = function()
       print(
-        'This callback has an assigned ID and will run on the first'
-        .. ' trigger of the event, and is then manually removed.'
+        'We assign an ID to this callback, causing it to run on the first'
+        .. ' trigger of the event, and then we manually remove it.'
       )
 
-      plugin:silence('BAG_OPEN', 'BAG_OPEN_TEST')
+      plugin:silence('PLAYER_STARTED_MOVING', 'test')
     end
   }
 )
 
 --#endregion
 
---#region: addon loaded
+--#region: delayed execution until the plugin has finished loading
 
 -- ?
 plugin:onload(
   function()
     print(
       'The development plugin has now been fully loaded, and'
-      .. ' the storage unit (saved variables) is now usable.'
+      .. ' the storage module (saved variables) is now usable.'
     )
   end
 )
@@ -80,8 +80,17 @@ plugin:onload(
 -- ?
 plugin:onload(
   function()
-    print('Eh?')
+    print(
+      'In the same way as with regular events, multiple callbacks may be'
+      .. ' registered to execute when the addon has fully loaded.'
+    )
   end
 )
+
+--#endregion
+
+--#region: using the network to communicate with other plugins
+
+
 
 --#endregion

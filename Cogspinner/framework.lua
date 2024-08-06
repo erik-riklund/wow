@@ -13,7 +13,7 @@
 
 --#region: locally scoped global variables
 
-local assert, error, ipairs, pairs, type = assert, error, ipairs, pairs, type
+local assert, collectgarbage, error, ipairs, pairs, type = assert, collectgarbage, error, ipairs, pairs, type
 local coroutine, string, table = coroutine, string, table
 
 --#endregion
@@ -85,7 +85,7 @@ local map_controller =
   --
   --- @param self map.instance
   --
-  values = function(self) return pairs(self.data) end
+  values = function(self) return self.data end
 }
 
 --
@@ -157,7 +157,7 @@ local list_controller =
   --
   --- @param self list.instance
   --
-  values = function(self) return ipairs(self.data) end
+  values = function(self) return self.data end
 }
 
 --
@@ -262,12 +262,12 @@ end
 --#region: framework resources
 
 --
---- ?
+--- The main frame for the framework, used for registering and handling events.
 --
 local frame = CreateFrame('Frame', 'CogspinnerFrame')
 
 --
---- ?
+--- Registers the ADDON_LOADED event used to trigger initialization logic when plugins are loaded.
 --
 frame:RegisterEvent('ADDON_LOADED')
 
@@ -276,12 +276,13 @@ frame:RegisterEvent('ADDON_LOADED')
 --#region [module: tasks]
 
 --
---- ?
+--- Responsible for managing and executing tasks in a time-sliced manner to maintain frame rate.
 --
 local task_handler = { jobs = list() }
 
 --
---- ?
+--- A coroutine that processes tasks from the queue, ensuring that the execution time
+--- per frame does not exceed the specified limit (targeting 60fps).
 --
 local task_process = coroutine.create(
   function()
@@ -307,16 +308,18 @@ local task_process = coroutine.create(
 )
 
 --
---- ?
---- @param callback function
---- @param ... unknown
+--- Queues a task for execution, adding it to the list of pending tasks.
+---
+--- @param callback function The function to be executed as the task.
+--- @param ... unknown The arguments to be passed to the callback function.
 --
 function task_handler:queue(callback, ...)
   self.jobs:insert({ callback = callback, arguments = { ... } } --[[@as task]])
 end
 
 --
---- ?
+--- Hooks into the `OnUpdate` event to resume the task processing coroutine 
+--- whenever there are tasks in the queue.
 --
 frame:SetScript('OnUpdate', function()
   if coroutine.status(task_process) == 'suspended' then
@@ -329,19 +332,19 @@ end)
 --#region [module: events]
 
 --
---- ?
+--- Responsible for managing event subscriptions and triggering callbacks when events occur.
 --
 local event_handler = { listeners = map() }
 
 --
---- ?
+--- Used to store listeners for the 'ADDON_LOADED' event, organized by plugin IDs.
 --
 event_handler.listeners:set('ADDON_LOADED', map())
 
 --
---- ?
---- @param plugin_id string
---- @param options event.listener.options
+--- Registers a listener for a specified event.
+--- @param plugin_id string The unique identifier of the plugin registering the listener.
+--- @param options event.listener.options The options for the listener.
 --
 function event_handler:listen(plugin_id, options)
   if not self.listeners:has(options.event) then
@@ -373,25 +376,33 @@ function event_handler:listen(plugin_id, options)
 end
 
 --
---- ?
---- @param event string
---- @param plugin_id string
---- @param callback_id string?
+--- Unsubscribes one (if a callback ID is specified) or all listeners for a specific event.
+--- @param event string The name of the event to unsubscribe from.
+--- @param plugin_id string The unique identifier of the plugin that registered the listener.
+--- @param callback_id string? (optional) A unique identifier for a specific callback within the plugin.
 --
 function event_handler:silence(event, plugin_id, callback_id)
   if event ~= 'ADDON_LOADED' and self.listeners:has(event) then
+    local listeners = self.listeners:get(event) --[[@as list.instance]]
 
+    for i = listeners:length(), 1, -1 do
+      local listener = listeners:get(i) --[[@as event.listener]]
+
+      if plugin_id == listener.plugin_id then
+        if callback_id == nil or (callback_id ~= nil and listener.callback_id == callback_id) then listeners:remove(i) end
+      end
+    end
   end
 end
 
 --
---- ?
+--- The main event handler, triggered when an in-game event occurs.
 --
 frame:SetScript('OnEvent',
-  function(self, event, ...)
+  function(_, event, ...)
     if event == 'ADDON_LOADED' then
-      --#region: ?
-      -- ?
+      --#region: Handle ADDON_LOADED event
+      -- Process and remove listeners for the 'ADDON_LOADED' event associated with the loaded plugin.
       --#endregion
 
       local addon_id = ...
@@ -400,7 +411,7 @@ frame:SetScript('OnEvent',
       if plugins:has(addon_id) then
         local listeners = plugins:get(addon_id) --[[@as list.instance]]
 
-        for _, listener in listeners:values() do
+        for _, listener in ipairs(listeners:values()) do
           --- @cast listener event.listener
           task_handler:queue(listener.callback)
         end
@@ -408,13 +419,39 @@ frame:SetScript('OnEvent',
         plugins:set(addon_id, nil)
       end
     else
-      --#region: ?
-      -- ?
+      --#region: Handle other events
+      -- Retrieve and queue registered listeners for the triggered event, 
+      -- respecting the 'trigger' option for each listener.
       --#endregion
 
-      -- todo: implementation...
+      if event_handler.listeners:has(event) then
+        local callbacks = list()
+        local listeners = event_handler.listeners:get(event) --[[@as list.instance]]
+
+        for i = listeners:length(), 1, -1 do
+          local listener = listeners:get(i) --[[@as event.listener]]
+          callbacks:insert(listener.callback)
+
+          if listener.trigger == 'once' then listeners:remove(i) end
+        end
+
+        for i = callbacks:length(), 1, -1 do
+          task_handler:queue(callbacks:get(i) --[[@as function]], ...)
+        end
+      end
     end
   end
+)
+
+--
+--- Subscribes to the 'PLAYER_ENTERING_WORLD' event to trigger
+--- garbage collection when the game has been initialized.
+--
+event_handler:listen(
+  'Cogspinner', {
+    event = 'PLAYER_ENTERING_WORLD',
+    callback = function() collectgarbage() end
+  }
 )
 
 --#endregion
@@ -511,6 +548,15 @@ function storage_handler:setup(plugin, options)
     end
   )
 end
+
+--#endregion
+
+--#region [module: channels]
+
+--
+--- ?
+--
+local network = {}
 
 --#endregion
 

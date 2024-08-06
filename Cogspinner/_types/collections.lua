@@ -31,7 +31,7 @@
 --- @field has fun(self: map.instance, key: unknown): boolean
 --- @field contains fun(self: map.instance, search_value: unknown): unknown|nil
 --- @field size fun(self: map.instance): number
---- @field values fun(self: map.instance): unknown
+--- @field values fun(self: map.instance): map<unknown, unknown>
 
 --#endregion
 
@@ -46,6 +46,6 @@
 --- @field insert fun(self: list.instance, value: unknown, position: number?)
 --- @field remove fun(self: list.instance, position: number?): unknown | nil
 --- @field length fun(self: list.instance): number
---- @field values fun(self: list.instance): unknown
+--- @field values fun(self: list.instance): list<unknown>
 
 --#endregion
