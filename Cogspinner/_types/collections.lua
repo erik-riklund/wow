@@ -23,9 +23,10 @@
 
 --#region (type: map.instance)
 
---- ?
 --- @class map.instance
+--- 
 --- @field data map<unknown, unknown>
+--- 
 --- @field get fun(self: map.instance, key: unknown): unknown
 --- @field set fun(self: map.instance, key: unknown, value: unknown)
 --- @field has fun(self: map.instance, key: unknown): boolean
@@ -37,9 +38,10 @@
 
 --#region (type: list.instance)
 
---- ?
 --- @class list.instance
+--- 
 --- @field data map<number, unknown>
+--- 
 --- @field get fun(self: list.instance, index: number): unknown | nil
 --- @field contains fun(self: list.instance, value: unknown): boolean
 --- @field indexof fun(self: list.instance, value: unknown): number

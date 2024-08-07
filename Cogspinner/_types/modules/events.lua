@@ -13,9 +13,21 @@
 
 --#endregion
 
+--#region (type: event.api)
+
+--- @class event.api
+--- 
+--- @field context plugin
+--- 
+--- @field listen fun(self: event.api, options: event.listener.options)
+--- @field silence fun(self: event.api, event: string, callback_id: string?)
+
+--#endregion
+
 --#region (type: event.listener.options)
 
 --- @class event.listener.options
+--- 
 --- @field event string
 --- @field callback function
 --- @field callback_id string?
@@ -26,6 +38,7 @@
 --#region (type: event.listener)
 
 --- @class event.listener
+--- 
 --- @field plugin_id string
 --- @field callback function
 --- @field callback_id string?

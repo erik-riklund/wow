@@ -12,16 +12,22 @@
 -- ?
 local addon_name = ...
 
--- ?
-local plugin = cogspinner.plugin(addon_name, {
-  -- ?
-  storage = { account = true, character = true }
-})
-
---#region: event handling through the plugin API
+--#region: plugin initialization
 
 -- ?
-plugin:listen(
+local plugin = cogspinner.plugin(addon_name,
+  {
+    -- ?
+    channels = { 'JUST_TESTING' }
+  }
+)
+
+--#endregion
+
+--#region: event handling through the plugin event API
+
+-- ?
+plugin.event:listen(
   {
     event = 'PLAYER_STARTED_MOVING',
 
@@ -32,7 +38,7 @@ plugin:listen(
 )
 
 -- ?
-plugin:listen(
+plugin.event:listen(
   {
     event = 'PLAYER_STARTED_MOVING',
     trigger = 'once',
@@ -47,7 +53,7 @@ plugin:listen(
 )
 
 -- ?
-plugin:listen(
+plugin.event:listen(
   {
     event = 'PLAYER_STARTED_MOVING',
     callback_id = 'test',
@@ -58,7 +64,7 @@ plugin:listen(
         .. ' trigger of the event, and then we manually remove it.'
       )
 
-      plugin:silence('PLAYER_STARTED_MOVING', 'test')
+      plugin.event:silence('PLAYER_STARTED_MOVING', 'test')
     end
   }
 )
@@ -91,6 +97,24 @@ plugin:onload(
 
 --#region: using the network to communicate with other plugins
 
+-- ?
+local transmit_counter = 0
 
+-- ?
+plugin.network:recieve('JUST_TESTING', function(payload)
+  print('The `JUST_TESTING` channel transmitted \'' .. payload .. '\'')
+end)
+
+-- ?
+C_Timer.NewTicker(
+  5, -- note: 5s delay
+
+  function()
+    transmit_counter = transmit_counter + 1
+    plugin.network:transmit('JUST_TESTING', transmit_counter)
+  end,
+  
+  3 -- note: iterations
+)
 
 --#endregion

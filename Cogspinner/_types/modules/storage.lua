@@ -7,21 +7,24 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region (type: storage.options)
+--#region (type: storage.api)
 
---- @class storage.options
---- @field account boolean?
---- @field character boolean?
+--- @class storage.api
+--- 
+--- @field account storage.instance
+--- @field character storage.instance
 
 --#endregion
 
 --#region (type: storage.instance)
 
 --- @class storage.instance
+--- 
 --- @field data map<string, unknown>
---- @field get fun(self: storage.instance, variable_path: string): unknown "?"
---- @field set fun(self: storage.instance, variable_path: string, value: unknown) "?"
---- @field drop fun(self: storage.instance, variable_path: string) "?"
+--- 
+--- @field get fun(self: storage.instance, variable_path: string): unknown
+--- @field set fun(self: storage.instance, variable_path: string, value: unknown)
+--- @field drop fun(self: storage.instance, variable_path: string)
 --- @field resolve fun(self: storage.instance, variable_path: string, build_mode: boolean): table|nil, string
 
 --#endregion

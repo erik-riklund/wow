@@ -9,8 +9,8 @@
 
 --#region (type: task)
 
---- Represents a unit of work to be executed, encapsulating a callback function and its arguments.
 --- @class task
+--- 
 --- @field callback function The function to be executed as the task.
 --- @field arguments list<unknown>? The arguments to be passed to the callback function.
 

@@ -9,27 +9,21 @@
 
 --#region (type: plugin)
 
---- ?
 --- @class plugin
+--- 
 --- @field id string
---- @field data plugin.storage
+--- @field data storage.api
+--- @field event event.api
+--- @field network network.api
+--- 
 --- @field onload fun(self: plugin, callback: function)
---- @field listen fun(self: plugin, options: event.listener.options)
---- @field silence fun(self: plugin, event: string, callback_id: string?)
 
 --#endregion
 
 --#region (type: plugin.options)
 
 --- @class plugin.options
---- @field storage storage.options?
-
---#endregion
-
---#region (type: plugin.storage)
-
---- @class plugin.storage
---- @field account storage.instance
---- @field character storage.instance
+--- 
+--- @field channels list<string>?
 
 --#endregion

@@ -318,7 +318,7 @@ function task_handler:queue(callback, ...)
 end
 
 --
---- Hooks into the `OnUpdate` event to resume the task processing coroutine 
+--- Hooks into the `OnUpdate` event to resume the task processing coroutine
 --- whenever there are tasks in the queue.
 --
 frame:SetScript('OnUpdate', function()
@@ -420,7 +420,7 @@ frame:SetScript('OnEvent',
       end
     else
       --#region: Handle other events
-      -- Retrieve and queue registered listeners for the triggered event, 
+      -- Retrieve and queue registered listeners for the triggered event,
       -- respecting the 'trigger' option for each listener.
       --#endregion
 
@@ -441,17 +441,6 @@ frame:SetScript('OnEvent',
       end
     end
   end
-)
-
---
---- Subscribes to the 'PLAYER_ENTERING_WORLD' event to trigger
---- garbage collection when the game has been initialized.
---
-event_handler:listen(
-  'Cogspinner', {
-    event = 'PLAYER_ENTERING_WORLD',
-    callback = function() collectgarbage() end
-  }
 )
 
 --#endregion
@@ -523,27 +512,22 @@ local storage_handler = {}
 --- Sets up storage for a plugin based on the provided options.
 ---
 --- @param plugin plugin The plugin for which storage should be set up.
---- @param options storage.options? (optional) Configuration options for storage.
 --
-function storage_handler:setup(plugin, options)
-  options = (type(options) == 'table' and options) or {}
-
+function storage_handler:setup(plugin)
   plugin:onload(
     function()
       for _, level in ipairs({ 'account', 'character' }) do
-        if options[level] then
-          --#region: Plugin storage initialization
-          -- Load the saved variables, as specified in the options, and assign a
-          -- storage controller to each of the variables (account and character).
-          --#endregion
+        --#region: Plugin storage initialization
+        -- Load the saved variables, as specified in the options, and assign a
+        -- storage controller to each of the variables (account and character).
+        --#endregion
 
-          local variable = string.format('__%s_%s', plugin.id, level)
-          _G[variable] = _G[variable] or {}
+        local variable = string.format('__%s_%s', plugin.id, level)
+        _G[variable] = _G[variable] or {}
 
-          plugin.data[level] = setmetatable(
-            { data = _G[variable] }, { __index = storage_controller }
-          )
-        end
+        plugin.data[level] = setmetatable(
+          { data = _G[variable] }, { __index = storage_controller }
+        )
       end
     end
   )
@@ -551,19 +535,71 @@ end
 
 --#endregion
 
---#region [module: channels]
+--#region [module: network]
 
 --
---- ?
+--- The network module manages communication channels between plugins, allowing
+--- them to reserve, transmit on, and receive messages from specific channels.
+--- It ensures that only the owning plugin can transmit on a channel and provides
+--- functionality for other plugins to register listeners to receive messages.
 --
-local network = {}
+local network = { channels = map() }
+
+--
+--- @param plugin plugin
+--- @param channels list<string>
+--
+function network:reserve(plugin, channels)
+  for _, channel in ipairs(channels) do
+    if self.channels:has(channel) then
+      throw('Unable to reserve occupied channel `%s` for plugin %s', channel, plugin.id)
+    end
+
+    self.channels:set(channel, { owner = plugin, listeners = list() })
+  end
+end
+
+--
+--- @param plugin plugin
+--- @param channel string
+--- @param callback function
+--
+function network:recieve(plugin, channel, callback)
+  if not self.channels:has(channel) then
+    throw('Attempt to recieve payloads from unknown channel `%s` (plugin: %s)', channel, plugin.id)
+  end
+
+  local channel_data = self.channels:get(channel) --[[@as network.channel]]
+  channel_data.listeners:insert(callback)
+end
+
+--
+--- @param plugin plugin
+--- @param channel string
+--- @param payload unknown?
+--
+function network:transmit(plugin, channel, payload)
+  if not self.channels:has(channel) then
+    throw('Unable to transmit to unknown channel `%s` (plugin: %s)', channel, plugin.id)
+  end
+
+  local channel_data = self.channels:get(channel) --[[@as network.channel]]
+
+  if channel_data.owner ~= plugin then
+    throw('Unable to transmit to channel `%s` reserved by other plugin (plugin: %s)', channel, plugin.id)
+  end
+
+  for _, callback in ipairs(channel_data.listeners:values()) do
+    task_handler:queue(callback, payload)
+  end
+end
 
 --#endregion
 
 --#region: plugin API
 
 --
---- ?
+--- Provides a collection of methods for plugin interaction and management.
 --
 local plugin_api = {}
 
@@ -572,24 +608,63 @@ local plugin_api = {}
 --- @param callback function
 --
 function plugin_api.onload(self, callback)
-  self:listen({ event = 'ADDON_LOADED', callback = callback, trigger = 'once' })
+  self.event:listen(
+    { event = 'ADDON_LOADED', callback = callback, trigger = 'once' }
+  )
 end
 
+--#endregion
+
+--#region: event API
+
 --
---- @param self plugin
+--- Provides an interface for plugins to interact with the event system,
+--- allowing them to register and unregister event listeners.
+--
+local event_api = {}
+
+--
+--- @param self event.api
 --- @param options event.listener.options
 --
-function plugin_api.listen(self, options)
-  event_handler:listen(self.id, options)
+function event_api.listen(self, options)
+  event_handler:listen(self.context.id, options)
 end
 
 --
---- @param self plugin
---- @param event WowEvent
+--- @param self event.api
+--- @param event string
 --- @param callback_id string?
 --
-function plugin_api.silence(self, event, callback_id)
-  event_handler:silence(event, self.id, callback_id)
+function event_api.silence(self, event, callback_id)
+  event_handler:silence(event, self.context.id, callback_id)
+end
+
+--#endregion
+
+--#region: network API
+
+--
+--- Provides an interface for plugins to interact with the network communication system.
+--
+local network_api = {}
+
+--
+--- @param self network.api
+--- @param channel string
+--- @param payload unknown?
+--
+function network_api.transmit(self, channel, payload)
+  network:transmit(self.context, channel, payload)
+end
+
+--
+--- @param self network.api
+--- @param channel string
+--- @param callback function
+--
+function network_api.recieve(self, channel, callback)
+  network:recieve(self.context, channel, callback)
 end
 
 --#endregion
@@ -597,25 +672,32 @@ end
 --#region [module: plugins]
 
 --
---- ?
+--- Manages the lifecycle of plugins, including their registration, setup, and initialization.
 --
 local plugin_manager = { registry = list() }
 
 --
---- ?
 --- @param identifier string
 --- @param options plugin.options?
---- @return plugin
 --
-function plugin_manager:create(identifier, options)
-  options = (type(options) == 'table' and options) or {}
+function plugin_manager:initialize(identifier, options)
+  self:register(identifier)
+  local plugin = setmetatable({ id = identifier }, { __index = plugin_api }) --[[@as plugin]]
+  self:setup(plugin, (type(options) == 'table' and options) or {})
 
-  --#region: ?
-  -- ???
-  --#endregion
+  return plugin
+end
 
+--
+--- @private
+--- @param identifier string
+--
+function plugin_manager:register(identifier)
   if string.match(identifier, '^[a-zA-Z0-9_]+$') == nil then
-    throw('Invalid plugin identifier, may only contain underscores, letters (`a-z`, `A-Z`) and numbers.')
+    throw(
+      'Invalid plugin identifier, may only contain underscores,'
+      .. ' letters (`a-z`, `A-Z`) and numbers.'
+    )
   end
 
   if self.registry:contains(identifier) then
@@ -623,17 +705,22 @@ function plugin_manager:create(identifier, options)
   end
 
   self.registry:insert(identifier)
-  local context = setmetatable({ id = identifier }, { __index = plugin_api })
+end
 
-  --#region: ?
-  -- ???
-  --#endregion
+--
+--- @private
+--- @param plugin plugin
+--- @param options plugin.options
+--
+function plugin_manager:setup(plugin, options)
+  plugin.event = setmetatable({ context = plugin }, { __index = event_api })
+  plugin.network = setmetatable({ context = plugin }, { __index = network_api })
 
-  if type(options.storage) == 'table' then
-    storage_handler:setup(context, options.storage)
+  storage_handler:setup(plugin)
+
+  if type(options.channels) == 'table' then
+    network:reserve(plugin, options.channels --[[@as list<string>]])
   end
-
-  return context
 end
 
 --#endregion
@@ -643,14 +730,18 @@ end
 -- The API for the Cogspinner framework.
 _G.cogspinner =
 {
+  --
   --- ?
   --- @param identifier string
-  --- @param options plugin.options
+  --- @param options plugin.options?
+  --
   plugin = function(identifier, options)
-    return plugin_manager:create(identifier, options)
+    return plugin_manager:initialize(identifier, options)
   end,
 
-  --- A handy toolbox of helper functions for simplifying routine development tasks.
+  --
+  --- A toolbox of helper functions for simplifying routine development tasks.
+  --
   utility =
   {
     throw = throw,
@@ -660,5 +751,20 @@ _G.cogspinner =
     table = { walk = table_walk }
   }
 }
+
+--#endregion
+
+--#region (garbage collection)
+
+--
+--- Subscribes to the 'PLAYER_ENTERING_WORLD' event to trigger a full
+--- garbage collection cycle when the game has been initialized.
+--
+event_handler:listen(
+  'Cogspinner', {
+    event = 'PLAYER_ENTERING_WORLD',
+    callback = function() collectgarbage() end
+  }
+)
 
 --#endregion
