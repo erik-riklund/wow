@@ -17,7 +17,7 @@ cogspinner.locale(
     
     content =
     {
-      ['TEST.what'] = 'What?'
+      TEST = 'A dummy text used to demonstrate a localized string'
     }
   }
 )

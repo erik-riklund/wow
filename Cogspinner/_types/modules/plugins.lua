@@ -15,6 +15,7 @@
 --- @field data storage.api
 --- @field event event.api
 --- @field network network.api
+--- @field locale locale.api
 --- 
 --- @field onload fun(self: plugin, callback: function)
 

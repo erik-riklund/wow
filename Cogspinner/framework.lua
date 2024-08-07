@@ -452,6 +452,33 @@ frame:SetScript('OnEvent',
 
 --#endregion
 
+--#region: event API
+
+--
+--- Provides an interface for plugins to interact with the event system,
+--- allowing them to register and unregister event listeners.
+--
+local event_api = {}
+
+--
+--- @param self event.api
+--- @param options event.listener.options
+--
+function event_api.listen(self, options)
+  event_handler:listen(self.context.id, options)
+end
+
+--
+--- @param self event.api
+--- @param event string
+--- @param callback_id string?
+--
+function event_api.silence(self, event, callback_id)
+  event_handler:silence(event, self.context.id, callback_id)
+end
+
+--#endregion
+
 --#region [module: storage]
 
 --
@@ -605,87 +632,6 @@ end
 
 --#endregion
 
---#region [module: locales]
-
---
---- ?
---
-local locale_handler = {
-  locales = map({ Cogspinner = map() })
-}
-
---
---- @param data locale
---
-function locale_handler:register(data)
-  if not self.locales:has(data.plugin) then
-    self.locales:set(data.plugin, map())
-  end
-
-  --- @type map.instance
-  local plugin_locales = self.locales:get(data.plugin)
-
-  plugin_locales:set(data.locale, data.content)
-  if type(data.default) == 'boolean' and data.default then
-    plugin_locales:set('default', data.content)
-  end
-end
-
---
---- @param plugin plugin
---
-function locale_handler:setup(plugin)
-  -- todo: implementation ...
-end
-
---#endregion
-
---#region: plugin API
-
---
---- Provides a collection of methods for plugin interaction and management.
---
-local plugin_api = {}
-
---
---- @param self plugin
---- @param callback function
---
-function plugin_api.onload(self, callback)
-  self.event:listen(
-    { event = 'ADDON_LOADED', callback = callback, trigger = 'once' }
-  )
-end
-
---#endregion
-
---#region: event API
-
---
---- Provides an interface for plugins to interact with the event system,
---- allowing them to register and unregister event listeners.
---
-local event_api = {}
-
---
---- @param self event.api
---- @param options event.listener.options
---
-function event_api.listen(self, options)
-  event_handler:listen(self.context.id, options)
-end
-
---
---- @param self event.api
---- @param event string
---- @param callback_id string?
---
-function event_api.silence(self, event, callback_id)
-  event_handler:silence(event, self.context.id, callback_id)
-end
-
---#endregion
-
 --#region: network API
 
 --
@@ -713,12 +659,113 @@ end
 
 --#endregion
 
+--#region [module: locales]
+
+--
+--- ?
+--
+local locale_handler = {
+  locales = map({ Cogspinner = map() })
+}
+
+--
+--- @param data locale
+--
+function locale_handler:register(data)
+  if not self.locales:has(data.plugin) then
+    self.locales:set(data.plugin, map())
+  end
+
+  --- @type map.instance
+  local plugin_locales = self.locales:get(data.plugin)
+
+  plugin_locales:set(data.locale, map(data.content))
+
+  if type(data.default) == 'boolean' and data.default then
+    plugin_locales:set('default', map(data.content))
+  end
+end
+
+--
+--- @param plugin_id string
+--- @param label string
+--
+function locale_handler:retrieve(plugin_id, label)
+  if self.locales:has(plugin_id) then
+    --- @type map.instance
+    local locales = self.locales:get(plugin_id)
+
+    --- @type map.instance | nil
+    local locale = locales:get(GetLocale()) or locales:get('default')
+
+    return (locale ~= nil and locale:get(label)) or string.format(
+      'Missing translation (locale: %s, label: %s)', GetLocale(), label
+    )
+  end
+end
+
+--#endregion
+
 --#region: locale API
 
 --
 --- ?
 --
 local locale_api = {}
+
+--
+--- @param self locale.api
+--- @param label string
+--
+function locale_api.get(self, label)
+  return locale_handler:retrieve(self.context.id, label)
+end
+
+--#endregion
+
+--#region [module: services]
+
+--
+--- ?
+--
+local service_manager = {}
+
+--#endregion
+
+--#region [module: resource exchange]
+
+--
+--- ?
+--
+local exchange_manager = {}
+
+--#endregion
+
+--#region [module: tooltip controller]
+
+--
+--- ?
+--
+local tooltip_controller = {}
+
+--#endregion
+
+--#region: plugin API
+
+--
+--- Provides a collection of methods for plugin interaction and management.
+--
+local plugin_api = {}
+
+--
+--- @param self plugin
+--- @param callback function
+--
+function plugin_api.onload(self, callback)
+  self.event:listen(
+    { event = 'ADDON_LOADED', callback = callback, trigger = 'once' }
+  )
+end
 
 --#endregion
 
@@ -770,6 +817,7 @@ end
 function plugin_manager:setup(plugin, options)
   plugin.event = setmetatable({ context = plugin }, { __index = event_api })
   plugin.network = setmetatable({ context = plugin }, { __index = network_api })
+  plugin.locale = setmetatable({ context = plugin }, { __index = locale_api })
 
   storage_handler:setup(plugin)
 
@@ -818,7 +866,7 @@ _G.cogspinner =
 --#region (garbage collection)
 
 --
---- Subscribes to the 'PLAYER_ENTERING_WORLD' event to trigger a full
+--- Use the 'PLAYER_ENTERING_WORLD' event to trigger a full
 --- garbage collection cycle after loading screens.
 --
 event_handler:listen(
@@ -829,8 +877,8 @@ event_handler:listen(
 )
 
 --
---- Subscribes to the 'PLAYER_FLAGS_CHANGED' event to trigger a full
---- garbage collection cycle when the player's AFK status changes.
+--- Use the 'PLAYER_FLAGS_CHANGED' event to trigger a full
+--- garbage collection cycle when the player goes AFK.
 --
 event_handler:listen(
   'Cogspinner', {
@@ -842,7 +890,7 @@ event_handler:listen(
 )
 
 --
---- Subscribes to the 'UNIT_ENTERED_VEHICLE' event to trigger a full
+--- Use the 'UNIT_ENTERED_VEHICLE' event to trigger a full
 --- garbage collection cycle when the player enters a taxi.
 --
 event_handler:listen(

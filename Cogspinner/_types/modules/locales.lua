@@ -17,3 +17,12 @@
 --- @field content map<string, string>
 
 --#endregion
+
+--#region (type: locale.api)
+
+--- @class locale.api
+--- 
+--- @field context plugin
+--- @field get fun(self: locale.api, key: string): string
+
+--#endregion

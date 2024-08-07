@@ -8,4 +8,5 @@
 ## SavedVariables: __CS_DevAddon_account
 ## SavedVariablesPerCharacter: __CS_DevAddon_character
 
+locales/enUS.lua
 main.lua

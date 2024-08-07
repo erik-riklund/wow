@@ -109,7 +109,7 @@ channel .. channel_note
 data .up. data_note
 event .. event_note
 exchange .. exchange_note
-locale .up. locale_note
+locale .. locale_note
 pluginAPI .left. pluginAPI_note
 plugin .up. plugin_note
 service .. service_note
@@ -120,20 +120,21 @@ utilities .up. utilities_note
 ' END NOTES.
 
 ' module relationships
-channel --> task
-event --> task
+channel --> task : <<use>>
+event --> task : <<use>>
 
 ' ' API relationships
-API .. exchange
-API . plugin
-API .. service
-API .. tooltip
-API .left. utilities
+API ..> exchange
+API .> plugin
+API ..> service
+API ..> tooltip
+API .left.> utilities
+API .> locale
 plugin --> pluginAPI : <<create>>
 
 ' plugin API relationships
-pluginAPI .. channel
-pluginAPI .right. data
-pluginAPI .. event
-pluginAPI .. locale
+pluginAPI ..> channel
+pluginAPI .right.> data
+pluginAPI ..> event
+pluginAPI ..> locale
 @enduml

@@ -98,12 +98,12 @@ plugin:onload(
 --#region: using the network to communicate with other plugins
 
 -- ?
-local transmit_counter = 0
-
--- ?
 plugin.network:recieve('JUST_TESTING', function(payload)
   print('The `JUST_TESTING` channel transmitted \'' .. payload .. '\'')
 end)
+
+-- ?
+local transmit_counter = 0
 
 -- ?
 C_Timer.NewTicker(
@@ -113,7 +113,7 @@ C_Timer.NewTicker(
     transmit_counter = transmit_counter + 1
     plugin.network:transmit('JUST_TESTING', transmit_counter)
   end,
-  
+
   3 -- note: iterations
 )
 
@@ -122,6 +122,13 @@ C_Timer.NewTicker(
 --#region: utilizing locales ...
 
 -- ?
--- TEST.what
+print(
+  plugin.locale:get('TEST')
+)
+
+-- ?
+print(
+  plugin.locale:get('TEST_INVALID')
+)
 
 --#endregion
