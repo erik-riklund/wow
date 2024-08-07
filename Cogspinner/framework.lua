@@ -353,16 +353,22 @@ function event_handler:listen(plugin_id, options)
   end
 
   if options.event == 'ADDON_LOADED' then
-    local plugins = self.listeners:get('ADDON_LOADED') --[[@as map.instance]]
-    if not plugins:has(plugin_id) then plugins:set(plugin_id, list()) end
+    --- @type map.instance
+    local plugins = self.listeners:get('ADDON_LOADED')
 
-    local plugin_listeners = plugins:get(plugin_id) --[[@as list.instance]]
+    if not plugins:has(plugin_id) then
+      plugins:set(plugin_id, list())
+    end
+
+    --- @type list.instance
+    local plugin_listeners = plugins:get(plugin_id)
 
     plugin_listeners:insert(
       { plugin_id = plugin_id, callback = options.callback, trigger = 'once' } --[[@as event.listener]]
     )
   else
-    local listeners = self.listeners:get(options.event) --[[@as list.instance]]
+    --- @type list.instance
+    local listeners = self.listeners:get(options.event)
 
     listeners:insert(
       {
@@ -383,7 +389,8 @@ end
 --
 function event_handler:silence(event, plugin_id, callback_id)
   if event ~= 'ADDON_LOADED' and self.listeners:has(event) then
-    local listeners = self.listeners:get(event) --[[@as list.instance]]
+    --- @type list.instance
+    local listeners = self.listeners:get(event)
 
     for i = listeners:length(), 1, -1 do
       local listener = listeners:get(i) --[[@as event.listener]]
@@ -569,7 +576,8 @@ function network:recieve(plugin, channel, callback)
     throw('Attempt to recieve payloads from unknown channel `%s` (plugin: %s)', channel, plugin.id)
   end
 
-  local channel_data = self.channels:get(channel) --[[@as network.channel]]
+  --- @type network.channel
+  local channel_data = self.channels:get(channel)
   channel_data.listeners:insert(callback)
 end
 
@@ -583,7 +591,8 @@ function network:transmit(plugin, channel, payload)
     throw('Unable to transmit to unknown channel `%s` (plugin: %s)', channel, plugin.id)
   end
 
-  local channel_data = self.channels:get(channel) --[[@as network.channel]]
+  --- @type network.channel
+  local channel_data = self.channels:get(channel)
 
   if channel_data.owner ~= plugin then
     throw('Unable to transmit to channel `%s` reserved by other plugin (plugin: %s)', channel, plugin.id)
@@ -592,6 +601,41 @@ function network:transmit(plugin, channel, payload)
   for _, callback in ipairs(channel_data.listeners:values()) do
     task_handler:queue(callback, payload)
   end
+end
+
+--#endregion
+
+--#region [module: locales]
+
+--
+--- ?
+--
+local locale_handler = {
+  locales = map({ Cogspinner = map() })
+}
+
+--
+--- @param data locale
+--
+function locale_handler:register(data)
+  if not self.locales:has(data.plugin) then
+    self.locales:set(data.plugin, map())
+  end
+
+  --- @type map.instance
+  local plugin_locales = self.locales:get(data.plugin)
+
+  plugin_locales:set(data.locale, data.content)
+  if type(data.default) == 'boolean' and data.default then
+    plugin_locales:set('default', data.content)
+  end
+end
+
+--
+--- @param plugin plugin
+--
+function locale_handler:setup(plugin)
+  -- todo: implementation ...
 end
 
 --#endregion
@@ -669,12 +713,23 @@ end
 
 --#endregion
 
+--#region: locale API
+
+--
+--- ?
+--
+local locale_api = {}
+
+--#endregion
+
 --#region [module: plugins]
 
 --
 --- Manages the lifecycle of plugins, including their registration, setup, and initialization.
 --
-local plugin_manager = { registry = list() }
+local plugin_manager = {
+  registry = list({ 'Cogspinner' })
+}
 
 --
 --- @param identifier string
@@ -740,6 +795,12 @@ _G.cogspinner =
   end,
 
   --
+  --- ?
+  --- @param data locale
+  --
+  locale = function(data) locale_handler:register(data) end,
+
+  --
   --- A toolbox of helper functions for simplifying routine development tasks.
   --
   utility =
@@ -758,12 +819,38 @@ _G.cogspinner =
 
 --
 --- Subscribes to the 'PLAYER_ENTERING_WORLD' event to trigger a full
---- garbage collection cycle when the game has been initialized.
+--- garbage collection cycle after loading screens.
 --
 event_handler:listen(
   'Cogspinner', {
     event = 'PLAYER_ENTERING_WORLD',
     callback = function() collectgarbage() end
+  }
+)
+
+--
+--- Subscribes to the 'PLAYER_FLAGS_CHANGED' event to trigger a full
+--- garbage collection cycle when the player's AFK status changes.
+--
+event_handler:listen(
+  'Cogspinner', {
+    event = 'PLAYER_FLAGS_CHANGED',
+    callback = function(unit)
+      if unit == 'player' and UnitIsAFK(unit) then collectgarbage() end
+    end
+  }
+)
+
+--
+--- Subscribes to the 'UNIT_ENTERED_VEHICLE' event to trigger a full
+--- garbage collection cycle when the player enters a taxi.
+--
+event_handler:listen(
+  'Cogspinner', {
+    event = 'UNIT_ENTERED_VEHICLE',
+    callback = function(unit)
+      if unit == 'player' and UnitOnTaxi(unit) then collectgarbage() end
+    end
   }
 )
 

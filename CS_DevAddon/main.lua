@@ -107,7 +107,7 @@ end)
 
 -- ?
 C_Timer.NewTicker(
-  5, -- note: 5s delay
+  5, -- note: delay
 
   function()
     transmit_counter = transmit_counter + 1
@@ -116,5 +116,12 @@ C_Timer.NewTicker(
   
   3 -- note: iterations
 )
+
+--#endregion
+
+--#region: utilizing locales ...
+
+-- ?
+-- TEST.what
 
 --#endregion
