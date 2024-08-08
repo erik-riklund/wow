@@ -11,20 +11,20 @@
 
 --- @class storage.api
 --- 
---- @field account storage.instance
---- @field character storage.instance
+--- @field account storage.unit
+--- @field character storage.unit
 
 --#endregion
 
---#region (type: storage.instance)
+--#region (type: storage.unit)
 
---- @class storage.instance
+--- @class storage.unit
 --- 
---- @field data map<string, unknown>
+--- @field data record<string, unknown>
 --- 
---- @field get fun(self: storage.instance, variable_path: string): unknown
---- @field set fun(self: storage.instance, variable_path: string, value: unknown)
---- @field drop fun(self: storage.instance, variable_path: string)
---- @field resolve fun(self: storage.instance, variable_path: string, build_mode: boolean): table|nil, string
+--- @field get fun(self: storage.unit, variable_path: string): unknown
+--- @field set fun(self: storage.unit, variable_path: string, value: unknown)
+--- @field drop fun(self: storage.unit, variable_path: string)
+--- @field resolve fun(self: storage.unit, variable_path: string, build_mode: boolean): table | nil, string
 
 --#endregion

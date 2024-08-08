@@ -25,6 +25,6 @@
 
 --- @class plugin.options
 --- 
---- @field channels list<string>?
+--- @field channels array<string>?
 
 --#endregion

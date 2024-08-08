@@ -16,7 +16,7 @@ skinparam NoteBorderColor #96968D
 skinparam ArrowFontSize 12pt
 skinparam ArrowFontStyle bold
 
-[channel manager] as channel <<module>>
+[network manager] as channel <<module>>
 [data store] as data <<module>>
 [event handler] as event <<module>>
 [exchange manager] as exchange <<module>>
@@ -33,14 +33,16 @@ skinparam ArrowFontStyle bold
 ' NOTES:
 
 note as API_note
-Developers can access select modules and
-libraries through the framework's API.
+The main API empowers developers by exposing a
+curated set of modules and libraries, enabling them
+to create modular plugins that leverage the framework's
+functionality and extend its capabilities.
 end note
 
 note as pluginAPI_note
-Each plugin operates within its own isolated
-context, using a dedicated API to interact
-with specific modules.
+Each plugin operates within an isolated context,
+leveraging the plugin API to streamline development and
+seamlessly interact with the framework's core features.
 end note
 
 note as utilities_note

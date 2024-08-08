@@ -14,7 +14,7 @@
 --- @field plugin string
 --- @field locale string
 --- @field default boolean?
---- @field content map<string, string>
+--- @field content record<string, string>
 
 --#endregion
 

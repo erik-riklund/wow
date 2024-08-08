@@ -23,6 +23,6 @@
 --- @class network.channel
 --- 
 --- @field owner plugin
---- @field listeners list.instance
+--- @field listeners list
 
 --#endregion

@@ -8,8 +8,6 @@
 -- < ADDON DEVELOPMENT FRAMEWORK >
 -- created by Erik Riklund (2024)
 --
--- ???
---
 
 --#region: locally scoped global variables
 
@@ -42,26 +40,26 @@ end
 local map_controller =
 {
   --
-  --- @param self map.instance
+  --- @param self map
   --- @param key unknown
   --
   get = function(self, key) return self.data[key] end,
 
   --
-  --- @param self map.instance
+  --- @param self map
   --- @param key unknown
   --- @param value unknown
   --
   set = function(self, key, value) self.data[key] = value end,
 
   --
-  --- @param self map.instance
+  --- @param self map
   --- @param key unknown
   --
   has = function(self, key) return self:get(key) ~= nil end,
 
   --
-  --- @param self map.instance
+  --- @param self map
   --- @param search_value unknown
   --
   contains = function(self, search_value)
@@ -71,7 +69,7 @@ local map_controller =
   end,
 
   --
-  --- @param self map.instance
+  --- @param self map
   --
   size = function(self)
     local count = 0
@@ -83,7 +81,7 @@ local map_controller =
   end,
 
   --
-  --- @param self map.instance
+  --- @param self map
   --
   values = function(self) return self.data end
 }
@@ -91,8 +89,8 @@ local map_controller =
 --
 --- Creates a new map instance, optionally initialized with provided key-value pairs.
 ---
---- @param initial_content map<unknown, unknown>? (optional) A table of initial key-value pairs for the map.
---- @return map.instance
+--- @param initial_content record<unknown, unknown>? (optional) A table of initial key-value pairs for the map.
+--- @return map
 --
 local function map(initial_content)
   initial_content = (type(initial_content) == 'table' and initial_content) or {}
@@ -109,19 +107,19 @@ end
 local list_controller =
 {
   --
-  --- @param self list.instance
+  --- @param self list
   --- @param index number
   --
   get = function(self, index) return self.data[index] end,
 
   --
-  --- @param self list.instance
+  --- @param self list
   --- @param value unknown
   --
   contains = function(self, value) return self:indexof(value) ~= -1 end,
 
   --
-  --- @param self list.instance
+  --- @param self list
   --- @param value unknown
   --
   indexof = function(self, value)
@@ -133,7 +131,7 @@ local list_controller =
   end,
 
   --
-  --- @param self list.instance
+  --- @param self list
   --- @param value unknown
   --- @param position number?
   --
@@ -142,7 +140,7 @@ local list_controller =
   end,
 
   --
-  --- @param self list.instance
+  --- @param self list
   --- @param position number?
   --
   remove = function(self, position)
@@ -150,12 +148,12 @@ local list_controller =
   end,
 
   --
-  --- @param self list.instance
+  --- @param self list
   --
   length = function(self) return #self.data end,
 
   --
-  --- @param self list.instance
+  --- @param self list
   --
   values = function(self) return self.data end
 }
@@ -163,8 +161,8 @@ local list_controller =
 --
 --- Creates a new list instance, optionally initialized with provided values.
 ---
---- @param initial_values list<unknown>? (optional) An array of initial values for the list.
---- @return list.instance
+--- @param initial_values array<unknown>? (optional) An array of initial values for the list.
+--- @return list
 --
 local function list(initial_values)
   initial_values = (type(initial_values) == 'table' and initial_values) or {}
@@ -183,25 +181,10 @@ end
 --- @param target string
 --- @param separator string
 --
---- @return list<string>
+--- @return array<string>
 --
 local string_split = function(target, separator)
-  assert(
-    type(target) == 'string' and type(separator) == 'string',
-    "Expected both 'target' and 'separator' to be strings"
-  )
-
-  if string.find(target, separator) then
-    local result = ({} --[[@as list<string>]])
-
-    for piece in string.gmatch(target, '([^' .. separator .. ']+)') do
-      table.insert(result, piece)
-    end
-
-    return result
-  end
-
-  return { target } -- note: only used when the separator isn't found
+  return { string.split(separator, target) }
 end
 
 --#endregion
@@ -214,10 +197,10 @@ end
 --- is enabled (which will create missing intermediate tables), otherwise `nil`.
 --
 --- @param target table
---- @param path list<unknown>
+--- @param path array<unknown>
 --- @param options { build_mode: boolean? }?
 --
---- @return table|nil
+--- @return table | nil
 --
 local table_walk = function(target, path, options)
   assert(
@@ -353,21 +336,21 @@ function event_handler:listen(plugin_id, options)
   end
 
   if options.event == 'ADDON_LOADED' then
-    --- @type map.instance
+    --- @type map
     local plugins = self.listeners:get('ADDON_LOADED')
 
     if not plugins:has(plugin_id) then
       plugins:set(plugin_id, list())
     end
 
-    --- @type list.instance
+    --- @type list
     local plugin_listeners = plugins:get(plugin_id)
 
     plugin_listeners:insert(
       { plugin_id = plugin_id, callback = options.callback, trigger = 'once' } --[[@as event.listener]]
     )
   else
-    --- @type list.instance
+    --- @type list
     local listeners = self.listeners:get(options.event)
 
     listeners:insert(
@@ -389,7 +372,7 @@ end
 --
 function event_handler:silence(event, plugin_id, callback_id)
   if event ~= 'ADDON_LOADED' and self.listeners:has(event) then
-    --- @type list.instance
+    --- @type list
     local listeners = self.listeners:get(event)
 
     for i = listeners:length(), 1, -1 do
@@ -413,10 +396,10 @@ frame:SetScript('OnEvent',
       --#endregion
 
       local addon_id = ...
-      local plugins = event_handler.listeners:get('ADDON_LOADED') --[[@as map.instance]]
+      local plugins = event_handler.listeners:get('ADDON_LOADED') --[[@as map]]
 
       if plugins:has(addon_id) then
-        local listeners = plugins:get(addon_id) --[[@as list.instance]]
+        local listeners = plugins:get(addon_id) --[[@as list]]
 
         for _, listener in ipairs(listeners:values()) do
           --- @cast listener event.listener
@@ -433,7 +416,7 @@ frame:SetScript('OnEvent',
 
       if event_handler.listeners:has(event) then
         local callbacks = list()
-        local listeners = event_handler.listeners:get(event) --[[@as list.instance]]
+        local listeners = event_handler.listeners:get(event) --[[@as list]]
 
         for i = listeners:length(), 1, -1 do
           local listener = listeners:get(i) --[[@as event.listener]]
@@ -487,7 +470,7 @@ end
 local storage_controller =
 {
   --
-  --- @param self storage.instance
+  --- @param self storage.unit
   --- @param variable_path string
   --- @return unknown
   --
@@ -497,7 +480,7 @@ local storage_controller =
   end,
 
   --
-  --- @param self storage.instance
+  --- @param self storage.unit
   --- @param variable_path string
   --- @param value unknown
   --
@@ -507,7 +490,7 @@ local storage_controller =
   end,
 
   --
-  --- @param self storage.instance
+  --- @param self storage.unit
   --- @param variable_path string
   --
   drop = function(self, variable_path)
@@ -517,10 +500,10 @@ local storage_controller =
 
   --
   --- @private
-  --- @param self storage.instance
+  --- @param self storage.unit
   --- @param variable_path string
   --- @param build_mode boolean
-  --- @return table|nil, string
+  --- @return table | nil, string
   --
   resolve = function(self, variable_path, build_mode)
     local target = self.data --[[@as table|nil]]
@@ -581,7 +564,7 @@ local network = { channels = map() }
 
 --
 --- @param plugin plugin
---- @param channels list<string>
+--- @param channels array<string>
 --
 function network:reserve(plugin, channels)
   for _, channel in ipairs(channels) do
@@ -676,7 +659,7 @@ function locale_handler:register(data)
     self.locales:set(data.plugin, map())
   end
 
-  --- @type map.instance
+  --- @type map
   local plugin_locales = self.locales:get(data.plugin)
 
   plugin_locales:set(data.locale, map(data.content))
@@ -692,10 +675,10 @@ end
 --
 function locale_handler:retrieve(plugin_id, label)
   if self.locales:has(plugin_id) then
-    --- @type map.instance
+    --- @type map
     local locales = self.locales:get(plugin_id)
 
-    --- @type map.instance | nil
+    --- @type map | nil
     local locale = locales:get(GetLocale()) or locales:get('default')
 
     return (locale ~= nil and locale:get(label)) or string.format(
@@ -730,6 +713,21 @@ end
 --
 local service_manager = {}
 
+--
+--- ?
+--
+service_manager.services = map()
+
+--
+--- @param service service
+--
+function service_manager:register(service) end
+
+--
+--- @param id string
+--
+function service_manager:retrieve(id) end
+
 --#endregion
 
 --#region [module: resource exchange]
@@ -737,7 +735,22 @@ local service_manager = {}
 --
 --- ?
 --
-local exchange_manager = {}
+local resource_manager = {}
+
+--
+--- @private
+--
+resource_manager.packages = map()
+
+--
+--- @param id string
+--
+function resource_manager:retrieve(id) end
+
+--
+--- @param package package
+--
+function resource_manager:register(package) end
 
 --#endregion
 
@@ -822,7 +835,7 @@ function plugin_manager:setup(plugin, options)
   storage_handler:setup(plugin)
 
   if type(options.channels) == 'table' then
-    network:reserve(plugin, options.channels --[[@as list<string>]])
+    network:reserve(plugin, options.channels --[[@as array<string>]])
   end
 end
 
