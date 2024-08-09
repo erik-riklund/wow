@@ -7,9 +7,9 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
---#region (type: locale)
+--#region (type: locale.data)
 
---- @class locale
+--- @class locale.data
 ---
 --- @field plugin string
 --- @field locale string

@@ -15,6 +15,7 @@
 --- @class package
 --- 
 --- @field id string
+--- @field owner plugin
 --
 
 --#endregion

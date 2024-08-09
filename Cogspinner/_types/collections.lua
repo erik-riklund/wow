@@ -48,6 +48,18 @@
 
 --#endregion
 
+--#region (type: map.options)
+
+--
+--- ?
+---
+--- @class map.options
+--- 
+--- @field weak boolean
+--
+
+--#endregion
+
 --#region (type: list)
 
 --

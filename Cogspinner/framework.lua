@@ -4,9 +4,8 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
--- < ADDON DEVELOPMENT FRAMEWORK >
--- created by Erik Riklund (2024)
+--
+-- ADDON DEVELOPMENT FRAMEWORK created by Erik Riklund (2024)
 --
 
 --#region: locally scoped global variables
@@ -90,10 +89,17 @@ local map_controller =
 --- Creates a new map instance, optionally initialized with provided key-value pairs.
 ---
 --- @param initial_content record<unknown, unknown>? (optional) A table of initial key-value pairs for the map.
+--- @param options map.options?
+---
 --- @return map
 --
-local function map(initial_content)
+local function map(initial_content, options)
   initial_content = (type(initial_content) == 'table' and initial_content) or {}
+
+  if type(options) == 'table' and options.weak then
+    initial_content = setmetatable(initial_content, { __mode = 'k' })
+  end
+
   return setmetatable({ data = initial_content }, { __index = map_controller })
 end
 
@@ -236,6 +242,25 @@ local table_walk = function(target, path, options)
   end
 
   return reference
+end
+
+--#endregion
+
+--#region [function: table_immutable]
+
+--
+--- ?
+--
+local immutable_controller = {}
+
+--
+--- ?
+---
+--- @param target table
+--- @return table
+--
+local table_immutable = function(target)
+  return setmetatable(target, immutable_controller)
 end
 
 --#endregion
@@ -652,7 +677,7 @@ local locale_handler = {
 }
 
 --
---- @param data locale
+--- @param data locale.data
 --
 function locale_handler:register(data)
   if not self.locales:has(data.plugin) then
@@ -719,14 +744,14 @@ local service_manager = {}
 service_manager.services = map()
 
 --
+--- @param id string
+--
+function service_manager:provide(id) end
+
+--
 --- @param service service
 --
 function service_manager:register(service) end
-
---
---- @param id string
---
-function service_manager:retrieve(id) end
 
 --#endregion
 
@@ -743,14 +768,24 @@ local resource_manager = {}
 resource_manager.packages = map()
 
 --
---- @param id string
+--- @private
 --
-function resource_manager:retrieve(id) end
+resource_manager.cache = map(nil, { weak = true })
 
 --
---- @param package package
+--- @param id string
 --
-function resource_manager:register(package) end
+function resource_manager:retrieve(id)
+  -- todo: implementation
+end
+
+--
+--- @param id string
+--- @param resource table | string | number | boolean
+--
+function resource_manager:register(id, resource)
+  -- todo: implementation
+end
 
 --#endregion
 
@@ -843,11 +878,20 @@ end
 
 --#region: framework API
 
--- The API for the Cogspinner framework.
 _G.cogspinner =
 {
   --
   --- ?
+  ---
+  --- @param data locale.data
+  --
+  locale = function(data)
+    locale_handler:register(data)
+  end,
+
+  --
+  --- ?
+  --- 
   --- @param identifier string
   --- @param options plugin.options?
   --
@@ -856,23 +900,17 @@ _G.cogspinner =
   end,
 
   --
-  --- ?
-  --- @param data locale
+  --- Handy toolbox of functions for various tasks.
   --
-  locale = function(data) locale_handler:register(data) end,
-
-  --
-  --- A toolbox of helper functions for simplifying routine development tasks.
-  --
-  utility =
-  {
+  utility = {
     throw = throw,
-
     collection = { list = list, map = map },
     string = { split = string_split },
     table = { walk = table_walk }
   }
 }
+
+setmetatable(cogspinner, immutable_controller)
 
 --#endregion
 
@@ -892,12 +930,18 @@ event_handler:listen(
 --
 --- Use the 'PLAYER_FLAGS_CHANGED' event to trigger a full
 --- garbage collection cycle when the player goes AFK.
+---
+--- (We employ a 5s delay to ensure the player didn't cancel AFK straight away.)
 --
 event_handler:listen(
   'Cogspinner', {
     event = 'PLAYER_FLAGS_CHANGED',
     callback = function(unit)
-      if unit == 'player' and UnitIsAFK(unit) then collectgarbage() end
+      if unit == 'player' and UnitIsAFK(unit) then
+        C_Timer.After(5, function()
+          if UnitIsAFK('player') then collectgarbage() end
+        end)
+      end
     end
   }
 )
