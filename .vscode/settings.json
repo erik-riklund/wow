@@ -117,9 +117,11 @@
     "utf8": "disable"
   },
   "Lua.workspace.library": [
-    "$USERPROFILE\\.vscode\\extensions\\ketho.wow-api-0.15.7\\Annotations"
+    "~\\.vscode\\extensions\\ketho.wow-api-0.16.4\\Annotations"
   ],
   "Lua.diagnostics.globals": [
-    "message"
+    "message",
+    "HIGHLIGHT_FONT_COLOR_CODE",
+    "FONT_COLOR_CODE_CLOSE"
   ]
 }

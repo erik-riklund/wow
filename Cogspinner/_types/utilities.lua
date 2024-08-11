@@ -1,3 +1,5 @@
+--- @meta
+
 --    ____                      _
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -5,20 +7,15 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local addon_name = ...
+--#region (type: table.copy.options)
 
---
+---
 --- ?
+---
+--- @class table.copy.options
+---
+--- @field deep boolean?
+--- @field immutable boolean?
+---
 
-cogspinner.locale(
-  {
-    locale = 'enUS',
-    default = true,
-    plugin = addon_name,
-    
-    content =
-    {
-      TEST = 'A dummy text used to demonstrate a localized string'
-    }
-  }
-)
+--#endregion

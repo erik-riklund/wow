@@ -7,15 +7,12 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region (type: package)
+--#region (type: resource)
 
----
+--
 --- ?
 ---
---- @class package
---- 
---- @field id string
---- @field owner plugin
+--- @alias resource table | number | string | boolean
 --
 
 --#endregion

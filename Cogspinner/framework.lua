@@ -8,28 +8,62 @@
 -- ADDON DEVELOPMENT FRAMEWORK created by Erik Riklund (2024)
 --
 
---#region: locally scoped global variables
+local addon, context = ...
 
-local assert, collectgarbage, error, ipairs, pairs, type = assert, collectgarbage, error, ipairs, pairs, type
+--#region: local variables
+
+--
+--- Provides a collection of utility functions for working with tables.
+--
+local _table = {}
+
+--
+--- Provides a collection of utility functions for working with strings.
+--
+local _string = {}
+
+--#endregion
+
+--#region (locally scoped global variables)
+--
+--- Creates local references to frequently used global functions and tables,
+--- improving performance by avoiding repeated global lookups during runtime.
+--
+
+local assert, collectgarbage, error, ipairs, pairs, type =
+    assert, collectgarbage, error, ipairs, pairs, type
+
 local coroutine, string, table = coroutine, string, table
 
 --#endregion
 
---#region [library: utilities]
+--#region [module: libraries]
+
+--#region [library: standalone utility functions]
 
 --#region [function: throw]
 
 --
 --- Raises a formatted error message, optionally using provided values to fill in placeholders
 --- within the message string. The error is raised from the caller's context.
+---
 --- @param exception string The error message template.
 --- @param ... string | number Optional values to insert into the message.
 --
-local function throw(exception, ...)
-  error(... and string.format(exception, ...) or exception, 3)
+local throw = function(exception, ...)
+  --#region: Why do we use return when error has no return value?
+  -- To facilitate mocking of the error() function during unit testing, where we want to
+  -- catch the error message as a string to determine if the outcome is what we expect.
+  --#endregion
+
+  return error(... and string.format(exception, ...) or exception, 3)
 end
 
 --#endregion
+
+--#endregion
+
+--#region [library: collections]
 
 --#region [class: map]
 
@@ -116,13 +150,17 @@ local list_controller =
   --- @param self list
   --- @param index number
   --
-  get = function(self, index) return self.data[index] end,
+  get = function(self, index)
+    return self.data[index]
+  end,
 
   --
   --- @param self list
   --- @param value unknown
   --
-  contains = function(self, value) return self:indexof(value) ~= -1 end,
+  contains = function(self, value)
+    return self:indexof(value) ~= -1
+  end,
 
   --
   --- @param self list
@@ -177,7 +215,11 @@ end
 
 --#endregion
 
---#region [function: string_split]
+--#endregion
+
+--#region [library: string-related utility functions]
+
+--#region [function: split]
 
 --
 --- Divides a string into a list of substrings, using a specified separator
@@ -189,13 +231,17 @@ end
 --
 --- @return array<string>
 --
-local string_split = function(target, separator)
+_string.split = function(target, separator)
   return { string.split(separator, target) }
 end
 
 --#endregion
 
---#region [function: table_walk]
+--#endregion
+
+--#region [library: table-related utility functions]
+
+--#region [function: walk]
 
 --
 --- Traverses a nested table (like a directory structure) using a list of path names,
@@ -208,7 +254,7 @@ end
 --
 --- @return table | nil
 --
-local table_walk = function(target, path, options)
+_table.walk = function(target, path, options)
   assert(
     type(target) == 'table' and type(path) == 'table',
     "Expected tables for 'target' and 'path'"
@@ -235,7 +281,10 @@ local table_walk = function(target, path, options)
     end
 
     if type(reference[ancestor]) ~= 'table' then
-      throw('Unexpected non-table value encountered at `%s`', table.concat(path, '.', 1, i))
+      throw(
+        'Unexpected non-table value encountered at `%s`',
+        table.concat(path, '.', 1, i)
+      )
     end
 
     reference = reference[ancestor] --[[@as table]]
@@ -246,12 +295,7 @@ end
 
 --#endregion
 
---#region [function: table_immutable]
-
---
---- ?
---
-local immutable_controller = {}
+--#region [function: immutable]
 
 --
 --- ?
@@ -259,9 +303,27 @@ local immutable_controller = {}
 --- @param target table
 --- @return table
 --
-local table_immutable = function(target)
-  return setmetatable(target, immutable_controller)
+_table.immutable = function(target)
+  local proxy = {}
+
+  --- ?
+  local immutable_controller =
+  {
+    __newindex = function()
+      throw('Attempt to modify a read-only table')
+    end,
+
+    __index = function(self, key)
+      local value = target[key]
+
+      return (type(value) == 'table' and _table.immutable(value)) or value
+    end
+  }
+
+  return setmetatable(proxy, immutable_controller)
 end
+
+--#endregion
 
 --#endregion
 
@@ -351,6 +413,7 @@ event_handler.listeners:set('ADDON_LOADED', map())
 
 --
 --- Registers a listener for a specified event.
+---
 --- @param plugin_id string The unique identifier of the plugin registering the listener.
 --- @param options event.listener.options The options for the listener.
 --
@@ -391,6 +454,7 @@ end
 
 --
 --- Unsubscribes one (if a callback ID is specified) or all listeners for a specific event.
+---
 --- @param event string The name of the event to unsubscribe from.
 --- @param plugin_id string The unique identifier of the plugin that registered the listener.
 --- @param callback_id string? (optional) A unique identifier for a specific callback within the plugin.
@@ -497,6 +561,7 @@ local storage_controller =
   --
   --- @param self storage.unit
   --- @param variable_path string
+  ---
   --- @return unknown
   --
   get = function(self, variable_path)
@@ -525,9 +590,11 @@ local storage_controller =
 
   --
   --- @private
+  ---
   --- @param self storage.unit
   --- @param variable_path string
   --- @param build_mode boolean
+  ---
   --- @return table | nil, string
   --
   resolve = function(self, variable_path, build_mode)
@@ -535,10 +602,10 @@ local storage_controller =
     local variable = variable_path
 
     if string.find(variable_path, '.') then
-      local ancestors = string_split(variable_path, '.')
+      local ancestors = _string.split(variable_path, '.')
       variable = table.remove(ancestors) --[[@as string]]
 
-      target = table_walk(target --[[@as table]], ancestors, { build_mode = build_mode })
+      target = _table.walk(target --[[@as table]], ancestors, { build_mode = build_mode })
     end
 
     return target, variable
@@ -707,7 +774,7 @@ function locale_handler:retrieve(plugin_id, label)
     local locale = locales:get(GetLocale()) or locales:get('default')
 
     return (locale ~= nil and locale:get(label)) or string.format(
-      'Missing translation (locale: %s, label: %s)', GetLocale(), label
+      'Missing localized string (plugin: %s, locale: %s, label: %s)', plugin_id, GetLocale(), label
     )
   end
 end
@@ -765,27 +832,19 @@ local resource_manager = {}
 --
 --- @private
 --
-resource_manager.packages = map()
-
---
---- @private
---
-resource_manager.cache = map(nil, { weak = true })
+resource_manager.exports = map()
 
 --
 --- @param id string
+--- @return resource
 --
-function resource_manager:retrieve(id)
-  -- todo: implementation
-end
+function resource_manager:retrieve(id) end
 
 --
 --- @param id string
---- @param resource table | string | number | boolean
+--- @param resource resource
 --
-function resource_manager:register(id, resource)
-  -- todo: implementation
-end
+function resource_manager:register(id, resource) end
 
 --#endregion
 
@@ -820,11 +879,9 @@ end
 --#region [module: plugins]
 
 --
---- Manages the lifecycle of plugins, including their registration, setup, and initialization.
+--- Manages the lifecycle of plugins.
 --
-local plugin_manager = {
-  registry = list({ 'Cogspinner' })
-}
+local plugin_manager = { registry = list() }
 
 --
 --- @param identifier string
@@ -840,6 +897,7 @@ end
 
 --
 --- @private
+---
 --- @param identifier string
 --
 function plugin_manager:register(identifier)
@@ -859,6 +917,7 @@ end
 
 --
 --- @private
+---
 --- @param plugin plugin
 --- @param options plugin.options
 --
@@ -891,7 +950,7 @@ _G.cogspinner =
 
   --
   --- ?
-  --- 
+  ---
   --- @param identifier string
   --- @param options plugin.options?
   --
@@ -899,64 +958,37 @@ _G.cogspinner =
     return plugin_manager:initialize(identifier, options)
   end,
 
+  ---
+  ---
+  ---
+  resource =
+  {
+    --
+    --- ?
+    ---
+    --- @param id string
+    --
+    import = function(id)
+      return resource_manager:retrieve(id)
+    end,
+
+    --
+    --- ?
+    ---
+    --- @param id string
+    --- @param resource resource
+    --
+    export = function(id, resource)
+      resource_manager:register(id, resource)
+    end
+  },
+
   --
   --- Handy toolbox of functions for various tasks.
   --
   utility = {
-    throw = throw,
-    collection = { list = list, map = map },
-    string = { split = string_split },
-    table = { walk = table_walk }
+    throw = throw, collection = { list = list, map = map }, string = _string, table = _table
   }
 }
-
-setmetatable(cogspinner, immutable_controller)
-
---#endregion
-
---#region (garbage collection)
-
---
---- Use the 'PLAYER_ENTERING_WORLD' event to trigger a full
---- garbage collection cycle after loading screens.
---
-event_handler:listen(
-  'Cogspinner', {
-    event = 'PLAYER_ENTERING_WORLD',
-    callback = function() collectgarbage() end
-  }
-)
-
---
---- Use the 'PLAYER_FLAGS_CHANGED' event to trigger a full
---- garbage collection cycle when the player goes AFK.
----
---- (We employ a 5s delay to ensure the player didn't cancel AFK straight away.)
---
-event_handler:listen(
-  'Cogspinner', {
-    event = 'PLAYER_FLAGS_CHANGED',
-    callback = function(unit)
-      if unit == 'player' and UnitIsAFK(unit) then
-        C_Timer.After(5, function()
-          if UnitIsAFK('player') then collectgarbage() end
-        end)
-      end
-    end
-  }
-)
-
---
---- Use the 'UNIT_ENTERED_VEHICLE' event to trigger a full
---- garbage collection cycle when the player enters a taxi.
---
-event_handler:listen(
-  'Cogspinner', {
-    event = 'UNIT_ENTERED_VEHICLE',
-    callback = function(unit)
-      if unit == 'player' and UnitOnTaxi(unit) then collectgarbage() end
-    end
-  }
-)
 
 --#endregion

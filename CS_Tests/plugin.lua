@@ -5,20 +5,9 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local addon_name = ...
+local addon, context = ...
 
 --
---- ?
+-- ?
 
-cogspinner.locale(
-  {
-    locale = 'enUS',
-    default = true,
-    plugin = addon_name,
-    
-    content =
-    {
-      TEST = 'A dummy text used to demonstrate a localized string'
-    }
-  }
-)
+context.plugin = cogspinner.plugin(addon)

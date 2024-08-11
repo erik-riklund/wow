@@ -5,22 +5,19 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
-local addon = ...
+local addon, context = ...
+
+--#region: initialization
 
 --
--- ?
+--- ?
 
-local plugin = cogspinner.plugin(addon)
+local plugin = context.plugin --[[@as plugin]]
 
---
--- ?
+--#endregion
 
-plugin.event:listen(
-  {
-    event = 'LOOT_READY',
-    
-    callback = function()
-      print('Loot detected.')
-    end
-  }
-)
+--#region [enum: ]
+
+
+
+--#endregion

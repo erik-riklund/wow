@@ -5,22 +5,9 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
-local addon = ...
+local addon, context = ...
 
 --
--- ?
+--- Plugin used by external framework modules, ...
 
-local plugin = cogspinner.plugin(addon)
-
---
--- ?
-
-plugin.event:listen(
-  {
-    event = 'LOOT_READY',
-    
-    callback = function()
-      print('Loot detected.')
-    end
-  }
-)
+context.plugin = cogspinner.plugin('Cogspinner')
