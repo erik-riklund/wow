@@ -7,13 +7,115 @@
 
 local addon, context = ...
 
+--#region: locally scoped variables
 
+local map = cogspinner.utility.collection.map
+local list = cogspinner.utility.collection.list
 
---#region: testing framework API
+--#endregion
+
+--#region [API: suite]
 
 --
 --- ?
 --
-_G.contraption = {}
+local suite_api = {}
+
+--#endregion
+
+--#region [API: plan]
+
+--
+--- ?
+--
+local plan_api = {}
+
+--
+--- ?
+---
+--- @param self test.plan
+--- @param label string
+---
+--- @return test.suite
+--
+function plan_api.suite(self, label)
+  local suite = { tests = list() }
+  self.suites:set(label, suite)
+
+  return setmetatable(suite, { __index = suite_api })
+end
+
+--#endregion
+
+--#region [module: controller]
+
+--
+--- ?
+--
+local test_controller = {}
+
+--
+--- ?
+---
+--- @param plan test.plan
+--
+function test_controller:execute(plan) end
+
+--#endregion
+
+--#region [module: manager]
+
+--
+--- ?
+--
+local test_manager = {}
+
+--
+--- ?
+---
+--- @param plugin plugin
+--- @return test.plan
+--
+function test_manager:setup(plugin)
+  local plan = { context = plugin, suites = list() }
+  plugin:onload(function() test_controller:execute(plan) end)
+
+  return setmetatable(plan, { __index = plan_api })
+end
+
+--#endregion
+
+--#region [module: assertions]
+
+--
+--- ?
+--
+local assert = {}
+
+--
+--- ?
+--
+function assert.equal() end
+
+--#endregion
+
+--#region [API: testing framework]
+
+--
+--- ?
+--
+_G.contraption =
+{
+  assert = assert,
+
+  --
+  --- ?
+  ---
+  --- @param plugin plugin
+  --
+  setup = function(plugin)
+    return test_manager:setup(plugin)
+  end
+}
 
 --#endregion

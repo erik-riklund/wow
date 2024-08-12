@@ -5,7 +5,20 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local addon, context = ...
+local _, context = ...
+
+--#region (locally scoped global variables)
+--
+--- Creates local references to frequently used global functions and tables,
+--- improving performance by avoiding repeated global lookups during runtime.
+--
+
+local C_Timer = C_Timer
+
+local collectgarbage, UnitIsAFK, UnitOnTaxi =
+    collectgarbage, UnitIsAFK, UnitOnTaxi
+
+--#endregion
 
 --
 --- ?

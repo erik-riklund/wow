@@ -9,7 +9,6 @@
 -- It's used for testing during development and to provide a demonstration of how you
 -- can use the various modules for your own projects.
 
--- ?
 local addon_name = ...
 
 --#region: plugin initialization

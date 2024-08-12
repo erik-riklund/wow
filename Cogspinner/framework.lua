@@ -8,8 +8,6 @@
 -- ADDON DEVELOPMENT FRAMEWORK created by Erik Riklund (2024)
 --
 
-local addon, context = ...
-
 --#region: local variables
 
 --
@@ -30,8 +28,8 @@ local _string = {}
 --- improving performance by avoiding repeated global lookups during runtime.
 --
 
-local assert, collectgarbage, error, ipairs, pairs, type =
-    assert, collectgarbage, error, ipairs, pairs, type
+local assert, error, ipairs, pairs, print, type =
+    assert, error, ipairs, pairs, print, type
 
 local coroutine, string, table = coroutine, string, table
 
@@ -304,9 +302,11 @@ end
 --- @return table
 --
 _table.immutable = function(target)
-  local proxy = {}
+  --#region: ?
+  -- ?
+  --#endregion
 
-  --- ?
+  local proxy = {}
   local immutable_controller =
   {
     __newindex = function()
@@ -838,13 +838,36 @@ resource_manager.exports = map()
 --- @param id string
 --- @return resource
 --
-function resource_manager:retrieve(id) end
+function resource_manager:retrieve(id)
+  ---@diagnostic disable-next-line: missing-return
+end
 
 --
 --- @param id string
 --- @param resource resource
 --
 function resource_manager:register(id, resource) end
+
+--#endregion
+
+--#region [module: markup handler]
+
+--
+--- ?
+--
+local markup_handler = {}
+
+--
+--- ?
+---
+--- @param output string
+--- @param placeholders array<string>?
+---
+--- @return string
+--
+function markup_handler:parse(output, placeholders)
+  ---@diagnostic disable-next-line: missing-return
+end
 
 --#endregion
 
@@ -986,9 +1009,61 @@ _G.cogspinner =
   --
   --- Handy toolbox of functions for various tasks.
   --
-  utility = {
-    throw = throw, collection = { list = list, map = map }, string = _string, table = _table
-  }
+  utility =
+  {
+    throw = throw,
+
+    --
+    --- Provides a collection of utility functions for working with strings.
+    --
+    string = _string,
+
+    --
+    --- Provides a collection of utility functions for working with tables.
+    --
+    table = _table,
+
+    ---
+    --- ?
+    ---
+    --- @param output string
+    --
+    markup = function(output)
+      return markup_handler:parse(output)
+    end,
+
+    --
+    --- ?
+    --
+    collection = { list = list, map = map }
+  },
+
+  --
+  --- ?
+  ---
+  --- @param output string
+  --- @param placeholders array<string>?
+  --
+  print = function(output, placeholders)
+    print(markup_handler:parse(output, placeholders))
+  end
 }
+
+--#endregion
+
+--#region (apply read-only restrictions to the framework API )
+
+setmetatable(cogspinner,
+  {
+    __newindex = function()
+      throw('Restricted action, the framework API is protected')
+    end,
+
+    __index = function(self, key)
+      local value = self[key]
+      return (type(value) == 'table' and _table.immutable(value)) or value
+    end
+  }
+)
 
 --#endregion

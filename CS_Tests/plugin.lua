@@ -11,3 +11,8 @@ local addon, context = ...
 -- ?
 
 context.plugin = cogspinner.plugin(addon)
+
+--
+--- ?
+
+context.tests = contraption.setup(context.plugin)
