@@ -7,40 +7,40 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region (type: test.plan)
+--#region (type: testing.plan)
 
 --
 --- ?
 ---
---- @class test.plan
+--- @class testing.plan
 ---
 --- @field context plugin
 --- @field suites map
 ---
---- @field suite fun(self: test.plan, label: string): test.suite
+--- @field suite fun(self: testing.plan, label: string): testing.suite
 --
 
 --#endregion
 
---#region (type: test.suite)
+--#region (type: testing.suite)
 
 --
 --- ?
 ---
---- @class test.suite
+--- @class testing.suite
 ---
 --- @field tests list
---- @field test fun(self: test.suite, options: test.options)
+--- @field test fun(self: testing.suite, options: testing.test.options)
 --
 
 --#endregion
 
---#region (type: test.options)
+--#region (type: testing.test.options)
 
 --
 --- ?
 ---
---- @class test.options
+--- @class testing.test.options
 --
 
 --#endregion

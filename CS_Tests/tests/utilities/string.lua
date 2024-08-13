@@ -17,9 +17,11 @@ local assert = contraption.assert
 --
 --- ?
 
-local plan = context.tests --[[@as test.plan]]
+local plan = context.tests --[[@as testing.plan]]
 
 --#endregion
+
+--#region [test suite: string.split]
 
 --
 --- ?
@@ -37,3 +39,5 @@ split:test(
     end
   }
 )
+
+--#endregion

@@ -33,10 +33,10 @@ local plan_api = {}
 --
 --- ?
 ---
---- @param self test.plan
+--- @param self testing.plan
 --- @param label string
 ---
---- @return test.suite
+--- @return testing.suite
 --
 function plan_api.suite(self, label)
   local suite = { tests = list() }
@@ -57,7 +57,7 @@ local test_controller = {}
 --
 --- ?
 ---
---- @param plan test.plan
+--- @param plan testing.plan
 --
 function test_controller:execute(plan) end
 
@@ -74,7 +74,7 @@ local test_manager = {}
 --- ?
 ---
 --- @param plugin plugin
---- @return test.plan
+--- @return testing.plan
 --
 function test_manager:setup(plugin)
   local plan = { context = plugin, suites = list() }
