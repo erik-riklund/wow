@@ -28,8 +28,8 @@ local _string = {}
 --- improving performance by avoiding repeated global lookups during runtime.
 --
 
-local assert, error, ipairs, pairs, print, type =
-    assert, error, ipairs, pairs, print, type
+local assert, error, ipairs, pairs, print, setmetatable, type =
+    assert, error, ipairs, pairs, print, setmetatable, type
 
 local coroutine, string, table = coroutine, string, table
 
@@ -49,12 +49,7 @@ local coroutine, string, table = coroutine, string, table
 --- @param ... string | number Optional values to insert into the message.
 --
 local throw = function(exception, ...)
-  --#region: Why do we use return when error has no return value?
-  -- To facilitate mocking of the error() function during unit testing, where we want to
-  -- catch the error message as a string to determine if the outcome is what we expect.
-  --#endregion
-
-  return error(... and string.format(exception, ...) or exception, 3)
+  error((... and string.format(exception, ...)) or exception, 3)
 end
 
 --#endregion
@@ -178,7 +173,10 @@ local list_controller =
   --- @param position number?
   --
   insert = function(self, value, position)
-    table.insert(self.data, position or (#self.data + 1), value)
+    position = position or (#self.data + 1)
+    table.insert(self.data, position, value)
+
+    return self:get(position) --[[@as unknown]]
   end,
 
   --
@@ -714,12 +712,20 @@ end
 --
 local network_api = {}
 
+---
+--- @param self network.api
+--- @param channels array<string>
+---
+network_api.reserve = function(self, channels)
+  network:reserve(self.context, channels)
+end
+
 --
 --- @param self network.api
 --- @param channel string
 --- @param payload unknown?
 --
-function network_api.transmit(self, channel, payload)
+network_api.transmit = function(self, channel, payload)
   network:transmit(self.context, channel, payload)
 end
 
@@ -728,7 +734,7 @@ end
 --- @param channel string
 --- @param callback function
 --
-function network_api.recieve(self, channel, callback)
+network_api.recieve = function(self, channel, callback)
   network:recieve(self.context, channel, callback)
 end
 
@@ -820,6 +826,8 @@ function service_manager:provide(id) end
 --
 function service_manager:register(service) end
 
+-- note: work in progress!
+
 --#endregion
 
 --#region [module: resource exchange]
@@ -848,6 +856,8 @@ end
 --
 function resource_manager:register(id, resource) end
 
+-- note: work in progress!
+
 --#endregion
 
 --#region [module: markup handler]
@@ -869,6 +879,8 @@ function markup_handler:parse(output, placeholders)
   ---@diagnostic disable-next-line: missing-return
 end
 
+-- note: work in progress!
+
 --#endregion
 
 --#region [module: tooltip controller]
@@ -877,6 +889,8 @@ end
 --- ?
 --
 local tooltip_controller = {}
+
+-- note: work in progress!
 
 --#endregion
 
@@ -909,11 +923,24 @@ local plugin_manager = { registry = list() }
 --
 --- @param identifier string
 --- @param options plugin.options?
+---
+--- @return plugin
 --
 function plugin_manager:initialize(identifier, options)
+  -- ???
   self:register(identifier)
-  local plugin = setmetatable({ id = identifier }, { __index = plugin_api }) --[[@as plugin]]
-  self:setup(plugin, (type(options) == 'table' and options) or {})
+  options = (type(options) == 'table' and options) or {}
+
+  -- ???
+  local plugin = {
+    id = identifier,
+    development = (
+      type(options.development) == 'boolean' and options.development
+    )
+  }
+
+  -- ???
+  self:setup(plugin, options)
 
   return plugin
 end
@@ -945,6 +972,8 @@ end
 --- @param options plugin.options
 --
 function plugin_manager:setup(plugin, options)
+  setmetatable(plugin, { __index = plugin_api })
+
   plugin.event = setmetatable({ context = plugin }, { __index = event_api })
   plugin.network = setmetatable({ context = plugin }, { __index = network_api })
   plugin.locale = setmetatable({ context = plugin }, { __index = locale_api })
@@ -1007,7 +1036,7 @@ _G.cogspinner =
   },
 
   --
-  --- Handy toolbox of functions for various tasks.
+  --- ?
   --
   utility =
   {
@@ -1051,7 +1080,7 @@ _G.cogspinner =
 
 --#endregion
 
---#region (apply read-only restrictions to the framework API )
+--#region (apply read-only restrictions to the framework API)
 
 setmetatable(cogspinner,
   {

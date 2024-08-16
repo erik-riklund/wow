@@ -9,22 +9,33 @@
 
 --#region (type: plugin)
 
+--
+--- ?
+---
 --- @class plugin
 --- 
 --- @field id string
+--- @field development boolean
+--- 
 --- @field data storage.api
 --- @field event event.api
 --- @field network network.api
 --- @field locale locale.api
 --- 
 --- @field onload fun(self: plugin, callback: function)
+--
 
 --#endregion
 
 --#region (type: plugin.options)
 
+--
+--- ?
+---
 --- @class plugin.options
 --- 
+--- @field development boolean?
 --- @field channels array<string>?
+--
 
 --#endregion

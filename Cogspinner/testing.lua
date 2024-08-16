@@ -9,12 +9,41 @@ local addon, context = ...
 
 --#region: locally scoped variables
 
-local map = cogspinner.utility.collection.map
-local list = cogspinner.utility.collection.list
+--- @cast context { plugin: plugin }
+
+--
+--- ?
+
+local cogspinner = cogspinner
+local utility = cogspinner.utility
+local _table = utility.table
+
+--
+--- ?
+
+local type = type
+local throw = utility.throw
+local setmetatable = setmetatable
+local list = utility.collection.list
 
 --#endregion
 
---#region [API: suite]
+--#region (initialization)
+
+---
+--- ?
+
+context.plugin.network:reserve(
+  {
+    'TESTKIT:PLAN_COMPLETED',
+    'TESTKIT:SUITE_COMPLETED',
+    'TESTKIT:TEST_COMPLETED'
+  }
+)
+
+--#endregion
+
+--#region [API: test suite]
 
 --
 --- ?
@@ -23,99 +52,133 @@ local suite_api = {}
 
 --#endregion
 
---#region [API: plan]
+--#region [API: testkit]
 
 --
 --- ?
 --
-local plan_api = {}
+local testkit_api = {}
 
 --
 --- ?
 ---
---- @param self testing.plan
+--- @param self testkit
 --- @param label string
----
---- @return testing.suite
 --
-function plan_api.suite(self, label)
-  local suite = { tests = list() }
-  self.suites:set(label, suite)
+function testkit_api.suite(self, label)
+  --#region: ?
+  -- ???
+  --#endregion
 
-  return setmetatable(suite, { __index = suite_api })
+
+
+  local suite = { label = label, tests = list(), context = {} }
+  return self.suites:insert(setmetatable(suite, { __index = suite_api }))
 end
 
 --#endregion
 
---#region [module: controller]
+--#region [module: testing controller]
 
 --
 --- ?
 --
-local test_controller = {}
-
---
---- ?
----
---- @param plan testing.plan
---
-function test_controller:execute(plan) end
-
---#endregion
-
---#region [module: manager]
-
---
---- ?
---
-local test_manager = {}
+local controller = {}
 
 --
 --- ?
 ---
 --- @param plugin plugin
---- @return testing.plan
+--- @param event string?
+---
+--- @return testkit
 --
-function test_manager:setup(plugin)
-  local plan = { context = plugin, suites = list() }
-  plugin:onload(function() test_controller:execute(plan) end)
+function controller:setup(plugin, event)
+  --#region: ?
+  -- ???
+  --#endregion
 
-  return setmetatable(plan, { __index = plan_api })
+  local testkit =
+  {
+    event = event,
+    plugin = plugin,
+
+    suites = list()
+  }
+
+  setmetatable(testkit, { __index = testkit_api })
+
+  --#region: ?
+  -- ???
+  --#endregion
+
+  
+
+  return testkit
 end
+
+--
+--- ?
+---
+--- @param result testkit.result
+--
+function controller:display(result) end
 
 --#endregion
 
---#region [module: assertions]
+--#region [library: assertions]
 
 --
 --- ?
 --
-local assert = {}
+local assertion = {}
 
 --
 --- ?
+---
+--- @param actual unknown
+--- @param expected unknown
+---
+--- @return testkit.assertion.result
 --
-function assert.equal() end
+assertion.equal = function(actual, expected)
+  ---@diagnostic disable-next-line: missing-return
+end
 
 --#endregion
 
 --#region [API: testing framework]
 
---
---- ?
---
 _G.contraption =
 {
-  assert = assert,
+  assert = assertion,
 
-  --
+  ---
   --- ?
   ---
   --- @param plugin plugin
-  --
-  setup = function(plugin)
-    return test_manager:setup(plugin)
+  --- @param event string?
+  ---
+  testkit = function(plugin, event)
+    return controller:setup(plugin, event)
   end
 }
+
+--#endregion
+
+--#region (apply read-only restrictions to the testkit API)
+
+setmetatable(contraption,
+  {
+    __newindex = function()
+      throw('Restricted action, the testkit API is protected')
+    end,
+
+    __index = function(self, key)
+      local value = self[key]
+      return (type(value) == 'table' and _table.immutable(value)) or value
+    end
+  }
+)
 
 --#endregion

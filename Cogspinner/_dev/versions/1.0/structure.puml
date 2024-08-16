@@ -16,6 +16,13 @@ skinparam NoteBorderColor #96968D
 skinparam ArrowFontSize 12pt
 skinparam ArrowFontStyle bold
 
+' interfaces:
+
+() " " as API
+() " " as pluginAPI
+
+' framework modules:
+
 [network manager] as channel <<module>>
 [data store] as data <<module>>
 [event handler] as event <<module>>
@@ -25,118 +32,30 @@ skinparam ArrowFontStyle bold
 [service manager] as service <<module>>
 [task processor] as task <<core module>>
 [tooltip controller] as tooltip <<module>>
-[utilities] <<library>>
+[utilities] as utilities <<library>>
 
-() " " as API
-() " " as pluginAPI
+' notes:
 
-' NOTES:
+note left of API: Framework API
+note left of pluginAPI: Plugin API
 
-note as API_note
-The main API empowers developers by exposing a
-curated set of modules and libraries, enabling them
-to create modular plugins that leverage the framework's
-functionality and extend its capabilities.
-end note
+' 
 
-note as pluginAPI_note
-Each plugin operates within an isolated context,
-leveraging the plugin API to streamline development and
-seamlessly interact with the framework's core features.
-end note
-
-note as utilities_note
-A handy toolbox of helper functions for
-simplifying routine development tasks.
-end note
-
-note as plugin_note
-Manages the creation of plugin contexts,
-maintaining a registry of unique plugin
-identifiers to prevent conflicts and ensure
-proper isolation.
-end note
-
-note as exchange_note
-Provides a robust import/export
-system that empowers plugins to
-share resources effectively.
-end note
-
-note as data_note
-Provides an optimized system for
-streamlined access and manipulation
-of saved variables.
-end note
-
-note as locale_note
-Enables dynamic locale handling,
-empowering plugins to cater to a
-wide range of user preferences.
-end note
-
-note as channel_note
-Provides a robust event-driven system
-enabling plugins to seamlessly register,
-trigger, and respond to custom events.
-end note
-
-note as task_note
-Enables seamless background task processing by
-handling queuing and execution of background tasks.
-end note
-
-note as event_note
-Manages game events, providing a streamlined
-system for plugins to register and handle event
-listeners effortlessly.
-end note
-
-note as service_note
-Enables plugins to provide and consume
-services within the ecosystem.
-end note
-
-note as tooltip_note
-Provides a centralized tooltip management
-system, granting controlled access and
-customizable options for modifying game
-tooltips while minimizing conflicts.
-end note
-
-' note bindings:
-
-API .up. API_note
-channel .. channel_note
-data .up. data_note
-event .. event_note
-exchange .. exchange_note
-locale .. locale_note
-pluginAPI .left. pluginAPI_note
-plugin .up. plugin_note
-service .. service_note
-task .. task_note
-tooltip .. tooltip_note
-utilities .up. utilities_note
-
-' END NOTES.
-
-' module relationships
-channel --> task : <<use>>
-event --> task : <<use>>
-
-' ' API relationships
-API ..> exchange
 API .> plugin
-API ..> service
-API ..> tooltip
-API .left.> utilities
-API .> locale
+API ..> locale
+API .up.> tooltip
+API ..> utilities
+API .right.> exchange
+API .up.> service
+
 plugin --> pluginAPI : <<create>>
 
-' plugin API relationships
 pluginAPI ..> channel
-pluginAPI .right.> data
+pluginAPI .up.> locale
 pluginAPI ..> event
-pluginAPI ..> locale
+pluginAPI .> data
+
+event -> task : <<use>>
+channel --> task : <<use>>
+
 @enduml

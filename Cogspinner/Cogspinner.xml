@@ -1,8 +1,11 @@
 <Ui>
   <Include file="framework.lua"/>
   <Include file="plugin.lua"/>
-  <Include file="resources/enums.lua"/>
+
+  <Script file="resources/enums.lua"/>
 
   <Script file="garbage.lua"/>
+  <Script file="widgets.lua"/>
+  <Script file="assembler.lua"/>
   <Script file="testing.lua"/>
 </Ui>

@@ -9,20 +9,29 @@
 
 --#region (type: network.api)
 
+--
+--- ?
+---
 --- @class network.api
 --- 
 --- @field context plugin
 --- 
+--- @field reserve fun(self: network.api, channels: array<string>)
 --- @field transmit fun(self: network.api, channel: string, payload: unknown?)
 --- @field recieve fun(self: network.api, channel: string, callback: function)
+--
 
 --#endregion
 
 --#region (type: network.channel)
 
+--
+--- ?
+---
 --- @class network.channel
 --- 
 --- @field owner plugin
 --- @field listeners list
+--
 
 --#endregion

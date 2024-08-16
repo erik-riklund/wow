@@ -31,7 +31,7 @@ plugin.event:listen(
     event = 'PLAYER_STARTED_MOVING',
 
     callback = function()
-      print('This callback will run on every trigger of the event.')
+      print('Whenever you start moving, this callback will be executed.')
     end
   }
 )

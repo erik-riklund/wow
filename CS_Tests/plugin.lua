@@ -10,9 +10,9 @@ local addon, context = ...
 --
 -- ?
 
-context.plugin = cogspinner.plugin(addon)
+context.plugin = cogspinner.plugin(addon, { development = true })
 
 --
 --- ?
 
-context.tests = contraption.setup(context.plugin)
+context.tests = contraption.testkit(context.plugin)

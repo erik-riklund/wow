@@ -7,37 +7,23 @@
 
 local addon, context = ...
 
---#region: initialization
+--#region: locally scoped variables
+
+--- @cast context { plugin: plugin, tests: testkit }
 
 --
 --- ?
 
-local assert = contraption.assert
-
---
---- ?
-
-local plan = context.tests --[[@as testing.plan]]
+local cogspinner = cogspinner
+local string = cogspinner.utility.string
 
 --#endregion
 
 --#region [test suite: string.split]
 
---
+---
 --- ?
 
-local split = plan:suite('utilities: string.split')
-
---
---- ?
-
-split:test(
-  {
-    label = 'should do something?',
-    callback = function()
-      return assert.equal()
-    end
-  }
-)
+local split = context.tests:suite('utilities: string.split')
 
 --#endregion
