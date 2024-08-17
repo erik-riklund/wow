@@ -1,24 +1,21 @@
---    ____                      _                       
---   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--    ____                      _
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
---  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
---   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
---              |___/    |_|                            
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
+--              |___/    |_|
 
-local addon, context = ...
+local _, context = ... ---@cast context core.context
 
---- @cast context framework.context
-
---#region [module: framework API]
+--#region: locally scoped variables
+--#endregion
 
 _G.cogspinner =
 {
-  utilities =
-  {
+  utilities = {
     collections = {
-      -- list = context.utilities.collections.list
+      ---@type utilities.collection.list
+      list = context:import('utilities.collections.list')
     }
   }
 }
-
---#endregion

@@ -14,7 +14,7 @@
     "prefix": "!logo"
   },
 
-  "plugin":
+  "template":
   {
     "body":
     [
@@ -25,103 +25,14 @@
       "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
       "--              |___/    |_|                            ",
       "",
-      "local addon = ...",
+      "local addon, context = ... ---@cast context core.context",
       "",
-      "--",
-      "-- ?",
-      "",
-      "local plugin = cogspinner.plugin(addon)",
-      "",
-      "--",
-      "-- ?",
-      "",
-      ""
-    ],
-    "prefix": "!plugin"
-  },
-
-  "as":
-  {
-    "body": "--[[@as ${1}]]",
-    "prefix": "!as"
-  },
-
-  "module":
-  {
-    "body":
-    [
-      "--#region [module: ${1}]",
+      "--#region: locally scoped variables",
       "--#endregion"
     ],
 
-    "prefix": "!module"
+    "prefix": "!template"
   },
 
-  "method":
-  {
-    "body":
-    [
-      "--",
-      "--- ?",
-      "--",
-      "function ${1}:${2}(${3}) end"
-    ],
-
-    "prefix": "!method"
-  },
-
-  "function":
-  {
-    "body":
-    [
-      "--",
-      "--- ?",
-      "--",
-      "local function ${1}(${2}) end"
-    ],
-
-    "prefix": "!function"
-  },
-
-  "type":
-  {
-    "body":
-    [
-      "--#region (type: ${1})",
-      "",
-      "--",
-      "--- ?",
-      "--- ",
-      "--- @class ${1}",
-      "--",
-      "",
-      "--#endregion"
-    ],
-
-    "prefix": "!type"
-  },
-
-  "documentation":
-  {
-    "body":
-    [
-      "--",
-      "--- ?",
-      "--"
-    ],
-
-    "prefix": "!-?"
-  },
-
-  "description":
-  {
-    "body":
-    [
-      "--#region: ?",
-      "-- ???",
-      "--#endregion"
-    ],
-
-    "prefix": "!?"
-  }
+  "as": { "body": "--[[@as ${1}]]", "prefix": "!as" }
 }

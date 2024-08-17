@@ -7,15 +7,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
---#region (type: framework.context)
-
 --
---- @class framework.context
+--- @class core.context
 --- 
---- @field data table<string, unknown>
---- 
---- @field import fun(self: framework.context, id: string): unknown
---- @field export fun(self: framework.context, id: string, object: unknown)
+--- @field data dictionary<string, unknown>
+--- @field export fun(self: core.context, id: string, object: unknown)
+--- @field import fun(self: core.context, id: string): unknown
 --
-
---#endregion

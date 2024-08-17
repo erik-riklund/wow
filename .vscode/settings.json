@@ -5,8 +5,8 @@
   ],
   "better-comments.tags": [
     {
-      "tag": "#region [module:",
-      "color": "#C6610B",
+      "tag": "#region [type:",
+      "color": "#D67E4E",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -14,44 +14,8 @@
       "italic": false
     },
     {
-      "tag": "#region [core module:",
-      "color": "#9F4F0A",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "#region [library:",
-      "color": "#9E810A",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "#region [function:",
-      "color": "#B8B846",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "#region [metatable:",
-      "color": "#93B033",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "#region (",
-      "color": "#D89427",
+      "tag": "#region [alias:",
+      "color": "#2981B1",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -60,11 +24,29 @@
     },
     {
       "tag": "#region:",
-      "color": "#C39563",
+      "color": "#CE9614",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
       "bold": false,
+      "italic": true
+    },
+    {
+      "tag": "#region [function:",
+      "color": "#EFC45F",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [metatable:",
+      "color": "#B38781",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": true,
       "italic": false
     },
     {
@@ -76,42 +58,6 @@
       "bold": false,
       "italic": false
     },
-    {
-      "tag": " note:",
-      "color": "#C6AE29",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": " todo:",
-      "color": "#EAB33B",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "#region [API:",
-      "color": "#D27E34",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    },
-    {
-      "tag": "#region [test suite:",
-      "color": "#D27E34",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    }
   ],
   "Lua.runtime.version": "Lua 5.1",
   "Lua.runtime.builtin": {

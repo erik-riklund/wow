@@ -5,40 +5,59 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local addon, context = ...
+local _, context = ... ---@cast context core.context
 
---- @cast context framework.context
+--#region: locally scoped variables
 
---#region [metatable: list]
+local setmetatable, table, throw, type =
+    setmetatable, table, throw, type
 
---
---- ?
----
---- @type list
---
+--#endregion
+
+--#region [metatable: __list]
+
+---@type utilities.collection.list.object
 local __list =
 {
-  items = {},
+  values = {},
 
   --
-  --- ?
+  get = function(self, index) return self.values[index] end,
+
   --
-  get = function()
-    ---@diagnostic disable-next-line: missing-return
-  end
+  insert = function (self, value, position)
+    table.insert(self.values, position or (#self.values + 1), value)
+  end,
+
+  --
+  remove = function (self, index)
+    return table.remove(self.values, index or #self.values)
+  end,
+
+  --
+  replace = function (self, index, value)
+    if not self.values[index] then
+      throw('Unable to replace non-existing index (%d)', index)
+    end
+
+    self.values[index] = value
+  end,
+
+  --
+  length = function (self) return #self.values end
 }
 
 --#endregion
 
 --#region [function: list]
 
---
---- ?
---- 
---- @type framework.utilities.collections.list
---
+--- @type utilities.collection.list
 local function list(initial_values)
-  ---@diagnostic disable-next-line: missing-return
+  if initial_values and type(initial_values) ~= 'table' then
+    throw('Expected an array of initial values, got `%s`', type(initial_values))
+  end
+
+  return setmetatable({ values = initial_values or {} }, { __index = __list })
 end
 
 --#endregion
