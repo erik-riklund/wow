@@ -1,11 +1,7 @@
 <Ui>
-  <Include file="framework.lua"/>
-  <Include file="plugin.lua"/>
-
-  <Script file="resources/enums.lua"/>
-
-  <Script file="garbage.lua"/>
-  <Script file="widgets.lua"/>
-  <Script file="assembler.lua"/>
-  <Script file="testing.lua"/>
+  <Include file="utilities/throw.lua"/>
+  <Include file="framework/context.lua"/>
+  <Include file="utilities/collections/list.lua"/>
+  <Include file="utilities/table/walk.lua"/>
+  <Script file="framework/api.lua"/>
 </Ui>

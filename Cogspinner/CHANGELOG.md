@@ -1,3 +1,0 @@
-# Cogspinner
-## Changelog
-

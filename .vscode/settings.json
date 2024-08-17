@@ -41,7 +41,7 @@
       "italic": false
     },
     {
-      "tag": "#region [class:",
+      "tag": "#region [metatable:",
       "color": "#93B033",
       "strikethrough": false,
       "underline": false,

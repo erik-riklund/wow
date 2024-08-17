@@ -1,5 +1,0 @@
-<Ui>
-  <Include file="plugin.lua"/>
-
-  <Script file="tests/utilities/string.lua"/>
-</Ui>
