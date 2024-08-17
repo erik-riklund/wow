@@ -14,8 +14,10 @@ _G.cogspinner =
 {
   utilities = {
     collections = {
-      ---@type utilities.collection.list
-      list = context:import('utilities.collections.list')
+      ---@type utilities.collections.list
+      list = context:import('utilities.collections.list'),
+      ---@type utilities.collections.map
+      map = context:import('utilities.collections.map')
     }
   }
 }

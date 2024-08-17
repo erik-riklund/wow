@@ -10,7 +10,7 @@
 --#region [alias: list]
 
 --
---- @alias list utilities.collection.list.object
+--- @alias list utilities.collections.list.object
 --
 
 --#endregion
@@ -20,7 +20,7 @@
 --
 --- Creates a new list instance, optionally initialized with the given values.
 --- 
---- @alias utilities.collection.list
+--- @alias utilities.collections.list
 --- | fun(initial_values: unknown[]|nil): list
 --
 
@@ -31,7 +31,7 @@
 --
 --- Represents a list object with associated methods for manipulating its contents.
 --- 
---- @class utilities.collection.list.object
+--- @class utilities.collections.list.object
 --- 
 --- @field values unknown[]
 --- 

@@ -16,7 +16,7 @@ local setmetatable, table, throw, type =
 
 --#region [metatable: __list]
 
----@type utilities.collection.list.object
+---@type list
 local __list =
 {
   values = {},
@@ -25,17 +25,17 @@ local __list =
   get = function(self, index) return self.values[index] end,
 
   --
-  insert = function (self, value, position)
+  insert = function(self, value, position)
     table.insert(self.values, position or (#self.values + 1), value)
   end,
 
   --
-  remove = function (self, index)
+  remove = function(self, index)
     return table.remove(self.values, index or #self.values)
   end,
 
   --
-  replace = function (self, index, value)
+  replace = function(self, index, value)
     if not self.values[index] then
       throw('Unable to replace non-existing index (%d)', index)
     end
@@ -44,14 +44,14 @@ local __list =
   end,
 
   --
-  length = function (self) return #self.values end
+  length = function(self) return #self.values end
 }
 
 --#endregion
 
 --#region [function: list]
 
---- @type utilities.collection.list
+--- @type utilities.collections.list
 local function list(initial_values)
   if initial_values and type(initial_values) ~= 'table' then
     throw('Expected an array of initial values, got `%s`', type(initial_values))
