@@ -9,8 +9,8 @@ local addon, context = ...
 
 --- @cast context framework.context
 
-local assert, error, string, table, type =
-    assert, error, string, table, type
+local ipairs, table, throw, type =
+    ipairs, table, throw, type
 
 --#region [function: walk]
 
@@ -22,10 +22,9 @@ local assert, error, string, table, type =
 --- @type framework.utilities.table.walk
 --
 local function walk(target, keys, options)
-  assert(
-    type(target) == 'table' and type(keys) == 'table',
-    "Expected tables for 'target' and 'path'"
-  )
+  if type(target) ~= 'table' or type(keys) ~= 'table' then
+    throw("Expected tables for both 'target' and 'keys'")
+  end
 
   local reference = target
   options = options or { build_mode = false }
@@ -48,7 +47,8 @@ local function walk(target, keys, options)
     end
 
     if type(reference[ancestor]) ~= 'table' then
-      error(string.format('Unexpected non-table value encountered at `%s`', table.concat(keys, '.', 1, i)), 3)
+      local path = table.concat(keys, '.', 1, i)
+      throw('Unexpected non-table value encountered at `%s`', path)
     end
 
     reference = reference[ancestor] --[[@as table]]
