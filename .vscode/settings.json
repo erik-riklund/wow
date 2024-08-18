@@ -24,7 +24,7 @@
     },
     {
       "tag": "#region:",
-      "color": "#CE9614",
+      "color": "#BCBC89",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -33,7 +33,7 @@
     },
     {
       "tag": "#region [function:",
-      "color": "#EFC45F",
+      "color": "#D8B156",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -42,11 +42,20 @@
     },
     {
       "tag": "#region [metatable:",
-      "color": "#B38781",
+      "color": "#B38080",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
-      "bold": true,
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [controller:",
+      "color": "#BCB734",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
       "italic": false
     },
     {

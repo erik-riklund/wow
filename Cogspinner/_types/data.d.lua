@@ -17,3 +17,9 @@
 --
 
 --#endregion
+
+--#region [type: table.options.weak]
+
+--- @alias table.weak_options 'key'|'value'|'both'
+
+--#endregion

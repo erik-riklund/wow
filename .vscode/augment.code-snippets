@@ -34,5 +34,6 @@
     "prefix": "!template"
   },
 
-  "as": { "body": "--[[@as ${1}]]", "prefix": "!as" }
+  "as": { "body": "--[[@as ${1}]]", "prefix": "!as" },
+  "doc": { "body": [ "--", "-- ?", "--" ], "prefix": "!--" }
 }

@@ -21,7 +21,7 @@
 --- Creates a new list instance, optionally initialized with the given values.
 --- 
 --- @alias utilities.collections.list
---- | fun(initial_values: unknown[]|nil): list
+--- | fun(initial_values: unknown[]|nil, options: { weak: table.weak_options }|nil): list
 --
 
 --#endregion

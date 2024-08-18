@@ -19,10 +19,10 @@
 
 --
 --- Creates a new map object, optionally initialized with given key-value pairs.
---- 
+---
 --- @alias utilities.collections.map
---- | fun(initial_content: table|nil): map
--- 
+--- | fun(initial_content: table|nil, options: { weak: table.weak_options }|nil): map
+--
 
 --#endregion
 
@@ -30,12 +30,12 @@
 
 --
 --- Represents a map object, providing methods to manage key-value pairs.
---- 
+---
 --- @class utilities.collections.map.object
---- 
+---
 --- @field entries number The number of key-value pairs in the map.
 --- @field content dictionary<string|table, unknown> The underlying storage for the key-value pairs.
---- 
+---
 --- @field get fun(self: map, key: string): unknown Retrieves the value associated with the given key.
 --- @field set fun(self: map, key: string, value: unknown) Sets the value for the given key.
 --- @field drop fun(self: map, key: string) Removes the key-value pair with the given key.
