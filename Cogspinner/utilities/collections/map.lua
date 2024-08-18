@@ -5,16 +5,15 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local addon, context = ... ---@cast context core.context
-
---#region: locally scoped variables
-
-local pairs, setmetatable, throw, type =
-    pairs, setmetatable, throw, type
-
---#endregion
+local setmetatable = setmetatable
+local _, context = ... ---@cast context core.context
 
 --#region [metatable: __map]
+
+--
+-- This metatable provides the underlying implementation for map objects,
+-- handling key-value storage and operations.
+--
 
 ---@type map
 local __map =
@@ -23,11 +22,17 @@ local __map =
   content = {},
 
   --
-  get = function(self, key)
-    return self.content[key]
-  end,
+  -- Retrieves the value associated with a given key from the map.
+  --
+
+  get = function(self, key) return self.content[key] end,
 
   --
+  -- Sets or updates the value associated with a key in the map.
+  -- If the value is `nil`, the key-value pair is removed instead.
+  -- We maintain an 'entries' count for quick size checks.
+  --
+
   set = function(self, key, value)
     if value == nil then
       self:drop(key)
@@ -42,6 +47,10 @@ local __map =
   end,
 
   --
+  -- Removes a key-value pair from the map based on the given key.
+  -- We also decrement the 'entries' count to reflect the removal.
+  --
+
   drop = function(self, key)
     if self.content[key] ~= nil then
       self.content[key] = nil
@@ -50,19 +59,29 @@ local __map =
   end,
 
   --
+  -- Checks if a key exists within the map.
+  --
+
   has = function(self, key)
     return self.content[key] ~= nil
   end,
 
   --
-  size = function(self)
-    return self.entries
-  end
+  -- Returns the number of key-value pairs (entries) in the map.
+  -- We use the cached 'entries' count for efficiency.
+  --
+
+  size = function(self) return self.entries end
 }
 
 --#endregion
 
 --#region [function: map]
+
+--
+-- Factory function to create new map objects, using the
+-- `__map` metatable to provide the map behavior.
+--
 
 ---@type utilities.collections.map
 local function map(initial_content)
@@ -74,5 +93,9 @@ local function map(initial_content)
 end
 
 --#endregion
+
+--
+-- Export the `map` function to the framework context.
+--
 
 context:export('utilities.collections.map', map)
