@@ -5,19 +5,45 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context = ... ---@cast context core.context
+local _, context = ... --- @cast context core.context
 
---#region: locally scoped variables
+--#region (context imports)
+
+--- @type plugin.manager
+local plugin_manager = context:import('modules/plugin-manager')
+
 --#endregion
 
+--
+-- ?
+--
 _G.cogspinner =
 {
-  utilities = {
-    collections = {
-      ---@type utilities.collections.list
-      list = context:import('utilities.collections.list'),
-      ---@type utilities.collections.map
-      map = context:import('utilities.collections.map')
+  --
+  --- ?
+  ---
+  --- @param id string
+  --- @param options plugin.options
+  --
+  plugin = function(id, options)
+    return plugin_manager:create_context(id, options)
+  end,
+
+  --
+  -- ?
+  --
+  utilities =
+  {
+    --
+    -- ?
+    --
+    collections =
+    {
+      --- @type utilities.collections.list
+      list = context:import('utilities/collections/list'),
+
+      --- @type utilities.collections.map
+      map = context:import('utilities/collections/map')
     }
   }
 }

@@ -25,10 +25,7 @@
       "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
       "--              |___/    |_|                            ",
       "",
-      "local addon, context = ... ---@cast context core.context",
-      "",
-      "--#region: locally scoped variables",
-      "--#endregion"
+      "local addon, context = ... --- @cast context core.context"
     ],
 
     "prefix": "!template"

@@ -129,4 +129,4 @@ end
 -- Export the `list` function to the framework context.
 --
 
-context:export('utilities.collections.list', list)
+context:export('utilities/collections/list', list)

@@ -32,6 +32,15 @@
       "italic": true
     },
     {
+      "tag": "#region (",
+      "color": "#9A6BBC",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
       "tag": "#region [function:",
       "color": "#D8B156",
       "strikethrough": false,
