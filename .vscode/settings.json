@@ -33,7 +33,7 @@
     },
     {
       "tag": "#region (",
-      "color": "#9A6BBC",
+      "color": "#848D53",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -66,6 +66,24 @@
       "backgroundColor": "transparent",
       "bold": false,
       "italic": false
+    },
+    {
+      "tag": "#note:",
+      "color": "#787878",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#todo:",
+      "color": "#CC6183",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": true
     },
     {
       "tag": "#endregion",

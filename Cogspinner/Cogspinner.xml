@@ -3,6 +3,7 @@
   <Include file="framework/context.lua"/>
   <Include file="utilities/collections/list.lua"/>
   <Include file="utilities/collections/map.lua"/>
+  <Include file="framework/resources/shared/frame.lua"/>
   <Include file="framework/modules/task-handler.lua"/>
   <Include file="framework/modules/plugin-manager.lua"/>
   <Include file="framework/api.lua"/>

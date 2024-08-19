@@ -10,23 +10,28 @@
 --#region [type: task process]
 
 --
---- ?
+--- Represents a mechanism for managing and executing a queue of tasks using a coroutine.
 ---
 --- @class task.process
 --- 
---- @field queue list
+--- @field queue list The queue of tasks waiting to be executed.
+--- @field controller? thread The coroutine handle responsible for processing the task queue.
+--- 
+--- @field enqueue fun(self: task.process, task: task) Adds a new task to the queue.
+--- @field execute fun(self: task.process) Create the coroutine to process the task queue.
 --
 
 --#endregion
 
---#region [type: task handler]
+--#region [type: task]
 
 --
---- ?
----
---- @class task.handler
+--- Encapsulates a unit of work to be executed, including the callback function and its arguments.
 --- 
---- @field process? task.process
+--- @class task
+--- 
+--- @field callback function The function to be executed as the task.
+--- @field arguments? unknown[] (Optional) The arguments to be passed to the callback function.
 --
 
 --#endregion
