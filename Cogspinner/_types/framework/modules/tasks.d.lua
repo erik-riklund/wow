@@ -17,7 +17,7 @@
 --- @field queue list The queue of tasks waiting to be executed.
 --- @field controller? thread The coroutine handle responsible for processing the task queue.
 --- 
---- @field enqueue fun(self: module.tasks, task: task) Adds a new task to the queue.
+--- @field register fun(self: module.tasks, task: task) Adds a new task to the queue.
 --- @field execute fun(self: module.tasks) Create the coroutine to process the task queue.
 --
 

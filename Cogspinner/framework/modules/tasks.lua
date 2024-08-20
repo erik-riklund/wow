@@ -5,7 +5,6 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local co = coroutine
 local _, context = ... --- @cast context core.context
 
 --#region (context imports)
@@ -15,6 +14,12 @@ local list = context:import('utility/collection/list')
 
 --- @type resource.shared.frame
 local shared_frame = context:import('resources/shared/frame')
+
+--#endregion
+
+--#region (locally scoped variables)
+
+local co = coroutine
 
 --#endregion
 
@@ -45,7 +50,7 @@ local task_process =
   -- been initialized, it's created to begin processing the queue.
   --
 
-  enqueue = function(self, task)
+  register = function(self, task)
     self.queue:insert(task)
 
     if not self.controller then self:execute() end

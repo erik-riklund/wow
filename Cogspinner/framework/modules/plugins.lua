@@ -9,6 +9,9 @@ local addon, context = ... --- @cast context core.context
 
 --#region (context imports)
 
+--- @type module.network
+local network = context:import('module/network')
+
 --- @type utility.collection.list
 local list = context:import('utility/collection/list')
 

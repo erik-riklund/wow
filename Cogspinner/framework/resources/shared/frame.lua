@@ -6,12 +6,17 @@
 --              |___/    |_|
 
 local _, context = ... --- @cast context core.context
-local create_frame = CreateFrame
 
 --#region (context imports)
 
 --- @type utility.collection.list
 local list = context:import('utility/collection/list')
+
+--#endregion
+
+--#region (locally scoped variables)
+
+local create_frame = CreateFrame
 
 --#endregion
 
