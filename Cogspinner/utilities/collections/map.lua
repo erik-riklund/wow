@@ -106,7 +106,7 @@ local __map = { __index = map_controller }
 -- behavior to the underlying storage if specified in the options.
 --
 
---- @type utilities.collections.map
+--- @type utility.collection.map
 local function map(initial_content, options)
   if initial_content and type(initial_content) ~= 'table' then
     throw("Error initializing map: 'initial_content' must be a table.")
@@ -141,4 +141,4 @@ end
 -- Export the `map` function to the framework context.
 --
 
-context:export('utilities/collections/map', map)
+context:export('utility/collection/map', map)

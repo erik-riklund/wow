@@ -9,8 +9,8 @@ local _, context = ... --- @cast context core.context
 
 --#region (context imports)
 
---- @type plugin.manager
-local plugin_manager = context:import('modules/plugin-manager')
+--- @type module.plugin
+local plugin_manager = context:import('module/plugins')
 
 --#endregion
 
@@ -39,11 +39,11 @@ _G.cogspinner =
     --
     collections =
     {
-      --- @type utilities.collections.list
-      list = context:import('utilities/collections/list'),
+      --- @type utility.collection.list
+      list = context:import('utility/collection/list'),
 
-      --- @type utilities.collections.map
-      map = context:import('utilities/collections/map')
+      --- @type utility.collection.map
+      map = context:import('utility/collection/map')
     }
   }
 }

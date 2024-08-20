@@ -12,13 +12,13 @@
 --
 --- Represents a mechanism for managing and executing a queue of tasks using a coroutine.
 ---
---- @class task.process
+--- @class module.tasks
 --- 
 --- @field queue list The queue of tasks waiting to be executed.
 --- @field controller? thread The coroutine handle responsible for processing the task queue.
 --- 
---- @field enqueue fun(self: task.process, task: task) Adds a new task to the queue.
---- @field execute fun(self: task.process) Create the coroutine to process the task queue.
+--- @field enqueue fun(self: module.tasks, task: task) Adds a new task to the queue.
+--- @field execute fun(self: module.tasks) Create the coroutine to process the task queue.
 --
 
 --#endregion

@@ -10,10 +10,10 @@ local _, context = ... --- @cast context core.context
 
 --#region (context imports)
 
---- @type utilities.collections.list
-local list = context:import('utilities/collections/list')
+--- @type utility.collection.list
+local list = context:import('utility/collection/list')
 
---- @type resources.shared.frame
+--- @type resource.shared.frame
 local shared_frame = context:import('resources/shared/frame')
 
 --#endregion
@@ -23,7 +23,7 @@ local shared_frame = context:import('resources/shared/frame')
 -- manner using a coroutine to avoid impacting frame rate.
 --
 
---- @type task.process
+--- @type module.tasks
 local task_process =
 {
   --
@@ -117,4 +117,4 @@ shared_frame:register(
 -- allowing other modules to enqueue tasks for execution.
 --
 
-context:export('modules/task-process', task_process)
+context:export('module/tasks', task_process)

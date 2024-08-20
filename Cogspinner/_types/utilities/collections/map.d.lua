@@ -10,7 +10,7 @@
 --#region [alias: map]
 
 --
---- @alias map utilities.collections.map.object
+--- @alias map utility.collection.map.object
 --
 
 --#endregion
@@ -20,7 +20,7 @@
 --
 --- Creates a new map object, optionally initialized with given key-value pairs.
 ---
---- @alias utilities.collections.map
+--- @alias utility.collection.map
 --- | fun(initial_content: table|nil, options: { weak: table.weak_options }|nil): map
 --
 
@@ -31,7 +31,7 @@
 --
 --- Represents a map object, providing methods to manage key-value pairs.
 ---
---- @class utilities.collections.map.object
+--- @class utility.collection.map.object
 ---
 --- @field entries number The number of key-value pairs in the map.
 --- @field content dictionary<string|table, unknown> The underlying storage for the key-value pairs.

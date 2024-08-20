@@ -96,7 +96,7 @@ local __list = { __index = list_controller }
 -- weak table behavior to manage memory and prevent potential leaks.
 --
 
---- @type utilities.collections.list
+--- @type utility.collection.list
 local function list(initial_values, options)
   if initial_values and type(initial_values) ~= 'table' then
     throw('Invalid initial values for the list. Expected a table (or nil).')
@@ -129,4 +129,4 @@ end
 -- Export the `list` function to the framework context.
 --
 
-context:export('utilities/collections/list', list)
+context:export('utility/collection/list', list)

@@ -9,14 +9,14 @@ local addon, context = ... --- @cast context core.context
 
 --#region (context imports)
 
---- @type utilities.collections.map
-local map = context:import('utilities/collections/map')
+--- @type utility.collection.map
+local map = context:import('utility/collection/map')
 
---- @type utilities.collections.list
-local list = context:import('utilities/collections/list')
+--- @type utility.collection.list
+local list = context:import('utility/collection/list')
 
---- @type task.process
-local task_process = context:import('modules/task-process')
+--- @type module.tasks
+local task_process = context:import('module/tasks')
 
 --#endregion
 
@@ -24,7 +24,7 @@ local task_process = context:import('modules/task-process')
 -- ?
 --
 
---- @type network.controller
+--- @type module.network
 local network_controller =
 {
   --
@@ -38,4 +38,4 @@ local network_controller =
 -- ?
 --
 
-context:export('modules/network-controller', network_controller)
+context:export('module/network', network_controller)

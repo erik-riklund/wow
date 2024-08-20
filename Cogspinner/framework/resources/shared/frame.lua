@@ -10,8 +10,8 @@ local create_frame = CreateFrame
 
 --#region (context imports)
 
---- @type utilities.collections.list
-local list = context:import('utilities/collections/list')
+--- @type utility.collection.list
+local list = context:import('utility/collection/list')
 
 --#endregion
 
@@ -21,7 +21,7 @@ local list = context:import('utilities/collections/list')
 -- updates and promotes code organization.
 --
 
---- @type resources.shared.frame
+--- @type resource.shared.frame
 local controller =
 {
   --

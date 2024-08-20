@@ -9,8 +9,8 @@ local addon, context = ... --- @cast context core.context
 
 --#region (context imports)
 
---- @type utilities.collections.list
-local list = context:import('utilities/collections/list')
+--- @type utility.collection.list
+local list = context:import('utility/collection/list')
 
 --#endregion
 
@@ -18,7 +18,7 @@ local list = context:import('utilities/collections/list')
 -- ?
 --
 
---- @type plugin.manager
+--- @type module.plugin
 local plugin_manager =
 {
   --
@@ -40,4 +40,4 @@ local plugin_manager =
 -- ?
 --
 
-context:export('modules/plugin-manager', plugin_manager)
+context:export('module/plugins', plugin_manager)

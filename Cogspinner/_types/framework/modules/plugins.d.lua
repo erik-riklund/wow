@@ -13,10 +13,10 @@
 --
 --- ?
 ---
---- @class plugin.manager
+--- @class module.plugin
 ---
 --- @field plugins list
---- @field create_context fun(self: plugin.manager, id: string, options: plugin.options|nil): plugin.context
+--- @field create_context fun(self: module.plugin, id: string, options: plugin.options|nil): plugin.context
 --
 
 --#endregion

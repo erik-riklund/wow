@@ -12,7 +12,7 @@
 --
 --- ?
 --- 
---- @class network.controller
+--- @class module.network
 --- 
 --- @field channels map
 --
