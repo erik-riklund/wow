@@ -5,14 +5,8 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+local setmetatable, throw = setmetatable, throw
 local _, context = ... --- @cast context core.context
-
---#region (locally scoped variables)
-
-local setmetatable = setmetatable
-local throw = throw
-
---#endregion
 
 --#region [controller: framework context]
 

@@ -5,18 +5,13 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+local create_frame = CreateFrame
 local _, context = ... --- @cast context core.context
 
 --#region (context imports)
 
 --- @type utility.collection.list
 local list = context:import('utility/collection/list')
-
---#endregion
-
---#region (locally scoped variables)
-
-local create_frame = CreateFrame
 
 --#endregion
 

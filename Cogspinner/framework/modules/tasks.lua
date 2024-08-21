@@ -5,6 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+local coroutine = coroutine
 local _, context = ... --- @cast context core.context
 
 --#region (context imports)
@@ -14,12 +15,6 @@ local list = context:import('utility/collection/list')
 
 --- @type resource.shared.frame
 local shared_frame = context:import('resources/shared/frame')
-
---#endregion
-
---#region (locally scoped variables)
-
-local co = coroutine
 
 --#endregion
 
@@ -69,10 +64,12 @@ local task_process =
       -- to ensure it's only created when needed, saving resources.
       --#endregion
 
-      self.controller = co.create(
+      self.controller = coroutine.create(
         function()
+          local process, pcall, time, type, unpack =
+              self, pcall, GetTime, type, unpack
+
           local frame_limit = 0.0166 --#note: 60fps
-          local process, pcall, time, type, unpack = self, pcall, GetTime, type, unpack
 
           while true do
             local started = time()
@@ -93,7 +90,7 @@ local task_process =
               end
             end
 
-            co.yield()
+            coroutine.yield()
           end
         end
       )
@@ -103,15 +100,15 @@ local task_process =
 
 --
 -- Registers a function to be called on each frame update. This function will
--- check if the task processing coroutine is suspended and has tasks pending, 
+-- check if the task processing coroutine is suspended and has tasks pending,
 -- and resume it if so.
 --
 
 shared_frame:register(
   function()
-    if co.status(task_process.controller) == 'suspended' then
+    if coroutine.status(task_process.controller) == 'suspended' then
       if task_process.queue:length() > 0 then
-        co.resume(task_process.controller)
+        coroutine.resume(task_process.controller)
       end
     end
   end
