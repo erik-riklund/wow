@@ -56,7 +56,7 @@ local network_controller =
 
     local count = #channels
     for i = 1, count do
-      --- @type network.reserve.options
+      --- @type network.reserve.channel
       local channel = channels[i]
 
       if self.channels:has(channel.name) then

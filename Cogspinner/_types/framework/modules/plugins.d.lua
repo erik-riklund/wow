@@ -15,7 +15,8 @@
 ---
 --- @class module.plugin
 ---
---- @field plugins list
+--- @field plugins map
+--- 
 --- @field create_context fun(self: module.plugin, id: string, options: plugin.options|nil): plugin.context
 --
 

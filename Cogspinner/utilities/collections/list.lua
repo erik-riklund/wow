@@ -54,10 +54,8 @@ local list_controller =
   end,
 
   --
-  -- Replaces the value at the specified index with the new value.
-  --
-  -- We throw an error if trying to replace a non-existent index
-  -- to avoid unexpected behavior.
+  -- Replaces the value at the specified index with the new value. We throw an error
+  -- if trying to replace a non-existent index to avoid unexpected behavior.
   --
 
   replace = function(self, index, value)
@@ -66,6 +64,37 @@ local list_controller =
     end
 
     self.values[index] = value
+  end,
+
+  --
+  -- Searches the list for the given `search_value` and returns its index if found.
+  -- Throws an error if `search_value` is nil to prevent unexpected behavior.
+  --
+
+  index_of = function(self, search_value)
+    if search_value == nil then
+      throw('Cannot search for a `nil` value in the list')
+    end
+
+    local length = #self.values
+
+    if length > 0 then
+      for i = 1, length do
+        if self.values[i] == search_value then
+          return i -- note: return the index where the value was found.
+        end
+      end
+    end
+
+    return -1 -- note: indicate that the value was not found.
+  end,
+
+  --
+  -- Checks if the list contains the given `search_value`.
+  --
+
+  contains = function(self, search_value)
+    return self:index_of(search_value) ~= -1
   end,
 
   --

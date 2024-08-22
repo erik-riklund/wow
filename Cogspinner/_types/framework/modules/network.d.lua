@@ -18,9 +18,9 @@
 --- @field channels map
 --- @field listeners map
 ---
---- @field reserve fun(self: module.network, owner: plugin.context, channels: network.reserve.options[]) Reserves channels for a plugin.
+--- @field reserve fun(self: module.network, owner: plugin.context, channels: network.reserve.channel[]) Reserves channels for a plugin.
 --- @field transmit fun(self: module.network, sender: plugin.context, channel_name: string, payload: table|nil) Transmits a message on a channel.
---- @field monitor fun(self: module.network, reciever: plugin.context, channel_name: string, listener: network.monitor.options) Registers a listener to a channel.
+--- @field monitor fun(self: module.network, reciever: plugin.context, channel_name: string, listener: network.monitor.listener) Registers a listener to a channel.
 --- @field silence fun(self: module.network, reciever: plugin.context, channel_name: string, listener_id: string) Unregisters a listener from a channel.
 --
 
@@ -45,7 +45,7 @@
 ---
 --- Options for reserving a channel, specifying its name and whether it is internal.
 ---
---- @class network.reserve.options
+--- @class network.reserve.channel
 ---
 --- @field name string The name of the channel to reserve.
 --- @field internal? boolean Whether the channel should be internal to the owning plugin (default: false).
@@ -73,7 +73,7 @@
 --- Options for registering a listener, specifying its
 --- callback function and an optional identifier.
 ---
---- @class network.monitor.options
+--- @class network.monitor.listener
 --- 
 --- @field id? string (optional) A unique identifier for the listener.
 --- @field callback network.listener.callback The function to be called when a message is received.

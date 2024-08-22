@@ -18,7 +18,7 @@
 --#region [type: utilities.collection.list]
 
 --
---- Creates a new list instance, optionally initialized with the given values.
+--- Creates a new list object, optionally initialized with values and weak table behavior.
 --- 
 --- @alias utility.collection.list
 --- | fun(initial_values: unknown[]|nil, options: { weak: table.weak_options }|nil): list
@@ -33,12 +33,15 @@
 --- 
 --- @class utility.collection.list.object
 --- 
---- @field values unknown[]
+--- @field values unknown[] The internal array storing the list's elements.
 --- 
---- @field get fun(self: list, index: number): unknown Retrieves an element from the list by its index.
---- @field replace fun(self: list, index: number, value: unknown) Sets the value of an element in the list at a specific index.
---- @field insert fun(self: list, value: unknown, position: number|nil) Inserts an element into the list at the specified position, or the end if no position is provided.
---- @field remove fun(self: list, index: number|nil): unknown Removes an element from the list at the specified index, or the last element if no index is provided.
+--- @field get fun(self: list, index: number): unknown Retrieves an element by its index.
+--- @field replace fun(self: list, index: number, value: unknown) Replaces the value at the specified index.
+--- @field insert fun(self: list, value: unknown, position: number|nil) Inserts a value at a specific position (or at the end if no position is specified).
+--- @field remove fun(self: list, index: number|nil): unknown Removes and returns an element by index (or the last element if no index is specified).
+--- 
+--- @field index_of fun(self: list, search_value: unknown): number Returns the index of a given value, or `-1` if not found.
+--- @field contains fun(self: list, search_value: unknown): boolean Checks if the list contains the given value.
 --- @field length fun(self: list): number Returns the number of elements in the list.
 --
 

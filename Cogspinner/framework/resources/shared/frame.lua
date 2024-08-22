@@ -10,26 +10,40 @@ local _, context = ... --- @cast context core.context
 
 --#region (context imports)
 
+--- @type utility.collection.map
+local map = context:import('utility/collection/map')
+
 --- @type utility.collection.list
 local list = context:import('utility/collection/list')
 
 --#endregion
 
 --
--- This module manages a shared frame and provides a mechanism for registering
--- functions to be called during the `OnUpdate` event. This centralizes frame-based
--- updates and promotes code organization.
+-- This module centralizes frame-based updates and event handling by providing a
+-- mechanism for registering functions to be called during the `OnUpdate` event
+-- and in response to game events.
 --
 
 --- @type resource.shared.frame
 local controller =
 {
   --
-  -- A list to store functions (update handlers)
-  -- that will be called on each frame update.
+  -- A map to track registered events, to avoid redundant registrations.
+  --
+
+  events = map(),
+
+  --
+  -- A list to store functions that will be called on each frame update.
   --
 
   update_handlers = list(),
+
+  --
+  -- A list to store functions that will be called when game events occur.
+  --
+
+  event_handlers = list(),
 
   --
   -- The underlying frame object that triggers the `OnUpdate` script. This frame is
@@ -39,11 +53,52 @@ local controller =
   frame = create_frame('Frame', 'CogspinnerFrame'),
 
   --
-  -- Registers a new update handler function to be called on each frame update.
+  -- Registers a new update handler function to be called on each frame update. We check
+  -- if the handler is already registered to prevent duplicates and potential errors.
   --
 
-  register = function(self, update_handler)
-    self.update_handlers:insert(update_handler)
+  register_update_handler = function(self, callback)
+    if self.update_handlers:contains(callback) then
+      throw('?')
+    end
+
+    self.update_handlers:insert(callback)
+  end,
+
+  --
+  -- Registers a new event handler function to be called when a registered game event
+  -- occurs. Similar to update handlers, we prevent duplicate registrations.
+  --
+
+  register_event_handler = function(self, callback)
+    if self.event_handlers:contains(callback) then
+      throw('?')
+    end
+
+    self.event_handlers:insert(callback)
+  end,
+
+  --
+  -- Registers the frame to listen for a specific game event. We track registered
+  -- events to avoid unnecessary duplicate registrations.
+  --
+
+  register_event = function(self, event_name)
+    if not self.events:has(event_name) then
+      self.frame:RegisterEvent(event_name)
+      self.events:set(event_name, true)
+    end
+  end,
+
+  --
+  -- Unregisters the frame from listening to a specific game event.
+  --
+
+  unregister_event = function(self, event_name)
+    if self.events:has(event_name) then
+      self.frame:UnregisterEvent(event_name)
+      self.events:drop(event_name)
+    end
   end
 }
 
@@ -55,10 +110,30 @@ local controller =
 
 controller.frame:SetScript(
   'OnUpdate', function()
-    local handlers = controller.update_handlers:length()
+    local handler_count = controller.update_handlers:length()
 
-    for i = 1, handlers do
+    for i = 1, handler_count do
       local success = pcall(controller.update_handlers:get(i))
+
+      if not success then
+        --#todo: implement error handling!
+      end
+    end
+  end
+)
+
+--
+-- Attaches an `OnEvent` script to the frame. This script is triggered when
+-- any of the registered events occur. It iterates through the registered event
+-- handlers and attempts to execute them, providing basic error handling.
+--
+
+controller.frame:SetScript(
+  'OnEvent', function()
+    local handler_count = controller.event_handlers:length()
+
+    for i = 1, handler_count do
+      local success = pcall(controller.event_handlers:get(i))
 
       if not success then
         --#todo: implement error handling!
@@ -72,4 +147,4 @@ controller.frame:SetScript(
 -- making it accessible to other modules.
 --
 
-context:export('resources/shared/frame', controller)
+context:export('resource/shared/frame', controller)

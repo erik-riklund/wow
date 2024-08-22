@@ -14,7 +14,7 @@ local _, context = ... --- @cast context core.context
 local list = context:import('utility/collection/list')
 
 --- @type resource.shared.frame
-local shared_frame = context:import('resources/shared/frame')
+local frame = context:import('resource/shared/frame')
 
 --#endregion
 
@@ -104,7 +104,7 @@ local task_process =
 -- and resume it if so.
 --
 
-shared_frame:register(
+frame:register_update_handler(
   function()
     if coroutine.status(task_process.controller) == 'suspended' then
       if task_process.queue:length() > 0 then
