@@ -116,7 +116,7 @@ local network_controller =
 
   --
   -- Registers a listener function to receive messages on a specified channel,
-  -- ensuring the channel exists and the receiver has permission to use it.
+  -- ensuring the receiver has permission to use it.
   --
 
   monitor = function(self, reciever, channel_name, listener)

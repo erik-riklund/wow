@@ -13,8 +13,8 @@ local _, context = ... --- @cast context core.context
 --- @type utility.collection.list
 local list = context:import('utility/collection/list')
 
---- @type resource.shared.frame
-local frame = context:import('resource/shared/frame')
+--- @type framework.frame
+local frame = context:import('framework/frame')
 
 --#endregion
 

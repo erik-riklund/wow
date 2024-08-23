@@ -24,7 +24,7 @@ local list = context:import('utility/collection/list')
 -- and in response to game events.
 --
 
---- @type resource.shared.frame
+--- @type framework.frame
 local controller =
 {
   --
@@ -103,6 +103,12 @@ local controller =
 }
 
 --
+-- ?
+--
+
+controller.frame:RegisterEvent('ADDON_LOADED')
+
+--
 -- Attaches an `OnUpdate` script to the frame. This script iterates
 -- through the registered update handlers and attempts to execute them,
 -- providing basic error handling.
@@ -138,7 +144,7 @@ controller.frame:SetScript(
     local handler_count = controller.event_handlers:length()
 
     for i = 1, handler_count do
-      local success = pcall(
+      local success, result = pcall(
         controller.event_handlers:get(i), event_name, unpack(event_data)
       )
 
@@ -154,4 +160,4 @@ controller.frame:SetScript(
 -- making it accessible to other modules.
 --
 
-context:export('resource/shared/frame', controller)
+context:export('framework/frame', controller)
