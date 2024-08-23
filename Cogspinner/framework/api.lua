@@ -10,7 +10,7 @@ local _, context = ... --- @cast context core.context
 --#region (context imports)
 
 --- @type module.plugin
-local plugins = context:import('module/plugins')
+local plugin_manager = context:import('module/plugins')
 
 --#endregion
 
@@ -26,7 +26,7 @@ _G.cogspinner =
   --- @param options plugin.options
   --
   plugin = function(id, options)
-    return plugins:create_context(id, options)
+    return plugin_manager:create_plugin(id, options)
   end,
 
   --

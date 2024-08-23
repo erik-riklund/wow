@@ -5,8 +5,8 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local create_frame = CreateFrame
 local _, context = ... --- @cast context core.context
+local create_frame, select, unpack = CreateFrame, select, unpack
 
 --#region (context imports)
 
@@ -129,11 +129,18 @@ controller.frame:SetScript(
 --
 
 controller.frame:SetScript(
-  'OnEvent', function()
+  'OnEvent', function(...)
+    local args = { ... }
+
+    local event_name = args[2] --[[@as string]]
+    local event_data = { select(3, ...) }
+
     local handler_count = controller.event_handlers:length()
 
     for i = 1, handler_count do
-      local success = pcall(controller.event_handlers:get(i))
+      local success = pcall(
+        controller.event_handlers:get(i), event_name, unpack(event_data)
+      )
 
       if not success then
         --#todo: implement error handling!

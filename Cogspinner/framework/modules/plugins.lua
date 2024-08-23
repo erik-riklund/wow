@@ -15,7 +15,7 @@ local network = context:import('module/network')
 --- @type utility.collection.map
 local map = context:import('utility/collection/map')
 
---- @type plugin.context
+--- @type plugin.API
 local framework = context:import('resource/internal/plugin')
 
 --#endregion
@@ -27,9 +27,32 @@ local framework = context:import('resource/internal/plugin')
 
 network:reserve(
   framework, {
-    { name = 'PLUGIN_ADDED', internal = true }
+    {
+      internal = true,
+      name = 'PLUGIN_ADDED'
+    }
   }
 )
+
+--
+-- ?
+--
+
+--- @type plugin.context
+local plugin_api =
+{
+  --
+  -- ?
+  --
+
+  id = '',
+
+  --
+  -- ?
+  --
+
+  when_loaded = function(self, callback) end
+}
 
 --
 -- This module manages the lifecycle of plugins,
@@ -50,7 +73,7 @@ local plugin_manager =
   -- Creates a new plugin context and broadcasts its creation to other modules.
   --
 
-  create_context = function(self, id, options)
+  create_plugin = function(self, id, options)
     --#region: Input validation and normalization
     -- We normalize the ID to lowercase for consistency and perform validation
     -- to ensure uniqueness and prevent naming conflicts.
@@ -63,6 +86,7 @@ local plugin_manager =
     end
 
     local plugin = { id = id }
+
     self.plugins:set(id, plugin)
 
     --#region: Plugin initialization and notification
@@ -71,8 +95,10 @@ local plugin_manager =
     -- initialization or extension.
     --#endregion
 
-    network:transmit(framework, 'PLUGIN_ADDED',
-      { plugin = plugin, options = options }
+    network:transmit(
+      framework, 'PLUGIN_ADDED', {
+        plugin = plugin, options = options
+      }
     )
 
     return plugin

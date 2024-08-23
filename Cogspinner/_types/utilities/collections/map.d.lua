@@ -15,6 +15,16 @@
 
 --#endregion
 
+--#region [alias: map.key]
+
+--
+--- ?
+---
+--- @alias map.key string | table
+--
+
+--#endregion
+
 --#region [type: utilities.collections.map]
 
 --
@@ -34,12 +44,12 @@
 --- @class utility.collection.map.object
 ---
 --- @field entries number The number of key-value pairs in the map.
---- @field content dictionary<string|table, unknown> The underlying storage for the key-value pairs.
+--- @field content dictionary<map.key, unknown> The underlying storage for the key-value pairs.
 ---
---- @field get fun(self: map, key: string): unknown Retrieves the value associated with the given key.
---- @field set fun(self: map, key: string, value: unknown) Sets the value for the given key.
---- @field drop fun(self: map, key: string) Removes the key-value pair with the given key.
---- @field has fun(self: map, key: string): boolean Checks if the map contains the given key.
+--- @field get fun(self: map, key: map.key): unknown Retrieves the value associated with the given key.
+--- @field set fun(self: map, key: map.key, value: unknown) Sets the value for the given key.
+--- @field drop fun(self: map, key: map.key) Removes the key-value pair with the given key.
+--- @field has fun(self: map, key: map.key): boolean Checks if the map contains the given key.
 --- @field size fun(self: map): number Returns the number of key-value pairs in the map.
 --
 

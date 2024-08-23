@@ -18,10 +18,10 @@
 --- @field channels map
 --- @field listeners map
 ---
---- @field reserve fun(self: module.network, owner: plugin.context, channels: network.reserve.channel[]) Reserves channels for a plugin.
---- @field transmit fun(self: module.network, sender: plugin.context, channel_name: string, payload: table|nil) Transmits a message on a channel.
---- @field monitor fun(self: module.network, reciever: plugin.context, channel_name: string, listener: network.monitor.listener) Registers a listener to a channel.
---- @field silence fun(self: module.network, reciever: plugin.context, channel_name: string, listener_id: string) Unregisters a listener from a channel.
+--- @field reserve fun(self: module.network, owner: plugin.API, channels: network.reserve.channel[]) Reserves channels for a plugin.
+--- @field transmit fun(self: module.network, sender: plugin.API, channel_name: string, payload: table|nil) Transmits a message on a channel.
+--- @field monitor fun(self: module.network, reciever: plugin.API, channel_name: string, listener: network.monitor.listener) Registers a listener to a channel.
+--- @field silence fun(self: module.network, reciever: plugin.API, channel_name: string, listener_id: string) Unregisters a listener from a channel.
 --
 
 --#endregion
@@ -34,7 +34,7 @@
 --- @class network.channel
 ---
 --- @field name string The unique name of the channel.
---- @field owner plugin.context The plugin that owns the channel.
+--- @field owner plugin.API The plugin that owns the channel.
 --- @field internal? boolean Whether the channel is internal to the owner plugin (default: false).
 --
 
@@ -62,7 +62,7 @@
 --- 
 --- @field id? string (optional) A unique identifier for the listener.
 --- @field callback network.listener.callback The function to be called when a message is received.
---- @field owner plugin.context The plugin that registered the listener.
+--- @field owner plugin.API The plugin that registered the listener.
 --
 
 --#endregion

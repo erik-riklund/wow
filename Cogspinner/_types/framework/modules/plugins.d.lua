@@ -17,12 +17,27 @@
 ---
 --- @field plugins map
 --- 
---- @field create_context fun(self: module.plugin, id: string, options: plugin.options|nil): plugin.context
+--- @field create_plugin fun(self: module.plugin, id: string, options: plugin.options|nil): plugin.API
 --
 
 --#endregion
 
---#region [type: plugin context]
+--#region [type: plugin API]
+
+--
+--- ?
+--- 
+--- @class plugin.API
+--- 
+--- @field id string
+--- @field events events.API
+--- 
+--- @field when_loaded fun(self: plugin.API, callback: function)
+--
+
+--#endregion
+
+--#region [type: partial plugin API]
 
 --
 --- ?
@@ -30,6 +45,9 @@
 --- @class plugin.context
 --- 
 --- @field id string
+--- @field events? events.API
+--- 
+--- @field when_loaded fun(self: plugin.API, callback: function)
 --
 
 --#endregion
