@@ -25,10 +25,30 @@
       "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
       "--              |___/    |_|                            ",
       "",
-      "local addon, context = ... --- @cast context core.context"
+      "local addon, context = ...",
+      "--- @cast context core.context",
+      "\n\n"
     ],
 
     "prefix": "!template"
+  },
+
+  "type":
+  {
+    "body":
+    [
+      "--#region [type: ${1}]",
+      "",
+      "--",
+      "--- ?",
+      "---",
+      "--- @class ${2}",
+      "--",
+      "",
+      "--#endregion"
+    ],
+
+    "prefix": "!type"
   },
 
   "as": { "body": "--[[@as ${1}]]", "prefix": "!as" },

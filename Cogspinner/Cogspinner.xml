@@ -13,6 +13,7 @@
   <Include file="framework/modules/network.lua"/>
   <Include file="framework/modules/plugins.lua"/>
   
+  <Script file="api.lua"/>
   <Script file="plugins/garbage.lua"/>
 
 </Ui>
