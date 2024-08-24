@@ -5,8 +5,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+local _, context = ...
+--- @cast context core.context
+
 local setmetatable, throw = setmetatable, throw
-local _, context = ... --- @cast context core.context
 
 --#region [controller: framework context]
 

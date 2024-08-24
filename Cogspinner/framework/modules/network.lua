@@ -5,8 +5,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+local _, context = ...
+--- @cast context core.context
+
 local throw, type = throw, type
-local _, context = ... --- @cast context core.context
 
 --#region (context imports)
 

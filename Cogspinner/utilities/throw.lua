@@ -5,9 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region: locally scoped variables
 local error, string = error, string
---#endregion
 
 --#region [function: throw]
 

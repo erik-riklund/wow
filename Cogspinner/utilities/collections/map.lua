@@ -5,8 +5,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local setmetatable, type = setmetatable, type
-local _, context = ... --- @cast context core.context
+local _, context = ...
+--- @cast context core.context
+
+local setmetatable, throw, type = setmetatable, throw, type
 
 --#region [controller: map]
 
