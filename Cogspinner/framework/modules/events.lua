@@ -8,4 +8,4 @@
 local addon, context = ...
 --- @cast context core.context
 
-local plugin = cogspinner.plugin('garbage-collector')
+

@@ -7,6 +7,16 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+--#region [alias: network plugin]
+
+---
+--- ?
+--- 
+--- @alias network.plugin plugin.base_context | plugin.API
+--- 
+
+--#endregion
+
 --#region [type: network controller]
 
 --
@@ -18,10 +28,10 @@
 --- @field channels map
 --- @field listeners map
 ---
---- @field reserve fun(self: module.network, owner: table, channels: network.reserve.channel[]) Reserves channels for a plugin.
---- @field transmit fun(self: module.network, sender: table, channel_name: string, payload: table|nil) Transmits a message on a channel.
---- @field monitor fun(self: module.network, reciever: table, channel_name: string, listener: network.monitor.listener) Registers a listener to a channel.
---- @field silence fun(self: module.network, reciever: table, channel_name: string, listener_id: string) Unregisters a listener from a channel.
+--- @field reserve fun(self: module.network, owner: network.plugin, channels: network.reserve.channel[]) Reserves channels for a plugin.
+--- @field transmit fun(self: module.network, sender: network.plugin, channel_name: string, payload: table|nil) Transmits a message on a channel.
+--- @field monitor fun(self: module.network, reciever: network.plugin, channel_name: string, listener: network.monitor.listener) Registers a listener to a channel.
+--- @field silence fun(self: module.network, reciever: network.plugin, channel_name: string, listener_id: string) Unregisters a listener from a channel.
 --
 
 --#endregion
@@ -34,7 +44,7 @@
 --- @class network.channel
 ---
 --- @field name string The unique name of the channel.
---- @field owner table The plugin that owns the channel.
+--- @field owner network.plugin The plugin that owns the channel.
 --- @field internal? boolean Whether the channel is internal to the owner plugin (default: false).
 --
 
@@ -62,7 +72,7 @@
 --- 
 --- @field id? string (optional) A unique identifier for the listener.
 --- @field callback network.listener.callback The function to be called when a message is received.
---- @field owner table The plugin that registered the listener.
+--- @field owner network.plugin The plugin that registered the listener.
 --
 
 --#endregion

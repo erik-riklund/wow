@@ -12,6 +12,9 @@ local throw = throw
 
 --#region (framework context imports)
 
+--- @type module.plugins
+local plugin_manager = context:import('module/plugins')
+
 --- @type utility.table.immutable
 local immutable = context:import('utility/table/immutable')
 
@@ -33,7 +36,7 @@ _G.cogspinner = immutable(
     --
 
     plugin = function(id, options)
-      ---@diagnostic disable-next-line: missing-return
+      return plugin_manager:create_plugin(id, options)
     end,
 
     --

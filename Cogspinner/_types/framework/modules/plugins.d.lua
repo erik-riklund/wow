@@ -12,17 +12,13 @@
 --
 --- ?
 ---
---- @class plugin.manager
---
-
---#endregion
-
---#region [type: plugin API]
-
---
---- ?
+--- @class module.plugins
 ---
---- @class plugin.API
+--- @field plugins map
+---
+--- @field create_plugin fun(self: module.plugins, id: string, options: plugin.options|nil): plugin.API
+--- @field broadcast_new_plugin fun(plugin: plugin.base_context, options: plugin.options|nil)
+--- @field normalize_id fun(id: string): string
 --
 
 --#endregion
@@ -33,6 +29,28 @@
 --- ?
 ---
 --- @class plugin.options
+--
+
+--#endregion
+
+--#region [type: base context]
+
+--
+--- ?
+---
+--- @class plugin.base_context
+--- 
+--- @field id string
+--
+
+--#endregion
+
+--#region [type: plugin API]
+
+--
+--- ?
+---
+--- @class plugin.API
 --
 
 --#endregion

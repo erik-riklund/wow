@@ -12,4 +12,4 @@ local _, context = ...
 -- This table is used to transmit on internal framework channels.
 --
 
-context:export('framework/plugin', { id = 'cogspinner' })
+context:export('plugin', { id = 'cogspinner' })

@@ -16,7 +16,7 @@
 --- 
 --- @field utility utility.API
 --- 
---- @field plugin fun(id: string, options: plugin.options): plugin.API
+--- @field plugin fun(id: string, options?: plugin.options): plugin.API
 --
 
 --#endregion

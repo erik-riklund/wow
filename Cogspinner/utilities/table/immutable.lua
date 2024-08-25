@@ -8,8 +8,7 @@
 local _, context = ...
 --- @cast context core.context
 
-local setmetatable, throw, type =
-    setmetatable, throw, type
+local setmetatable, throw, type = setmetatable, throw, type
 
 --
 -- This module provides a function to create immutable (read-only) proxies for tables,
