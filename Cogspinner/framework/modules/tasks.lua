@@ -12,11 +12,11 @@ local coroutine = coroutine
 
 --#region (context imports)
 
+--- @type framework.frame
+local frame = context:import('frame')
+
 --- @type utility.collection.list
 local list = context:import('utility/collection/list')
-
---- @type framework.frame
-local frame = context:import('framework/frame')
 
 --#endregion
 

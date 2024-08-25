@@ -8,6 +8,8 @@
   <Include file="utilities/collections/list.lua"/>
   <Include file="utilities/collections/map.lua"/>
   
+  <Include file="utilities/table/immutable.lua"/>
+  
   <Include file="framework/frame.lua"/>
   <Include file="framework/modules/tasks.lua"/>
   <Include file="framework/modules/network.lua"/>

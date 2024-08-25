@@ -5,20 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
-local addon, context = ... --- @cast context core.context
+local addon, context = ...
+--- @cast context core.context
 
---
--- ?
---
 
---- @type plugin.manager
-local plugin_manager =
-{
-
-}
-
---
--- ?
---
-
-context:export('module/plugins', plugin_manager)

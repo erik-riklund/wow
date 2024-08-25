@@ -7,17 +7,14 @@
 
 local error, string = error, string
 
---#region [function: throw]
+--
+-- This function provides a convenient way to raise errors with formatted messages.
+-- It allows for optional string formatting using the provided arguments, enhancing 
+-- the clarity of error messages. The error is raised from the caller's context,
+-- aiding in debugging by pointing to the relevant code location.
+--
 
---
---- Raises a formatted error message, optionally using provided values to fill in placeholders
---- within the message string. The error is raised from the caller's context.
----
---- @param exception string The error message template.
---- @param ... string | number (optional) Placeholder values to insert into the message.
---
+--- @type utility.throw
 _G.throw = function(exception, ...)
   error((... and string.format(exception, ...)) or exception, 3)
 end
-
---#endregion

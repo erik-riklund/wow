@@ -7,6 +7,16 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+--#region [type: plugin manager]
+
+--
+--- ?
+---
+--- @class plugin.manager
+--
+
+--#endregion
+
 --#region [type: plugin API]
 
 --

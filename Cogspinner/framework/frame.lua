@@ -162,4 +162,4 @@ controller.frame:SetScript(
 -- making it accessible to other modules.
 --
 
-context:export('framework/frame', controller)
+context:export('frame', controller)
