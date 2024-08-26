@@ -61,7 +61,7 @@ local plugin_manager =
     end
 
     --- @type plugin.base_context
-    local plugin = { designation = normalized_id }
+    local plugin = { id = normalized_id }
 
     self.plugins:set(normalized_id, true)
     self.broadcast_new_plugin(plugin, options)

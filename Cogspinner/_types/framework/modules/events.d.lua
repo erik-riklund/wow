@@ -34,9 +34,19 @@
 --- 
 --- @field parent? plugin.API
 --- 
---- @field activate fun(self: events.API, listener: events.register.listener)
---- @field deactivate fun(self: events.API, listener: events.unregister.listener)
+--- @field listen fun(self: events.API, listener: events.register.listener)
+--- @field silence fun(self: events.API, listener: events.unregister.listener)
 --- @field initialize fun(self: events.API, callback: function)
+--
+
+--#endregion
+
+--#region [type: event listener]
+
+--
+--- ?
+--- 
+--- @class events.listener
 --
 
 --#endregion

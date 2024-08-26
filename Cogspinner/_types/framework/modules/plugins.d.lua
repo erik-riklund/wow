@@ -40,8 +40,8 @@
 ---
 --- @class plugin.base_context
 --- 
---- @field designation string
---- @field triggers? events.API
+--- @field id string
+--- @field event? events.API
 --
 
 --#endregion
@@ -53,8 +53,8 @@
 ---
 --- @class plugin.API
 --- 
---- @field designation string
---- @field triggers events.API
+--- @field id string
+--- @field event events.API
 --
 
 --#endregion
