@@ -30,12 +30,12 @@ local immutable = context:import('utility/table/immutable')
 _G.cogspinner = immutable(
   {
     --
-    -- The `plugin` function serves as the primary interface for creating and
+    -- The `gadget` function serves as the primary interface for creating and
     -- registering new plugins within the Cogspinner framework. It encapsulates
     -- the plugin lifecycle management.
     --
 
-    plugin = function(id, options)
+    gadget = function(id, options)
       return plugin_manager:create_plugin(id, options)
     end,
 

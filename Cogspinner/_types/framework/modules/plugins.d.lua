@@ -10,7 +10,7 @@
 --#region [type: plugin manager]
 
 --
---- ?
+--- Manages the creation, registration, and lifecycle of plugins within the framework.
 ---
 --- @class module.plugins
 ---
@@ -40,7 +40,8 @@
 ---
 --- @class plugin.base_context
 --- 
---- @field id string
+--- @field designation string
+--- @field triggers? events.API
 --
 
 --#endregion
@@ -51,6 +52,22 @@
 --- ?
 ---
 --- @class plugin.API
+--- 
+--- @field designation string
+--- @field triggers events.API
+--
+
+--#endregion
+
+--#region [type: broadcast payload]
+
+--
+--- ?
+---
+--- @class plugin.added.payload
+--- 
+--- @field plugin plugin.base_context
+--- @field options? plugin.options
 --
 
 --#endregion

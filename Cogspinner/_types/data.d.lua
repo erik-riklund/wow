@@ -10,8 +10,7 @@
 --#region [type: dictionary]
 
 --
---- An associative table where elements are stored as
---- key-value pairs, allowing retrieval by key.
+--- An associative table where elements are stored as key-value pairs, allowing retrieval by key.
 ---
 --- @class dictionary<key, value>: { [key]: value }
 --
@@ -20,6 +19,10 @@
 
 --#region [type: table.options.weak]
 
+--
+--- ?
+--- 
 --- @alias table.weak_options 'key'|'value'|'both'
+--
 
 --#endregion

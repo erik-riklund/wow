@@ -5,7 +5,17 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
-local addon, context = ...
+local _, context = ...
 --- @cast context core.context
 
-local plugin = cogspinner.plugin('garbage-collector')
+--
+-- ?
+--
+
+local plugin = cogspinner.gadget('garbage-collector')
+
+--
+-- ?
+--
+
+

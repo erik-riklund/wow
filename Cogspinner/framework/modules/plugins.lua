@@ -24,7 +24,9 @@ local map = context:import('utility/collection/map')
 --#endregion
 
 --
--- ?
+-- Reserves the 'PLUGIN_ADDED' channel for internal framework communication.
+-- This ensures that only the framework itself can transmit on this channel,
+-- preventing potential conflicts or misuse by plugins.
 --
 
 network:reserve(
@@ -34,20 +36,21 @@ network:reserve(
 )
 
 --
--- ?
+-- This module manages the registration and initialization of plugins within the framework.
 --
 
 --- @type module.plugins
 local plugin_manager =
 {
   --
-  -- ?
+  -- A map to keep track of registered plugin IDs. Using a map allows for efficient
+  -- existence checks and avoids potential duplicates.
   --
 
   plugins = map(),
 
   --
-  -- ?
+  -- Creates a new plugin context, registers it, and broadcasts its creation to other modules.
   --
 
   create_plugin = function(self, id, options)
@@ -57,16 +60,19 @@ local plugin_manager =
       throw('?')
     end
 
-    local plugin = { id = normalized_id }
+    --- @type plugin.base_context
+    local plugin = { designation = normalized_id }
 
     self.plugins:set(normalized_id, true)
     self.broadcast_new_plugin(plugin, options)
 
-    return plugin
+    return plugin --[[@as plugin.API]]
   end,
 
   --
-  -- ?
+  -- Broadcasts the creation of a new plugin to other modules via the 'PLUGIN_ADDED' channel.
+  -- This allows other modules to react to the new plugin and potentially initialize resources
+  -- or establish dependencies.
   --
 
   broadcast_new_plugin = function(plugin, options)
@@ -76,7 +82,8 @@ local plugin_manager =
   end,
 
   --
-  -- ?
+  -- Normalizes the plugin ID by converting it to lowercase. This ensures consistent
+  -- handling of plugin IDs regardless of the original casing.
   --
 
   normalize_id = function(id)
@@ -85,7 +92,7 @@ local plugin_manager =
 }
 
 --
--- ?
+-- Exports the plugin_manager module, making it accessible to other parts of the framework.
 --
 
 context:export('module/plugins', plugin_manager)
