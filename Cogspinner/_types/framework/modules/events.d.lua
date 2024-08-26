@@ -15,6 +15,12 @@
 --- @class module.events
 --- 
 --- @field listeners map
+--- 
+--- @field register fun(self: module.events, listener: events.register.listener)
+--- @field unregister fun(self: module.events, listener: events.unregister.listener)
+---
+--- @field invoke fun(self: module.events, event: string, ...)
+--- @field initialize fun(self: module.events, plugin: string)
 --
 
 --#endregion
@@ -25,6 +31,12 @@
 --- ?
 ---
 --- @class events.API
+--- 
+--- @field parent? plugin.API
+--- 
+--- @field activate fun(self: events.API, listener: events.register.listener)
+--- @field deactivate fun(self: events.API, listener: events.unregister.listener)
+--- @field initialize fun(self: events.API, callback: function)
 --
 
 --#endregion
@@ -34,7 +46,7 @@
 --
 --- ?
 ---
---- @class events.listener.register_options
+--- @class events.register.listener
 --- 
 --- @field event string
 --- @field callback fun(...)
@@ -48,7 +60,7 @@
 --
 --- ?
 ---
---- @class events.listener.unregister_options
+--- @class events.unregister.listener
 --- 
 --- @field event string
 --- @field owner plugin.API

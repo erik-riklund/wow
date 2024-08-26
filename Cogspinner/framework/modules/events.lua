@@ -24,6 +24,8 @@ local map = context:import('utility/collection/map')
 
 --#endregion
 
+--#region [controller: event handler]
+
 --
 -- ?
 --
@@ -41,17 +43,25 @@ local event_handler =
   -- ?
   --
 
+  register = function(self, listener) end,
 
-}
+  --
+  -- ?
+  --
 
---
--- ?
---
+  unregister = function(self, listener) end,
 
---- @type events.API
-local event_api =
-{
-  --#todo: implement when the handler is ready.
+  --
+  -- ?
+  --
+
+  invoke = function(self, event, ...) end,
+
+  --
+  -- ?
+  --
+
+  initialize = function(self, plugin) end
 }
 
 --
@@ -64,6 +74,36 @@ frame:register_event_handler(
   end
 )
 
+--#endregion
+
+--#region [controller: event API]
+
+--
+-- ?
+--
+
+--- @type events.API
+local event_api =
+{
+  --
+  -- ?
+  --
+
+  activate = function(self, listener) end,
+
+  --
+  -- ?
+  --
+
+  deactivate = function(self, listener) end,
+
+  --
+  -- ?
+  --
+
+  initialize = function(self, callback) end
+}
+
 --
 -- ?
 --
@@ -72,6 +112,10 @@ network:monitor(
   framework, 'PLUGIN_ADDED', {
     callback = function(payload)
       --- @cast payload plugin.added.payload
+
+      --#todo: attach the events API to the plugin.
     end
   }
 )
+
+--#endregion
