@@ -42,6 +42,8 @@
 --- 
 --- @field id string
 --- @field event? events.API
+--- 
+--- @field initialize? plugin.initialize
 --
 
 --#endregion
@@ -55,6 +57,18 @@
 --- 
 --- @field id string
 --- @field event events.API
+--- 
+--- @field initialize plugin.initialize
+--
+
+--#endregion
+
+--#region [type: plugin initializer]
+
+--
+--- ?
+--- 
+--- @alias plugin.initialize fun(self: plugin.API, callback: function)
 --
 
 --#endregion

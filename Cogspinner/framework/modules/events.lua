@@ -16,7 +16,7 @@ local setmetatable = setmetatable
 local frame = context:import('frame')
 
 --- @type plugin.base_context
-local framework = context:import('plugin')
+local plugin = context:import('plugin')
 
 --- @type module.network
 local network = context:import('module/network')
@@ -27,9 +27,10 @@ local plugin_manager = context:import('module/plugins')
 --- @type utility.collection.map
 local map = context:import('utility/collection/map')
 
---#endregion
+--- @type utility.collection.list
+local list = context:import('utility/collection/list')
 
---#region [controller: event handler]
+--#endregion
 
 --
 -- ?
@@ -42,16 +43,56 @@ local event_handler =
   -- ?
   --
 
-  listeners = map(),
+  listeners = map(
+    {
+      ADDON_LOADED = map()
+    }
+  ),
 
   --
   -- ?
   --
 
   register = function(self, listener)
-    if string.sub(listener.event, 1, 12) ~= 'ADDON_LOADED' then
-      frame:register_event(listener.event)
+    --- @type list
+    local listeners
+
+    if listener.event == 'ADDON_LOADED' then
+      --#region: ?
+      -- ?
+      --#endregion
+
+      local addon_name = listener.owner.id
+      local addons = self.listeners:get('ADDON_LOADED') --[[@as map]]
+
+      if not addons:has(addon_name) then
+        addons:set(addon_name, list())
+      end
+
+      listeners = addons:get(addon_name) --[[@as list]]
     end
+
+    if listener.event ~= 'ADDON_LOADED' then
+      --#region: ?
+      -- ?
+      --#endregion
+
+      --#todo: ...
+    end
+
+    --#region: ?
+    -- ?
+    --#endregion
+
+    listeners:insert(
+      {
+        owner = listener.owner,
+        callback = listener.callback,
+        identifier = listener.identifier,
+        recurring = (listener.recurring == true)
+
+      } --[[@as events.listener]]
+    )
   end,
 
   --
@@ -64,39 +105,23 @@ local event_handler =
   -- ?
   --
 
-  invoke = function(self, event, ...) end,
+  invoke = function(self, event, ...)
+    --#region: ?
+    -- ?
+    --#endregion
 
-  --
-  -- ?
-  --
-
-  initialize = function(self, plugin)
-    local event = 'ADDON_LOADED:' .. plugin_manager.normalize_id(plugin)
-
-    if self.listeners:has(event) then
-      self:invoke(event)
-      self.listeners:drop(event)
+    if event == 'ADDON_LOADED' then
+      --- @type string
+      local addon = ...
     end
+
+    --#region: ?
+    -- ?
+    --#endregion
+
+    if event ~= 'ADDON_LOADED' then end
   end
 }
-
---
--- ?
---
-
-frame:register_event_handler(
-  function(event, ...)
-    if event == 'ADDON_LOADED' then
-      event_handler:initialize(...)
-    else
-      event_handler:invoke(event, ...)
-    end
-  end
-)
-
---#endregion
-
---#region [metatable: event API]
 
 --
 -- ?
@@ -110,54 +135,53 @@ local event_api =
     -- ?
     --
 
-    listen = function(self, listener)
-      if listener.event == 'ADDON_LOADED' then
-        throw('?')
-      end
-
-
-    end,
+    listen = function(self, listener) end,
 
     --
     -- ?
     --
 
-    silence = function(self, listener)
-      if listener.event == 'ADDON_LOADED' then
-        throw('?')
-      end
-
-      
-    end,
-
-    --
-    -- ?
-    --
-
-    initialize = function(self, callback)
-      self:listen({ event = 'ADDON_LOADED:' .. self.parent.id, callback = callback })
-    end
+    silence = function(self, listener) end
 
   } --[[@as events.API]]
-
 }
 
 --
 -- ?
 --
 
+--- @type plugin.initialize
+local initialize = function(self, callback)
+  self.event:listen({ event = 'ADDON_LOADED', callback = callback })
+end
+
+--
+-- ?
+--
+
 network:monitor(
-  framework, 'PLUGIN_ADDED', {
+  plugin, 'PLUGIN_ADDED',
+  {
     callback = function(payload)
       --- @cast payload plugin.added.payload
 
-      local plugin = payload.plugin
-      plugin.event = setmetatable({ parent = plugin }, event_api)
+      local target = payload.plugin
+
+      target.event = setmetatable({ parent = target }, event_api)
+      target.initialize = initialize
     end
   }
 )
 
---#endregion
+--
+-- ?
+--
+
+frame:register_event_handler(
+  function(event, ...)
+    event_handler:invoke(event, ...)
+  end
+)
 
 --
 -- ?

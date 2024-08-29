@@ -18,9 +18,7 @@
 --- 
 --- @field register fun(self: module.events, listener: events.register.listener)
 --- @field unregister fun(self: module.events, listener: events.unregister.listener)
----
 --- @field invoke fun(self: module.events, event: string, ...)
---- @field initialize fun(self: module.events, plugin: string)
 --
 
 --#endregion
@@ -34,9 +32,8 @@
 --- 
 --- @field parent? plugin.API
 --- 
---- @field listen fun(self: events.API, listener: events.register.listener)
---- @field silence fun(self: events.API, listener: events.unregister.listener)
---- @field initialize fun(self: events.API, callback: function)
+--- @field listen fun(self: events.API, listener: events.API.listen.listener)
+--- @field silence fun(self: events.API, listener: events.API.silence.listener)
 --
 
 --#endregion
@@ -47,6 +44,11 @@
 --- ?
 --- 
 --- @class events.listener
+--- 
+--- @field owner plugin.API
+--- @field callback function
+--- @field recurring boolean
+--- @field identifier? string
 --
 
 --#endregion
@@ -60,7 +62,25 @@
 --- 
 --- @field event string
 --- @field callback fun(...)
+--- 
+--- @field owner plugin.API
 --- @field identifier? string
+--- @field recurring? boolean
+--
+
+--#endregion
+
+--#region [type: listener registration options (API)]
+
+--
+--- ?
+---
+--- @class events.API.listen.listener
+--- 
+--- @field event string
+--- @field callback fun(...)
+--- @field identifier? string
+--- @field recurring? boolean
 --
 
 --#endregion
@@ -74,6 +94,19 @@
 --- 
 --- @field event string
 --- @field owner plugin.API
+--- @field identifier string
+--
+
+--#endregion
+
+--#region [type: listener removal options (plugin API)]
+
+--
+--- ?
+---
+--- @class events.API.silence.listener
+--- 
+--- @field event string
 --- @field identifier string
 --
 

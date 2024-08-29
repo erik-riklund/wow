@@ -10,6 +10,9 @@ local _, context = ...
 
 --#region (framework context imports)
 
+--- @type plugin.API
+local plugin = context:import('plugin')
+
 --- @type module.events
 local event_handler = context:import('module/events')
 
@@ -21,7 +24,25 @@ local event_handler = context:import('module/events')
 
 event_handler:register(
   {
+    owner = plugin,
+
     event = 'PLAYER_ENTERING_WORLD',
     callback = function(...) collectgarbage() end
+  }
+)
+
+--
+-- ?
+--
+
+event_handler:register(
+  {
+    owner = plugin,
+
+    event = 'ADDON_LOADED',
+    callback = function(...)
+      print('Hello world')
+      collectgarbage()
+    end
   }
 )
