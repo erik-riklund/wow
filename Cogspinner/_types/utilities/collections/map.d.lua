@@ -7,31 +7,30 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region [alias: map]
+--#region [alias: map object]
 
 --
---- @alias map utility.collection.map.object
+--- @alias Map MapObject
 --
 
 --#endregion
 
---#region [alias: map.key]
+--#region [alias: map key]
 
 --
 --- ?
 ---
---- @alias map.key string | table
+--- @alias MapKey string|table
 --
 
 --#endregion
 
---#region [type: utilities.collections.map]
+--#region [type: map constructor]
 
 --
 --- Creates a new map object, optionally initialized with given key-value pairs.
 ---
---- @alias utility.collection.map
---- | fun(initial_content: table|nil, options: { weak: table.weak_options }|nil): map
+--- @alias MapConstructor fun(initial_content: table|nil, options: { weak: WeakTableOptions }|nil): Map
 --
 
 --#endregion
@@ -41,16 +40,16 @@
 --
 --- Represents a map object, providing methods to manage key-value pairs.
 ---
---- @class utility.collection.map.object
+--- @class MapObject
 ---
 --- @field entries number The number of key-value pairs in the map.
---- @field content dictionary<map.key, unknown> The underlying storage for the key-value pairs.
+--- @field content Dictionary<MapKey, unknown> The underlying storage for the key-value pairs.
 ---
---- @field get fun(self: map, key: map.key): unknown Retrieves the value associated with the given key.
---- @field set fun(self: map, key: map.key, value: unknown) Sets the value for the given key.
---- @field drop fun(self: map, key: map.key) Removes the key-value pair with the given key.
---- @field has fun(self: map, key: map.key): boolean Checks if the map contains the given key.
---- @field size fun(self: map): number Returns the number of key-value pairs in the map.
+--- @field get fun(self: Map, key: MapKey): unknown Retrieves the value associated with the given key.
+--- @field set fun(self: Map, key: MapKey, value: unknown) Sets the value for the given key.
+--- @field drop fun(self: Map, key: MapKey) Removes the key-value pair with the given key.
+--- @field has fun(self: Map, key: MapKey): boolean Checks if the map contains the given key.
+--- @field size fun(self: Map): number Returns the number of key-value pairs in the map.
 --
 
 --#endregion

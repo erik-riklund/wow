@@ -6,7 +6,7 @@
 --              |___/    |_|
 
 local _, context = ...
---- @cast context core.context
+--- @cast context FrameworkContext
 
 local setmetatable, throw = setmetatable, throw
 
@@ -18,7 +18,7 @@ local setmetatable, throw = setmetatable, throw
 -- objects in a controlled manner.
 --
 
---- @type core.context
+--- @type FrameworkContext
 local context_controller =
 {
   --

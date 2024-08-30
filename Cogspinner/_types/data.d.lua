@@ -12,17 +12,17 @@
 --
 --- An associative table where elements are stored as key-value pairs, allowing retrieval by key.
 ---
---- @class dictionary<key, value>: { [key]: value }
+--- @class Dictionary<key, value>: { [key]: value }
 --
 
 --#endregion
 
---#region [type: table.options.weak]
+--#region [type: weak table options]
 
 --
---- ?
+--- Specifies which parts of a table should be considered weak for garbage collection purposes.
 --- 
---- @alias table.weak_options 'key'|'value'|'both'
+--- @alias WeakTableOptions 'key'|'value'|'both'
 --
 
 --#endregion

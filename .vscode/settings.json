@@ -33,7 +33,7 @@
     },
     {
       "tag": "#region (",
-      "color": "#787878",
+      "color": "#D88F42",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -68,7 +68,7 @@
       "italic": false
     },
     {
-      "tag": "#note:",
+      "tag": " note:",
       "color": "#787878",
       "strikethrough": false,
       "underline": false,
@@ -77,7 +77,7 @@
       "italic": false
     },
     {
-      "tag": "#todo:",
+      "tag": " todo:",
       "color": "#CC6183",
       "strikethrough": false,
       "underline": false,
@@ -87,7 +87,7 @@
     },
     {
       "tag": "#endregion",
-      "color": "#696969",
+      "color": "#928374",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",

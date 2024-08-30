@@ -5,11 +5,17 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context = ...
---- @cast context core.context
+local _, context      = ...
+--- @cast context FrameworkContext
 
-local setmetatable, table, throw, type =
-    setmetatable, table, throw, type
+--#region (locally scoped variables and functions)
+
+local setmetatable    = _G.setmetatable
+local table           = _G.table
+local throw           = _G.throw
+local type            = _G.type
+
+--#endregion
 
 --#region [controller: list]
 
@@ -18,7 +24,7 @@ local setmetatable, table, throw, type =
 -- handling element storage and common list operations like insertion, removal, etc.
 --
 
---- @type list
+--- @type List
 local list_controller =
 {
   --
@@ -117,7 +123,7 @@ local list_controller =
 -- giving them the behavior defined in the controller.
 --
 
-local __list = { __index = list_controller }
+local __list          = { __index = list_controller }
 
 --#endregion
 
@@ -128,7 +134,7 @@ local __list = { __index = list_controller }
 -- weak table behavior to manage memory and prevent potential leaks.
 --
 
---- @type utility.collection.list
+--- @type ListConstructor
 local function list(initial_values, options)
   if initial_values and type(initial_values) ~= 'table' then
     throw('Invalid initial values for the list. Expected a table (or nil).')

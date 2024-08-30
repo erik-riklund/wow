@@ -6,7 +6,7 @@
 --              |___/    |_|
 
 local _, context = ...
---- @cast context core.context
+--- @cast context FrameworkContext
 
 local setmetatable, throw, type = setmetatable, throw, type
 
@@ -15,7 +15,7 @@ local setmetatable, throw, type = setmetatable, throw, type
 -- preventing accidental modification of their contents or nested tables.
 --
 
---- @type utility.table.immutable
+--- @type Utility.ImmutableTable
 local immutable
 
 immutable = function(target)
@@ -23,7 +23,7 @@ immutable = function(target)
     throw('Invalid argument type for "immutable". Expected a table.')
   end
 
-  --- @type utility.table.immutable.proxy
+  --- @type Utility.ImmutableTableProxy
   local proxy =
   {
     --

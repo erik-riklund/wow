@@ -5,10 +5,16 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context = ...
---- @cast context core.context
+local _, context     = ...
+--- @cast context FrameworkContext
 
-local setmetatable, throw, type = setmetatable, throw, type
+--#region (locally scoped variables and functions)
+
+local setmetatable   = _G.setmetatable
+local throw          = _G.throw
+local type           = _G.type
+
+--#endregion
 
 --#region [controller: map]
 
@@ -18,7 +24,7 @@ local setmetatable, throw, type = setmetatable, throw, type
 -- for storage and maintains an 'entries' count for efficient size tracking.
 --
 
---- @type map
+--- @type Map
 local map_controller =
 {
   --
@@ -97,18 +103,18 @@ local map_controller =
 -- providing them with the necessary methods for map operations.
 --
 
-local __map = { __index = map_controller }
+local __map          = { __index = map_controller }
 
 --#endregion
 
---#region [function: map]
+--#region [function: map constructor]
 
 --
 -- Factory function to create new map objects. It optionally applies a weak table
 -- behavior to the underlying storage if specified in the options.
 --
 
---- @type utility.collection.map
+--- @type MapConstructor
 local function map(initial_content, options)
   if initial_content and type(initial_content) ~= 'table' then
     throw("Error initializing map: 'initial_content' must be a table.")

@@ -15,18 +15,18 @@
 --- to its contents. This provides a read-only view of the original table, useful for
 --- protecting data structures from accidental or unwanted changes.
 ---
---- @alias utility.table.immutable fun(target: table): table
+--- @alias Utility.ImmutableTable fun(target: table): table
 --
 
 --#endregion
 
---#region [type: immutable proxy]
+--#region [type: immutable table proxy]
 
 --
 --- A metatable used to create immutable (read-only) proxies for tables. It intercepts
 --- attempts to modify the table and provides read-only access to its elements.
 ---
---- @class utility.table.immutable.proxy
+--- @class Utility.ImmutableTableProxy
 --- 
 --- @field __newindex fun() Throws an error when a write operation is attempted on the proxy table.
 --- @field __index fun(self: table, key: unknown): unknown Retrieves the value associated with the given key, recursively making nested tables immutable.
