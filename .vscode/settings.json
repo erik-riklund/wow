@@ -129,6 +129,7 @@
     "HybridScrollFrame_GetOffset",
     "LE_EXPANSION_LEVEL_CURRENT",
     "ADD",
-    "CreateObjectPool"
+    "CreateObjectPool",
+    "includes"
   ]
 }

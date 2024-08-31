@@ -37,8 +37,6 @@
 --#region [type: utilities.collections.map.object]
 
 --
---- Represents a map object, providing methods to manage key-value pairs.
----
 --- @class MapObject
 ---
 --- @field entries number The number of key-value pairs in the map.

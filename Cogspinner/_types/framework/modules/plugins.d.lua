@@ -9,11 +9,10 @@
 --#region [type: plugin API]
 
 --
---- ?
----
 --- @class Plugin
 --- 
 --- @field id string
+--- @field network NetworkControllerApi
 --
 
 --#endregion
@@ -21,19 +20,16 @@
 --#region [type: partial plugin API]
 
 --
---- ?
----
 --- @class PartialPlugin
 --- 
 --- @field id string
+--- @field network? NetworkControllerApi
 --
 
 --#endregion
 
 --#region [alias: plugin context]
 
----
---- ?
 ---
 --- @alias PluginContext Plugin|PartialPlugin
 ---

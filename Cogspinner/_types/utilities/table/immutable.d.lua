@@ -22,9 +22,6 @@
 --#region [type: immutable table proxy]
 
 --
---- A metatable used to create immutable (read-only) proxies for tables. It intercepts
---- attempts to modify the table and provides read-only access to its elements.
----
 --- @class ImmutableTableProxy
 --- 
 --- @field __newindex fun() Throws an error when a write operation is attempted on the proxy table.

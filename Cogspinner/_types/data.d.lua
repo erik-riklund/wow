@@ -9,8 +9,6 @@
 --#region [type: record]
 
 --
---- An associative table where elements are stored as key-value pairs, allowing retrieval by key.
----
 --- @class Record<key, value>: { [key]: value }
 --
 
@@ -19,8 +17,6 @@
 --#region [type: weak table options]
 
 --
---- Specifies which parts of a table should be considered weak for garbage collection purposes.
---- 
 --- @alias WeakTableOptions 'key'|'value'|'both'
 --
 

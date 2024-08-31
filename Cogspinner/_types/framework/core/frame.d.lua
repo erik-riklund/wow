@@ -9,8 +9,6 @@
 --#region [type: core frame]
 
 --
---- ?
----
 --- @class CoreFrame
 --- 
 --- @field frame Frame The underlying frame object.

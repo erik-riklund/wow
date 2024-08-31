@@ -9,8 +9,6 @@
 --#region [type: task process]
 
 --
---- ?
----
 --- @class TaskHandler
 --- 
 --- @field queue List The queue of tasks waiting to be executed.
@@ -25,8 +23,6 @@
 --#region [type: task]
 
 --
---- Encapsulates a unit of work to be executed, including the callback function and its arguments.
---- 
 --- @class Task
 --- 
 --- @field callback function The function to be executed as the task.

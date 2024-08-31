@@ -27,8 +27,6 @@
 --#region [type: list object]
 
 --
---- Represents a list object with associated methods for manipulating its contents.
---- 
 --- @class ListObject
 --- 
 --- @field values unknown[] The internal array storing the list's elements.
