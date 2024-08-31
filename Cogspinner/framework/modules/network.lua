@@ -6,27 +6,28 @@
 --              |___/    |_|
 
 --- @type string, FrameworkContext
-local addon, context = ...
+local addon, context       = ...
 
 --#region (locally scoped variables/functions)
 
-local throw          = _G.throw
-local type           = _G.type
+local throw                = _G.throw
+local type                 = _G.type
 
 --#endregion
 
 --#region (framework context imports)
 
-local tasks          = context:import('module/tasks') --[[@as TaskHandler]]
-local list           = context:import('collection/list') --[[@as ListConstructor]]
-local map            = context:import('collection/map') --[[@as MapConstructor]]
+local plugin               = context:import('core/plugin') --[[@as PartialPlugin]]
+local tasks                = context:import('module/tasks') --[[@as TaskHandler]]
+local list                 = context:import('collection/list') --[[@as ListConstructor]]
+local map                  = context:import('collection/map') --[[@as MapConstructor]]
 
 --#endregion
 
 --#region [class: network manager]
 
 --- @type NetworkController
-local Controller     =
+local NetworkController    =
 {
   --
   -- A map to store registered channels and their metadata.
@@ -74,26 +75,102 @@ local Controller     =
   -- ?
   --
 
-  RegisterListener = function(self, options) end,
+  RegisterListener = function(self, options)
+    if not self.channels:Has(options.channel) then
+      throw('Cannot monitor unknown channel (%s)', options.channel)
+    end
+
+    local channel = self.channels:Get(options.channel) --[[@as Channel]]
+
+    if channel.internal and channel.owner ~= options.reciever then
+      throw('Plugin "%s" is not authorized to monitor internal channel "%s"', options.reciever.id, options.channel)
+    end
+
+    local listeners = self.listeners:Get(options.channel) --[[@as List]]
+
+    listeners:Insert(
+      {
+        id = options.identifier,
+        owner = options.reciever,
+
+        callback = options.callback,
+
+      } --[[@as Channel.Listener]]
+    )
+  end,
 
   --
   -- ?
   --
 
-  UnregisterListener = function(self, options) end,
+  UnregisterListener = function(self, options)
+    if not self.channels:Has(options.channel) then
+      throw('Cannot silence listener on unknown channel (%s)', options.channel)
+    end
+
+    local listeners = self.listeners:Get(options.channel) --[[@as List]]
+    local listener_count = listeners:Length()
+
+    if listener_count > 0 then
+      --#region: Listener removal
+      -- Iterate through the listeners to find the one that is targeted for removal.
+      --#endregion
+
+      for i = 1, listener_count do
+        local listener = listeners:Get(i) --[[@as Channel.Listener]]
+
+        if listener.owner == options.reciever then
+          if listener.identifier == options.identifier then
+            listeners:Remove(i)
+
+            return -- note: exit early once the listener is found and removed.
+          end
+        end
+      end
+    end
+
+    --#note: we throw an exception because the listener wasn't found.
+    throw('Listener with ID "%s" not found on channel "%s"', options.identifier, options.channel)
+  end,
 
   --
   -- ?
   --
 
-  TransmitPayload = function(self, options) end
+  TransmitPayload = function(self, options)
+    if not self.channels:Has(options.channel) then
+      throw('Cannot transmit on unknown channel (%s)', options.channel)
+    end
+
+    local channel = self.channels:Get(options.channel) --[[@as Channel]]
+
+    if channel.owner ~= options.sender then
+      throw('Plugin "%s" is not authorized to transmit on channel "%s"', options.sender.id, options.channel)
+    end
+
+    local listeners = self.listeners:Get(options.channel) --[[@as List]]
+    local listener_count = listeners:Length()
+
+    if listener_count > 0 then
+      for i = 1, listener_count do
+        local listener = listeners:Get(i) --[[@as Channel.Listener]]
+
+        tasks:RegisterTask(
+          {
+            callback = listener.callback,
+            arguments = { options.payload }
+          }
+        )
+      end
+    end
+  end
 }
 
 --#endregion
 
 --#region [class: network API]
 
-local API            =
+local NetworkControllerApi =
 {
   __index =
   {
@@ -107,4 +184,32 @@ local API            =
 -- ?
 --
 
-context:export('module/network', Controller)
+NetworkController:ReserveChannels(
+  {
+    owner = plugin,
+    channels = {
+      { name = 'PLUGIN_ADDED', internal = true }
+    }
+  }
+)
+
+--
+-- ?
+--
+
+NetworkController:RegisterListener(
+  {
+    reciever = plugin,
+    channel = 'PLUGIN_ADDED',
+
+    callback = function(payload)
+      -- todo: ...
+    end
+  }
+)
+
+--
+-- ?
+--
+
+context:export('module/network', NetworkController)

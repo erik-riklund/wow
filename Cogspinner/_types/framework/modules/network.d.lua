@@ -37,7 +37,7 @@
 
 --#endregion
 
---#region [type: listener]
+--#region [type: channel]
 
 --
 --- ?
@@ -55,8 +55,22 @@
 ---
 --- A function that is called when a message is received on a channel.
 --- 
---- @alias Channel.ListenerCallback fun(payload: table|nil)
+--- @alias Channel.ListenerCallback fun(payload?: unknown)
 --- 
+
+--#endregion
+
+--#region [type: listener]
+
+--
+--- ?
+---
+--- @class Channel.Listener
+--- 
+--- @field owner PluginContext
+--- @field callback Channel.ListenerCallback
+--- @field identifier? string
+--
 
 --#endregion
 
