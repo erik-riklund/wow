@@ -45,7 +45,7 @@ local map_controller =
   -- Retrieves the value associated with a given key from the map.
   --
 
-  get = function(self, key) return self.content[key] end,
+  Get = function(self, key) return self.content[key] end,
 
   --
   -- Sets or updates the value associated with a key in the map.
@@ -53,9 +53,9 @@ local map_controller =
   -- We maintain an 'entries' count for quick size checks.
   --
 
-  set = function(self, key, value)
+  Set = function(self, key, value)
     if value == nil then
-      self:drop(key)
+      self:Drop(key)
       return
     end
 
@@ -71,7 +71,7 @@ local map_controller =
   -- We also decrement the 'entries' count to reflect the removal.
   --
 
-  drop = function(self, key)
+  Drop = function(self, key)
     if self.content[key] ~= nil then
       self.content[key] = nil
       self.entries = self.entries - 1
@@ -82,7 +82,7 @@ local map_controller =
   -- Checks if a key exists within the map.
   --
 
-  has = function(self, key)
+  Has = function(self, key)
     return self.content[key] ~= nil
   end,
 
@@ -91,7 +91,7 @@ local map_controller =
   -- We use the cached 'entries' count for efficiency.
   --
 
-  size = function(self) return self.entries end
+  Size = function(self) return self.entries end
 }
 
 --#endregion

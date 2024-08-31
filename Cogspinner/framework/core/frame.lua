@@ -63,11 +63,11 @@ local FrameController =
   --
 
   RegisterUpdateHandler = function(self, callback)
-    if self.updateHandlers:contains(callback) then
+    if self.updateHandlers:Contains(callback) then
       throw('?')
     end
 
-    self.updateHandlers:insert(callback)
+    self.updateHandlers:Insert(callback)
   end,
 
   --
@@ -76,11 +76,11 @@ local FrameController =
   --
 
   RegisterEventHandler = function(self, callback)
-    if self.eventHandlers:contains(callback) then
+    if self.eventHandlers:Contains(callback) then
       throw('?')
     end
 
-    self.eventHandlers:insert(callback)
+    self.eventHandlers:Insert(callback)
   end,
 
   --
@@ -89,9 +89,9 @@ local FrameController =
   --
 
   RegisterEvent = function(self, event)
-    if not self.events:has(event) then
+    if not self.events:Has(event) then
       self.frame:RegisterEvent(event)
-      self.events:set(event, true)
+      self.events:Set(event, true)
     end
   end,
 
@@ -100,9 +100,9 @@ local FrameController =
   --
 
   UnregisterEvent = function(self, event)
-    if self.events:has(event) then
+    if self.events:Has(event) then
       self.frame:UnregisterEvent(event)
-      self.events:drop(event)
+      self.events:Drop(event)
     end
   end
 }
@@ -121,10 +121,10 @@ FrameController.frame:RegisterEvent('ADDON_LOADED')
 
 FrameController.frame:SetScript(
   'OnUpdate', function()
-    local handler_count = FrameController.updateHandlers:length()
+    local handler_count = FrameController.updateHandlers:Length()
 
     for i = 1, handler_count do
-      local success = pcall(FrameController.updateHandlers:get(i))
+      local success = pcall(FrameController.updateHandlers:Get(i))
 
       if not success then
         --#todo: implement error handling!
@@ -146,11 +146,11 @@ FrameController.frame:SetScript(
     local event_name = args[2] --[[@as string]]
     local event_data = { select(3, ...) }
 
-    local handler_count = FrameController.eventHandlers:length()
+    local handler_count = FrameController.eventHandlers:Length()
 
     for i = 1, handler_count do
       local success, result = pcall(
-        FrameController.eventHandlers:get(i), event_name, unpack(event_data)
+        FrameController.eventHandlers:Get(i), event_name, unpack(event_data)
       )
 
       if not success then
@@ -165,4 +165,4 @@ FrameController.frame:SetScript(
 -- making it accessible to other modules.
 --
 
-context:export('frame', FrameController)
+context:export('core/frame', FrameController)

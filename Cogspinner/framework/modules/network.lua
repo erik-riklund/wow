@@ -53,11 +53,11 @@ local Controller     =
     for i = 1, count do
       local channel = options.channels[i]
 
-      if self.channels:has(channel.name) then
+      if self.channels:Has(channel.name) then
         throw('Cannot reserve an occupied channel (%s)', channel.name)
       end
 
-      self.channels:set(
+      self.channels:Set(
         channel.name,
         {
           owner = options.owner,
@@ -66,7 +66,7 @@ local Controller     =
         }
       )
 
-      self.listeners:set(channel.name, list())
+      self.listeners:Set(channel.name, list())
     end
   end,
 

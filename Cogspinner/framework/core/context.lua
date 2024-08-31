@@ -15,7 +15,7 @@ local throw              = _G.throw
 
 --#endregion
 
---#region [controller: framework context]
+--#region [class: framework context]
 
 --
 -- This controller provides the basic import/export functionality for the

@@ -44,11 +44,11 @@
 --- @field entries number The number of key-value pairs in the map.
 --- @field content Record<MapKey, unknown> The underlying storage for the key-value pairs.
 ---
---- @field get fun(self: Map, key: MapKey): unknown Retrieves the value associated with the given key.
---- @field set fun(self: Map, key: MapKey, value: unknown) Sets the value for the given key.
---- @field drop fun(self: Map, key: MapKey) Removes the key-value pair with the given key.
---- @field has fun(self: Map, key: MapKey): boolean Checks if the map contains the given key.
---- @field size fun(self: Map): number Returns the number of key-value pairs in the map.
+--- @field Get fun(self: Map, key: MapKey): unknown Retrieves the value associated with the given key.
+--- @field Set fun(self: Map, key: MapKey, value: unknown) Sets the value for the given key.
+--- @field Drop fun(self: Map, key: MapKey) Removes the key-value pair with the given key.
+--- @field Has fun(self: Map, key: MapKey): boolean Checks if the map contains the given key.
+--- @field Size fun(self: Map): number Returns the number of key-value pairs in the map.
 --
 
 --#endregion
