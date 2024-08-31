@@ -6,11 +6,19 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+--#region [alias: plugin context]
+
+---
+--- @alias PluginContext Plugin|PartialPlugin
+---
+
+--#endregion
+
 --#region [type: plugin API]
 
 --
 --- @class Plugin
---- 
+---
 --- @field id string
 --- @field network NetworkControllerApi
 --
@@ -21,17 +29,9 @@
 
 --
 --- @class PartialPlugin
---- 
+---
 --- @field id string
 --- @field network? NetworkControllerApi
 --
-
---#endregion
-
---#region [alias: plugin context]
-
----
---- @alias PluginContext Plugin|PartialPlugin
----
 
 --#endregion

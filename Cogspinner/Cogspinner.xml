@@ -12,7 +12,7 @@
   <Include file="framework/modules/tasks.lua"/>
   <Include file="framework/modules/network.lua"/>
   <!-- <Include file="framework/modules/plugins.lua"/> -->
-  <!-- <Include file="framework/modules/events.lua"/> -->
+  <Include file="framework/modules/events.lua"/>
   
   <!-- <Script file="api.lua"/> -->
 
