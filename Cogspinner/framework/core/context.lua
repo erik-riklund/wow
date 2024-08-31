@@ -5,10 +5,15 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context = ...
---- @cast context FrameworkContext
+--- @type string, FrameworkContext
+local addon, context     = ...
 
-local setmetatable, throw = setmetatable, throw
+--#region (locally scoped functions)
+
+local setmetatable       = _G.setmetatable
+local throw              = _G.throw
+
+--#endregion
 
 --#region [controller: framework context]
 

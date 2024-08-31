@@ -5,7 +5,8 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local error, string = error, string
+local error = error
+local string = string
 
 --
 -- This function provides a convenient way to raise errors with formatted messages.
@@ -14,7 +15,7 @@ local error, string = error, string
 -- aiding in debugging by pointing to the relevant code location.
 --
 
---- @type utility.throw
+--- @type Throw
 _G.throw = function(exception, ...)
   error((... and string.format(exception, ...)) or exception, 3)
 end

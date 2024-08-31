@@ -80,7 +80,7 @@ local list_controller =
   -- Throws an error if `search_value` is nil to prevent unexpected behavior.
   --
 
-  index_of = function(self, search_value)
+  indexOf = function(self, search_value)
     if search_value == nil then
       throw('Cannot search for a `nil` value in the list')
     end
@@ -103,7 +103,7 @@ local list_controller =
   --
 
   contains = function(self, search_value)
-    return self:index_of(search_value) ~= -1
+    return self:indexOf(search_value) ~= -1
   end,
 
   --
@@ -167,4 +167,4 @@ end
 -- Export the `list` function to the framework context.
 --
 
-context:export('utility/collection/list', list)
+context:export('collection/list', list)

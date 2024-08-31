@@ -1,22 +1,17 @@
 <Ui>
 
   <Include file="utilities/throw.lua"/>
-  
-  <Include file="framework/context.lua"/>
-  <Include file="framework/plugin.lua"/>
-
+  <Include file="framework/core/context.lua"/>
   <Include file="utilities/collections/list.lua"/>
   <Include file="utilities/collections/map.lua"/>
-  
   <Include file="utilities/table/immutable.lua"/>
   
-  <Include file="framework/frame.lua"/>
+  <Include file="framework/core/frame.lua"/>
   <Include file="framework/modules/tasks.lua"/>
   <Include file="framework/modules/network.lua"/>
-  <Include file="framework/modules/plugins.lua"/>
-  <Include file="framework/modules/events.lua"/>
+  <!-- <Include file="framework/modules/plugins.lua"/> -->
+  <!-- <Include file="framework/modules/events.lua"/> -->
   
-  <Script file="api.lua"/>
-  <Script file="plugins/garbage.lua"/>
+  <!-- <Script file="api.lua"/> -->
 
 </Ui>

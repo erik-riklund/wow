@@ -1,5 +1,4 @@
 --- @meta
-
 --    ____                      _
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -39,7 +38,7 @@
 --- @field insert fun(self: List, value: unknown, position: number|nil) Inserts a value at a specific position (or at the end if no position is specified).
 --- @field remove fun(self: List, index: number|nil): unknown Removes and returns an element by index (or the last element if no index is specified).
 --- 
---- @field index_of fun(self: List, search_value: unknown): number Returns the index of a given value, or `-1` if not found.
+--- @field indexOf fun(self: List, search_value: unknown): number Returns the index of a given value, or `-1` if not found.
 --- @field contains fun(self: List, search_value: unknown): boolean Checks if the list contains the given value.
 --- @field length fun(self: List): number Returns the number of elements in the list.
 --

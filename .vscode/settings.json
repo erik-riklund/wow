@@ -15,7 +15,7 @@
     },
     {
       "tag": "#region [alias:",
-      "color": "#2981B1",
+      "color": "#88A1B8",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
@@ -30,6 +30,15 @@
       "backgroundColor": "transparent",
       "bold": false,
       "italic": true
+    },
+    {
+      "tag": "| ",
+      "color": "#A0906E",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
     },
     {
       "tag": "#region (",
@@ -59,8 +68,8 @@
       "italic": false
     },
     {
-      "tag": "#region [controller:",
-      "color": "#BCB734",
+      "tag": "#region [class:",
+      "color": "#CCC087",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",

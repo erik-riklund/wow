@@ -149,4 +149,4 @@ end
 -- Export the `map` function to the framework context.
 --
 
-context:export('utility/collection/map', map)
+context:export('collection/map', map)

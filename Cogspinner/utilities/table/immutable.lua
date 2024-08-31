@@ -5,17 +5,23 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context = ...
---- @cast context FrameworkContext
+--- @type string, FrameworkContext
+local addon, context = ...
 
-local setmetatable, throw, type = setmetatable, throw, type
+--#region (locally scoped variables/functions)
+
+local setmetatable   = _G.setmetatable
+local throw          = _G.throw
+local type           = _G.type
+
+--#endregion
 
 --
 -- This module provides a function to create immutable (read-only) proxies for tables,
 -- preventing accidental modification of their contents or nested tables.
 --
 
---- @type Utility.ImmutableTable
+--- @type ImmutableTable
 local immutable
 
 immutable = function(target)
@@ -23,7 +29,7 @@ immutable = function(target)
     throw('Invalid argument type for "immutable". Expected a table.')
   end
 
-  --- @type Utility.ImmutableTableProxy
+  --- @type ImmutableTableProxy
   local proxy =
   {
     --
@@ -56,4 +62,4 @@ end
 -- making it available to other modules.
 --
 
-context:export('utility/table/immutable', immutable)
+context:export('table/immutable', immutable)

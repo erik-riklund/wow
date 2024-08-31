@@ -1,5 +1,4 @@
 --- @meta
-
 --    ____                      _
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -15,7 +14,7 @@
 --- to its contents. This provides a read-only view of the original table, useful for
 --- protecting data structures from accidental or unwanted changes.
 ---
---- @alias Utility.ImmutableTable fun(target: table): table
+--- @alias ImmutableTable fun(target: table): table
 --
 
 --#endregion
@@ -26,7 +25,7 @@
 --- A metatable used to create immutable (read-only) proxies for tables. It intercepts
 --- attempts to modify the table and provides read-only access to its elements.
 ---
---- @class Utility.ImmutableTableProxy
+--- @class ImmutableTableProxy
 --- 
 --- @field __newindex fun() Throws an error when a write operation is attempted on the proxy table.
 --- @field __index fun(self: table, key: unknown): unknown Retrieves the value associated with the given key, recursively making nested tables immutable.
