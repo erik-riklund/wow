@@ -20,7 +20,10 @@
 --- @class Plugin
 ---
 --- @field id string
+--- @field event EventHandlerApi
 --- @field network NetworkControllerApi
+--- 
+--- @field onLoad fun(self: Plugin, callback: EventHandler.ListenerCallback)
 --
 
 --#endregion
@@ -30,8 +33,11 @@
 --
 --- @class PartialPlugin
 ---
---- @field id string
+--- @field id? string
+--- @field event? EventHandlerApi
 --- @field network? NetworkControllerApi
+--- 
+--- @field onLoad? fun(self: Plugin, callback: EventHandler.ListenerCallback)
 --
 
 --#endregion

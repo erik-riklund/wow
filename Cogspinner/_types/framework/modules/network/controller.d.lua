@@ -16,10 +16,21 @@
 --- @field channels Map
 --- @field listeners Map
 ---
---- @field ReserveChannels fun(self: NetworkController, options: NetworkController.ReservationOptions)
---- @field RegisterListener fun(self: NetworkController, options: NetworkController.ListenerRegistrationOptions)
---- @field UnregisterListener fun(self: NetworkController, options: NetworkController.ListenerRemovalOptions)
---- @field TransmitPayload fun(self: NetworkController, options: NetworkController.TransmissionOptions)
+--- @field reserveChannels fun(self: NetworkController, options: NetworkController.ReservationOptions)
+--- @field registerListener fun(self: NetworkController, options: NetworkController.ListenerRegistrationOptions)
+--- @field unregisterListener fun(self: NetworkController, options: NetworkController.ListenerRemovalOptions)
+--- @field transmitPayload fun(self: NetworkController, options: NetworkController.TransmissionOptions)
+--
+
+--#endregion
+
+--#region [type: channel reservation]
+
+--
+--- @class NetworkController.ChannelReservation
+--- 
+--- @field name string
+--- @field internal? boolean
 --
 
 --#endregion
@@ -32,7 +43,7 @@
 --- @class NetworkController.ReservationOptions
 ---
 --- @field owner PluginContext
---- @field channels { name: string, internal?: boolean }[]
+--- @field channels NetworkController.ChannelReservation[]
 --
 
 --#endregion

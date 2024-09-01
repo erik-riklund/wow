@@ -6,4 +6,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
+--#region [type: event handler API]
 
+--
+--- @class EventHandlerApi
+--
+
+--#endregion

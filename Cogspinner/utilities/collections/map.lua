@@ -16,7 +16,7 @@ local type           = _G.type
 
 --#endregion
 
---#region [controller: map]
+--#region [class: map]
 
 --
 -- This controller provides the underlying implementation for map objects,
@@ -45,7 +45,7 @@ local map_controller =
   -- Retrieves the value associated with a given key from the map.
   --
 
-  Get = function(self, key) return self.content[key] end,
+  get = function(self, key) return self.content[key] end,
 
   --
   -- Sets or updates the value associated with a key in the map.
@@ -53,9 +53,9 @@ local map_controller =
   -- We maintain an 'entries' count for quick size checks.
   --
 
-  Set = function(self, key, value)
+  set = function(self, key, value)
     if value == nil then
-      self:Drop(key)
+      self:drop(key)
       return
     end
 
@@ -71,7 +71,7 @@ local map_controller =
   -- We also decrement the 'entries' count to reflect the removal.
   --
 
-  Drop = function(self, key)
+  drop = function(self, key)
     if self.content[key] ~= nil then
       self.content[key] = nil
       self.entries = self.entries - 1
@@ -82,7 +82,7 @@ local map_controller =
   -- Checks if a key exists within the map.
   --
 
-  Has = function(self, key)
+  has = function(self, key)
     return self.content[key] ~= nil
   end,
 
@@ -91,7 +91,7 @@ local map_controller =
   -- We use the cached 'entries' count for efficiency.
   --
 
-  Size = function(self) return self.entries end
+  size = function(self) return self.entries end
 }
 
 --#endregion
@@ -120,13 +120,15 @@ local function map(initial_content, options)
     throw("Error initializing map: 'initial_content' must be a table.")
   end
 
-  --#region: Optional weak table handling
-  -- Handle optional 'weak' mode, which allows garbage collection of keys and/or
-  -- values that are no longer referenced elsewhere. This can be useful for preventing
-  -- memory leaks in certain scenarios.
-  --#endregion
-
   if type(options) == 'table' and options.weak then
+    --#region: Optional weak table handling
+
+    --| Handle optional 'weak' mode, which allows garbage collection of keys and/or
+    --| values that are no longer referenced elsewhere. This can be useful for preventing
+    --| memory leaks in certain scenarios.
+    
+    --#endregion
+
     local weak = { key = 'k', value = 'v', both = 'kv' }
 
     if not weak[options.weak] then

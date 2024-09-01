@@ -12,6 +12,35 @@
 --- ?
 ---
 --- @class PluginManager
+--- 
+--- @field plugins Map
+--- 
+--- @field createPlugin fun(self: PluginManager, options: PluginManager.CreationOptions): Plugin
+--- @field normalizeIdentifier fun(identifier: string): string
+--
+
+--#endregion
+
+--#region [type: plugin creation options]
+
+--
+--- ?
+---
+--- @class PluginManager.CreationOptions
+--- 
+--- @field identifier string
+--- @field channels? { name: string, internal?: boolean }[]
+--
+
+--#endregion
+
+--#region [type: ]
+
+--
+--- @class PluginManager.CreationBroadcastPayload
+--- 
+--- @field plugin PartialPlugin
+--- @field options PluginManager.CreationOptions
 --
 
 --#endregion

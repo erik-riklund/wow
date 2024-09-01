@@ -6,4 +6,18 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
+--#region [type: event handler]
 
+--
+--- @class EventHandler
+--
+
+--#endregion
+
+--#region [type: ]
+
+--
+--- @alias EventHandler.ListenerCallback fun(...)
+--
+
+--#endregion

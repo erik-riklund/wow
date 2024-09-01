@@ -52,7 +52,7 @@ local NetworkController    =
   -- Ensures channel names are unique and initializes listener lists for each channel.
   --
 
-  ReserveChannels = function(self, options)
+  reserveChannels = function(self, options)
     if type(options.channels) ~= 'table' then
       throw('Invalid argument type for "channels". Expected a table of channel reservation options.')
     end
@@ -61,11 +61,11 @@ local NetworkController    =
     for i = 1, count do
       local channel = options.channels[i]
 
-      if self.channels:Has(channel.name) then
+      if self.channels:has(channel.name) then
         throw('Cannot reserve an occupied channel (%s)', channel.name)
       end
 
-      self.channels:Set(
+      self.channels:set(
         channel.name,
         {
           owner = options.owner,
@@ -74,7 +74,7 @@ local NetworkController    =
         }
       )
 
-      self.listeners:Set(channel.name, list())
+      self.listeners:set(channel.name, list())
     end
   end,
 
@@ -83,20 +83,20 @@ local NetworkController    =
   -- control for internal channels and ensures the channel exists before adding the listener.
   --
 
-  RegisterListener = function(self, options)
-    if not self.channels:Has(options.channel) then
+  registerListener = function(self, options)
+    if not self.channels:has(options.channel) then
       throw('Cannot monitor unknown channel (%s)', options.channel)
     end
 
-    local channel = self.channels:Get(options.channel) --[[@as NetworkController.Channel]]
+    local channel = self.channels:get(options.channel) --[[@as NetworkController.Channel]]
 
     if channel.internal and channel.owner ~= options.reciever then
       throw('Plugin "%s" is not authorized to monitor internal channel "%s"', options.reciever.id, options.channel)
     end
 
-    local listeners = self.listeners:Get(options.channel) --[[@as List]]
+    local listeners = self.listeners:get(options.channel) --[[@as List]]
 
-    listeners:Insert(
+    listeners:insert(
       {
         id = options.identifier,
         owner = options.reciever,
@@ -112,13 +112,13 @@ local NetworkController    =
   -- the listener belongs to the specified receiver.
   --
 
-  UnregisterListener = function(self, options)
-    if not self.channels:Has(options.channel) then
+  unregisterListener = function(self, options)
+    if not self.channels:has(options.channel) then
       throw('Cannot silence listener on unknown channel (%s)', options.channel)
     end
 
-    local listeners = self.listeners:Get(options.channel) --[[@as List]]
-    local listener_count = listeners:Length()
+    local listeners = self.listeners:get(options.channel) --[[@as List]]
+    local listener_count = listeners:length()
 
     if listener_count > 0 then
       --#region: Listener removal
@@ -126,11 +126,11 @@ local NetworkController    =
       --#endregion
 
       for i = 1, listener_count do
-        local listener = listeners:Get(i) --[[@as NetworkController.Listener]]
+        local listener = listeners:get(i) --[[@as NetworkController.Listener]]
 
         if listener.owner == options.reciever then
           if listener.identifier == options.identifier then
-            listeners:Remove(i)
+            listeners:remove(i)
 
             return -- note: exit early once the listener is found and removed.
           end
@@ -148,25 +148,25 @@ local NetworkController    =
   -- execution with an optional payload.
   --
 
-  TransmitPayload = function(self, options)
-    if not self.channels:Has(options.channel) then
+  transmitPayload = function(self, options)
+    if not self.channels:has(options.channel) then
       throw('Cannot transmit on unknown channel (%s)', options.channel)
     end
 
-    local channel = self.channels:Get(options.channel) --[[@as NetworkController.Channel]]
+    local channel = self.channels:get(options.channel) --[[@as NetworkController.Channel]]
 
     if channel.owner ~= options.sender then
       throw('Plugin "%s" is not authorized to transmit on channel "%s"', options.sender.id, options.channel)
     end
 
-    local listeners = self.listeners:Get(options.channel) --[[@as List]]
-    local listener_count = listeners:Length()
+    local listeners = self.listeners:get(options.channel) --[[@as List]]
+    local listener_count = listeners:length()
 
     if listener_count > 0 then
       for i = 1, listener_count do
-        local listener = listeners:Get(i) --[[@as NetworkController.Listener]]
+        local listener = listeners:get(i) --[[@as NetworkController.Listener]]
 
-        tasks:RegisterTask(
+        tasks:registerTask(
           {
             callback = listener.callback,
             arguments = { options.payload }
@@ -196,8 +196,8 @@ local NetworkControllerApi =
     -- includes the plugin's context as the receiver, simplifying the registration process.
     --
 
-    Listen = function(self, options)
-      NetworkController:RegisterListener(
+    listen = function(self, options)
+      NetworkController:registerListener(
         {
           reciever = self.context,
           channel = options.channel,
@@ -213,8 +213,8 @@ local NetworkControllerApi =
     -- it automatically includes the plugin's context, streamlining the unregistration process.
     --
 
-    Silence = function(self, options)
-      NetworkController:UnregisterListener(
+    silence = function(self, options)
+      NetworkController:unregisterListener(
         {
           reciever = self.context,
           channel = options.channel,
@@ -228,8 +228,8 @@ local NetworkControllerApi =
     -- sets the plugin's context as the sender, making it easier for plugins to interact with the network.
     --
 
-    Transmit = function(self, options)
-      NetworkController:TransmitPayload(
+    transmit = function(self, options)
+      NetworkController:transmitPayload(
         {
           sender = self.context,
           channel = options.channel,
@@ -249,7 +249,7 @@ local NetworkControllerApi =
 -- ensures only the framework can transmit on it.
 --
 
-NetworkController:ReserveChannels(
+NetworkController:reserveChannels(
   {
     owner = plugin,
     channels = {
@@ -259,22 +259,31 @@ NetworkController:ReserveChannels(
 )
 
 --
--- Registers a listener for the 'PLUGIN_ADDED' channel within the framework. This listener
--- is responsible for setting up the network API for newly created plugins, allowing them to
--- respond to framework events and interact with other plugins.
+-- Registers a listener within the framework itself to respond to the 'PLUGIN_ADDED' event.
+-- When a new plugin is created, this listener sets up its network API and reserves any
+-- channels specified in the plugin's options.
 --
 
-NetworkController:RegisterListener(
+NetworkController:registerListener(
   {
     reciever = plugin,
     channel = 'PLUGIN_ADDED',
 
     callback = function(payload)
-      local newPlugin = payload --[[@as PartialPlugin]]
+      --- @cast payload PluginManager.CreationBroadcastPayload
 
-      newPlugin.network = setmetatable(
-        { context = newPlugin }, NetworkControllerApi
+      payload.plugin.network = setmetatable(
+        { context = payload.plugin }, NetworkControllerApi
       )
+
+      if payload.options and type(payload.options) == 'table' then
+        NetworkController:reserveChannels(
+          {
+            owner = payload.plugin,
+            channels = payload.options.channels
+          }
+        )
+      end
     end
   }
 )

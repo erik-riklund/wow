@@ -13,9 +13,9 @@
 ---
 --- @field context? PluginContext
 ---
---- @field Listen fun(self: NetworkControllerApi, options: NetworkControllerApi.ListenerOptions)
---- @field Silence fun(self: NetworkControllerApi, options: NetworkControllerApi.ListenerRemovalOptions)
---- @field Transmit fun(self: NetworkControllerApi, options: NetworkControllerApi.TransmissionOptions)
+--- @field listen fun(self: NetworkControllerApi, options: NetworkControllerApi.ListenerOptions)
+--- @field silence fun(self: NetworkControllerApi, options: NetworkControllerApi.ListenerRemovalOptions)
+--- @field transmit fun(self: NetworkControllerApi, options: NetworkControllerApi.TransmissionOptions)
 --
 
 --#endregion

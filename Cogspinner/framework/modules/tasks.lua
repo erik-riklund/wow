@@ -48,11 +48,11 @@ local TaskHandler    =
   -- been initialized, it's created to begin processing the queue.
   --
 
-  RegisterTask = function(self, task)
-    self.queue:Insert(task)
+  registerTask = function(self, task)
+    self.queue:insert(task)
 
     if not self.controller then
-      self:CreateBackgroundProcess()
+      self:createBackgroundProcess()
     end
   end,
 
@@ -62,7 +62,7 @@ local TaskHandler    =
   -- to avoid causing performance issues.
   --
 
-  CreateBackgroundProcess = function(self)
+  createBackgroundProcess = function(self)
     if self.controller == nil then
       --#region: Coroutine initialization
       --| We create the coroutine here, rather than at the module level,
@@ -86,13 +86,13 @@ local TaskHandler    =
           while true do
             local started = time()
 
-            while process.queue:Length() > 0 and (time() - started) < frame_limit do
+            while process.queue:length() > 0 and (time() - started) < frame_limit do
               --#region: Task execution and error handling
               --| We remove and execute the first task in the queue, using `pcall`
               --| for safe execution, and handle potential errors gracefully.
               --#endregion
 
-              local task = process.queue:Remove(1) --[[@as Task]]
+              local task = process.queue:remove(1) --[[@as Task]]
               local success = pcall(task.callback,
                 (type(task.arguments) == 'table' and unpack(task.arguments)) or nil
               )
@@ -116,10 +116,10 @@ local TaskHandler    =
 -- and resume it if so.
 --
 
-frame:RegisterUpdateHandler(
+frame:registerUpdateHandler(
   function()
     if coroutine.status(TaskHandler.controller) == 'suspended' then
-      if TaskHandler.queue:Length() > 0 then
+      if TaskHandler.queue:length() > 0 then
         coroutine.resume(TaskHandler.controller)
       end
     end

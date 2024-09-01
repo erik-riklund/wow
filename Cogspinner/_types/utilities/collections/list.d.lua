@@ -31,14 +31,14 @@
 --- 
 --- @field values unknown[] The internal array storing the list's elements.
 --- 
---- @field Get fun(self: List, index: number): unknown Retrieves an element by its index.
---- @field Replace fun(self: List, index: number, value: unknown) Replaces the value at the specified index.
---- @field Insert fun(self: List, value: unknown, position: number|nil) Inserts a value at a specific position (or at the end if no position is specified).
---- @field Remove fun(self: List, index: number|nil): unknown Removes and returns an element by index (or the last element if no index is specified).
+--- @field get fun(self: List, index: number): unknown Retrieves an element by its index.
+--- @field replace fun(self: List, index: number, value: unknown) Replaces the value at the specified index.
+--- @field insert fun(self: List, value: unknown, position: number|nil) Inserts a value at a specific position (or at the end if no position is specified).
+--- @field remove fun(self: List, index: number|nil): unknown Removes and returns an element by index (or the last element if no index is specified).
 --- 
---- @field Find fun(self: List, search_value: unknown): number Returns the index of a given value, or `-1` if not found.
---- @field Contains fun(self: List, search_value: unknown): boolean Checks if the list contains the given value.
---- @field Length fun(self: List): number Returns the number of elements in the list.
+--- @field find fun(self: List, search_value: unknown): number Returns the index of a given value, or `-1` if not found.
+--- @field contains fun(self: List, search_value: unknown): boolean Checks if the list contains the given value.
+--- @field length fun(self: List): number Returns the number of elements in the list.
 --
 
 --#endregion

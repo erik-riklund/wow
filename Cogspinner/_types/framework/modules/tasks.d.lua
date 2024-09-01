@@ -14,8 +14,8 @@
 --- @field queue List The queue of tasks waiting to be executed.
 --- @field controller? thread The coroutine handle responsible for processing the task queue.
 --- 
---- @field RegisterTask fun(self: TaskHandler, task: Task) Adds a new task to the queue.
---- @field CreateBackgroundProcess fun(self: TaskHandler) Create the coroutine used to process the queue of tasks.
+--- @field registerTask fun(self: TaskHandler, task: Task) Adds a new task to the queue.
+--- @field createBackgroundProcess fun(self: TaskHandler) Create the coroutine used to process the queue of tasks.
 --
 
 --#endregion

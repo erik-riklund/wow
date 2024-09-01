@@ -38,7 +38,7 @@ local list_controller =
   -- Retrieves the value at the specified index in the list.
   --
 
-  Get = function(self, index) return self.values[index] end,
+  get = function(self, index) return self.values[index] end,
 
   --
   -- Inserts a value into the list at the specified position,
@@ -47,7 +47,7 @@ local list_controller =
   -- We use `table.insert` to handle array shifting automatically.
   --
 
-  Insert = function(self, value, position)
+  insert = function(self, value, position)
     table.insert(self.values, position or (#self.values + 1), value)
   end,
 
@@ -58,7 +58,7 @@ local list_controller =
   -- Again, `table.remove` handles array shifting for us.
   --
 
-  Remove = function(self, index)
+  remove = function(self, index)
     return table.remove(self.values, index or #self.values)
   end,
 
@@ -67,7 +67,7 @@ local list_controller =
   -- if trying to replace a non-existent index to avoid unexpected behavior.
   --
 
-  Replace = function(self, index, value)
+  replace = function(self, index, value)
     if not self.values[index] then
       throw('List index out of bounds. Cannot replace a non-existent element.')
     end
@@ -80,7 +80,7 @@ local list_controller =
   -- Throws an error if `search_value` is nil to prevent unexpected behavior.
   --
 
-  Find = function(self, search_value)
+  find = function(self, search_value)
     if search_value == nil then
       throw('Cannot search for a `nil` value in the list')
     end
@@ -102,8 +102,8 @@ local list_controller =
   -- Checks if the list contains the given `search_value`.
   --
 
-  Contains = function(self, search_value)
-    return self:Find(search_value) ~= -1
+  contains = function(self, search_value)
+    return self:find(search_value) ~= -1
   end,
 
   --
@@ -111,7 +111,7 @@ local list_controller =
   -- The # operator is used for efficiency.
   --
 
-  Length = function(self) return #self.values end
+  length = function(self) return #self.values end
 }
 
 --#endregion
@@ -140,13 +140,15 @@ local function list(initial_values, options)
     throw('Invalid initial values for the list. Expected a table (or nil).')
   end
 
-  --#region: Optional weak table handling
-  -- Handle optional 'weak' mode, which allows garbage collection of keys/values
-  -- that are no longer referenced elsewhere. This can be useful for preventing
-  -- memory leaks in certain scenarios.
-  --#endregion
-
   if type(options) == 'table' and options.weak then
+    --#region: Optional weak table handling
+
+    --| Handle optional 'weak' mode, which allows garbage collection of keys/values
+    --| that are no longer referenced elsewhere. This can be useful for preventing
+    --| memory leaks in certain scenarios.
+
+    --#endregion
+
     local weak = { key = 'k', value = 'v', both = 'kv' }
 
     if not weak[options.weak] then

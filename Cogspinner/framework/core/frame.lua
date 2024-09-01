@@ -62,12 +62,12 @@ local FrameController =
   -- if the handler is already registered to prevent duplicates and potential errors.
   --
 
-  RegisterUpdateHandler = function(self, callback)
-    if self.updateHandlers:Contains(callback) then
+  registerUpdateHandler = function(self, callback)
+    if self.updateHandlers:contains(callback) then
       throw('?')
     end
 
-    self.updateHandlers:Insert(callback)
+    self.updateHandlers:insert(callback)
   end,
 
   --
@@ -75,12 +75,12 @@ local FrameController =
   -- occurs. Similar to update handlers, we prevent duplicate registrations.
   --
 
-  RegisterEventHandler = function(self, callback)
-    if self.eventHandlers:Contains(callback) then
+  registerEventHandler = function(self, callback)
+    if self.eventHandlers:contains(callback) then
       throw('?')
     end
 
-    self.eventHandlers:Insert(callback)
+    self.eventHandlers:insert(callback)
   end,
 
   --
@@ -88,10 +88,10 @@ local FrameController =
   -- events to avoid unnecessary duplicate registrations.
   --
 
-  RegisterEvent = function(self, event)
-    if not self.events:Has(event) then
+  registerEvent = function(self, event)
+    if not self.events:has(event) then
       self.frame:RegisterEvent(event)
-      self.events:Set(event, true)
+      self.events:set(event, true)
     end
   end,
 
@@ -99,10 +99,10 @@ local FrameController =
   -- Unregisters the frame from listening to a specific game event.
   --
 
-  UnregisterEvent = function(self, event)
-    if self.events:Has(event) then
+  unregisterEvent = function(self, event)
+    if self.events:has(event) then
       self.frame:UnregisterEvent(event)
-      self.events:Drop(event)
+      self.events:drop(event)
     end
   end
 }
@@ -121,10 +121,10 @@ FrameController.frame:RegisterEvent('ADDON_LOADED')
 
 FrameController.frame:SetScript(
   'OnUpdate', function()
-    local handler_count = FrameController.updateHandlers:Length()
+    local handler_count = FrameController.updateHandlers:length()
 
     for i = 1, handler_count do
-      local success = pcall(FrameController.updateHandlers:Get(i))
+      local success = pcall(FrameController.updateHandlers:get(i))
 
       if not success then
         --#todo: implement error handling!
@@ -146,11 +146,11 @@ FrameController.frame:SetScript(
     local event_name = args[2] --[[@as string]]
     local event_data = { select(3, ...) }
 
-    local handler_count = FrameController.eventHandlers:Length()
+    local handler_count = FrameController.eventHandlers:length()
 
     for i = 1, handler_count do
       local success, result = pcall(
-        FrameController.eventHandlers:Get(i), event_name, unpack(event_data)
+        FrameController.eventHandlers:get(i), event_name, unpack(event_data)
       )
 
       if not success then
