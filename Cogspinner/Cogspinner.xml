@@ -1,8 +1,7 @@
 <Ui>
 
   <Include file="utilities/throw.lua"/>
-  <Include file="framework/core/context.lua"/>
-  <!-- <Include file="framework/core/plugin.lua"/> -->
+  <Include file="modules/context.lua"/>
   
   <Include file="utilities/collections/list.lua"/>
   <Include file="utilities/collections/map.lua"/>
@@ -14,6 +13,6 @@
   <!-- <Include file="framework/modules/plugins.lua"/> -->
   <!-- <Include file="framework/modules/events.lua"/> -->
   
-  <Script file="api.lua"/>
+  <Script file="framework/api.lua"/>
 
 </Ui>

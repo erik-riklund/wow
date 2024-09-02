@@ -5,7 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---- @type string, Core
+--- @type string, Context
 local designation, core = ...
 
 --#region (locally scoped variables and functions)
