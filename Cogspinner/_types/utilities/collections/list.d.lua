@@ -6,15 +6,11 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region [alias: list]
-
 --
 --- @alias List ListObject
 --
 
---#endregion
-
---#region [type: list constructor]
+-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 --
 --- Creates a new list object, optionally initialized with values and weak table behavior.
@@ -22,9 +18,7 @@
 --- @alias ListConstructor fun(initial_values: unknown[]|nil, options: { weak: WeakTableOptions }|nil): List
 --
 
---#endregion
-
---#region [type: list object]
+-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 --
 --- @class ListObject

@@ -6,14 +6,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region [type: framework context]
-
 --
---- @class FrameworkContext
+--- @class Core
 ---
---- @field data Record<string, unknown>
---- @field export fun(self: FrameworkContext, id: string, object: unknown)
---- @field import fun(self: FrameworkContext, id: string): unknown
+--- @field objects Record<string, unknown>
+--- @field export fun(self: Core, identifier: string, object: unknown)
+--- @field import fun(self: Core, identifier: string): unknown
 --
-
---#endregion

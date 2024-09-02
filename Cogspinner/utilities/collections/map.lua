@@ -5,8 +5,8 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context     = ...
---- @cast context FrameworkContext
+--- @type string, Core
+local designation, core = ...
 
 --#region (locally scoped variables and functions)
 
@@ -151,4 +151,4 @@ end
 -- Export the `map` function to the framework context.
 --
 
-context:export('collection/map', map)
+core:export('collection/map', map)

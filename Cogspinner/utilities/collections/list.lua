@@ -5,15 +5,15 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local _, context      = ...
---- @cast context FrameworkContext
+--- @type string, Core
+local designation, core = ...
 
 --#region (locally scoped variables and functions)
 
-local setmetatable    = _G.setmetatable
-local table           = _G.table
-local throw           = _G.throw
-local type            = _G.type
+local setmetatable      = _G.setmetatable
+local table             = _G.table
+local throw             = _G.throw
+local type              = _G.type
 
 --#endregion
 
@@ -25,7 +25,7 @@ local type            = _G.type
 --
 
 --- @type List
-local list_controller =
+local list_controller   =
 {
   --
   -- The internal array to store the list's values. We are
@@ -123,7 +123,7 @@ local list_controller =
 -- giving them the behavior defined in the controller.
 --
 
-local __list          = { __index = list_controller }
+local __list            = { __index = list_controller }
 
 --#endregion
 
@@ -169,4 +169,4 @@ end
 -- Export the `list` function to the framework context.
 --
 
-context:export('collection/list', list)
+core:export('collection/list', list)

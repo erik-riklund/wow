@@ -5,36 +5,36 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---- @type string, FrameworkContext
-local addon, context = ...
+--- @type string, Core
+local designation, core = ...
 
 --#region (locally scoped variables/functions)
 
-local setmetatable   = _G.setmetatable
-local throw          = _G.throw
-local type           = _G.type
+local setmetatable      = _G.setmetatable
+local throw             = _G.throw
+local type              = _G.type
 
 --#endregion
 
 --
--- This module provides a function to create immutable (read-only) proxies for tables,
--- preventing accidental modification of their contents or nested tables.
+-- This clever contraption creates a special kinda table, one that's locked tight!
+-- It's perfect for keepin' important blueprints and schematics safe from accidental tinkering.
 --
 
 --- @type ImmutableTable
-local immutable
+local createImmutableProxy
 
-immutable = function(target)
+createImmutableProxy    = function(target)
   if type(target) ~= 'table' then
     throw('Invalid argument type for "immutable". Expected a table.')
   end
 
   --- @type ImmutableTableProxy
-  local proxy =
+  local immutableProxy =
   {
     --
-    -- This metatable method is triggered when attempting to assign a new value to an
-    -- index in the proxy table. We throw an error to enforce immutability.
+    -- This bit o' magic stops any gnome from tryin' to change somethin' in our locked table.
+    -- If they try, it'll set off an alarm!
     --
 
     __newindex = function()
@@ -42,24 +42,23 @@ immutable = function(target)
     end,
 
     --
-    -- This metatable method is triggered when accessing an index in the proxy table.
-    -- It retrieves the value from the original table and, if it's a table itself, recursively
-    -- applies immutability to it to ensure nested tables are also read-only.
+    -- This part makes sure that even if there's a whole bunch of nested tables inside,
+    -- they all get locked up tight too! No sneaky changes allowed!
     --
 
     __index = function(self, key)
       local value = target[key]
 
-      return (type(value) == 'table' and immutable(value)) or value
+      return (type(value) == 'table' and createImmutableProxy(value)) or value
     end
   }
 
-  return setmetatable({}, proxy)
+  return setmetatable({}, immutableProxy)
 end
 
 --
--- Exports the `immutable` function to the framework context,
--- making it available to other modules.
+-- Now, let's share this handy invention with the rest of the workshop,
+-- so everyone can use it to protect their precious designs!
 --
 
-context:export('table/immutable', immutable)
+core:export('table/immutable', createImmutableProxy)

@@ -7,8 +7,7 @@
 --              |___/    |_|                            
 
 ---
---- Raises a formatted error message, optionally using provided values to fill in placeholders
---- within the message string. The error is raised from the caller's context.
+--- Raises a formatted error, halting execution and providing a descriptive message.
 --- 
 --- @alias Throw fun(exception: string, ...: string|number)
 --- 

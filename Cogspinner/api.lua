@@ -5,52 +5,16 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---- @type string, FrameworkContext
-local addon, context  = ...
+--- @type string, Core
+local designation, core = ...
 
 --#region (locally scoped variables/functions)
 --#endregion
 
 --#region (framework context imports)
-
-local plugins         = context:import('module/plugins') --[[@as PluginManager]]
-
 --#endregion
 
---#region [class: event handler]
-
---
--- ?
---
-
-local EventHandler    =
+_G.cogspinner =
 {
 
 }
-
---#endregion
-
---#region [class: event handler API]
-
---
--- ?
---
-
-local EventHandlerApi =
-{
-
-}
-
---#endregion
-
---
--- ?
---
-
-
-
---
--- ?
---
-
-context:export('module/events', EventHandler)

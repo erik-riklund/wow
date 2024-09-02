@@ -6,15 +6,11 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---#region [alias: map object]
-
 --
 --- @alias Map MapObject
 --
 
---#endregion
-
---#region [alias: map key]
+-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 --
 --- ?
@@ -22,9 +18,7 @@
 --- @alias MapKey string|table
 --
 
---#endregion
-
---#region [type: map constructor]
+-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 --
 --- Creates a new map object, optionally initialized with given key-value pairs.
@@ -32,9 +26,7 @@
 --- @alias MapConstructor fun(initial_content: table|nil, options: { weak: WeakTableOptions }|nil): Map
 --
 
---#endregion
-
---#region [type: utilities.collections.map.object]
+-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 --
 --- @class MapObject
@@ -48,5 +40,3 @@
 --- @field has fun(self: Map, key: MapKey): boolean Checks if the map contains the given key.
 --- @field size fun(self: Map): number Returns the number of key-value pairs in the map.
 --
-
---#endregion
