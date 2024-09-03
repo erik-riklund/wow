@@ -7,5 +7,14 @@
 --              |___/    |_|                            
 
 --
---- @class Plugin
+--- @class API
+--- 
+--- @field utility { table: API.utility.table }
+--- @field createPlugin fun(): Plugin
+--
+
+--
+--- @class API.utility.table
+--- 
+--- @field immutable ImmutableTable
 --

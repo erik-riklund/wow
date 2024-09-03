@@ -6,7 +6,9 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
---- @type string, table
-local designation, context = ...
-
-
+--
+--- Creates an immutable (read-only) proxy for a given table, 
+--- preventing modifications to its contents or nested tables.
+--
+--- @alias ImmutableTable fun(target: table): table
+--

@@ -3,5 +3,9 @@
   <Include file="module/context.lua"/>
   <Include file="utility/collection/list.lua"/>
   <Include file="utility/collection/record.lua"/>
+  <Include file="utility/table/immutable.lua"/>
+  <Include file="module/plugin.lua"/>
+  
+  <Script file="api.lua"/>
   <Script file="garbage.lua"/>
 </Ui>

@@ -1,3 +1,4 @@
+--- @meta
 --    ____                      _
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -5,5 +6,13 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
--- print(cogspinner)
-print(type(cogspinner.createPlugin))
+--
+--- @class Plugin
+--
+
+--
+--- @class PluginManager
+--- 
+--- @field plugins Record
+--- @field createPlugin fun(self: PluginManager): Plugin
+--

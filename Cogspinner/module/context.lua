@@ -41,7 +41,7 @@ local contextController =
 
     import = function(self, identifier)
       if self.objects[identifier] == nil then
-        exception('Import failed: The requested object (%s) does not exist.', identifier)
+        exception('Import failed: The requested object ("%s") does not exist.', identifier)
       end
 
       return self.objects[identifier]
