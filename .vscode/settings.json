@@ -5,7 +5,16 @@
   ],
   "better-comments.tags": [
     {
-      "tag": " type: ",
+      "tag": "~",
+      "color": "#A19F70",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": true
+    },
+    {
+      "tag": " todo: ",
       "color": "#D67E4E",
       "strikethrough": false,
       "underline": false,

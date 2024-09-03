@@ -1,8 +1,7 @@
 <Ui>
-
-  <Include file="utilities/exception.lua"/>
-  <Include file="framework/api/initialize.lua"/>
-  <Include file="utilities/collections/list.lua"/>
-  <Include file="utilities/collections/record.lua"/>
-
+  <Include file="utility/exception.lua"/>
+  <Include file="module/context.lua"/>
+  <Include file="utility/collection/list.lua"/>
+  <Include file="utility/collection/record.lua"/>
+  <Script file="garbage.lua"/>
 </Ui>

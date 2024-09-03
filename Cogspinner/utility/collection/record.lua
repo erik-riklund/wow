@@ -5,6 +5,9 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
+--- @type string, Context
+local addonId, context                     = ...
+
 local exception                            = _G.exception
 local setmetatable                         = _G.setmetatable
 local tostring                             = _G.tostring
@@ -14,20 +17,16 @@ local type                                 = _G.type
 -- This metatable serves as the blueprint for creating record objects,
 -- which are similar to maps but with stricter key validation.
 --
+
 local record                               =
 {
   __index =
   {
     --
-    -- This table stores the key-value pairs of the record. We use a plain Lua table
-    -- for its flexibility and efficient key-based access.
-    --
-    entries = {},
-
-    --
     -- Retrieves the value associated with a given key from the record.
     -- Throws an error if the key doesn't exist to prevent unexpected behavior.
     --
+
     get = function(self, key)
       if self.entries[key] == nil then
         exception('Cannot get value for non-existent key: ' .. tostring(key))
@@ -39,6 +38,7 @@ local record                               =
     --
     -- Sets or updates the value associated with a key in the record.
     --
+
     set = function(self, key, value)
       if type(key) ~= 'string' and type(key) ~= 'table' then
         exception('Invalid key type: keys must be either strings or tables.')
@@ -55,6 +55,7 @@ local record                               =
     -- Removes a key-value pair from the record based on the given key.
     -- Throws an error if the key doesn't exist to prevent unexpected behavior.
     --
+
     remove = function(self, key)
       if self.entries[key] == nil then
         exception('Cannot remove non-existent key: ' .. tostring(key))
@@ -66,6 +67,7 @@ local record                               =
     --
     -- Checks if a key exists within the record.
     --
+
     entryExists = function(self, key)
       return self.entries[key] ~= nil
     end
@@ -73,28 +75,19 @@ local record                               =
   } --[[@as Record]]
 }
 
---
--- This is a factory function for creating new record objects. It allows optional
--- initialization with existing key-value pairs and supports 'weak' table behavior
--- for memory management in certain scenarios.
---
---- @param entries? table<Record.KeyTypes, unknown> (optional) Initial key-value pairs for the record.
---- @param options? { weak: WeakTableOptions } (optional) Configuration options for the record's internal table.
---
---- @return Record "The newly created record object."
---
-_G.cogspinner.utilities.collections.record = function(entries, options)
+--- @type RecordConstructor
+local constructor = function(entries, options)
   if entries and type(entries) ~= 'table' then
     exception('Invalid argument type for "entries". Expected a table (or nil).')
   end
 
   if options and options.weak then
-    --| Enables "weak mode" for the record's internal table. In weak mode, certain entries
-    --| in the table can be automatically removed by the garbage collector if they are no
-    --| longer referenced elsewhere. This helps prevent memory leaks, especially when
-    --| storing objects (tables) as keys or values within the record.
-    --|
-    --| The 'options.weak' value determines whether keys, values, or both are considered weak.
+    --~ Enables "weak mode" for the record's internal table. In weak mode, certain entries
+    --~ in the table can be automatically removed by the garbage collector if they are no
+    --~ longer referenced elsewhere. This helps prevent memory leaks, especially when
+    --~ storing objects (tables) as keys or values within the record.
+    
+    --~ The 'options.weak' value determines whether keys, values, or both are considered weak.
 
     local weakMode =
         (options.weak == 'key' and 'k')
@@ -107,3 +100,9 @@ _G.cogspinner.utilities.collections.record = function(entries, options)
 
   return setmetatable({ entries = entries or {} }, record)
 end
+
+--
+-- ?
+--
+
+context:export('collection/record', constructor)
