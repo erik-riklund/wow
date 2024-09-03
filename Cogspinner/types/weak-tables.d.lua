@@ -6,8 +6,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 
----
---- Raises a formatted error, halting execution and providing a descriptive message.
+--
+--- Specifies which parts of a table should be considered "weak" for garbage collection purposes.
+--- A weak reference allows the garbage collector to reclaim the associated object even if it is
+--- still referenced within the table itself, preventing memory leaks.
 --- 
---- @alias Throw fun(exception: string, ...: string|number)
---- 
+--- @alias WeakTableOptions 'key' | 'value' | 'both'
+--

@@ -5,16 +5,24 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---- @type string, Context
-local designation, core = ...
-
---#region (locally scoped variables/functions)
---#endregion
-
---#region (framework context imports)
---#endregion
-
+--
+-- ?
+--
 _G.cogspinner =
 {
+  --
+  -- ?
+  --
+  modules = {},
 
+  --
+  -- ?
+  --
+  utilities =
+  {
+    --
+    -- ?
+    --
+    collections = {}
+  }
 }

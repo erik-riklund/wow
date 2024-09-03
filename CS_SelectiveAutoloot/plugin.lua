@@ -5,10 +5,4 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
-local error = error
-local string = string
-
---- @type Throw
-_G.throw = function(exception, ...)
-  error((... and string.format(exception, ...)) or exception, 3)
-end
+local test = _G.cogspinner.utilities.collections.record()

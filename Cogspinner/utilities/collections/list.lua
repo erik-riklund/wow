@@ -5,168 +5,121 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
---- @type string, Context
-local designation, core = ...
-
---#region (locally scoped variables and functions)
-
-local setmetatable      = _G.setmetatable
-local table             = _G.table
-local throw             = _G.throw
-local type              = _G.type
-
---#endregion
-
---#region [controller: list]
+local exception                          = _G.exception
+local setmetatable                       = _G.setmetatable
+local table                              = _G.table
+local type                               = _G.type
 
 --
--- This controller provides the underlying implementation for list objects,
--- handling element storage and common list operations like insertion, removal, etc.
+-- This metatable provides the underlying behavior for list objects.
 --
-
---- @type List
-local list_controller   =
+local list                               =
 {
-  --
-  -- The internal array to store the list's values. We are
-  -- using a plain table for efficient indexing and iteration.
-  --
+  __index =
+  {
+    --
+    -- This table holds the actual values of the list. Using a plain table allows for
+    -- efficient indexing and iteration, essential for list operations.
+    --
+    values = {},
 
-  values = {},
-
-  --
-  -- Retrieves the value at the specified index in the list.
-  --
-
-  get = function(self, index) return self.values[index] end,
-
-  --
-  -- Inserts a value into the list at the specified position,
-  -- or at the end if no position is provided.
-  --
-  -- We use `table.insert` to handle array shifting automatically.
-  --
-
-  insert = function(self, value, position)
-    table.insert(self.values, position or (#self.values + 1), value)
-  end,
-
-  --
-  -- Removes and returns the value at the specified index,
-  -- or the last value if no index is provided.
-  --
-  -- Again, `table.remove` handles array shifting for us.
-  --
-
-  remove = function(self, index)
-    return table.remove(self.values, index or #self.values)
-  end,
-
-  --
-  -- Replaces the value at the specified index with the new value. We throw an error
-  -- if trying to replace a non-existent index to avoid unexpected behavior.
-  --
-
-  replace = function(self, index, value)
-    if not self.values[index] then
-      throw('List index out of bounds. Cannot replace a non-existent element.')
-    end
-
-    self.values[index] = value
-  end,
-
-  --
-  -- Searches the list for the given `search_value` and returns its index if found.
-  -- Throws an error if `search_value` is nil to prevent unexpected behavior.
-  --
-
-  find = function(self, search_value)
-    if search_value == nil then
-      throw('Cannot search for a `nil` value in the list')
-    end
-
-    local length = #self.values
-
-    if length > 0 then
-      for i = 1, length do
-        if self.values[i] == search_value then
-          return i -- note: return the index where the value was found.
-        end
+    --
+    -- Retrieves an element from the list by its index.
+    --
+    getElementAt = function(self, index)
+      if index > #self.values then
+        exception('Index out of range, verify the list size.')
       end
-    end
 
-    return -1 -- note: indicate that the value was not found.
-  end,
+      return self.values[index]
+    end,
 
-  --
-  -- Checks if the list contains the given `search_value`.
-  --
+    --
+    -- Inserts a value into the list at the specified position, or at the end if no position
+    -- is provided.  We validate the position to ensure it's within the valid range of the list,
+    -- preventing potential errors.
+    --
+    insert = function(self, value, position)
+      if position and type(position) ~= 'number' then
+        exception('Invalid position for insertion (expected a number).')
+      end
 
-  contains = function(self, search_value)
-    return self:find(search_value) ~= -1
-  end,
+      local lastElementIndex = #self.values
+      position = position or (lastElementIndex + 1)
 
-  --
-  -- Returns the number of elements (length) in the list.
-  -- The # operator is used for efficiency.
-  --
+      if position > (lastElementIndex + 1) then
+        exception('Invalid position for insertion (the position is beyond the end of the list).')
+      end
 
-  length = function(self) return #self.values end
+      table.insert(self.values, position, value)
+    end,
+
+    --
+    -- Removes and returns the value at the specified position, or the last value if no position is
+    -- provided. An error is thrown if the position is invalid.
+    --
+    removeElementAt = function(self, position)
+      if position and not self.values[position] then
+        exception('List index out of bounds. Cannot remove a non-existent element.') 
+      end
+
+      return table.remove(self.values, position or #self.values)
+    end,
+
+    --
+    -- Searches the list for the given value and returns its index if found. We prevent searching
+    -- for `nil` values to avoid ambiguity and potential errors.
+    --
+    find = function(self, searchValue)
+      if type(searchValue) == 'nil' then
+        exception('Cannot search for a nil value in the list.') 
+      end
+
+      local valueCount = #self.values
+      for i = 1, valueCount do
+        if self.values[i] == searchValue then return i end
+      end
+
+      return -1
+    end,
+
+    --
+    -- Returns the number of elements in the list. The # operator is used for efficiency.
+    --
+    size = function(self) return #self.values end
+
+  } --[[@as List]]
 }
 
---#endregion
-
---#region [metatable: __list]
-
 --
--- This metatable associates list instances with the `list_controller`,
--- giving them the behavior defined in the controller.
+-- This is a factory function for creating new list objects, an ordered collection of elements,
+-- with optional initial values and support for 'weak' table behavior.
 --
-
-local __list            = { __index = list_controller }
-
---#endregion
-
---#region [function: list]
-
+--- @param values? unknown[] (optional) An array of initial values to populate the list.
+--- @param options? { weak: WeakTableOptions } (optional) Specifies whether the list's internal table should have weak keys ('k'), weak values ('v'), or both ('kv').
+---
+--- @return List "The newly created list object."
 --
--- Factory function to create new list objects. Optionally allows for
--- weak table behavior to manage memory and prevent potential leaks.
---
-
---- @type ListConstructor
-local function list(initial_values, options)
-  if initial_values and type(initial_values) ~= 'table' then
-    throw('Invalid initial values for the list. Expected a table (or nil).')
+_G.cogspinner.utilities.collections.list = function(values, options)
+  if values and type(values) ~= 'table' then
+    exception('Invalid argument type for "values". Expected an array (table) or nil.')
   end
 
-  if type(options) == 'table' and options.weak then
-    --#region: Optional weak table handling
+  if options and options.weak then
+    --| Enables "weak mode" for the list's internal table. In weak mode, certain entries
+    --| in the table can be automatically removed by the garbage collector if they are no
+    --| longer referenced elsewhere. This helps prevent memory leaks, especially when storing
+    --| objects or tables as values within the list. The 'options.weak' value determines
+    --| whether keys, values, or both are considered weak.
 
-    --| Handle optional 'weak' mode, which allows garbage collection of keys/values
-    --| that are no longer referenced elsewhere. This can be useful for preventing
-    --| memory leaks in certain scenarios.
+    local weakMode =
+        (options.weak == 'key' and 'k')
+        or (options.weak == 'value' and 'v')
+        or (options.weak == 'both' and 'kv')
+        or exception('Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
 
-    --#endregion
-
-    local weak = { key = 'k', value = 'v', both = 'kv' }
-
-    if not weak[options.weak] then
-      throw("Invalid weak mode option for list. Please specify 'key', 'value', or 'both'.")
-    end
-
-    initial_values = setmetatable(
-      initial_values or {}, { __mode = weak[options.weak] }
-    )
+    values = setmetatable(values or {}, { __mode = weakMode })
   end
 
-  return setmetatable({ values = initial_values or {} }, __list)
+  return setmetatable({ values = values or {} }, list)
 end
-
---#endregion
-
---
--- Export the `list` function to the framework context.
---
-
-core:export('collection/list', list)
