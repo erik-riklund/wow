@@ -7,8 +7,16 @@
 --              |___/    |_|                            
 
 --
+--- Specifies which parts of a table should be considered "weak" for garbage collection purposes.
+--- A weak reference allows the garbage collector to reclaim the associated object if the only
+--- references are within the table itself, preventing memory leaks.
+--- 
+--- @alias Table.WeakOptions 'key' | 'value' | 'both'
+--
+
+--
 --- Creates an immutable (read-only) proxy for a given table, 
 --- preventing modifications to its contents or nested tables.
 --
---- @alias ImmutableTable fun(target: table): table
+--- @alias Table.ImmutableProxy fun(target: table): table
 --

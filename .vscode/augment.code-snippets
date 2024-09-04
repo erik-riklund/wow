@@ -42,7 +42,7 @@
       "--              |___/    |_|                            ",
       "",
       "--- @type string, Context",
-      "local addonId, context = ..."
+      "local addon, ${1:framework} = ..."
     ],
 
     "prefix": "!template"
@@ -52,5 +52,6 @@
   "doc": { "body": [ "--", "-- ?", "--" ], "prefix": "!--" },
   "class": { "body": [ "--", "--- @class ${1}", "--" ], "prefix": "!class" },
   "alias": { "body": [ "--", "--- ?", "--", "--- @alias ${1}", "--" ], "prefix": "!alias" },
-  "separator": { "body": "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --", "prefix": "!separator" }
+  "separator": { "body": "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --", "prefix": "!separator" },
+  "import": { "body": "local ${1} = ${2:framework}:import('${3}') --[[@as ${4}]]", "prefix": "!import" }
 }

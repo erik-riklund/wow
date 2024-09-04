@@ -5,5 +5,15 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
 
--- print(cogspinner)
-print(type(cogspinner.createPlugin))
+--- @type string, table
+local addon, namespace = ...
+
+--
+-- ?
+--
+-- local plugin = cogspinner.createPlugin({ name = addon })
+
+--
+-- ?
+--
+

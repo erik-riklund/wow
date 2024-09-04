@@ -6,7 +6,7 @@
 --              |___/    |_|
 
 --- @type string, Context
-local addonId, context = ...
+local addon, framework = ...
 
 local exception        = _G.exception
 local setmetatable     = _G.setmetatable
@@ -124,4 +124,4 @@ end
 -- ?
 --
 
-context:export('collection/list', constructor)
+framework.export('collection/list', constructor)

@@ -1,5 +1,6 @@
 /*/
 *.min.lua
+*.zip
 
 !.vscode/
 

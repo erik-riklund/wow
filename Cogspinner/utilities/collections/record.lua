@@ -6,19 +6,19 @@
 --              |___/    |_|
 
 --- @type string, Context
-local addonId, context                     = ...
+local addon, framework = ...
 
-local exception                            = _G.exception
-local setmetatable                         = _G.setmetatable
-local tostring                             = _G.tostring
-local type                                 = _G.type
+local exception        = _G.exception
+local setmetatable     = _G.setmetatable
+local tostring         = _G.tostring
+local type             = _G.type
 
 --
 -- This metatable serves as the blueprint for creating record objects,
 -- which are similar to maps but with stricter key validation.
 --
 
-local record                               =
+local record           =
 {
   __index =
   {
@@ -76,7 +76,7 @@ local record                               =
 }
 
 --- @type RecordConstructor
-local constructor = function(entries, options)
+local constructor      = function(entries, options)
   if entries and type(entries) ~= 'table' then
     exception('Invalid argument type for "entries". Expected a table (or nil).')
   end
@@ -86,7 +86,7 @@ local constructor = function(entries, options)
     --~ in the table can be automatically removed by the garbage collector if they are no
     --~ longer referenced elsewhere. This helps prevent memory leaks, especially when
     --~ storing objects (tables) as keys or values within the record.
-    
+
     --~ The 'options.weak' value determines whether keys, values, or both are considered weak.
 
     local weakMode =
@@ -105,4 +105,4 @@ end
 -- ?
 --
 
-context:export('collection/record', constructor)
+framework.export('collection/record', constructor)

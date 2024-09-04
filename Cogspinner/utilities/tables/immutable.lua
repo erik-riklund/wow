@@ -6,15 +6,15 @@
 --              |___/    |_|
 
 --- @type string, Context
-local addonId, context = ...
+local addon, framework = ...
 
 local exception        = _G.exception
 local setmetatable     = _G.setmetatable
 local type             = _G.type
 
-local record           = context:import('collection/record') --[[@as RecordConstructor]]
+local record           = framework.import('collection/record') --[[@as RecordConstructor]]
 
---- @type ImmutableTable
+--- @type Table.ImmutableProxy
 local createImmutableProxy
 
 --
@@ -31,7 +31,7 @@ local proxyCache       = record(nil, { weak = 'value' })
 
 createImmutableProxy   = function(target)
   if type(target) ~= 'table' then
-    exception('Invalid argument type. Expected a table, recieved `%s`.', type(target)) 
+    exception('Invalid argument type. Expected a table, recieved `%s`.', type(target))
   end
 
   if not proxyCache:entryExists(target) then
@@ -58,4 +58,4 @@ end
 -- Export the function to the framework context.
 --
 
-context:export('table/immutable', createImmutableProxy)
+framework.export('table/immutable', createImmutableProxy)

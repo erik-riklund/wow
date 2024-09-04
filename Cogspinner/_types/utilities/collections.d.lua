@@ -15,16 +15,14 @@
 --- @field insert fun(self: List, value: unknown, position: number|nil) Inserts a `value` at the specified `position`, or at the end of the list if `position` is nil.
 --- @field removeElementAt fun(self: List, position: number|nil): unknown Removes and returns the element at the specified `position`, or the last element if `position` is nil.
 --- @field size fun(self: List): number Returns the number of elements in the list.
----
+--
 
 --
 -- Factory function for creating new list objects, an ordered collection of elements,
 -- with optional initial values and support for 'weak' table behavior.
 --
---- @alias ListConstructor fun(values?: unknown[], options?: { weak: WeakTableOptions }): List
+--- @alias ListConstructor fun(values?: unknown[], options?: { weak: Table.WeakOptions }): List
 --
-
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 --
 --- @class Record
@@ -40,7 +38,7 @@
 --- Factory function for creating new record objects. It allows optional initialization with existing
 --- key-value pairs and supports 'weak' table behavior for memory management in certain scenarios.
 --
---- @alias RecordConstructor fun(entries?: table<RecordKey, unknown>, options?: { weak: WeakTableOptions }): Record
+--- @alias RecordConstructor fun(entries?: table<RecordKey, unknown>, options?: { weak: Table.WeakOptions }): Record
 --
 
 --

@@ -1,4 +1,7 @@
 {
+  "files.exclude": {
+    "**/**.zip": true
+  },
   "Lua.diagnostics.disable": [
     "trailing-space",
     "empty-block"

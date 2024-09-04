@@ -1,11 +1,12 @@
 <Ui>
-  <Include file="utility/exception.lua"/>
-  <Include file="module/context.lua"/>
-  <Include file="utility/collection/list.lua"/>
-  <Include file="utility/collection/record.lua"/>
-  <Include file="utility/table/immutable.lua"/>
-  <Include file="module/plugin.lua"/>
+  <Include file="utilities/exception.lua"/>
+  <Include file="core/context.lua"/>
+
+  <Include file="utilities/collections/list.lua"/>
+  <Include file="utilities/collections/record.lua"/>
+  <Include file="utilities/tables/immutable.lua"/>
+
+  <Include file="modules/plugins.lua"/>
   
-  <Script file="api.lua"/>
   <Script file="garbage.lua"/>
 </Ui>

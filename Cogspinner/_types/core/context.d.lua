@@ -7,9 +7,8 @@
 --              |___/    |_|                            
 
 --
---- Specifies which parts of a table should be considered "weak" for garbage collection purposes.
---- A weak reference allows the garbage collector to reclaim the associated object if the only
---- references are within the table itself, preventing memory leaks.
+--- @class Context
 --- 
---- @alias WeakTableOptions 'key' | 'value' | 'both'
+--- @field import fun(identifier: string, owner: table|nil): unknown
+--- @field export fun(identifier: string, object: unknown, owner: table|nil)
 --
