@@ -7,26 +7,18 @@
 --              |___/    |_|
 
 --
---- @class Plugin : Context
+--- @class Plugin
 --- 
 --- @field name string
+--- @field onLoad fun(self: Plugin)
 --
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+--
+--- @class Plugin.CreationOptions
+--
 
 --
---- @class PluginManager
+--- Factory function that creates and registers new plugin contexts within the framework.
 --- 
---- @field plugins Record
---- @field createPlugin fun(self: PluginManager, options: PluginCreationOptions): Plugin
---- @field setupPluginContext fun(self: PluginManager, context: table): Plugin
---
-
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
---
---- @class PluginCreationOptions
---- 
---- @field name string
---- @field context? table
+--- @alias PluginConstructor fun(name: string, options: Plugin.CreationOptions|nil): Plugin
 --

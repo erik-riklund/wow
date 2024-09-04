@@ -6,7 +6,10 @@
   <Include file="utilities/collections/record.lua"/>
   <Include file="utilities/tables/immutable.lua"/>
 
+  <Include file="core/tasks.lua"/>
+  <Include file="core/callbacks.lua"/>
   <Include file="modules/plugins.lua"/>
+  <Include file="core/api.lua"/>
   
   <Script file="garbage.lua"/>
 </Ui>

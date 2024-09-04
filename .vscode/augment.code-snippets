@@ -53,5 +53,6 @@
   "class": { "body": [ "--", "--- @class ${1}", "--" ], "prefix": "!class" },
   "alias": { "body": [ "--", "--- ?", "--", "--- @alias ${1}", "--" ], "prefix": "!alias" },
   "separator": { "body": "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --", "prefix": "!separator" },
-  "import": { "body": "local ${1} = ${2:framework}:import('${3}') --[[@as ${4}]]", "prefix": "!import" }
+  "import": { "body": "local ${1} = ${2:framework}.import('${3}') --[[@as ${4}]]", "prefix": "!import" },
+  "export": { "body": "${1:framework}.export('${2}', ${3})", "prefix": "!export" }
 }

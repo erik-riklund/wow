@@ -11,9 +11,6 @@ local addon, namespace = ...
 --
 -- ?
 --
--- local plugin = cogspinner.createPlugin({ name = addon })
+local plugin = cogspinner.createPlugin(addon)
 
---
--- ?
---
-
+print(plugin.name)
