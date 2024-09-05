@@ -21,7 +21,7 @@
 -- Factory function for creating new list objects, an ordered collection of elements,
 -- with optional initial values and support for 'weak' table behavior.
 --
---- @alias ListConstructor fun(values?: unknown[], options?: { weak: Table.WeakOptions }): List
+--- @alias ListConstructor fun(values?: unknown[], options?: { weak: WeakTableOptions }): List
 --
 
 --
@@ -38,7 +38,7 @@
 --- Factory function for creating new record objects. It allows optional initialization with existing
 --- key-value pairs and supports 'weak' table behavior for memory management in certain scenarios.
 --
---- @alias RecordConstructor fun(entries?: table<RecordKey, unknown>, options?: { weak: Table.WeakOptions }): Record
+--- @alias RecordConstructor fun(entries?: table<RecordKey, unknown>, options?: { weak: WeakTableOptions }): Record
 --
 
 --

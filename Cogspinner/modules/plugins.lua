@@ -12,7 +12,7 @@ local exception            = _G.exception
 local type                 = _G.type
 
 local createRecord         = framework.import('collection/record') --[[@as RecordConstructor]]
-local createImmutableProxy = framework.import('table/immutable') --[[@as Table.ImmutableProxy]]
+local createImmutableProxy = framework.import('table/immutable') --[[@as ImmutableTableProxy]]
 
 --
 -- A record to store registered plugins, ensuring uniqueness and efficient lookup by name.

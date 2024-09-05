@@ -8,14 +8,13 @@
 --- @type string, Context
 local addon, framework = ...
 
+local createImmutableProxy
+
 local exception        = _G.exception
 local setmetatable     = _G.setmetatable
 local type             = _G.type
 
 local record           = framework.import('collection/record') --[[@as RecordConstructor]]
-
---- @type Table.ImmutableProxy
-local createImmutableProxy
 
 --
 -- Stores immutable proxies for processed tables, using weak values to allow the garbage
@@ -29,6 +28,7 @@ local proxyCache       = record(nil, { weak = 'value' })
 -- redundant proxy creation and enhancing performance.
 --
 
+--- @type ImmutableTableProxy
 createImmutableProxy   = function(target)
   if type(target) ~= 'table' then
     exception('Invalid argument type. Expected a table, recieved `%s`.', type(target))

@@ -7,7 +7,18 @@
 --              |___/    |_|                            
 
 --
---- ?
+--- Represents a unit of work to be executed in the background. 
+--- It encapsulates a callback function and its associated arguments.
 --- 
---- @alias TaskHandler fun(callback: function, ...: unknown)
+--- @class BackgroundTask
+--- 
+--- @field callback function The function to be executed when the task is processed.
+--- @field arguments unknown[] The arguments to be passed to the callback function.
+--
+
+--
+--- A function that queues a task for background execution. The task will be processed
+--- by a coroutine to avoid blocking the main thread.
+--- 
+--- @alias BackgroundTaskHandler fun(callback: function, arguments: unknown[]|nil)
 --

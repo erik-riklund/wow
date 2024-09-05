@@ -10,15 +10,14 @@
 --- @class Plugin
 --- 
 --- @field name string
---- @field onLoad fun(self: Plugin)
 --
 
 --
---- @class Plugin.CreationOptions
+--- @class PluginCreationOptions
 --
 
 --
 --- Factory function that creates and registers new plugin contexts within the framework.
 --- 
---- @alias PluginConstructor fun(name: string, options: Plugin.CreationOptions|nil): Plugin
+--- @alias PluginConstructor fun(name: string, options: PluginCreationOptions|nil): Plugin
 --

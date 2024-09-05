@@ -1,24 +1,23 @@
 --- @meta
---    ____                      _                       
---   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--    ____                      _
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
---  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
---   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
---              |___/    |_|                            
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
+--              |___/    |_|
 
 --
---- @class Callback
+--- Encapsulates options for controlling the execution of a callback function,
+--- including arguments to pass and whether to execute asynchronously.
+---
+--- @class CallbackOptions
+---
+--- @field arguments? unknown[] (optional) An array of arguments to be passed to the callback function.
+--- @field async? boolean (optional) Determines if the callback will be executed as a background task (asynchronously) or immediately (default: true).
 --
 
 --
---- @class Callback.Options
+--- A function that executes a callback, in a synchronous or asynchronous manner and with provided arguments.
 --- 
---- @field arguments? unknown[]
---- @field async? boolean
---
-
---
---- ?
---
---- @alias CallbackHandler fun(callback: function, options: Callback.Options|nil)
+--- @alias CallbackHandler fun(callback: function, options: CallbackOptions|nil)
 --

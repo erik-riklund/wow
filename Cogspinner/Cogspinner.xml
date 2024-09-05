@@ -8,6 +8,7 @@
 
   <Include file="core/tasks.lua"/>
   <Include file="core/callbacks.lua"/>
+  <Include file="modules/network.lua"/>
   <Include file="modules/plugins.lua"/>
   <Include file="core/api.lua"/>
   
