@@ -8,4 +8,9 @@
 --- @type string, Context
 local addon, framework = ...
 
+local network = framework.import('module/network') --[[@as Network]]
+
+--
+-- ?
+--
 
