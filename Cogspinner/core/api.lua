@@ -21,8 +21,8 @@ _G.cogspinner              = createImmutableProxy(
     --
     -- ?
     --
-    createPlugin = function(name)
-      return createPlugin(name)
+    createPlugin = function(name, options)
+      return createPlugin(name, options)
     end,
 
   } --[[@as API]]

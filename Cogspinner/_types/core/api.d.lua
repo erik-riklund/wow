@@ -9,5 +9,5 @@
 --
 --- @class API
 --- 
---- @field createPlugin fun(name: string): Plugin
+--- @field createPlugin fun(name: string, options?: PluginOptions): Plugin
 --

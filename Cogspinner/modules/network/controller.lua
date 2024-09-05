@@ -7,85 +7,114 @@
 
 --- @type string, Context
 local addon, framework      = ...
-
 local exception             = _G.exception
-local type                  = _G.type
 
 local createListenerManager = framework.import('shared/listeners') --[[@as ListenerManagerConstructor]]
 local createRecord          = framework.import('collection/record') --[[@as RecordConstructor]]
 local mergeTables           = framework.import('table/merge') --[[@as TableMerger]]
 
 --
--- ?
+-- Manages communication channels and their listeners, allowing
+-- for controlled message broadcasting and subscription.
 --
-
 local channels              = createRecord()
 
 --
--- ?
+-- Factory function for creating a new communication channel.
 --
---- @param options Channel
+--- @param name string The unique name of the channel.
+--- @param options ChannelOptions Configuration options for the channel.
 --
-local createChannel         = function(options)
-  return mergeTables(createListenerManager(), options)
+local createChannel         = function(name, options)
+  return mergeTables(createListenerManager(), { name = name }, options)
 end
 
 --
--- ?
+-- Acts as a central controller for network communication, handling channel
+-- reservation, listener registration, and message transmission.
 --
-
 --- @type Network
+--
 local controller            =
 {
   --
-  -- ?
+  -- Reserves a unique channel and initializes its listener list.
   --
-
-  reserveChannel = function(options)
-    --~ ?
-
-    if channels:entryExists(options.name) then
-      exception('?')
+  reserveChannel = function(name, options)
+    if channels:entryExists(name) then
+      exception('Channel reservation failed, "%s" already exists.', name)
     end
 
-    --~ ?
-
-    channels:set(options.name, createChannel(options))
+    channels:set(name, createChannel(name, options))
   end,
 
   --
-  -- ?
+  -- Registers a listener to a specific channel, enforcing
+  -- access control for internal channels.
   --
+  registerListener = function(channel, listener)
+    if not channels:entryExists(channel) then
+      exception('Listener registration failed, the channel "%s" does not exist.', channel)
+    end
 
-  registerListener = function(listener) end,
+    channel = channels:get(channel) --[[@as Channel]]
+
+    if channel.internal and channel.owner ~= listener.owner then
+      exception('Listener registration failed, the channel "%s" is protected.', channel.name)
+    end
+
+    channel:registerListener(listener)
+  end,
 
   --
-  -- ?
+  -- Removes a listener from a channel, ensuring the listener exists
+  -- and the caller has permission to remove it.
   --
+  removeListener = function(channel, identifier, context)
+    if not channels:entryExists(channel) then
+      exception('Listener removal failed, the channel "%s" does not exist.', channel)
+    end
 
-  removeListener = function(identifier, owner) end,
+    channel = channels:get(channel) --[[@as Channel]]
+    local listener = channel:retrieveListener(identifier) --[[@as NetworkListener]]
+
+    if not listener then
+      exception('Listener removal failed, could not find listener "%s" on channel "%s".', identifier, channel.name)
+    end
+
+    if listener.owner ~= context then
+      exception('Listener removal failed, listener "%s" belong to a different context.', identifier)
+    end
+
+    channel:removeListener(identifier)
+  end,
 
   --
-  -- ?
+  -- Triggers all listeners registered to a specific channel, passing them the provided arguments,
+  -- while also ensuring the channel exists and the caller is authorized to trigger it.
   --
+  triggerChannel = function(channel, arguments, context)
+    if not channels:entryExists(channel) then
+      exception('Channel trigger failed, the channel "%s" does not exist.', channel)
+    end
 
-  transmit = function(content) end
+    channel = channels:get(channel) --[[@as Channel]]
+
+    if channel.owner ~= context then
+      exception('Channel trigger failed: Plugin "%s" is not authorized to trigger channel "%s".', context.name, channel.name)
+    end
+
+    channel:invokeListeners(arguments, channel.async)
+  end
 }
 
 --
--- ?
+-- Reserves the 'PLUGIN_ADDED' channel for exclusive use by the framework
+-- to notify other parts of the system when a new plugin is created.
 --
-
-controller.reserveChannel(
-  {
-    async = false,
-    internal = true,
-
-    name = 'PLUGIN_ADDED'
-  }
-)
+controller.reserveChannel('PLUGIN_ADDED', { async = false, internal = true })
 
 --
--- ?
+-- Expose the network controller to other framework modules.
 --
 framework.export('module/network', controller)

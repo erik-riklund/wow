@@ -13,6 +13,7 @@ local type                 = _G.type
 
 local createRecord         = framework.import('collection/record') --[[@as RecordConstructor]]
 local createImmutableProxy = framework.import('table/immutable') --[[@as ImmutableTableProxy]]
+local network              = framework.import('module/network') --[[@as Network]]
 
 --
 -- A record to store registered plugins, ensuring uniqueness and efficient lookup by name.
@@ -46,7 +47,7 @@ local createPlugin         = function(name, options)
   local pluginContext = { name = name }
   plugins:set(name, pluginContext)
 
-  -- todo: integrate the API for each module as we complete them.
+  network.triggerChannel('PLUGIN_ADDED', { pluginContext, options })
 
   --~ We return the plugin context wrapped in an immutable
   --~ proxy to prevent accidental modification.

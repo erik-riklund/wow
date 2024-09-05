@@ -7,17 +7,19 @@
 --              |___/    |_|
 
 --
---- @class Plugin
+--- @class Plugin : NetworkApi
 --- 
 --- @field name string
 --
 
 --
---- @class PluginCreationOptions
+--- @class PluginOptions
+--- 
+--- @field channels? ChannelReservation[]
 --
 
 --
 --- Factory function that creates and registers new plugin contexts within the framework.
 --- 
---- @alias PluginConstructor fun(name: string, options: PluginCreationOptions|nil): Plugin
+--- @alias PluginConstructor fun(name: string, options?: PluginOptions): Plugin
 --

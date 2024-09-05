@@ -7,17 +7,15 @@
 --              |___/    |_|
 
 --
---- Encapsulates options for controlling the execution of a callback function,
---- including arguments to pass and whether to execute asynchronously.
+--- Encapsulates options for controlling the execution of a callback function.
 ---
 --- @class CallbackOptions
 ---
---- @field arguments? unknown[] (optional) An array of arguments to be passed to the callback function.
---- @field async? boolean (optional) Determines if the callback will be executed as a background task (asynchronously) or immediately (default: true).
+--- @field async boolean Determines if the callback will be executed as a background task (asynchronously) or immediately (default: true).
 --
 
 --
 --- A function that executes a callback, in a synchronous or asynchronous manner and with provided arguments.
 --- 
---- @alias CallbackHandler fun(callback: function, options: CallbackOptions|nil)
+--- @alias CallbackHandler fun(callback: function, arguments?: unknown[], options?: CallbackOptions)
 --

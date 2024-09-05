@@ -16,7 +16,7 @@
 --- @field registerListener fun(self: ListenerManager, listener: Listener) Registers a new listener, ensuring its validity and adding it to the list.
 --- @field retrieveListener fun(self: ListenerManager, identifier: string): Listener?  Retrieves a listener by its unique identifier, useful for targeted operations.
 --- @field removeListener fun(self: ListenerManager, identifier: string) Removes a listener based on its identifier, allowing for dynamic management of subscriptions.
---- @field invokeListeners fun(self: ListenerManager, arguments: unknown[]|nil, async: boolean|nil)  Triggers all registered listeners, passing arguments and optionally executing callbacks asynchronously.
+--- @field invokeListeners fun(self: ListenerManager, arguments?: unknown[], async?: boolean)  Triggers all registered listeners, passing arguments and optionally executing callbacks asynchronously.
 --
 
 --

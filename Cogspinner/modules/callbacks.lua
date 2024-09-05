@@ -21,7 +21,7 @@ local registerBackgroundTask = framework.import('core/tasks') --[[@as Background
 --
 --- @type CallbackHandler
 --
-local executeCallback        = function(callback, options)
+local executeCallback        = function(callback, arguments, options)
   options = options or {}
 
   --~ We ensure that the provided callback and options (if provided) are valid.
@@ -34,8 +34,8 @@ local executeCallback        = function(callback, options)
     exception('Invalid argument type for "options". Expected a table (or nil).')
   end
 
-  if options.arguments and type(options.arguments) ~= 'table' then
-    exception('Invalid argument type for "options.arguments". Expected a table (or nil).')
+  if arguments and type(arguments) ~= 'table' then
+    exception('Invalid argument type for "arguments". Expected a table (or nil).')
   end
 
   if type(options.async) ~= 'nil' then
@@ -50,7 +50,7 @@ local executeCallback        = function(callback, options)
   --~ from impacting the main thread, causing UI freezes or performance issues.
 
   if options.async == nil or options.async == true then
-    registerBackgroundTask(callback, options.arguments)
+    registerBackgroundTask(callback, arguments)
   end
 
   --~ Synchronous execution
@@ -58,7 +58,7 @@ local executeCallback        = function(callback, options)
   --~ thread. This is useful for short, non-blocking operations or when immediate results are required.
 
   if options.async == false then
-    local success, result = pcall(callback, unpack(options.arguments or {}))
+    local success, result = pcall(callback, unpack(arguments or {}))
 
     if not success then
       -- todo: how do we want to handle error reporting?

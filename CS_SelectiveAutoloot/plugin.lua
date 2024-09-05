@@ -12,3 +12,8 @@ local addon, namespace = ...
 -- ?
 --
 local plugin = cogspinner.createPlugin(addon)
+
+--
+-- ?
+--
+plugin:triggerChannel('JUST_TESTING')

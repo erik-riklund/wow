@@ -55,6 +55,7 @@
     "includes",
     "Event",
     "ReloadUI",
-    "UIDropDownMenu_SetAnchor"
+    "UIDropDownMenu_SetAnchor",
+    "ID"
   ]
 }

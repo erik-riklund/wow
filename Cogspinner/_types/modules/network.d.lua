@@ -9,19 +9,32 @@
 --
 --- @class Network
 --- 
---- @field reserveChannel fun(options: Channel)
---- @field registerListener fun(listener: NetworkListener)
---- @field removeListener fun(identifier: string, owner: Plugin|nil)
---- @field transmit fun(content: NetworkTransmission)
+--- @field reserveChannel fun(name: string, options?: ChannelOptions)
+--- @field registerListener fun(channel: string, listener: NetworkListener)
+--- @field removeListener fun(channel: string, identifier: string, context?: Plugin)
+--- @field triggerChannel fun(channel: string, arguments?: unknown[], context?: Plugin)
 --
 
 --
---- @class Channel
+--- @class NetworkApi
 --- 
---- @field name string
+--- @field registerChannelListener fun(self: Plugin, channel: string, listener: NetworkListener)
+--- @field removeChannelListener fun(self: Plugin, channel: string, identifier: string)
+--- @field triggerChannel fun(self: Plugin, channel: string, arguments?: unknown[])
+--
+
+--
+--- @class ChannelOptions
+--- 
 --- @field owner? Plugin
 --- @field internal? boolean
 --- @field async? boolean
+--
+
+--
+--- @class Channel : ChannelOptions, ListenerManager
+--- 
+--- @field name string
 --
 
 --
@@ -31,9 +44,9 @@
 --
 
 --
---- @class NetworkTransmission
+--- @class ChannelReservation
 --- 
---- @field channel string
---- @field sender? Plugin
---- @field payload? unknown
+--- @field name string
+--- @field internal? boolean
+--- @field async? boolean
 --

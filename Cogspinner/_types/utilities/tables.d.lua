@@ -15,14 +15,14 @@
 --
 
 --
---- Creates an immutable (read-only) proxy for a given table,
---- preventing modifications to its contents or nested tables.
+--- Creates an immutable (read-only) proxy for a given table, preventing modifications
+--- to its contents (including nested tables).
 --
 --- @alias ImmutableTableProxy fun(target: table): table
 --
 
 --
---- ?
+--- Merges multiple tables into a single table, with later tables overriding values in earlier tables.
 --
 --- @alias TableMerger fun(base: table, extension: table, ...: table): table
 --

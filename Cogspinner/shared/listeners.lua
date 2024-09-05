@@ -105,9 +105,7 @@ local manager               =
     for index, listener in ipairs(self.listeners.values) do
       --- @cast listener Listener
 
-      executeCallback(
-        listener.callback, { arguments = arguments, async = async }
-      )
+      executeCallback(listener.callback, arguments, { async = async })
 
       if listener.recurring == false then
         oneTimeListeners:insert(index)
@@ -135,7 +133,7 @@ local createListenerManager = function()
 end
 
 --
--- Exports the factory function, allowing other modules to create 
+-- Exports the factory function, allowing other modules to create
 -- and manage their own sets of event listeners.
 --
 framework.export('shared/listeners', createListenerManager)

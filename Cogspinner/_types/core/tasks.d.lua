@@ -20,5 +20,5 @@
 --- A function that queues a task for background execution. The task will be processed
 --- by a coroutine to avoid blocking the main thread.
 --- 
---- @alias BackgroundTaskHandler fun(callback: function, arguments: unknown[]|nil)
+--- @alias BackgroundTaskHandler fun(callback: function, arguments?: unknown[])
 --
