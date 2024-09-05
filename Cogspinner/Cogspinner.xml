@@ -5,10 +5,14 @@
   <Include file="utilities/collections/list.lua"/>
   <Include file="utilities/collections/record.lua"/>
   <Include file="utilities/tables/immutable.lua"/>
+  <Include file="utilities/tables/merge.lua"/>
 
   <Include file="core/tasks.lua"/>
-  <Include file="core/callbacks.lua"/>
-  <Include file="modules/network.lua"/>
+  <Include file="modules/callbacks.lua"/>
+  <Include file="shared/listeners.lua"/>
+
+  <Include file="modules/network/controller.lua"/>
+  <Include file="modules/network/plugin-api.lua"/>
   <Include file="modules/plugins.lua"/>
   <Include file="core/api.lua"/>
   

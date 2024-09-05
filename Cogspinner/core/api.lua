@@ -9,7 +9,7 @@
 local addon, framework     = ...
 
 local createPlugin         = framework.import('module/plugin') --[[@as PluginConstructor]]
-local createImmutableProxy = framework.import('table/immutable') --[[@as Table.ImmutableProxy]]
+local createImmutableProxy = framework.import('table/immutable') --[[@as ImmutableTableProxy]]
 
 --
 -- ?
@@ -23,7 +23,7 @@ _G.cogspinner              = createImmutableProxy(
     --
     createPlugin = function(name)
       return createPlugin(name)
-    end
+    end,
 
   } --[[@as API]]
 )

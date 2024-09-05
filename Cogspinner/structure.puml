@@ -1,0 +1,41 @@
+@startuml Cogspinner
+
+skinparam ClassFontSize 12pt
+skinparam ClassFontName Consolas
+skinparam ComponentBackgroundColor GhostWhite
+skinparam ComponentBorderColor #565656
+skinparam ComponentFontStyle normal
+skinparam ComponentFontSize 12pt
+skinparam ComponentFontName Consolas
+skinparam ComponentStereotypeFontName Consolas
+skinparam ComponentStereotypeFontSize 10pt
+skinparam ComponentStereotypeFontColor #515151
+skinparam InterfaceBackgroundColor Orange
+skinparam NoteFontName Franklin Gothic Medium
+skinparam NoteFontSize 12pt
+skinparam NoteFontColor black
+skinparam NoteBackgroundColor #FEFFDD
+skinparam NoteBorderColor #96968D
+skinparam ArrowFontName Consolas
+skinparam ArrowFontSize 10pt
+
+component "framework" as Framework <<API>>
+component "plugin manager" as PluginManager <<module>>
+component "plugin" as Plugin <<API>>
+
+Framework .> PluginManager : <<expose>>
+PluginManager -> Plugin : <<create>>
+
+component "network controller" as Network <<module>>
+
+PluginManager -down-> Network : <<use>>
+Plugin .> Network : <<expose>>
+
+component "callback handler" as CallbackHandler <<module>>
+component "background tasks" as BackgroundTaskHandler <<core module>>
+
+Framework .up.> CallbackHandler : <<expose>>
+Network -> CallbackHandler : <<use>>
+CallbackHandler -> BackgroundTaskHandler : <<use>>
+
+@enduml

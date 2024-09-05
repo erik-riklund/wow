@@ -13,7 +13,7 @@ local pcall                  = _G.pcall
 local type                   = _G.type
 local unpack                 = _G.unpack
 
-local registerBackgroundTask = framework.import('core/task') --[[@as BackgroundTaskHandler]]
+local registerBackgroundTask = framework.import('core/tasks') --[[@as BackgroundTaskHandler]]
 
 --
 -- This function executes a callback function, either synchronously or asynchronously,
@@ -70,4 +70,4 @@ end
 -- Exports the callback handler, allowing other modules to execute
 -- callbacks in a controlled and flexible manner.
 --
-framework.export('core/callback', executeCallback)
+framework.export('module/callbacks', executeCallback)

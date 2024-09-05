@@ -96,4 +96,4 @@ end
 --
 -- Exports the task registration function, exposing it to other framework modules.
 --
-framework.export('core/task', registerBackgroundTask)
+framework.export('core/tasks', registerBackgroundTask)
