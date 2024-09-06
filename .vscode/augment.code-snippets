@@ -42,7 +42,9 @@
       "--              |___/    |_|                            ",
       "",
       "--- @type string, Context",
-      "local addon, ${1:framework} = ..."
+      "local addon, ${1:framework} = ...",
+      "local exception = _G.exception",
+      "local type  = _G.type"
     ],
 
     "prefix": "!template"

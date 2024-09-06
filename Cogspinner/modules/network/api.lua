@@ -17,7 +17,7 @@ local network          = framework.import('module/network') --[[@as Network]]
 --
 --- @type NetworkApi
 --
-local networkApi       =
+local api              =
 {
   --
   -- Registers a listener function to the specified channel for the plugin,
@@ -58,9 +58,9 @@ network.registerListener(
     callback = function(plugin, options)
       --~ Integrate the network API into the new plugin's context.
 
-      plugin.triggerChannel = networkApi.triggerChannel
-      plugin.registerChannelListener = networkApi.registerChannelListener
-      plugin.removeChannelListener = networkApi.removeChannelListener
+      plugin.triggerChannel          = api.triggerChannel
+      plugin.registerChannelListener = api.registerChannelListener
+      plugin.removeChannelListener   = api.removeChannelListener
 
       --~ If the plugin has defined channels in its options, reserve them.
 

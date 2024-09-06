@@ -16,3 +16,8 @@ local plugin = cogspinner.createPlugin(addon)
 --
 -- ?
 --
+plugin:onInitialize(
+  function()
+    print('Hello world')
+  end
+)

@@ -7,7 +7,7 @@
 --              |___/    |_|
 
 --
---- @class Plugin : NetworkApi
+--- @class Plugin : NetworkApi, EventHandlerApi
 --- 
 --- @field name string
 --
