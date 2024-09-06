@@ -6,19 +6,39 @@
 --              |___/    |_|
 
 --- @type string, Context
-local addon, framework       = ...
+local addon, framework = ...
 
 local controller
-local coroutine              = _G.coroutine
+local coroutine        = _G.coroutine
+local createFrame      = _G.CreateFrame
 
-local setTimer               = C_Timer.After
-local createList             = framework.import('collection/list') --[[@as ListConstructor]]
+local createList       = framework.import('collection/list') --[[@as ListConstructor]]
 
 --
 -- Provides a task queue with a coroutine-based task processor to
 -- execute tasks in the background without impacting frame rate.
 --
-local tasks                  = createList()
+local tasks            = createList()
+
+--
+-- An invisible frame used to trigger the `OnUpdate` script, which in turn
+-- manages the execution of the background task coroutine.
+--
+local manager          = createFrame('Frame', 'CogspinnerBackgroundTasks')
+
+--
+-- Sets up the `OnUpdate` script for the manager. This script checks if there are
+-- pending tasks and resumes the task processing coroutine if it's suspended.
+--
+manager:SetScript('OnUpdate',
+  function()
+    if tasks:size() > 0 then
+      if coroutine.status(controller) == 'suspended' then
+        coroutine.resume(controller)
+      end
+    end
+  end
+)
 
 --
 -- The coroutine that will process tasks from the queue. It yields
@@ -51,19 +71,6 @@ controller                   = coroutine.create(
         end
       end
 
-      if tasks:size() > 0 then
-        --~ Schedule a timer to resume the coroutine when there are more
-        --~ tasks to process, ensuring we don't block the main thread.
-
-        setTimer(
-          frameLimit * 0.1,
-
-          function()
-            coroutine.resume(controller)
-          end
-        )
-      end
-
       coroutine.yield()
     end
   end
@@ -80,17 +87,7 @@ local registerBackgroundTask = function(callback, arguments)
     exception('Invalid argument type for "callback". Expected a function.')
   end
 
-  tasks:insert(
-    {
-      callback = callback,
-      arguments = arguments or {}
-
-    } --[[@as BackgroundTask]]
-  )
-
-  if coroutine.status(controller) == 'suspended' then
-    coroutine.resume(controller)
-  end
+  tasks:insert({ callback = callback, arguments = arguments or {} } --[[@as BackgroundTask]])
 end
 
 --
