@@ -12,7 +12,7 @@
   <Include file="shared/listeners.lua"/>
 
   <Include file="modules/network/controller.lua"/>
-  <Include file="modules/network/plugin-api.lua"/>
+  <Include file="modules/network/api.lua"/>
   <Include file="modules/plugins.lua"/>
   <Include file="core/api.lua"/>
   

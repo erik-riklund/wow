@@ -9,24 +9,23 @@
 --
 --- @class Network
 --- 
---- @field reserveChannel fun(name: string, options?: ChannelOptions)
---- @field registerListener fun(channel: string, listener: NetworkListener)
---- @field removeListener fun(channel: string, identifier: string, context?: Plugin)
---- @field triggerChannel fun(channel: string, arguments?: unknown[], context?: Plugin)
+--- @field reserveChannel fun(name: string, options?: ChannelOptions, context?: string)
+--- @field registerListener fun(channel: string, listener: Listener, context?: string)
+--- @field removeListener fun(channel: string, identifier: string, context?: string)
+--- @field triggerChannel fun(channel: string, arguments?: unknown[], context?: string)
 --
 
 --
 --- @class NetworkApi
 --- 
---- @field registerChannelListener fun(self: Plugin, channel: string, listener: NetworkListener)
---- @field removeChannelListener fun(self: Plugin, channel: string, identifier: string)
---- @field triggerChannel fun(self: Plugin, channel: string, arguments?: unknown[])
+--- @field registerChannelListener fun(self: Plugin, channel: string, listener: Listener) Registers a listener function to the specified channel, allowing it to receive messages broadcast on that channel.
+--- @field removeChannelListener fun(self: Plugin, channel: string, identifier: string) Unregisters a listener from a specific channel using its unique identifier.
+--- @field triggerChannel fun(self: Plugin, channel: string, arguments?: unknown[]) Broadcasts a message on the specified channel, invoking all registered listeners with the provided arguments.
 --
 
 --
 --- @class ChannelOptions
 --- 
---- @field owner? Plugin
 --- @field internal? boolean
 --- @field async? boolean
 --
@@ -35,12 +34,13 @@
 --- @class Channel : ChannelOptions, ListenerManager
 --- 
 --- @field name string
+--- @field owner? string
 --
 
 --
 --- @class NetworkListener : Listener
 --- 
---- @field owner? Plugin
+--- @field owner? string
 --
 
 --
