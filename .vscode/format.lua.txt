@@ -1,0 +1,13 @@
+# Lua formatter
+
+indent_width: 2
+continuation_indent_width: 2
+column_limit: 100
+
+align_args: false
+chop_down_parameter: true
+spaces_inside_table_braces: true
+break_after_operator: false
+
+keep_simple_function_one_line: false
+keep_simple_control_block_one_line: false

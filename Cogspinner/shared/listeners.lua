@@ -4,16 +4,16 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
-local addon, framework      = ...
+local addon, framework = ...
 
-local exception             = _G.exception
-local type                  = _G.type
+local exception = _G.exception
+local type = _G.type
 
-local createList            = framework.import('collection/list') --[[@as ListConstructor]]
-local executeCallback       = framework.import('module/callbacks') --[[@as CallbackHandler]]
-local mergeTables           = framework.import('table/merge') --[[@as TableMerger]]
+local createList = framework.import('collection/list') --[[@as ListConstructor]]
+local executeCallback = framework.import('module/callbacks') --[[@as CallbackHandler]]
+local mergeTables = framework.import('table/merge') --[[@as TableMerger]]
 
 --
 -- Manages a collection of event listeners, providing methods for registration,
@@ -21,15 +21,14 @@ local mergeTables           = framework.import('table/merge') --[[@as TableMerge
 --
 
 --- @type ListenerManager
-local manager               =
-{
+local manager = {
   --
   -- Registers an event listener, validating its structure and adding it to the list
   --
 
   registerListener = function(self, listener)
-    --~ We validate the listener object's structure and types to ensure
-    --~ it adheres to the expected format and avoid runtime errors.
+    -- ~ We validate the listener object's structure and types to ensure
+    -- ~ it adheres to the expected format and avoid runtime errors.
 
     if type(listener) ~= 'table' then
       exception('Invalid listener argument. Expected a table representing a listener object.')
@@ -49,7 +48,7 @@ local manager               =
       end
     end
 
-    --~ Add the validated listener to the list.
+    -- ~ Add the validated listener to the list.
 
     self.listeners:insert(listener)
   end,
@@ -67,7 +66,9 @@ local manager               =
     for index, listener in ipairs(self.listeners.values) do
       --- @cast listener Listener
 
-      if listener.identifier == identifier then return listener end
+      if listener.identifier == identifier then
+        return listener
+      end
     end
   end,
 

@@ -4,24 +4,24 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
 local createImmutableProxy
 
-local exception        = _G.exception
-local setmetatable     = _G.setmetatable
-local type             = _G.type
+local exception = _G.exception
+local setmetatable = _G.setmetatable
+local type = _G.type
 
-local record           = framework.import('collection/record') --[[@as RecordConstructor]]
+local record = framework.import('collection/record') --[[@as RecordConstructor]]
 
 --
 -- Stores immutable proxies for processed tables, using weak values to allow the garbage
 -- collector to reclaim unreferenced proxies, thereby preventing potential memory leaks.
 --
 
-local proxyCache       = record(nil, { weak = 'value' })
+local proxyCache = record(nil, { weak = 'value' })
 
 --
 -- Creates and caches a read-only proxy for a table, eliminating
@@ -29,14 +29,13 @@ local proxyCache       = record(nil, { weak = 'value' })
 --
 
 --- @type ImmutableTableProxy
-createImmutableProxy   = function(target)
+createImmutableProxy = function(target)
   if type(target) ~= 'table' then
     exception('Invalid argument type. Expected a table, recieved `%s`.', type(target))
   end
 
   if not proxyCache:entryExists(target) then
-    local proxy =
-    {
+    local proxy = {
       __newindex = function()
         exception('Attempt to modify a read-only table.')
       end,

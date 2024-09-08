@@ -4,28 +4,24 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
-local events           = framework.import('module/events') --[[@as EventHandler]]
-local network          = framework.import('module/network') --[[@as Network]]
+local events = framework.import('module/events') --[[@as EventHandler]]
+local network = framework.import('module/network') --[[@as Network]]
 
 --
 -- Provides methods for plugins to interact with events.
 --
 --- @type EventHandlerApi
 --
-local api              =
-{
+local api = {
   --
   -- Registers a callback function to be executed once when the addon is fully loaded.
   --
   onInitialize = function(self, callback)
-    events.registerListener(
-      'ADDON_LOADED:' .. self.name,
-      { callback = callback, recurring = false }
-    )
+    events.registerListener('ADDON_LOADED:' .. self.name, { callback = callback, recurring = false })
   end,
 
   --
@@ -34,7 +30,8 @@ local api              =
   --
   registerEventListener = function(self, event, listener)
     if event == 'ADDON_LOADED' then
-      exception('Cannot register listeners for "ADDON_LOADED" using this method, use `onInitialize` instead.')
+      exception(
+        'Cannot register listeners for "ADDON_LOADED" using this method, use `onInitialize` instead.')
     end
 
     events.registerListener(event, listener, self.name)
@@ -51,16 +48,13 @@ local api              =
 --
 -- Integrates the events API into plugins during their creation.
 --
-network.registerListener(
-  'PLUGIN_ADDED',
-  {
-    --- @param plugin Plugin
-    callback = function(plugin)
-      --~ Injects the event API methods into the plugin.
+network.registerListener('PLUGIN_ADDED', {
+  --- @param plugin Plugin
+  callback = function(plugin)
+    -- ~ Injects the event API methods into the plugin.
 
-      plugin.onInitialize          = api.onInitialize
-      plugin.registerEventListener = api.registerEventListener
-      plugin.removeEventListener   = api.removeEventListener
-    end
-  }
-)
+    plugin.onInitialize = api.onInitialize
+    plugin.registerEventListener = api.registerEventListener
+    plugin.removeEventListener = api.removeEventListener
+  end
+})

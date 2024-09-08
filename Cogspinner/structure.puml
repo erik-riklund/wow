@@ -20,25 +20,25 @@ skinparam ArrowFontName Consolas
 skinparam ArrowFontSize 10pt
 
 component "framework" as Framework <<API>>
-component "plugins" as PluginManager <<module>>
+component "plugins" as PluginManager <<manager>>
 component "plugin" as Plugin <<object>>
 
 Framework .> PluginManager : <<expose>>
 PluginManager -> Plugin : <<create>>
 
-component "channels" as Network <<module>>
+component "network" as Network <<controller>>
 
 PluginManager --> Network : <<use>>
 Plugin -> Network : <<use>>
 
-component "callbacks" as CallbackHandler <<module>>
-component "background tasks" as BackgroundTaskHandler <<core module>>
+component "callback" as CallbackHandler <<handler>>
+component "background task" as BackgroundTaskHandler <<handler>>
 
 Framework ..> CallbackHandler : <<expose>>
 Network --> CallbackHandler : <<use>>
 CallbackHandler -> BackgroundTaskHandler : <<use>>
 
-component "events" as EventHandler <<module>>
+component "event" as EventHandler <<handler>>
 
 Plugin -> EventHandler : <<use>>
 EventHandler -> CallbackHandler : <<use>>

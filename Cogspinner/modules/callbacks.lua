@@ -4,14 +4,12 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
 --- @type string, Context
-local addon, framework       = ...
-
-local exception              = _G.exception
-local pcall                  = _G.pcall
-local type                   = _G.type
-local unpack                 = _G.unpack
+local addon, framework = ...
+local exception = _G.exception
+local pcall = _G.pcall
+local type = _G.type
+local unpack = _G.unpack
 
 local registerBackgroundTask = framework.import('core/tasks') --[[@as BackgroundTaskHandler]]
 
@@ -21,10 +19,10 @@ local registerBackgroundTask = framework.import('core/tasks') --[[@as Background
 --
 --- @type CallbackHandler
 --
-local executeCallback        = function(callback, arguments, options)
+local executeCallback = function(callback, arguments, options)
   options = options or {}
 
-  --~ We ensure that the provided callback and options (if provided) are valid.
+  -- ~ We ensure that the provided callback and options (if provided) are valid.
 
   if type(callback) ~= 'function' then
     exception('Invalid argument type for "callback". Expected a function.')
@@ -44,18 +42,18 @@ local executeCallback        = function(callback, arguments, options)
     end
   end
 
-  --~ Asynchronous execution:
-  --~ If 'async' is true or not provided (defaulting to asynchronous), we queue the callback
-  --~ for background execution. This may prevent long-running or potentially blocking operations
-  --~ from impacting the main thread, causing UI freezes or performance issues.
+  -- ~ Asynchronous execution:
+  -- ~ If 'async' is true or not provided (defaulting to asynchronous), we queue the callback
+  -- ~ for background execution. This may prevent long-running or potentially blocking operations
+  -- ~ from impacting the main thread, causing UI freezes or performance issues.
 
   if options.async == nil or options.async == true then
     registerBackgroundTask(callback, arguments)
   end
 
-  --~ Synchronous execution
-  --~ If 'async' is explicitly set to false, we execute the callback immediately on the current
-  --~ thread. This is useful for short, non-blocking operations or when immediate results are required.
+  -- ~ Synchronous execution
+  -- ~ If 'async' is explicitly set to false, we execute the callback immediately on the current
+  -- ~ thread. This is useful for short, non-blocking operations or when immediate results are required.
 
   if options.async == false then
     local success, result = pcall(callback, unpack(arguments or {}))

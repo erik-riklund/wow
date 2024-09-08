@@ -4,12 +4,12 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
-local exception        = _G.exception
-local type             = _G.type
+local exception = _G.exception
+local type = _G.type
 
 --
 -- This table centrally stores objects exported by framework modules or plugins,
@@ -17,14 +17,14 @@ local type             = _G.type
 --
 --- @type table<string, unknown>
 --
-local objects          = {}
+local objects = {}
 
 --
 -- Retrieves an object from the framework or a specific plugin's context and throws
 -- an error if the owner's context or the requested object does not exist, aiding in
 -- debugging dependency issues.
 --
-framework.import       = function(identifier, owner)
+framework.import = function(identifier, owner)
   owner = owner or framework
 
   if type(objects[owner]) ~= 'table' then
@@ -43,14 +43,16 @@ end
 -- Errors are thrown if the object is `nil` or if an object with the same identifier
 -- already exists in the given context.
 --
-framework.export       = function(identifier, object, owner)
+framework.export = function(identifier, object, owner)
   owner = owner or framework
 
   if object == nil then
     exception('Export failed: Cannot export a `nil` object.')
   end
 
-  if type(objects[owner]) ~= 'table' then objects[owner] = {} end
+  if type(objects[owner]) ~= 'table' then
+    objects[owner] = {}
+  end
 
   if objects[owner][identifier] ~= nil then
     exception('Export failed: An object with the identifier "%s" already exists.', identifier)

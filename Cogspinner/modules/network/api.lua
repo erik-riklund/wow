@@ -4,12 +4,12 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
-local type             = _G.type
+local type = _G.type
 
-local network          = framework.import('module/network') --[[@as Network]]
+local network = framework.import('module/network') --[[@as Network]]
 
 --
 -- Provides a simplified interface for plugin interaction with the network communication system
@@ -17,8 +17,7 @@ local network          = framework.import('module/network') --[[@as Network]]
 --
 --- @type NetworkApi
 --
-local api              =
-{
+local api = {
   --
   -- Registers a listener function to the specified channel for the plugin,
   -- allowing it to receive messages broadcast on that channel.
@@ -48,31 +47,27 @@ local api              =
 -- When a new plugin is created, this listener sets up its network API and reserves
 -- any channels specified in the plugin's options.
 --
-network.registerListener(
-  'PLUGIN_ADDED',
-  {
-    --
-    --- @param plugin Plugin
-    --- @param options PluginOptions
-    --
-    callback = function(plugin, options)
-      --~ Integrate the network API into the new plugin's context.
+network.registerListener('PLUGIN_ADDED', {
+  --
+  --- @param plugin Plugin
+  --- @param options PluginOptions
+  --
+  callback = function(plugin, options)
+    -- ~ Integrate the network API into the new plugin's context.
 
-      plugin.triggerChannel          = api.triggerChannel
-      plugin.registerChannelListener = api.registerChannelListener
-      plugin.removeChannelListener   = api.removeChannelListener
+    plugin.triggerChannel = api.triggerChannel
+    plugin.registerChannelListener = api.registerChannelListener
+    plugin.removeChannelListener = api.removeChannelListener
 
-      --~ If the plugin has defined channels in its options, reserve them.
+    -- ~ If the plugin has defined channels in its options, reserve them.
 
-      if options.channels and type(options.channels) == 'table' then
-        for index, channel in ipairs(options.channels) do
-          if type(channel) == 'table' then
-            network.reserveChannel(
-              channel.name, { async = channel.async, internal = channel.internal }, plugin.name
-            )
-          end
+    if options.channels and type(options.channels) == 'table' then
+      for index, channel in ipairs(options.channels) do
+        if type(channel) == 'table' then
+          network.reserveChannel(channel.name,
+            { async = channel.async, internal = channel.internal }, plugin.name)
         end
       end
     end
-  }
-)
+  end
+})

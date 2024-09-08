@@ -4,23 +4,21 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
-local exception        = _G.exception
-local setmetatable     = _G.setmetatable
-local table            = _G.table
-local type             = _G.type
+local exception = _G.exception
+local setmetatable = _G.setmetatable
+local table = _G.table
+local type = _G.type
 
 --
 -- This metatable provides the underlying behavior for list objects.
 --
 
-local list             =
-{
-  __index =
-  {
+local list = {
+  __index = {
     --
     -- Retrieves an element from the list by its index.
     --
@@ -79,7 +77,9 @@ local list             =
 
       local valueCount = #self.values
       for i = 1, valueCount do
-        if self.values[i] == searchValue then return i end
+        if self.values[i] == searchValue then
+          return i
+        end
       end
 
       return -1
@@ -89,30 +89,31 @@ local list             =
     -- Returns the number of elements in the list. The # operator is used for efficiency.
     --
 
-    size = function(self) return #self.values end
+    size = function(self)
+      return #self.values
+    end
 
   } --[[@as List]]
 }
 
 --- @type ListConstructor
-local constructor      = function(values, options)
+local constructor = function(values, options)
   if values and type(values) ~= 'table' then
     exception('Invalid argument type for "values". Expected an array (table) or nil.')
   end
 
   if options and options.weak then
-    --~ Enables "weak mode" for the list's internal table. In weak mode, certain entries
-    --~ in the table can be automatically removed by the garbage collector if they are no
-    --~ longer referenced elsewhere. This helps prevent memory leaks, especially when storing
-    --~ objects or tables as values within the list.
+    -- ~ Enables "weak mode" for the list's internal table. In weak mode, certain entries
+    -- ~ in the table can be automatically removed by the garbage collector if they are no
+    -- ~ longer referenced elsewhere. This helps prevent memory leaks, especially when storing
+    -- ~ objects or tables as values within the list.
 
-    --~ The 'options.weak' value determines whether keys, values, or both are considered weak.
+    -- ~ The 'options.weak' value determines whether keys, values, or both are considered weak.
 
-    local weakMode =
-        (options.weak == 'key' and 'k')
-        or (options.weak == 'value' and 'v')
-        or (options.weak == 'both' and 'kv')
-        or exception('Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
+    local weakMode = (options.weak == 'key' and 'k') or (options.weak == 'value' and 'v')
+                       or (options.weak == 'both' and 'kv')
+                       or exception(
+                         'Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
 
     values = setmetatable(values or {}, { __mode = weakMode })
   end

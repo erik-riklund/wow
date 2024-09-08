@@ -4,24 +4,22 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
-local exception        = _G.exception
-local setmetatable     = _G.setmetatable
-local tostring         = _G.tostring
-local type             = _G.type
+local exception = _G.exception
+local setmetatable = _G.setmetatable
+local tostring = _G.tostring
+local type = _G.type
 
 --
 -- This metatable serves as the blueprint for creating record objects,
 -- which are similar to maps but with stricter key validation.
 --
 
-local record           =
-{
-  __index =
-  {
+local record = {
+  __index = {
     --
     -- Retrieves the value associated with a given key from the record.
     -- Throws an error if the key doesn't exist to prevent unexpected behavior.
@@ -76,24 +74,23 @@ local record           =
 }
 
 --- @type RecordConstructor
-local constructor      = function(entries, options)
+local constructor = function(entries, options)
   if entries and type(entries) ~= 'table' then
     exception('Invalid argument type for "entries". Expected a table (or nil).')
   end
 
   if options and options.weak then
-    --~ Enables "weak mode" for the record's internal table. In weak mode, certain entries
-    --~ in the table can be automatically removed by the garbage collector if they are no
-    --~ longer referenced elsewhere. This helps prevent memory leaks, especially when
-    --~ storing objects (tables) as keys or values within the record.
+    -- ~ Enables "weak mode" for the record's internal table. In weak mode, certain entries
+    -- ~ in the table can be automatically removed by the garbage collector if they are no
+    -- ~ longer referenced elsewhere. This helps prevent memory leaks, especially when
+    -- ~ storing objects (tables) as keys or values within the record.
 
-    --~ The 'options.weak' value determines whether keys, values, or both are considered weak.
+    -- ~ The 'options.weak' value determines whether keys, values, or both are considered weak.
 
-    local weakMode =
-        (options.weak == 'key' and 'k')
-        or (options.weak == 'value' and 'v')
-        or (options.weak == 'both' and 'kv')
-        or exception('Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
+    local weakMode = (options.weak == 'key' and 'k') or (options.weak == 'value' and 'v')
+                       or (options.weak == 'both' and 'kv')
+                       or exception(
+                         'Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
 
     entries = setmetatable(entries or {}, { __mode = weakMode })
   end

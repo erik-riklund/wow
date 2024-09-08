@@ -4,41 +4,39 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
 local controller
-local coroutine        = _G.coroutine
-local createFrame      = _G.CreateFrame
+local coroutine = _G.coroutine
+local createFrame = _G.CreateFrame
 
-local createList       = framework.import('collection/list') --[[@as ListConstructor]]
+local createList = framework.import('collection/list') --[[@as ListConstructor]]
 
 --
 -- Provides a task queue with a coroutine-based task processor to
 -- execute tasks in the background without impacting frame rate.
 --
-local tasks            = createList()
+local tasks = createList()
 
 --
 -- An invisible frame used to trigger the `OnUpdate` script, which in turn
 -- manages the execution of the background task coroutine.
 --
-local manager          = createFrame('Frame', 'CogspinnerBackgroundTasks')
+local manager = createFrame('Frame', 'CogspinnerBackgroundTasks')
 
 --
 -- Sets up the `OnUpdate` script for the manager. This script checks if there are
 -- pending tasks and resumes the task processing coroutine if it's suspended.
 --
-manager:SetScript('OnUpdate',
-  function()
-    if tasks:size() > 0 then
-      if coroutine.status(controller) == 'suspended' then
-        coroutine.resume(controller)
-      end
+manager:SetScript('OnUpdate', function()
+  if tasks:size() > 0 then
+    if coroutine.status(controller) == 'suspended' then
+      coroutine.resume(controller)
     end
   end
-)
+end)
 
 --
 -- The coroutine that will process tasks from the queue. It yields
@@ -46,35 +44,33 @@ manager:SetScript('OnUpdate',
 --
 --- @type thread
 --
-controller                   = coroutine.create(
-  function()
-    local GetTime    = _G.GetTime
-    local pcall      = _G.pcall
-    local unpack     = _G.unpack
+controller = coroutine.create(function()
+  local GetTime = _G.GetTime
+  local pcall = _G.pcall
+  local unpack = _G.unpack
 
-    local frameLimit = 0.0167 -- 60fps
+  local frameLimit = 0.0167 -- 60fps
 
-    while true do
-      if tasks:size() > 0 then
-        --~ Process tasks within the frame time limit.
+  while true do
+    if tasks:size() > 0 then
+      -- ~ Process tasks within the frame time limit.
 
-        local initiated = GetTime()
-        while tasks:size() > 0 and (GetTime() - initiated < frameLimit) do
-          --~ Execute the next task from the queue and handle potential errors.
+      local initiated = GetTime()
+      while tasks:size() > 0 and (GetTime() - initiated < frameLimit) do
+        -- ~ Execute the next task from the queue and handle potential errors.
 
-          local task = tasks:removeElementAt(1) --[[@as BackgroundTask]]
-          local success, result = pcall(task.callback, unpack(task.arguments))
+        local task = tasks:removeElementAt(1) --[[@as BackgroundTask]]
+        local success, result = pcall(task.callback, unpack(task.arguments))
 
-          if not success then
-            -- todo: how do we want to handle error reporting?
-          end
+        if not success then
+          -- todo: how do we want to handle error reporting?
         end
       end
-
-      coroutine.yield()
     end
+
+    coroutine.yield()
   end
-)
+end)
 
 --
 -- This function adds new tasks to the queue. It validates the callback and
@@ -87,7 +83,7 @@ local registerBackgroundTask = function(callback, arguments)
     exception('Invalid argument type for "callback". Expected a function.')
   end
 
-  tasks:insert({ callback = callback, arguments = arguments or {} } --[[@as BackgroundTask]])
+  tasks:insert({ callback = callback, arguments = arguments or {} } --[[@as BackgroundTask]] )
 end
 
 --

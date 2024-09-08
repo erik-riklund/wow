@@ -4,11 +4,11 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
-local addon, framework     = ...
+local addon, framework = ...
 
-local createPlugin         = framework.import('module/plugin') --[[@as PluginConstructor]]
+local createPlugin = framework.import('module/plugin') --[[@as PluginConstructor]]
 local createImmutableProxy = framework.import('table/immutable') --[[@as ImmutableTableProxy]]
 
 --
@@ -16,14 +16,12 @@ local createImmutableProxy = framework.import('table/immutable') --[[@as Immutab
 --
 --- @type API
 --
-_G.cogspinner              = createImmutableProxy(
-  {
-    --
-    -- ?
-    --
-    createPlugin = function(name, options)
-      return createPlugin(name, options)
-    end,
+_G.cogspinner = createImmutableProxy({
+  --
+  -- ?
+  --
+  createPlugin = function(name, options)
+    return createPlugin(name, options)
+  end
 
-  } --[[@as API]]
-)
+} --[[@as API]] )

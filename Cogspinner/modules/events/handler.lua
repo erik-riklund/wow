@@ -4,23 +4,23 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
-local addon, framework      = ...
-local exception             = _G.exception
-local type                  = _G.type
+local addon, framework = ...
+local exception = _G.exception
+local type = _G.type
 
-local beginsWith            = framework.import('string/begins') --[[@as InitialSubstring]]
+local beginsWith = framework.import('string/begins') --[[@as InitialSubstring]]
 local createListenerManager = framework.import('shared/listeners') --[[@as ListenerManagerConstructor]]
-local createRecord          = framework.import('collection/record') --[[@as RecordConstructor]]
-local mergeTables           = framework.import('table/merge') --[[@as TableMerger]]
+local createRecord = framework.import('collection/record') --[[@as RecordConstructor]]
+local mergeTables = framework.import('table/merge') --[[@as TableMerger]]
 
 --
 -- ?
 --
 --- @type Frame
 --
-local frame                 = CreateFrame('Frame', 'CogspinnerEventHandler')
+local frame = CreateFrame('Frame', 'CogspinnerEventHandler')
 
 --
 -- ?
@@ -42,13 +42,12 @@ local events = createRecord()
 --
 --- @type EventHandler
 --
-local handler =
-{
+local handler = {
   --
   -- ?
   --
   registerListener = function(event, listener, context)
-    --~ ?
+    -- ~ ?
 
     if type(event) ~= 'string' then
       exception('?')
@@ -62,7 +61,7 @@ local handler =
       exception('?')
     end
 
-    --~ ?
+    -- ~ ?
 
     if not events:entryExists(event) then
       if not beginsWith(event, 'ADDON_LOADED') then
@@ -72,18 +71,16 @@ local handler =
       events:set(event, createListenerManager())
     end
 
-    --~ ?
+    -- ~ ?
 
-    (events:get(event) --[[@as Event]]):registerListener(
-      mergeTables(listener, { owner = context }) --[[@as EventListener]]
-    )
+    (events:get(event) --[[@as Event]] ):registerListener(mergeTables(listener, { owner = context }) --[[@as EventListener]] )
   end,
 
   --
   -- ?
   --
   removeListener = function(event, identifier, context)
-    --~ ?
+    -- ~ ?
 
     if type(event) ~= 'string' then
       exception('?')
@@ -97,11 +94,11 @@ local handler =
       exception('?')
     end
 
-    --~ ?
+    -- ~ ?
 
     -- todo: verify existence and ownership of the listener before attempting to remove it.
 
-    --~ ?
+    -- ~ ?
 
     -- todo: unregister event completely if no listeners are active.
   end,
@@ -110,10 +107,10 @@ local handler =
   -- ?
   --
   invokeEvent = function(event, ...)
-    --~ ?
+    -- ~ ?
 
     if events:entryExists(event) then
-      (events:get(event) --[[@as Event]]):invokeListeners({ ... })
+      (events:get(event) --[[@as Event]] ):invokeListeners({ ... })
     end
   end
 }
@@ -121,20 +118,18 @@ local handler =
 --
 -- ?
 --
-frame:SetScript('OnEvent',
-  function(self, event, ...)
-    --~ ?
+frame:SetScript('OnEvent', function(self, event, ...)
+  -- ~ ?
 
-    if event == 'ADDON_LOADED' then
-      local loadedAddonName = ...
-      event = 'ADDON_LOADED:' .. loadedAddonName
-    end
-
-    --~ ?
-
-    handler.invokeEvent(event, ...)
+  if event == 'ADDON_LOADED' then
+    local loadedAddonName = ...
+    event = 'ADDON_LOADED:' .. loadedAddonName
   end
-)
+
+  -- ~ ?
+
+  handler.invokeEvent(event, ...)
+end)
 
 --
 -- ?

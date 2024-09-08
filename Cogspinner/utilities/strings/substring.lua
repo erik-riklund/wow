@@ -4,20 +4,20 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|
 --              |___/    |_|
-
+--
 --- @type string, Context
 local addon, framework = ...
 
-local exception        = _G.exception
-local string           = _G.string
-local type             = _G.type
+local exception = _G.exception
+local string = _G.string
+local type = _G.type
 
 --
 -- ?
 --
 --- @type InitialSubstring
 --
-local beginsWith        = function(target, match)
+local beginsWith = function(target, match)
   if type(target) ~= 'string' or type(match) ~= 'string' then
     exception('?')
   end
