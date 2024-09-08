@@ -13,19 +13,19 @@ local string = _G.string
 local type = _G.type
 
 --
--- ?
+-- Checks if a given string starts with a specific substring.
 --
 --- @type InitialSubstring
 --
 local beginsWith = function(target, match)
   if type(target) ~= 'string' or type(match) ~= 'string' then
-    exception('?')
+    exception('Invalid argument types. Expected both "target" and "match" to be strings.')
   end
 
   return (string.sub(target, 1, string.len(match)) == match)
 end
 
 --
--- ?
+-- Expose the function to the framework context.
 --
 framework.export('string/begins', beginsWith)

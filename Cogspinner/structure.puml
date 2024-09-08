@@ -43,4 +43,8 @@ component "event" as EventHandler <<handler>>
 Plugin -> EventHandler : <<use>>
 EventHandler -> CallbackHandler : <<use>>
 
+component "utilities" as Utilities <<library>>
+
+Framework .left.> Utilities : <<expose>>
+
 @enduml

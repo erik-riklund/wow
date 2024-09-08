@@ -31,8 +31,7 @@ local createPlugin = function(name, options)
   -- ~ to avoid unexpected behavior and potential conflicts during plugin creation.
 
   if options and type(options) ~= 'table' then
-    exception(
-      'Invalid argument type for "options". Expected a table containing plugin configuration.')
+    exception('Invalid argument type for "options". Expected a table containing plugin configuration.')
   end
 
   if type(name) ~= 'string' then

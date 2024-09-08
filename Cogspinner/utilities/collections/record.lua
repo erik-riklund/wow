@@ -87,10 +87,8 @@ local constructor = function(entries, options)
 
     -- ~ The 'options.weak' value determines whether keys, values, or both are considered weak.
 
-    local weakMode = (options.weak == 'key' and 'k') or (options.weak == 'value' and 'v')
-                       or (options.weak == 'both' and 'kv')
-                       or exception(
-                         'Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
+    local weakMode = (options.weak == 'key' and 'k') or (options.weak == 'value' and 'v') or (options.weak == 'both' and 'kv')
+                       or exception('Invalid value for "options.weak". Allowed values are "key", "value", or "both".')
 
     entries = setmetatable(entries or {}, { __mode = weakMode })
   end

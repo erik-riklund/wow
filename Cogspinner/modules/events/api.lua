@@ -30,8 +30,7 @@ local api = {
   --
   registerEventListener = function(self, event, listener)
     if event == 'ADDON_LOADED' then
-      exception(
-        'Cannot register listeners for "ADDON_LOADED" using this method, use `onInitialize` instead.')
+      exception('Cannot register listeners for "ADDON_LOADED" using this method, use `onInitialize` instead.')
     end
 
     events.registerListener(event, listener, self.name)

@@ -9,9 +9,9 @@
 --
 --- @class EventHandler
 --- 
---- @field registerListener fun(event: string, listener: Listener, context?: string)
---- @field removeListener fun(event: string, identifier: string, context?: string)
---- @field invokeEvent fun(event: string, ...: unknown)
+--- @field registerListener fun(eventName: string, listener: Listener, context?: string)
+--- @field removeListener fun(eventName: string, identifier: string, context?: string)
+--- @field invokeEvent fun(eventName: string, ...: unknown)
 --
 
 --

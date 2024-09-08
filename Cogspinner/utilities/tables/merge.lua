@@ -9,7 +9,11 @@
 local addon, framework = ...
 
 --
--- ?
+--
+-- Merges multiple tables into a single table, prioritizing values from later tables
+-- in case of key conflicts. This provides a simple way to combine configurations or
+-- data structures from different sources.
+--
 --
 --- @type TableMerger
 --
@@ -27,6 +31,6 @@ local mergeTables = function(base, extension, ...)
 end
 
 --
--- ?
+-- Expose the `mergeTables` function to the framework context.
 --
 framework.export('table/merge', mergeTables)

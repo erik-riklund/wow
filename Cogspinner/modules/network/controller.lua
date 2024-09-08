@@ -129,8 +129,7 @@ local controller = {
     local listener = channel:retrieveListener(identifier) --[[@as NetworkListener]]
 
     if not listener then
-      exception('Listener removal failed, could not find listener "%s" on channel "%s".',
-        identifier, channel.name)
+      exception('Listener removal failed, could not find listener "%s" on channel "%s".', identifier, channel.name)
     end
 
     if listener.owner ~= context then
@@ -169,8 +168,7 @@ local controller = {
     channel = channels:get(channel) --[[@as Channel]]
 
     if channel.owner ~= context then
-      exception('Channel trigger failed: Plugin "%s" is not authorized '
-                  .. 'to trigger channel "%s".', context, channel.name)
+      exception('Channel trigger failed: Plugin "%s" is not authorized ' .. 'to trigger channel "%s".', context, channel.name)
     end
 
     channel:invokeListeners(arguments, channel.async)

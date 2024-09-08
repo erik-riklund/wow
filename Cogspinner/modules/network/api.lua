@@ -64,8 +64,7 @@ network.registerListener('PLUGIN_ADDED', {
     if options.channels and type(options.channels) == 'table' then
       for index, channel in ipairs(options.channels) do
         if type(channel) == 'table' then
-          network.reserveChannel(channel.name,
-            { async = channel.async, internal = channel.internal }, plugin.name)
+          network.reserveChannel(channel.name, { async = channel.async, internal = channel.internal }, plugin.name)
         end
       end
     end
