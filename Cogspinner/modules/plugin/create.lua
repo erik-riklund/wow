@@ -8,6 +8,9 @@
 --- @type string, core.context
 local addon, framework = ...
 
+--- @type network.invokeChannel
+local invokeChannel = framework.import('channel/invoke')
+
 ---
 --- The collection of plugins that are registered or available within the framework.
 ---
@@ -26,7 +29,7 @@ local createPlugin = function(identifier)
   end
 
   plugins[identifier] = { identifier = identifier }
-  -- todo: broadcast the new plugin context through the 'PLUGIN_ADDED' channel.
+  invokeChannel('PLUGIN_ADDED', { plugins[identifier] })
 
   return plugins[identifier]
 end

@@ -16,7 +16,7 @@ local executeCallback = framework.import('callback/execute')
 -- associated with specific events or triggers.
 --
 
---- @type listenerManager
+--- @type library.listenerManager
 local listenerManager = {
   -- Registers a new listener with a callback function. An optional identifier
   -- can be provided, which is necessary for future removal of the listener.

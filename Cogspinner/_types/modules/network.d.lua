@@ -8,12 +8,7 @@
 --
 
 ---
---- @class network.channel : listenerManager
---- @field owner? plugin
----
-
----
---- @class network.reserveChannel.options
+--- @class network.channel.options
 --- 
 --- @field owner? plugin
 --- @field internal? boolean
@@ -21,17 +16,29 @@
 ---
 
 ---
+--- @class network.channel : library.listenerManager, network.channel.options
+---
+
+---
 --- ?
 --- 
---- @alias network.reserveChannel fun(name: string, options?: network.reserveChannel.options)
----
-
----
---- @class network.registerListener.listener
+--- @alias network.reserveChannel fun(name: string, options?: network.channel.options)
 ---
 
 ---
 --- ?
 ---
---- @alias network.registerListener fun(listener: network.registerListener.listener)
+--- @alias network.registerListener fun(channel: string, listener: listener, context?: plugin)
+---
+
+---
+--- ?
+---
+--- @alias network.removeListener fun(channel: string, identifier: string, context?: plugin)
+---
+
+---
+--- ?
+---
+--- @alias network.invokeChannel fun(name: string, payload?: unknown[], context?: plugin)
 ---
