@@ -5,10 +5,11 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
+--
 
---
+---
 --- @class Context
---- 
---- @field import fun(identifier: string, owner: table|nil): unknown
---- @field export fun(identifier: string, object: unknown, owner: table|nil)
---
+--- @field objects table<string, unknown>
+--- @field import fun(identifier: string): unknown
+--- @field export fun(identifier: string, object: unknown)
+---

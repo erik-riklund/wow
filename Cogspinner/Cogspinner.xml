@@ -1,24 +1,6 @@
 <Ui>
-  <Include file="utilities/exception.lua"/>
+  <Include file="library/global/throw.lua"/>
   <Include file="core/context.lua"/>
 
-  <Include file="utilities/collections/list.lua"/>
-  <Include file="utilities/collections/record.lua"/>
-  <Include file="utilities/strings/substring.lua"/>
-  <Include file="utilities/tables/immutable.lua"/>
-  <Include file="utilities/tables/merge.lua"/>
-
-  <Include file="core/tasks.lua"/>
-  <Include file="modules/callbacks.lua"/>
-  <Include file="shared/listeners.lua"/>
-
-  <Include file="modules/network/controller.lua"/>
-  <Include file="modules/network/api.lua"/>
-  <Include file="modules/events/handler.lua"/>
-  <Include file="modules/events/api.lua"/>
-  <Include file="modules/plugins.lua"/>
   
-  <Include file="core/api.lua"/>
-  
-  <Script file="plugins/garbage.lua"/>
 </Ui>
