@@ -1,4 +1,3 @@
---- @meta
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -6,13 +5,12 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
+--- @type string, IContext
+local addon, framework = ...
 
 ---
---- An interface for a context object that provides object storage and retrieval,
---- allowing internal objects to be exposed for use elsewhere in the system.
---- 
---- @class IContext
---- @field objects table<string, unknown>
---- @field import fun(identifier: string): unknown
---- @field export fun(identifier: string, object: unknown)
+--- Meh?
 ---
+--- @type FrameworkApi
+---
+_G.cogspinner = {}

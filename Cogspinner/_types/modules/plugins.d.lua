@@ -8,11 +8,14 @@
 --
 
 ---
---- An interface for a context object that provides object storage and retrieval,
---- allowing internal objects to be exposed for use elsewhere in the system.
+--- ?
 --- 
---- @class IContext
---- @field objects table<string, unknown>
---- @field import fun(identifier: string): unknown
---- @field export fun(identifier: string, object: unknown)
+--- @class Plugin
+--- @field identifier string The unique identifier for the plugin.
+---
+
+---
+--- ?
+--- 
+--- @alias PluginCreator fun(identifier: string): Plugin
 ---
