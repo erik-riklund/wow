@@ -5,7 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, IContext
+--- @type string, core.context
 local addon, framework = ...
 
 ---

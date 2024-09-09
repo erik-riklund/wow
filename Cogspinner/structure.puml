@@ -20,6 +20,27 @@ skinparam ArrowFontName Consolas
 skinparam ArrowFontSize 10pt
 
 component "framework" as Framework <<API>>
+component "plugins" as Plugins <<manager>>
 
+Framework ..> Plugins : <<expose>>
+
+component "plugin" as Plugin <<object>>
+
+Plugins --> Plugin : <<create>>
+
+component "callback" as Callback <<handler>>
+
+Framework ..> Callback : <<expose>>
+
+component "network" as Network <<controller>>
+
+Plugins --> Network : <<use>>
+Network --> Callback : <<use>>
+Plugin ..> Network : <<expose>>
+
+component "event" as Event <<handler>>
+
+Event --> Callback : <<use>>
+Plugin ..> Event : <<expose>>
 
 @enduml

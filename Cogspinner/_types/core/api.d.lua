@@ -8,12 +8,9 @@
 --
 
 ---
---- An interface for a context object that provides object storage and retrieval,
---- allowing internal objects to be exposed for use elsewhere in the system.
+--- ?
 --- 
---- @class core.context
---- 
---- @field objects table<string, unknown>
---- @field import fun(identifier: string): unknown
---- @field export fun(identifier: string, object: unknown)
+--- @class FrameworkApi
+--- @field createPlugin plugins.createPlugin
+--- @field executeCallback callbacks.executeCallback
 ---

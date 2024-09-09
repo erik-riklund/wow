@@ -8,12 +8,27 @@
 --- @type string, core.context
 local addon, framework = ...
 
+--- @type function
+local continueProcess = framework.import('callback/continue-process')
+
 ---
---- ?
 ---
---- @type FrameworkApi
 ---
-_G.cogspinner = {
-  createPlugin = framework.import('plugin/create'),
-  executeCallback = framework.import('callback/execute')
-}
+--- @type Frame
+---
+local frame = CreateFrame('Frame', 'CogspinnerFrame')
+
+--
+--
+--
+frame:SetShown(true)
+
+--
+--
+--
+frame:SetScript('OnUpdate', function() continueProcess() end)
+
+--
+--
+--
+framework.export('core/frame', frame)

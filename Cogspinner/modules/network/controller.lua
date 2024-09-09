@@ -8,12 +8,24 @@
 --- @type string, core.context
 local addon, framework = ...
 
+--- @type listenerManager.constructor
+local createListenerManager = framework.import('shared/listeners')
+
 ---
 --- ?
 ---
---- @type FrameworkApi
+--- @type table<string, network.channel>
 ---
-_G.cogspinner = {
-  createPlugin = framework.import('plugin/create'),
-  executeCallback = framework.import('callback/execute')
-}
+local channels = {}
+
+--
+-- ?
+--
+
+--- @type network.reserveChannel
+local reserveChannel = function(name, options) end
+
+--
+-- Expose the functions to the framework context.
+--
+framework.export('channel/reserve', reserveChannel)

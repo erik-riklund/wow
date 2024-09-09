@@ -7,7 +7,10 @@ column_limit: 80
 align_args: false
 chop_down_parameter: true
 spaces_inside_table_braces: true
+
 break_after_operator: false
+break_before_functioncall_rp: true
+# break_after_functioncall_lp: true
 
 # keep_simple_function_one_line: false
 # keep_simple_control_block_one_line: false

@@ -10,12 +10,12 @@
 ---
 --- ?
 --- 
---- @class Plugin
+--- @class plugin
 --- @field identifier string The unique identifier for the plugin.
 ---
 
 ---
 --- ?
 --- 
---- @alias PluginCreator fun(identifier: string): Plugin
+--- @alias plugins.createPlugin fun(identifier: string): plugin
 ---

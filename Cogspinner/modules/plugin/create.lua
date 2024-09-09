@@ -5,20 +5,20 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, IContext
+--- @type string, core.context
 local addon, framework = ...
 
 ---
 --- The collection of plugins that are registered or available within the framework.
 ---
---- @type table<string, Plugin>
+--- @type table<string, plugin>
 ---
 local plugins = {}
 
 ---
 --- Responsible for creating new plugin instances and registering them within the framework.
 ---
---- @type PluginCreator
+--- @type plugins.createPlugin
 ---
 local createPlugin = function(identifier)
   if plugins[identifier] ~= nil then
@@ -34,4 +34,4 @@ end
 --
 -- Expose the function to the framework context.
 --
-framework.export('create-plugin', createPlugin)
+framework.export('plugin/create', createPlugin)
