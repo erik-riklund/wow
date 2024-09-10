@@ -8,9 +8,5 @@
 --
 
 ---
---- ?
---- 
---- @class framework.api
---- @field createPlugin plugins.createPlugin
---- @field executeCallback callbacks.executeCallback
+--- @class event.listenerManager : listenerManager
 ---

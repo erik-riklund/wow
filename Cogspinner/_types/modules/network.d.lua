@@ -8,7 +8,7 @@
 --
 
 ---
---- @class network.channel.options
+--- @class network.channelOptions
 --- 
 --- @field owner? plugin
 --- @field internal? boolean
@@ -16,13 +16,13 @@
 ---
 
 ---
---- @class network.channel : listenerManager, network.channel.options
+--- @class channel.listenerManager : listenerManager, network.channelOptions
 ---
 
 ---
 --- Registers a new channel, enforcing name uniqueness.
 --- 
---- @alias network.reserveChannel fun(name: string, options?: network.channel.options)
+--- @alias network.reserveChannel fun(name: string, options?: network.channelOptions)
 ---
 
 ---

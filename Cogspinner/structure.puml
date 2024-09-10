@@ -22,25 +22,25 @@ skinparam ArrowFontSize 10pt
 component "framework" as Framework <<API>>
 component "plugins" as Plugins <<manager>>
 
-Framework ..> Plugins : <<expose>>
+Framework .left.|> Plugins
 
 component "plugin" as Plugin <<object>>
 
-Plugins --> Plugin : <<create>>
+Plugins -left-> Plugin : <<create>>
 
 component "callback" as Callback <<handler>>
 
-Framework ..> Callback : <<expose>>
+Framework .down.|> Callback
 
 component "network" as Network <<controller>>
 
-Plugins --> Network : <<use>>
-Network --> Callback : <<use>>
-Plugin .> Network : <<expose>>
+Plugins -> Network
+Network -> Callback
+Plugin ..|> Network
 
 component "event" as Event <<handler>>
 
-Event --> Callback : <<use>>
-Plugin ..> Event : <<expose>>
+Event -> Callback
+Plugin .|> Event
 
 @enduml

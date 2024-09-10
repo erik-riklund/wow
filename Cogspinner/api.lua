@@ -11,7 +11,7 @@ local addon, framework = ...
 ---
 --- ?
 ---
---- @type FrameworkApi
+--- @type framework.api
 ---
 _G.cogspinner = {
   createPlugin = framework.import('plugin/create'),

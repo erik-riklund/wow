@@ -17,7 +17,7 @@ local mergeTables = framework.import('table/merge')
 ---
 --- Maintains a collection of all registered channels, each uniquely identified.
 ---
---- @type table<string, network.channel>
+--- @type table<string, channel.listenerManager>
 ---
 local channels = {}
 
