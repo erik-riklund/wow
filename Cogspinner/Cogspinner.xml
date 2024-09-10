@@ -12,6 +12,13 @@
   <Include file="modules/dispatch/process.lua"/>
   <Include file="modules/dispatch/execute.lua"/>
 
+  <!-- shared: listener manager -->
+  <Include file="shared/listeners.lua"/>
+
+  <!-- module: network -->
+  <Include file="modules/network/controller.lua"/>
+  <Include file="modules/network/integrate.lua"/>
+
   <!-- framework API -->
   <Include file="api.lua"/>
 </Ui>
