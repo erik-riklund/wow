@@ -12,5 +12,5 @@
 --- 
 --- @class framework.api
 --- @field createPlugin plugins.createPlugin
---- @field executeCallback callbacks.executeCallback
+--- @field executeCallback dispatch.executeCallback
 ---

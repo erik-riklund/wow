@@ -8,8 +8,8 @@
 --- @type string, core.context
 local addon, framework = ...
 
---- @type callbacks.executeCallback
-local executeCallback = framework.import('callback/execute')
+--- @type dispatch.executeCallback
+local executeCallback = framework.import('dispatch/execute')
 
 --
 -- An object responsible for managing listeners (callbacks)

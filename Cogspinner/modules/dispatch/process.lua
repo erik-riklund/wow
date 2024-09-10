@@ -8,11 +8,14 @@
 --- @type string, core.context
 local addon, framework = ...
 
+--- @type Frame
+local frame = framework.import('core/frame')
+
 ---
 --- A queue of background tasks awaiting execution. Each task contains
 --- a callback function and its associated arguments.
 ---
---- @type table<number, callbacks.backgroundTask>
+--- @type table<number, dispatch.backgroundTask>
 ---
 local tasks = {}
 
@@ -30,10 +33,10 @@ local process = coroutine.create(function()
 
     while #tasks > 0 do
       if (GetTime() - initialized) < frameLimit then
-        --- @type callbacks.backgroundTask
+        --- @type dispatch.backgroundTask
         local currentTask = table.remove(tasks, 1)
         local success, result = pcall(currentTask.callback,
-                                  unpack(currentTask.arguments))
+                                      unpack(currentTask.arguments))
 
         if not success then
           -- todo: implement error reporting.
@@ -48,25 +51,22 @@ end)
 ---
 --- Resumes the background task processing coroutine if the queue has pending tasks.
 ---
-local continueProcess = function()
-  if #tasks > 0 then
-    if coroutine.status(process) == 'suspended' then
-      coroutine.resume(process)
-    end
+frame:SetScript('OnUpdate', function()
+  if coroutine.status(process) == 'suspended' and #tasks > 0 then
+    coroutine.resume(process)
   end
-end
+end)
 
 ---
 --- Execute callbacks asynchronously by adding them to the background task queue for processing.
 --- 
---- @type callbacks.executeCallbackAsync
+--- @type dispatch.executeCallbackAsync
 ---
 local executeCallbackAsync = function(callback, arguments)
   table.insert(tasks, { callback = callback, arguments = arguments })
 end
 
 --
--- Expose the required functions to the framework context.
+-- Expose `executeCallbackAsync` to the framework context.
 --
-framework.export('callback/continue-process', continueProcess)
-framework.export('callback/execute-async', executeCallbackAsync)
+framework.export('dispatch/execute-async', executeCallbackAsync)

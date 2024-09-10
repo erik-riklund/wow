@@ -9,17 +9,6 @@
 local addon, framework = ...
 
 -- #region: framework context imports
-
---- @type listenerManager.constructor
-local createListenerManager = framework.import('shared/listeners')
-
 -- #endregion
-
----
---- ?
---- 
---- @type table<string, event.listenerManager>
---- 
-local events = {}
 
 

@@ -33,7 +33,7 @@ local createPlugin = function(identifier, options)
   end
 
   plugins[identifier] = { identifier = identifier }
-  invokeChannel('PLUGIN_ADDED', { plugins[identifier], options })
+  invokeChannel('PLUGIN_ADDED', { plugins[identifier], options or {} })
 
   return createProtectedProxy(plugins[identifier])
 end

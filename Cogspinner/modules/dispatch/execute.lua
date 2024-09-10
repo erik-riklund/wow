@@ -8,14 +8,14 @@
 --- @type string, core.context
 local addon, framework = ...
 
---- @type callbacks.executeCallbackAsync
-local executeCallbackAsync = framework.import('callback/execute-async')
+--- @type dispatch.executeCallbackAsync
+local executeCallbackAsync = framework.import('dispatch/execute-async')
 
 --
 -- Invokes the given callback function, optionally with arguments,
 -- either immediately or asynchronously (default behavior).
 --
---- @type callbacks.executeCallback
+--- @type dispatch.executeCallback
 --
 local executeCallback = function(callback, arguments, options)
   if not options or (options and options.async ~= false) then
@@ -33,4 +33,4 @@ end
 ---
 --- Expose the function to the framework context.
 ---
-framework.export('callback/execute', executeCallback)
+framework.export('dispatch/execute', executeCallback)

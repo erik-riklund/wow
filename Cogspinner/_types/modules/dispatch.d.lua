@@ -11,16 +11,16 @@
 --- Invokes the given callback function, optionally with arguments,
 --- either immediately or asynchronously (default behavior).
 --- 
---- @alias callbacks.executeCallback
+--- @alias dispatch.executeCallback
 --- | fun(callback: function, arguments?: unknown[], options?: { async: boolean })
 ---
 
 ---
---- @alias callbacks.executeCallbackAsync fun(callback: function, arguments?: unknown[])
+--- @alias dispatch.executeCallbackAsync fun(callback: function, arguments?: unknown[])
 ---
 
 ---
---- @class callbacks.backgroundTask
+--- @class dispatch.backgroundTask
 --- 
 --- @field callback function
 --- @field arguments unknown[]

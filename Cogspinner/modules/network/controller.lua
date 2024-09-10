@@ -8,11 +8,15 @@
 --- @type string, core.context
 local addon, framework = ...
 
+-- #region: framework context imports
+
 --- @type listenerManager.constructor
 local createListenerManager = framework.import('shared/listeners')
 
 --- @type table.mergeTables
 local mergeTables = framework.import('table/merge')
+
+-- #endregion
 
 ---
 --- Maintains a collection of all registered channels, each uniquely identified.
@@ -52,9 +56,8 @@ local registerListener = function(channel, listener, context)
   end
 
   if context and listener.identifier then
-    listener.identifier = string.format(
-                           '%s:%s', context.identifier, listener.identifier
-                          )
+    listener.identifier = string.format('%s:%s', context.identifier,
+                                        listener.identifier)
   end
 
   channels[channel]:registerListener(listener.callback, listener.identifier)
@@ -90,10 +93,8 @@ local invokeChannel = function(name, payload, context)
   end
 
   if channels[name].owner ~= context then
-    throw(
-     'Transmission failed, the calling context (%s) ' ..
-      'does not own channel "%s"', context.identifier, name
-    )
+    throw('Transmission failed, the calling context (%s) '
+           .. 'does not own channel "%s"', context.identifier, name)
   end
 
   channels[name]:invokeListeners(payload, channels[name].async)

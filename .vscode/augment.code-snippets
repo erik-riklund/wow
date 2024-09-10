@@ -30,7 +30,10 @@
       "--              |___/    |_|                            ",
       "--",
       "--- @type string, ${1:core.context}",
-      "local addon, ${2:framework} = ..."
+      "local addon, ${2:framework} = ...",
+      "",
+      "-- #region: framework context imports",
+      "-- #endregion"
     ]
   },
 

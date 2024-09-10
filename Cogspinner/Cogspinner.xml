@@ -1,18 +1,22 @@
 <Ui>
   <Include file="library/global/throw.lua"/>
-  <Include file="core/context.lua"/>
-
-  <Include file="library/tables/merge.lua"/>
-
-  <Include file="modules/callback/process.lua"/>
-  <Include file="modules/callback/execute.lua"/>
   
+  <Include file="core/context.lua"/>
   <Include file="core/frame.lua"/>
+
+  <Include file="library/table/merge.lua"/>
+  <Include file="library/table/protect.lua"/>
+
+  <Include file="modules/dispatch/process.lua"/>
+  <Include file="modules/dispatch/execute.lua"/>
   <Include file="library/listeners.lua"/>
   
   <Include file="modules/network/controller.lua"/>
   <Include file="modules/network/reserve.lua"/>
   <Include file="modules/network/integrate.lua"/>
+
+  <Include file="modules/event/handler.lua"/>
+  <Include file="modules/event/integrate.lua"/>
   
   <Include file="modules/plugin/create.lua"/>
   

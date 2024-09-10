@@ -47,11 +47,9 @@
 ---
 
 ---
---- ?
----
 --- @class network.pluginApi
 --- 
---- @field registerChannelListener fun(self: plugin)
---- @field removeChannelListener fun(self: plugin)
---- @field invokeChannel fun(self: plugin)
+--- @field invokeChannel fun(self: plugin, name: string, payload?: unknown[]) Invoke the specified channel, triggering its listeners and optionally passing a payload.
+--- @field registerChannelListener fun(self: plugin, channel: string, listener: listener) Register a listener to the specified channel.
+--- @field removeChannelListener fun(self: plugin, channel: string, identifier: string) Using its unique identifier, remove a listener from the specified channel.
 ---
