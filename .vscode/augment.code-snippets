@@ -1,22 +1,8 @@
 {
-  "logo":
-  {
-    "body":
-    [
-      "--    ____                      _                       ",
-      "--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ ",
-      "--  | |   / _ \\ / _` / __| '_ \\| | '_ \\| '_ \\ / _ \\ '__|",
-      "--  | |__| (_) | (_| \\__ \\ |_) | | | | | | | |  __/ |   ",
-      "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
-      "--              |___/    |_|                            ",
-      "--"
-    ],
-
-    "prefix": "!logo"
-  },
-
   "type":
   {
+    "prefix": "!type",
+
     "body":
     [
       "--- @meta",
@@ -27,13 +13,13 @@
       "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
       "--              |___/    |_|                            ",
       "--"
-    ],
-
-    "prefix": "!type"
+    ]
   },
 
   "template":
   {
+    "prefix": "!template",
+
     "body":
     [
       "--    ____                      _                       ",
@@ -45,15 +31,52 @@
       "--",
       "--- @type string, ${1:core.context}",
       "local addon, ${2:framework} = ..."
-    ],
-
-    "prefix": "!template"
+    ]
   },
 
-  "as": { "body": "--[[@as ${1}]]", "prefix": "!as" },
-  "class": { "body": [ "---", "--- @class ${1}", "---" ], "prefix": "!class" },
-  "alias": { "body": [ "--", "--- ?", "--", "--- @alias ${1}", "--" ], "prefix": "!alias" },
-  "separator": { "body": "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --", "prefix": "!separator" },
-  "import": { "body": "local ${1} = ${2:framework}.import('${3}') --[[@as ${4}]]", "prefix": "!import" },
-  "export": { "body": "${1:framework}.export('${2}', ${3})", "prefix": "!export" }
+  "as": {
+    "prefix": "!as",
+    "body": "--[[@as ${1}]]"
+  },
+
+  "class":
+  {
+    "prefix": "!class",
+
+    "body":
+    [
+      "---",
+      "--- @class ${1}",
+      "---"
+    ]
+  },
+
+  "alias":
+  {
+    "prefix": "!alias",
+
+    "body":
+    [
+      "---",
+      "--- ?",
+      "---",
+      "--- @alias ${1}",
+      "---"
+    ]
+  },
+
+  "import":
+  {
+    "prefix": "!import",
+
+    "body": [
+      "--- @type ${1}",
+      "local ${2} = ${3:framework}.import('${4}')"
+    ]
+  },
+
+  "export": {
+    "prefix": "!export",
+    "body": "${1:framework}.export('${2}', ${3})"
+  }
 }

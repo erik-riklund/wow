@@ -11,5 +11,5 @@
 --- Merge multiple tables into a single table, appending the elements
 --- of each table in the order they are provided.
 ---
---- @alias library.table.mergeTables fun(first: table, second: table, ...: table): table
+--- @alias table.mergeTables fun(first: table, second: table, ...: table): table
 ---

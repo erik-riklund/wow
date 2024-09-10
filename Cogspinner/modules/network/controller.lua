@@ -11,7 +11,7 @@ local addon, framework = ...
 --- @type listenerManager.constructor
 local createListenerManager = framework.import('shared/listeners')
 
---- @type library.table.mergeTables
+--- @type table.mergeTables
 local mergeTables = framework.import('table/merge')
 
 ---
@@ -102,7 +102,6 @@ end
 --
 -- Expose the functions to the framework context.
 --
-
 framework.export('channel/reserve', reserveChannel)
 framework.export('channel/register-listener', registerListener)
 framework.export('channel/remove-listener', removeListener)

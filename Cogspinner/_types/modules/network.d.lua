@@ -16,7 +16,7 @@
 ---
 
 ---
---- @class network.channel : library.listenerManager, network.channel.options
+--- @class network.channel : listenerManager, network.channel.options
 ---
 
 ---

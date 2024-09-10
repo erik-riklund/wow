@@ -7,4 +7,9 @@
 --              |___/    |_|                            
 --
 
-
+---
+--- Creates a read-only proxy for a table and its nested tables,
+--- preventing modifications.
+---
+--- @alias table.createProtectedProxy fun(target: table): table
+---

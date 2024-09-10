@@ -8,6 +8,9 @@
 --- @type string, core.context
 local addon, framework = ...
 
+--- @type table.createProtectedProxy
+local createProtectedProxy = framework.import('table/protect')
+
 --- @type network.invokeChannel
 local invokeChannel = framework.import('channel/invoke')
 
@@ -32,11 +35,11 @@ local createPlugin = function(identifier, options)
   plugins[identifier] = { identifier = identifier }
   invokeChannel('PLUGIN_ADDED', { plugins[identifier], options })
 
-  return plugins[identifier]
+  return createProtectedProxy(plugins[identifier])
 end
 
 ---
---- ?
+--- Retrieves the context object of a specific plugin using its unique identifier.
 ---
 --- @type plugins.retrievePluginContext
 ---

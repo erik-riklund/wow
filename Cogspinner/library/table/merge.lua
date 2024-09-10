@@ -12,7 +12,7 @@ local addon, framework = ...
 --- Merge multiple tables into a single table, appending the elements
 --- of each table in the order they are provided.
 --- 
---- @type library.table.mergeTables
+--- @type table.mergeTables
 ---
 local mergeTables = function(first, second, ...)
   local mergedTable = {}

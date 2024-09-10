@@ -27,7 +27,7 @@
 ---
 
 ---
---- ?
+--- Retrieves the context object of a specific plugin using its unique identifier.
 ---
 --- @alias plugins.retrievePluginContext fun(identifier: string): plugin
 ---
