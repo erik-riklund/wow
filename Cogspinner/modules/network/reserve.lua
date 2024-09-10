@@ -8,15 +8,10 @@
 --- @type string, core.context
 local addon, framework = ...
 
---- @type network.registerListener
-local registerListener = framework.import('channel/register-listener')
+--- @type network.reserveChannel
+local reserveChannel = framework.import('channel/reserve')
 
 --
--- ?
+-- Reserve the channels used by the framework.
 --
-registerListener(
- 'PLUGIN_ADDED', {
-   --- @param plugin plugin
-   callback = function(plugin, options) end
- }
-)
+reserveChannel('PLUGIN_ADDED', { async = false, internal = true })

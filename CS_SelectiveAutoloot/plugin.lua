@@ -12,10 +12,12 @@ local addon, context = ...
 -- ?
 --
 
-local plugin = cogspinner.createPlugin(addon)
+local plugin = cogspinner.createPlugin(
+                addon,
+                 { channels = { { name = 'JUST_TESTING', internal = true } } }
+               )
 
 --
 -- ?
 --
-
 

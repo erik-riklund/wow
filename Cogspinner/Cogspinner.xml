@@ -6,11 +6,14 @@
 
   <Include file="modules/callback/process.lua"/>
   <Include file="modules/callback/execute.lua"/>
+  
   <Include file="core/frame.lua"/>
-
   <Include file="library/listeners.lua"/>
+  
   <Include file="modules/network/controller.lua"/>
+  <Include file="modules/network/reserve.lua"/>
   <Include file="modules/network/integrate.lua"/>
+  
   <Include file="modules/plugin/create.lua"/>
   
   <Include file="api.lua"/>

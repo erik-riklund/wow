@@ -12,24 +12,38 @@ local addon, framework = ...
 local invokeChannel = framework.import('channel/invoke')
 
 ---
---- The collection of plugins that are registered or available within the framework.
+--- The collection of plugins that are registered within the framework.
 ---
 --- @type table<string, plugin>
 ---
 local plugins = {}
 
 ---
---- Responsible for creating new plugin instances and registering them within the framework.
+--- Creates and registers new plugin instances, returning their contexts
+--- wrapped in immutable proxies to prevent accidental modifications.
 ---
 --- @type plugins.createPlugin
 ---
-local createPlugin = function(identifier)
+local createPlugin = function(identifier, options)
   if plugins[identifier] ~= nil then
     throw('Failed to register plugin "%s" (non-unique identifier)')
   end
 
   plugins[identifier] = { identifier = identifier }
-  invokeChannel('PLUGIN_ADDED', { plugins[identifier] })
+  invokeChannel('PLUGIN_ADDED', { plugins[identifier], options })
+
+  return plugins[identifier]
+end
+
+---
+--- ?
+---
+--- @type plugins.retrievePluginContext
+---
+local retrievePluginContext = function(identifier)
+  if plugins[identifier] == nil then
+    throw('Failed to retrieve unknown plugin "%s"', identifier)
+  end
 
   return plugins[identifier]
 end
@@ -38,3 +52,4 @@ end
 -- Expose the function to the framework context.
 --
 framework.export('plugin/create', createPlugin)
+framework.export('plugin/retrieve', retrievePluginContext)

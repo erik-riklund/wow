@@ -36,7 +36,7 @@ component "network" as Network <<controller>>
 
 Plugins --> Network : <<use>>
 Network --> Callback : <<use>>
-Plugin ..> Network : <<expose>>
+Plugin .> Network : <<expose>>
 
 component "event" as Event <<handler>>
 

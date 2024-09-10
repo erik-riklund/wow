@@ -15,14 +15,14 @@ local createListenerManager = framework.import('shared/listeners')
 local mergeTables = framework.import('table/merge')
 
 ---
---- ?
+--- Maintains a collection of all registered channels, each uniquely identified.
 ---
 --- @type table<string, network.channel>
 ---
 local channels = {}
 
 ---
---- ?
+--- Registers a new channel, enforcing name uniqueness.
 ---
 --- @type network.reserveChannel
 ---
@@ -35,7 +35,8 @@ local reserveChannel = function(name, options)
 end
 
 ---
---- ?
+--- Registers a listener to the specified channel, verifying channel
+--- existence and, if protected, caller authorization.
 ---
 --- @type network.registerListener
 ---
@@ -51,15 +52,16 @@ local registerListener = function(channel, listener, context)
   end
 
   if context and listener.identifier then
-    listener.identifier = string.format('%s:%s', context.identifier,
-                            listener.identifier)
+    listener.identifier = string.format(
+                           '%s:%s', context.identifier, listener.identifier
+                          )
   end
 
   channels[channel]:registerListener(listener.callback, listener.identifier)
 end
 
 ---
---- ?
+--- Using its unique identifier, remove a listener from the specified channel.
 ---
 --- @type network.removeListener
 ---
@@ -76,7 +78,9 @@ local removeListener = function(channel, identifier, context)
 end
 
 ---
---- ?
+--- Invokes the specified channel, triggering its listeners and optionally
+--- passing a payload. The caller's context is verified to ensure only the
+--- owning context can invoke the channel.
 ---
 --- @type network.invokeChannel
 ---
@@ -87,8 +91,9 @@ local invokeChannel = function(name, payload, context)
 
   if channels[name].owner ~= context then
     throw(
-      'Transmission failed, the calling context (%s) does not own channel "%s"',
-      context.identifier, name)
+     'Transmission failed, the calling context (%s) ' ..
+      'does not own channel "%s"', context.identifier, name
+    )
   end
 
   channels[name]:invokeListeners(payload, channels[name].async)
@@ -102,9 +107,3 @@ framework.export('channel/reserve', reserveChannel)
 framework.export('channel/register-listener', registerListener)
 framework.export('channel/remove-listener', removeListener)
 framework.export('channel/invoke', invokeChannel)
-
---
--- Reserve the channels used by the framework.
---
-
-reserveChannel('PLUGIN_ADDED', { async = false, internal = true })

@@ -10,12 +10,24 @@
 ---
 --- ?
 --- 
---- @class plugin
+--- @class plugin : network.pluginApi
 --- @field identifier string The unique identifier for the plugin.
 ---
 
 ---
---- ?
+--- Creates and registers new plugin instances, returning their contexts wrapped
+--- in immutable proxies to prevent accidental modifications.
 --- 
---- @alias plugins.createPlugin fun(identifier: string): plugin
+--- @alias plugins.createPlugin fun(identifier: string, options?: plugins.createPlugin.options): plugin
+---
+
+---
+--- @class plugins.createPlugin.options
+--- @field channels? { name: string, internal?: boolean, async?: boolean }[]
+---
+
+---
+--- ?
+---
+--- @alias plugins.retrievePluginContext fun(identifier: string): plugin
 ---
