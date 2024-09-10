@@ -5,15 +5,15 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, core.context
+--- @type string, context
 local addon, framework = ...
+
+-- #region: framework context imports
+-- #endregion
 
 ---
 --- ?
 ---
---- @type framework.api
+--- @type api
 ---
-_G.cogspinner = {
-  createPlugin = framework.import('plugin/create'),
-  executeCallback = framework.import('callback/execute')
-}
+_G.cogspinner = createProtectedProxy({} --[[@as api]] )

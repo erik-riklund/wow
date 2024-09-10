@@ -5,13 +5,20 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, core.context
+--- @type string, context
 local addon, framework = ...
 
---- @type network.reserveChannel
-local reserveChannel = framework.import('channel/reserve')
+---
+--- @type Frame
+---
+local frame = CreateFrame('Frame', 'CogspinnerFrame')
 
 --
--- Reserve the channels used by the framework.
+-- Ensure the frame is visible to be able to utilize the `OnUpdate` mechanism.
 --
-reserveChannel('PLUGIN_ADDED', { async = false, internal = true })
+frame:SetShown(true)
+
+--
+-- Expose the frame object to the framework context.
+--
+framework.export('core/frame', frame)

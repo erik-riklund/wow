@@ -8,17 +8,17 @@
   ],
   "better-comments.tags": [
     {
-      "tag": "~",
-      "color": "#A19F70",
+      "tag": "#region << imports >>",
+      "color": "#D5AA4D",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",
       "bold": false,
-      "italic": true
+      "italic": false
     },
     {
-      "tag": " todo: ",
-      "color": "#D67E4E",
+      "tag": "#region << exports >>",
+      "color": "#D5AA4D",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",

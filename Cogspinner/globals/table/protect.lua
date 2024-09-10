@@ -5,9 +5,6 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, core.context
-local addon, framework = ...
-local createProtectedProxy
 
 ---
 --- Safeguards a proxy against modifications by triggering
@@ -18,12 +15,12 @@ local blockModifications = function()
 end
 
 ---
---- Creates a read-only proxy for a table and its nested tables,
---- preventing modifications.
+--- Creates a read-only proxy for a table, ensuring its contents cannot be modified.
+--- Any nested tables are also wrapped in protected proxies upon return.
 ---
---- @type table.createProtectedProxy
+--- @param target table
 ---
-createProtectedProxy = function(target)
+_G.createProtectedProxy = function(target)
   local proxy = {
     __newindex = blockModifications,
     __index = function(self, key)
@@ -34,8 +31,3 @@ createProtectedProxy = function(target)
 
   return setmetatable({}, proxy)
 end
-
---
--- Expose the function to the framework context.
---
-framework.export('table/protect', createProtectedProxy)

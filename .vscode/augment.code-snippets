@@ -29,10 +29,13 @@
       "--   \\____\\___/ \\__, |___/ .__/|_|_| |_|_| |_|\\___|_|   ",
       "--              |___/    |_|                            ",
       "--",
-      "--- @type string, ${1:core.context}",
+      "--- @type string, ${1:context}",
       "local addon, ${2:framework} = ...",
       "",
-      "-- #region: framework context imports",
+      "-- #region << imports >>",
+      "-- #endregion",
+      "",
+      "-- #region << exports >>",
       "-- #endregion"
     ]
   },

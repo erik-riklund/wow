@@ -5,14 +5,18 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, core.context
+--- @type string, context
 local addon, framework = ...
+
+-- #region << imports >>
 
 --- @type Frame
 local frame = framework.import('core/frame')
 
+-- #endregion
+
 ---
---- A queue of background tasks awaiting execution. Each task contains
+--- Maintains a queue for background tasks, with each task encapsulating
 --- a callback function and its associated arguments.
 ---
 --- @type table<number, dispatch.backgroundTask>
@@ -20,8 +24,8 @@ local frame = framework.import('core/frame')
 local tasks = {}
 
 ---
---- A coroutine that processes background tasks in a controlled
---- manner to maintain a target frame rate.
+--- A coroutine that processes background tasks in a controlled manner, thereby
+--- maintaining a target frame rate and ensuring smooth UI performance.
 ---
 --- @type thread
 ---
@@ -49,7 +53,10 @@ local process = coroutine.create(function()
 end)
 
 ---
---- Resumes the background task processing coroutine if the queue has pending tasks.
+--- Attaches a script to the frame's 'OnUpdate' event to resume the background
+--- task processing coroutine if there are pending tasks and the coroutine is
+--- currently suspended. This ensures tasks are processed efficiently within the
+--- frame rate constraints.
 ---
 frame:SetScript('OnUpdate', function()
   if coroutine.status(process) == 'suspended' and #tasks > 0 then
@@ -58,7 +65,8 @@ frame:SetScript('OnUpdate', function()
 end)
 
 ---
---- Execute callbacks asynchronously by adding them to the background task queue for processing.
+--- Executes callbacks asynchronously by adding them to the background task queue,
+--- allowing for potential non-blocking execution of time-consuming operations.
 --- 
 --- @type dispatch.executeCallbackAsync
 ---
@@ -66,7 +74,6 @@ local executeCallbackAsync = function(callback, arguments)
   table.insert(tasks, { callback = callback, arguments = arguments })
 end
 
---
--- Expose `executeCallbackAsync` to the framework context.
---
+-- #region << exports >>
 framework.export('dispatch/execute-async', executeCallbackAsync)
+-- #endregion
