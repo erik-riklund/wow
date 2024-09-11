@@ -13,6 +13,12 @@
 ---
 
 ---
+--- ?
+--- 
+--- @alias plugins.createPlugin fun(identifier: string, options?: plugins.createPlugin.options): plugin
+---
+
+---
 --- @class plugins.createPlugin.options
 --- @field channels? { name: string, internal?: boolean, async?: boolean }[]
 ---

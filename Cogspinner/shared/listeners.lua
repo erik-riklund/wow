@@ -76,7 +76,7 @@ local listenerManager = {
 local createListenerManager = function()
   return {
     -- An empty table to store listeners for this specific instance.
-    
+
     listeners = {},
 
     -- Methods inherited from the `listenerManager` prototype, providing the core
