@@ -18,7 +18,7 @@ local createListenerManager = framework.import('shared/listeners')
 ---
 --- ?
 ---
---- @type table<string, events.listenerManager>
+--- @type table<string, listenerManager>
 ---
 local events = {}
 
@@ -28,8 +28,9 @@ local events = {}
 --- @param name string
 ---
 local registerEvent = function(name)
+  events[name] = createListenerManager()
+
   if not startsWith(name, 'ADDON_LOADED') then frame:RegisterEvent(name) end
-  events[name] = createListenerManager() --[[@as events.listenerManager]]
 end
 
 ---
@@ -38,8 +39,9 @@ end
 --- @param name string
 ---
 local unregisterEvent = function(name)
+  events[name] = nil -- clear the listener manager for the event.
+
   if not startsWith(name, 'ADDON_LOADED') then frame:UnregisterEvent(name) end
-  events[name] = nil -- clears the listener manager for the event.
 end
 
 ---
@@ -68,7 +70,8 @@ local handler = {
 
     -- ?
     if type(context) == 'table' and context.identifier and listener.identifier then
-      listener.identifier = string.format('%s:%s', context.identifier, listener.identifier)
+      listener.identifier =
+      string.format('%s:%s', context.identifier, listener.identifier)
     end
 
     events[event]:registerListener(listener)

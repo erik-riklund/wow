@@ -16,12 +16,6 @@
 ---
 
 ---
---- Represents a single event and its listeners.
---- 
---- @class events.listenerManager : listenerManager
----
-
----
 --- @class events.api
 --- 
 --- @field onInitialize fun(self: plugin, callback: function)
