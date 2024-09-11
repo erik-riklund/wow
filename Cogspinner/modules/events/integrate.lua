@@ -9,9 +9,41 @@
 local addon, framework = ...
 
 -- #region << imports >>
+--- @type events.handler
+local events = framework.import('events/handler')
 --- @type network.controller
 local network = framework.import('network/controller')
 -- #endregion
+
+---
+--- ?
+---
+--- @type events.api
+---
+local api = {
+  --
+  -- ?
+  --
+  onInitialize = function(self, callback)
+    events.registerListener('ADDON_LOADED:' .. self.identifier, { callback = callback })
+  end,
+
+  --
+  -- ?
+  --
+  registerEventListener = function(self, event, listener)
+    if event == 'ADDON_LOADED' then
+      throw('Use `onInitialize` to register listeners for "ADDON_LOADED"')
+    end
+
+    --
+  end,
+
+  --
+  -- ?
+  --
+  removeEventListener = function(self, event, identifier) end
+}
 
 --
 -- ?
