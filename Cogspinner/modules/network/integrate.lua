@@ -43,14 +43,14 @@ network.registerListener('PLUGIN_ADDED', {
   --- @param plugin plugin
   --- @param options plugins.createPlugin.options
   callback = function(plugin, options)
-    -- Integrate the API methods into the plugin.
-    
+    -- Inherit the methods from the network API prototype.
+
     plugin.invokeChannel = api.invokeChannel
     plugin.registerChannelListener = api.registerChannelListener
     plugin.removeChannelListener = api.removeChannelListener
 
-    -- Reserves channels specified in the plugin's options,
-    -- ensuring they are available for the plugin to use.
+    -- Reserves channels specified in the provided options,
+    -- ensuring they are available for use by the plugin.
 
     if type(options.channels) == 'table' then
       for index, channel in ipairs(options.channels) do
