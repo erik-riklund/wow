@@ -1,8 +1,10 @@
 <Ui>
   <!-- globals -->
   <Include file="globals/throw.lua"/>
+  
   <Include file="globals/table/merge.lua"/>
   <Include file="globals/table/protect.lua"/>
+  <Include file="globals/string/starts-with.lua"/>
 
   <!-- core functions -->
   <Include file="context.lua"/>
@@ -22,6 +24,10 @@
   <!-- module: events -->
   <Include file="modules/events/handler.lua"/>
   <Include file="modules/events/integrate.lua"/>
+  <Include file="modules/events/relay.lua"/>
+
+  <!-- module: plugins -->
+  <Include file="modules/plugins/manager.lua"/>
 
   <!-- framework API -->
   <Include file="api.lua"/>

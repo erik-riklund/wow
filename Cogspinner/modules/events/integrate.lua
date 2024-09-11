@@ -25,7 +25,8 @@ local api = {
   -- ?
   --
   onInitialize = function(self, callback)
-    events.registerListener('ADDON_LOADED:' .. self.identifier, { callback = callback })
+    events.registerListener('ADDON_LOADED:' .. self.identifier,
+                            { callback = callback, recurring = false })
   end,
 
   --

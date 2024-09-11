@@ -18,7 +18,7 @@
 ---
 --- Represents a single event and its listeners.
 --- 
---- @class events.event : listenerManager
+--- @class events.listenerManager : listenerManager
 ---
 
 ---

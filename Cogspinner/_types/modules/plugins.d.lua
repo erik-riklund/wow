@@ -20,5 +20,7 @@
 
 ---
 --- @class plugins.createPlugin.options
+--- 
 --- @field channels? { name: string, internal?: boolean, async?: boolean }[]
+--- @field storage? { account?: boolean, character?: boolean }
 ---

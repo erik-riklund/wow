@@ -1,0 +1,33 @@
+@startuml Style
+
+skinparam {
+  BackgroundColor #EAE9E9
+
+  ' Component:
+  ComponentBorderColor #3E3D3D
+  ComponentBackgroundColor #292828
+
+  ComponentFontColor #CAB069
+  ComponentFontName Yu Gothic UI Semibold
+  ComponentFontSize 12pt
+
+  ' ComponentStereotype:
+  ComponentStereotypeFontName Consolas
+  ComponentStereotypeFontSize 10pt
+  ComponentStereotypeFontColor #A9B665
+
+  '
+  ArrowColor #3E3D3D
+  ArrowHeadColor #292828
+  ArrowFontName Consolas
+  ArrowFontSize 10pt
+}
+
+' skinparam InterfaceBackgroundColor Orange
+' skinparam NoteFontName Franklin Gothic Medium
+' skinparam NoteFontSize 12pt
+' skinparam NoteFontColor black
+' skinparam NoteBackgroundColor #FEFFDD
+' skinparam NoteBorderColor #96968D
+
+@enduml

@@ -16,4 +16,7 @@ local addon, framework = ...
 ---
 --- @type api
 ---
-_G.cogspinner = createProtectedProxy({} --[[@as api]] )
+_G.cogspinner = createProtectedProxy({
+  createPlugin = framework.import('plugins/create'),
+  executeCallback = framework.import('dispatch/execute')
+} --[[@as api]] )

@@ -24,9 +24,7 @@ local listenerManager = {
   -- Registers a new listener with a callback function. An optional identifier
   -- can be provided, which is necessary for future removal of the listener.
   --
-  registerListener = function(self, callback, identifier)
-    table.insert(self.listeners, { identifier = identifier, callback = callback })
-  end,
+  registerListener = function(self, listener) table.insert(self.listeners, listener) end,
 
   --
   -- Removes a listener from the list, identifying it by its unique identifier.

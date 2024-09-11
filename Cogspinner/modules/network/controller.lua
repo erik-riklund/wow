@@ -59,11 +59,11 @@ local controller = {
     end
 
     if context and listener.identifier then
-      listener.identifier = string.format('%s:%s', context.identifier,
-                                          listener.identifier)
+      listener.identifier =
+       string.format('%s:%s', context.identifier, listener.identifier)
     end
 
-    channels[channel]:registerListener(listener.callback, listener.identifier)
+    channels[channel]:registerListener(listener)
   end,
 
   --
@@ -75,9 +75,7 @@ local controller = {
       throw('Listener removal failed, unknown channel "%s"', channel)
     end
 
-    if context then
-      identifier = string.format('%s:%s', context.identifier, identifier)
-    end
+    if context then identifier = string.format('%s:%s', context.identifier, identifier) end
 
     channels[channel]:removeListener(identifier)
   end,
@@ -91,9 +89,9 @@ local controller = {
       throw('Transmission failed, unknown channel "%s"', name)
     end
 
-    if channels[name].owner ~= context.identifier then
-      throw('Transmission failed, the calling context (%s) '
-             .. 'does not own channel "%s"', context.identifier, name)
+    if channels[name].owner ~= ((context and context.identifier) or nil) then
+      throw('Transmission failed, the calling context (%s) does not own channel "%s"',
+            context.identifier, name)
     end
 
     channels[name]:invokeListeners(payload, channels[name].async)

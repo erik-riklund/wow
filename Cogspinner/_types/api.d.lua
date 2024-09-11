@@ -9,4 +9,7 @@
 
 ---
 --- @class api
+--- 
+--- @field createPlugin plugins.createPlugin
+--- @field executeCallback dispatch.executeCallback
 ---

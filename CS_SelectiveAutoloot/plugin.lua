@@ -1,5 +1,3 @@
---- @diagnostic disable
-
 --    ____                      _
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -10,16 +8,11 @@
 --- @type string, table
 local addon, context = ...
 
---
--- ?
---
+local plugin = cogspinner.createPlugin(addon)
 
-local plugin = cogspinner.createPlugin(
-                addon,
-                 { channels = { { name = 'JUST_TESTING', internal = true } } }
-               )
+plugin:onInitialize(function() print('Hello world') end)
 
---
--- ?
---
-
+plugin:registerEventListener('LOOT_READY', {
+  callback = function() print('Hello Looter') end,
+  recurring = false
+})
