@@ -42,9 +42,4 @@ component "callback" as Dispatch <<handler>>
 Network -> Dispatch
 Event -left-> Dispatch
 
-'component "locales" as Locale <<manager>>
-
-'Framework .left.|> Locale
-'Plugin -> Locale
-
 @enduml
