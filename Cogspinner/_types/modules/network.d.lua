@@ -29,7 +29,7 @@
 ---
 
 ---
---- @class network.pluginApi
+--- @class network.api
 --- 
 --- @field invokeChannel fun(self: plugin, name: string, payload?: unknown[]) Invoke the specified channel, triggering its listeners and optionally passing a payload.
 --- @field registerChannelListener fun(self: plugin, channel: string, listener: listener) Register a listener to the specified channel.

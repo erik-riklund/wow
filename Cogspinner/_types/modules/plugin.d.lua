@@ -8,8 +8,7 @@
 --
 
 ---
---- @class plugin : network.pluginApi
---- 
+--- @class plugin : events.api, network.api
 --- @field identifier string
 ---
 

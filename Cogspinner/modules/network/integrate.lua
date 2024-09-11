@@ -17,7 +17,7 @@ local network = framework.import('network/controller')
 --- The API object providing methods for plugins to interact
 --- with communication channels within the framework.
 ---
---- @type network.pluginApi
+--- @type network.api
 ---
 local api = {
   invokeChannel = function(self, name, payload)

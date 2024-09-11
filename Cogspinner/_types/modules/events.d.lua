@@ -20,3 +20,11 @@
 --- 
 --- @class events.event : listenerManager
 ---
+
+---
+--- @class events.api
+--- 
+--- @field onInitialize fun(self: plugin, callback: function)
+--- @field registerEventListener fun(self: plugin, event: string, listener: listener)
+--- @field removeEventListener fun(self: plugin, event: string, identifier: string)
+---
