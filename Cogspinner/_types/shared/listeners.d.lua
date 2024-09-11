@@ -17,12 +17,14 @@
 --- @field registerListener fun(self: listenerManager, callback: function, identifier?: string) Registers a new listener with a callback function. An optional identifier can be provided, which is necessary for future removal of the listener.
 --- @field invokeListeners fun(self: listenerManager, arguments?: unknown[], executeAsync?: boolean) Invokes all registered listeners, passing the provided arguments to each, where the `executeAsync` flag determines whether callbacks are executed asynchronously or not.
 --- @field removeListener fun(self: listenerManager, identifier: string) Removes a listener from the list, identifying it by its unique identifier.
+--- @field removeNonrecurringListeners fun(self: listenerManager)
 ---
 
 ---
 --- @class listener
 --- @field identifier? string
 --- @field callback function
+--- @field recurring? boolean
 ---
 
 ---

@@ -36,13 +36,19 @@ local api = {
       throw('Use `onInitialize` to register listeners for "ADDON_LOADED"')
     end
 
-    --
+    events.registerListener(event, listener, self)
   end,
 
   --
   -- ?
   --
-  removeEventListener = function(self, event, identifier) end
+  removeEventListener = function(self, event, identifier)
+    if event == 'ADDON_LOADED' then
+      throw('Unable to remove listeners for "ADDON_LOADED"')
+    end
+
+    events.removeListener(event, identifier, self)
+  end
 }
 
 --

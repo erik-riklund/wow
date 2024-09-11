@@ -25,8 +25,7 @@ local listenerManager = {
   -- can be provided, which is necessary for future removal of the listener.
   --
   registerListener = function(self, callback, identifier)
-    table.insert(self.listeners,
-                 { identifier = identifier, callback = callback })
+    table.insert(self.listeners, { identifier = identifier, callback = callback })
   end,
 
   --
@@ -51,6 +50,19 @@ local listenerManager = {
   invokeListeners = function(self, arguments, executeAsync)
     for index, listener in ipairs(self.listeners) do
       executeCallback(listener.callback, arguments, { async = executeAsync })
+    end
+
+    self:removeNonrecurringListeners()
+  end,
+
+  --
+  -- ?
+  --
+  removeNonrecurringListeners = function(self)
+    for index = #self.listeners, 1, -1 do
+      if self.listeners[index].recurring == false then
+        table.remove(self.listeners, index)
+      end
     end
   end
 }
