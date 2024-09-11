@@ -19,6 +19,10 @@
   <Include file="modules/network/controller.lua"/>
   <Include file="modules/network/integrate.lua"/>
 
+  <!-- module: events -->
+  <Include file="modules/events/handler.lua"/>
+  <Include file="modules/events/integrate.lua"/>
+
   <!-- framework API -->
   <Include file="api.lua"/>
 </Ui>
