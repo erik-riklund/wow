@@ -31,7 +31,8 @@ Plugins --* Plugin
 component "network" as Network <<controller>>
 component "events" as Event <<handler>>
 
-Plugins -> Network
+Plugins -left-> Network
+Event --> Network
 
 Plugin .|> Network
 Plugin ..|> Event
@@ -39,7 +40,7 @@ Plugin ..|> Event
 component "callback" as Dispatch <<handler>>
 
 Network -> Dispatch
-Event -> Dispatch
+Event -left-> Dispatch
 
 'component "locales" as Locale <<manager>>
 
