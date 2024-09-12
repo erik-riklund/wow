@@ -8,15 +8,17 @@
 --- @type string, context
 local addon, framework = ...
 
--- #region: framework context imports
--- #endregion
-
 ---
 --- ?
 ---
 --- @type api
 ---
-_G.cogspinner = createProtectedProxy({
+local api = {
   createPlugin = framework.import('plugins/create'),
   executeCallback = framework.import('dispatch/execute')
-} --[[@as api]] )
+}
+
+---
+--- ?
+---
+_G.cogspinner = createProtectedProxy(api) --[[@as api]]

@@ -71,7 +71,7 @@ local handler = {
     -- ?
     if type(context) == 'table' and context.identifier and listener.identifier then
       listener.identifier =
-      string.format('%s:%s', context.identifier, listener.identifier)
+       string.format('%s:%s', context.identifier, listener.identifier)
     end
 
     events[event]:registerListener(listener)

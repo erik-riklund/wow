@@ -25,7 +25,7 @@ frame:RegisterEvent('ADDON_LOADED')
 --
 frame:SetScript('OnEvent', function(self, event, ...)
   local arguments = { ... }
-  
+
   if event == 'ADDON_LOADED' then
     -- ?
     event = 'ADDON_LOADED:' .. arguments[1]
