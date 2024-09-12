@@ -8,7 +8,7 @@
 --
 
 ---
---- @class plugin : events.api, network.api
+--- @class plugin : events.api, network.api, storage.api
 --- @field identifier string
 ---
 

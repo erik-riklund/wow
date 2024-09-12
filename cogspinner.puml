@@ -33,8 +33,6 @@ Plugin .> Locales
 component "storage" as DataStore <<controller>>
 
 DataStore --> Network
-DataStore --> Events
-
 Plugin .> DataStore
 
 component "services" as Services <<manager>>

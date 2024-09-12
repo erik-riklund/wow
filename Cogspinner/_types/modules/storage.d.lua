@@ -1,0 +1,22 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- @class storage.api
+--- 
+--- @field getAccountVariable storage.getVariable
+--- @field setAccountVariable storage.setVariable
+--- @field getCharacterVariable storage.getVariable
+--- @field setCharacterVariable storage.setVariable
+---
+
+---
+--- @alias storage.getVariable fun(self: plugin, identifier: string): unknown
+--- @alias storage.setVariable fun(self: plugin, identifier: string, value: unknown)
+---

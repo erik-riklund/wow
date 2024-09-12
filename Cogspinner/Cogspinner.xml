@@ -27,6 +27,9 @@
   <Include file="modules/events/integrate.lua"/>
   <Include file="modules/events/relay.lua"/>
 
+  <!-- module: storage -->
+  <Include file="modules/storage/integrate.lua"/>
+
   <!-- module: plugins -->
   <Include file="modules/plugins/manager.lua"/>
 

@@ -56,6 +56,8 @@
     "Event",
     "ReloadUI",
     "UIDropDownMenu_SetAnchor",
-    "ID"
+    "ID",
+    "EditModeManagerFrame",
+    "EditModeSystemMixin"
   ]
 }

@@ -5,14 +5,12 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
-
 ---
 --- Safeguards a proxy against modifications by triggering
 --- an error upon any changes to its contents.
 ---
-local blockModifications = function()
-  throw('Attempt to modify a protected table')
-end
+local blockModifications =
+ function() throw('Attempt to modify a protected table') end
 
 ---
 --- Creates a read-only proxy for a table, ensuring its contents cannot be modified.
@@ -21,11 +19,24 @@ end
 --- @param target table
 ---
 _G.createProtectedProxy = function(target)
+  if type(target) ~= 'table' then
+    throw('Invalid argument type (target), expected a table')
+  end
+
   local proxy = {
+    --
+    -- Throws an error if any modifications to the proxy are attempted.
+    --
     __newindex = blockModifications,
+
+    --
+    -- Nested tables are returned as protected proxies; other value types remain unchanged.
+    --
     __index = function(self, key)
-      return (type(target[key]) ~= 'table' and target[key])
-              or createProtectedProxy(target[key])
+      if target[key] ~= nil then
+        return (type(target[key]) ~= 'table' and target[key])
+                or createProtectedProxy(target[key])
+      end
     end
   }
 
