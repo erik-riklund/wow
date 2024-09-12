@@ -4,39 +4,39 @@
 component "framework" as Framework <<API>>
 component "plugins" as Plugins <<manager>>
 
-Framework ..> Plugins
+Framework ..|> Plugins
 
 component "plugin" as Plugin <<object>>
 
-Plugins --> Plugin : <<create>>
+Plugins ==> Plugin : <<create>>
 
 component "network" as Network <<controller>>
 
-Plugin .> Network
+Plugin .|> Network
 
 component "events" as Events <<handler>>
 
-Events -> Network
-Plugin .> Events
+Events => Network
+Plugin .|> Events
 
 component "tasks" as Tasks <<handler>>
 
-Events --> Tasks
-Network --> Tasks
+Events ==> Tasks
+Network ==> Tasks
 
 component "locales" as Locales <<manager>>
 
-Framework .down.> Locales
+Framework .down.|> Locales
 Plugins -[hidden]left-> Locales
-Plugin .> Locales
+Plugin .|> Locales
 
 component "storage" as DataStore <<controller>>
 
-DataStore --> Network
-Plugin .> DataStore
+DataStore ==> Network
+Plugin .|> DataStore
 
 component "services" as Services <<manager>>
 
-Framework ..> Services
+Framework ..|> Services
 
 @enduml
