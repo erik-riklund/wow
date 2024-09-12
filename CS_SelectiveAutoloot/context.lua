@@ -8,4 +8,8 @@
 --- @type string, table
 local addon, context = ...
 
-local plugin = cogspinner.createPlugin(addon)
+--
+-- Enable code splitting (modularity) by integrating the
+-- context handler into the plugin's context.
+--
+integrateContextHandler(context)

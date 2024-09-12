@@ -35,7 +35,7 @@ component "storage" as DataStore <<controller>>
 DataStore --> Network
 DataStore --> Events
 
-Plugin -> DataStore
+Plugin .> DataStore
 
 component "services" as Services <<manager>>
 

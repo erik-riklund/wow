@@ -5,7 +5,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, context
+--- @type string, framework.context
 local addon, framework = ...
 
 -- #region << imports >>

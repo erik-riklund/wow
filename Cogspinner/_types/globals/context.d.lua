@@ -9,11 +9,11 @@
 
 ---
 --- An interface for a context handler that provides object storage and retrieval,
---- allowing internal objects to be exposed for use elsewhere in the system.
+--- allowing internal objects to be exposed for use elsewhere within the context.
 --- 
---- @class framework.context
+--- @class context
 --- 
 --- @field objects table<string, unknown>
---- @field import fun(identifier: string): unknown
---- @field export fun(identifier: string, object: unknown)
+--- @field export fun(self: context, identifier: string, object: unknown)
+--- @field import fun(self: context, identifier: string): unknown
 ---

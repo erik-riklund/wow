@@ -1,6 +1,7 @@
 <Ui>
   <!-- globals -->
   <Include file="globals/throw.lua"/>
+  <Include file="globals/context.lua"/>
   
   <Include file="globals/table/merge.lua"/>
   <Include file="globals/table/protect.lua"/>
@@ -28,6 +29,9 @@
 
   <!-- module: plugins -->
   <Include file="modules/plugins/manager.lua"/>
+
+  <!-- garbage collector -->
+  <Include file="garbage.lua"/>
 
   <!-- framework API -->
   <Include file="api.lua"/>

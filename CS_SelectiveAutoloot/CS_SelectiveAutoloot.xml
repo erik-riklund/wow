@@ -1,5 +1,7 @@
 <Ui>
+  <!-- plugin context -->
+  <Include file="context.lua"/>
 
-  <Include file="plugin.lua"/>
+  
 
 </Ui>
