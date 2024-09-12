@@ -1,0 +1,44 @@
+@startuml Cogspinner
+!include style.puml
+
+component "framework" as Framework <<API>>
+component "plugins" as Plugins <<manager>>
+
+Framework ..> Plugins
+
+component "plugin" as Plugin <<object>>
+
+Plugins --> Plugin : <<create>>
+
+component "network" as Network <<controller>>
+
+Plugin .> Network
+
+component "events" as Events <<handler>>
+
+Events -> Network
+Plugin .> Events
+
+component "tasks" as Tasks <<handler>>
+
+Events --> Tasks
+Network --> Tasks
+
+component "locales" as Locales <<manager>>
+
+Framework .down.> Locales
+Plugins -[hidden]left-> Locales
+Plugin .> Locales
+
+component "storage" as DataStore <<controller>>
+
+DataStore --> Network
+DataStore --> Events
+
+Plugin -> DataStore
+
+component "services" as Services <<manager>>
+
+Framework ..> Services
+
+@enduml

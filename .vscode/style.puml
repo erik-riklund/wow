@@ -1,11 +1,11 @@
 @startuml Style
 
 skinparam {
-  BackgroundColor #EAE9E9
+  BackgroundColor #292828
 
   ' Component:
-  ComponentBorderColor #3E3D3D
-  ComponentBackgroundColor #292828
+  ComponentBorderColor #51462A
+  ComponentBackgroundColor #252424
 
   ComponentFontColor #CAB069
   ComponentFontName Yu Gothic UI Semibold
@@ -16,11 +16,14 @@ skinparam {
   ComponentStereotypeFontSize 10pt
   ComponentStereotypeFontColor #A9B665
 
-  '
-  ArrowColor #3E3D3D
-  ArrowHeadColor #292828
+  ' Arrow:
+  ArrowColor #655834
+  ArrowHeadColor #8D7B49
+
   ArrowFontName Consolas
   ArrowFontSize 10pt
+  ArrowFontStyle bold
+  ArrowFontColor #CAB069
 }
 
 ' skinparam InterfaceBackgroundColor Orange
