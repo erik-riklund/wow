@@ -9,10 +9,3 @@
 local addon, context = ...
 
 local plugin = cogspinner.createPlugin(addon)
-
-plugin:onInitialize(function() print('Hello world') end)
-
-plugin:registerEventListener('LOOT_READY', {
-  callback = function() print('Hello Looter') end,
-  recurring = false
-})

@@ -9,7 +9,7 @@
 local addon, framework = ...
 
 ---
---- ?
+--- Provides essential methods for interacting with the framework.
 ---
 --- @type api
 ---
@@ -19,6 +19,6 @@ local api = {
 }
 
 ---
---- ?
+--- The framework's API, providing access to key modules and services.
 ---
 _G.cogspinner = createProtectedProxy(api) --[[@as api]]

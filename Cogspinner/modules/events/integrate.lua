@@ -16,13 +16,14 @@ local network = framework.import('network/controller')
 -- #endregion
 
 ---
---- ?
+--- A prototype object enabling plugin interaction with game events,
+--- with a focus on initialization and general event handling.
 ---
 --- @type events.api
 ---
 local api = {
   --
-  -- ?
+  -- Registers a callback function for one-time execution upon loading the associated addon.
   --
   onInitialize = function(self, callback)
     events.registerListener('ADDON_LOADED:' .. self.identifier,
@@ -30,7 +31,8 @@ local api = {
   end,
 
   --
-  -- ?
+  -- Registers a listener to any event (excluding 'ADDON_LOADED'),
+  -- associating it with the plugin's context.
   --
   registerEventListener = function(self, event, listener)
     if event == 'ADDON_LOADED' then
@@ -41,7 +43,8 @@ local api = {
   end,
 
   --
-  -- ?
+  -- Removes a listener for any specified event except 'ADDON_LOADED',
+  -- using its identifier and the plugin's context.
   --
   removeEventListener = function(self, event, identifier)
     if event == 'ADDON_LOADED' then
@@ -53,7 +56,9 @@ local api = {
 }
 
 --
--- ?
+-- A listener triggered when a new plugin is added to the system. It extends
+-- the plugin's capabilities by adding methods for handling events. These methods
+-- include initialization, event listening, and event removal.
 --
 network.registerListener('PLUGIN_ADDED', {
   --- @param plugin plugin

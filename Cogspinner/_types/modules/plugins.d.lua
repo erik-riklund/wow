@@ -13,8 +13,7 @@
 ---
 
 ---
---- ?
---- 
+--- Creates a new plugin context to facilitate interaction with the framework's modules and services.
 --- @alias plugins.createPlugin fun(identifier: string, options?: plugins.createPlugin.options): plugin
 ---
 

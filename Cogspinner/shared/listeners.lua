@@ -54,13 +54,11 @@ local listenerManager = {
   end,
 
   --
-  -- ?
+  -- Removes non-recurring listeners after invocation.
   --
   removeNonrecurringListeners = function(self)
     for index = #self.listeners, 1, -1 do
-      if self.listeners[index].recurring == false then
-        table.remove(self.listeners, index)
-      end
+      if self.listeners[index].recurring == false then table.remove(self.listeners, index) end
     end
   end
 }

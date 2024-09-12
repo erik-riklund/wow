@@ -14,14 +14,15 @@ local network = framework.import('network/controller')
 -- #endregion
 
 ---
---- ?
+--- Serves as a central hub for storing and managing plugins within the framework.
 ---
 --- @type table<string, plugin>
 ---
 local plugins = {}
 
 ---
---- ?
+--- Creates and registers new plugins, ensuring unique identifiers and
+--- broadcasting the creation event to the framework.
 ---
 --- @type plugins.createPlugin
 ---
