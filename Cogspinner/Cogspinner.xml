@@ -1,10 +1,14 @@
 <Ui>
-  <!-- globals -->
+  <!-- globals: general -->
   <Include file="globals/throw.lua"/>
   <Include file="globals/context.lua"/>
   
+  <!-- globals: table utilities -->
   <Include file="globals/table/merge.lua"/>
   <Include file="globals/table/protect.lua"/>
+  <Include file="globals/table/traverse.lua"/>
+
+  <!-- globals: string utilities -->
   <Include file="globals/string/starts-with.lua"/>
 
   <!-- core functions -->

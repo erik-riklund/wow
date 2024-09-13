@@ -2,11 +2,22 @@
 !include style.puml
 
 component "framework" as Framework <<API>>
+
+note left of Framework
+  ?
+end note
+
 component "plugins" as Plugins <<manager>>
 
 Framework ..|> Plugins
 
 component "plugin" as Plugin <<object>>
+
+note left of Plugin
+  The plugin object streamlines the development
+  process by facilitating access to the framework's
+  modules and services.
+end note
 
 Plugins ==> Plugin : <<create>>
 

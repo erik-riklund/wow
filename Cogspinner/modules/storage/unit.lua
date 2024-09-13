@@ -9,15 +9,17 @@
 local addon, framework = ...
 
 -- #region << imports >>
---- @type network.controller
-local network = framework.import('network/controller')
 -- #endregion
 
---
--- ?
---
-network.registerListener('PLUGIN_ADDED', {
-  --- @param plugin plugin
-  --- @param options plugins.createPlugin.options
-  callback = function(plugin, options) end
-})
+---
+--- ?
+--- 
+--- @type storage.unit.constructor
+---
+local createStorageUnit = function()
+  ---@diagnostic disable-next-line: missing-return
+end
+
+-- #region << exports >>
+framework.export('storage/unit', createStorageUnit)
+-- #endregion
