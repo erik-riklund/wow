@@ -14,6 +14,13 @@ local addon, framework = ...
 ---
 --- ?
 ---
+--- @type table<string, table<'account'|'character', storage.unit>>
+---
+local storage = {}
+
+---
+--- ?
+---
 --- @type storage.manager
 --- 
 local manager = {}

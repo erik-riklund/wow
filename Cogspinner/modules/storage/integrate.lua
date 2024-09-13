@@ -11,6 +11,8 @@ local addon, framework = ...
 -- #region << imports >>
 --- @type network.controller
 local network = framework.import('network/controller')
+--- @type storage.manager
+local storage = framework.import('storage/manager')
 -- #endregion
 
 --
@@ -19,5 +21,7 @@ local network = framework.import('network/controller')
 network.registerListener('PLUGIN_ADDED', {
   --- @param plugin plugin
   --- @param options plugins.createPlugin.options
-  callback = function(plugin, options) end
+  callback = function(plugin, options)
+    
+  end
 })
