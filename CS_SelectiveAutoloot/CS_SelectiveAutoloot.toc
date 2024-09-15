@@ -1,9 +1,10 @@
 ## Interface: 110002
 ## Dependencies: Cogspinner
+## SavedVariables: CS_SelectiveAutoloot_Account
 
+## Version: 1.0
 ## Title: Selective Autoloot (Cogspinner plugin)
 ## Notes: ?
-## Version: 1.0
 
 ## X-Website: https://github.com/erik-riklund/wow/CS_SelectiveAutoloot
 

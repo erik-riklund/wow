@@ -13,9 +13,9 @@ local addon, context = ...
 --- 
 --- @type plugins.createPlugin.options
 ---
-local options = {}
+local options = { variables = { account = 'CS_SelectiveAutoloot_Account' } }
 
 ---
 --- ?
 ---
-context:export('plugin', cogspinner.createPlugin(addon, options))
+context:export('plugin', cogspinner.createPlugin(addon, options));

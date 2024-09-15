@@ -3,8 +3,9 @@
 
 component "framework" as Framework <<API>>
 
-note left of Framework
-  ?
+note top of Framework
+  The framework API is primarily used for plugin
+  registration, enabling easy access to its features.
 end note
 
 component "plugins" as Plugins <<manager>>
@@ -14,9 +15,9 @@ Framework ..|> Plugins
 component "plugin" as Plugin <<object>>
 
 note left of Plugin
-  The plugin object streamlines the development
-  process by facilitating access to the framework's
-  modules and services.
+  The plugin object streamlines development by providing a
+  simplified interface for common tasks like event handling
+  and saved variable management.
 end note
 
 Plugins ==> Plugin : <<create>>

@@ -8,7 +8,9 @@
 --
 
 ---
---- ?
+--- Defines the possible scopes for plugin data storage:
+--- * `account` (shared across all characters on an account)
+--- * `character` (specific to a single character).
 ---
 --- @alias storage.scope 'account'|'character'
 ---

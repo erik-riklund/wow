@@ -6,8 +6,7 @@
 --              |___/    |_|                            
 
 ---
---- Throws an error upon table traversal failure, providing
---- a descriptive message and the traversal path.
+--- Throws an error upon table traversal failure, providing a descriptive message and the traversal path.
 ---
 --- @param message string A message detailing the specific cause of the traversal failure.
 --- @param steps string[] An array representing the path taken within the table before the failure.
@@ -23,7 +22,7 @@ end
 ---
 --- @param target table The table that will be traversed.
 --- @param steps unknown[] An array of keys defining the location to access within the table.
---- @param mode? 'build'|'strict' (optional) `build` creates missing steps in the path if they do not exist. `strict` throws an error if any step in the path is missing. If no mode is specified, the traversal stops upon encountering a missing step and returns `nil`.
+--- @param mode? 'build'|'strict' (optional) `build` creates missing steps in the path if they do not exist, while `strict` throws an error if any step in the path is missing.
 --- 
 --- @return table?
 ---

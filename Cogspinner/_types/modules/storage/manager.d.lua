@@ -13,5 +13,5 @@
 --- @class storage.manager
 --- 
 --- @field getStorageUnit   fun(context: plugin, scope: storage.scope): storage.unit
---- @field setupStorageUnit fun(context: plugin, variable: string)
+--- @field setupStorageUnit fun(context: plugin, scope: storage.scope, variable: string)
 ---

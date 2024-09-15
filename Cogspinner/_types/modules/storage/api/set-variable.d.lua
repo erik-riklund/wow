@@ -8,12 +8,6 @@
 --
 
 ---
---- ?
---- 
---- @class storage.api
---- 
---- @field getAccountVariable storage.api.getVariable
---- @field setAccountVariable storage.api.setVariable
---- @field getCharacterVariable storage.api.getVariable
---- @field setCharacterVariable storage.api.setVariable
+--- Enables plugins to set the value of a variable within their specific scope (account or character).
+--- @alias storage.api.setVariable fun(self: plugin, identifier: string, value: unknown)
 ---

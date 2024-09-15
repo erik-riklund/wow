@@ -11,10 +11,15 @@
 --- ?
 ---
 --- @class storage.unit
+--- 
+--- @field data? table
+--- 
+--- @field getVariable fun(self: storage.unit, path: string): unknown?
+--- @field setVariable fun(self: storage.unit, path: string, value: unknown)
 ---
 
 ---
 --- ?
 ---
---- @alias storage.unit.constructor fun(): storage.unit
+--- @alias storage.unit.constructor fun(variable: string): storage.unit
 ---
