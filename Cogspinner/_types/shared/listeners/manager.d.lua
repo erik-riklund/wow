@@ -1,0 +1,30 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- Manages a collection of listeners (callbacks) associated with events or triggers.
+--- It provides methods to register new listeners, invoke all registered listeners
+--- (optionally with arguments and asynchronously), remove specific listeners by identifier,
+--- and remove all non-recurring listeners.
+--- 
+--- @class listenerManager
+--- @field listeners? table<number, listener>
+--- 
+--- @field registerListener fun(self: listenerManager, listener: listener)
+--- @field invokeListeners fun(self: listenerManager, arguments?: unknown[], executeAsync?: boolean)
+--- @field removeListener fun(self: listenerManager, identifier: string)
+--- @field removeNonrecurringListeners fun(self: listenerManager)
+---
+
+---
+--- Creates new `listenerManager` instances, providing a way to
+--- encapsulate and manage listeners in different parts of the framework.
+--- 
+--- @alias listenerManager.constructor fun(): listenerManager
+---

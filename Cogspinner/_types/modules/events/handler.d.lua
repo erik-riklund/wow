@@ -8,17 +8,13 @@
 --
 
 ---
+--- Centralizes event handling logic by providing methods to trigger events, register
+--- listeners for specific events (optionally associating them with a plugin context),
+--- and remove listeners by their identifiers and associated plugin context.
+--- 
 --- @class events.handler
 --- 
---- @field invokeEvent fun(event: string, arguments?: unknown[])
+--- @field invokeEvent      fun(event: string, arguments?: unknown[])
 --- @field registerListener fun(event: string, listener: listener, context?: plugin)
---- @field removeListener fun(event: string, identifier: string, context?: plugin)
----
-
----
---- @class events.api
---- 
---- @field onInitialize fun(self: plugin, callback: function)
---- @field registerEventListener fun(self: plugin, event: string, listener: listener)
---- @field removeEventListener fun(self: plugin, event: string, identifier: string)
+--- @field removeListener   fun(event: string, identifier: string, context?: plugin)
 ---

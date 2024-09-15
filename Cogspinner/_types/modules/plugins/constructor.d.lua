@@ -8,18 +8,6 @@
 --
 
 ---
---- @class plugin : events.api, network.api, storage.api
---- @field identifier string
----
-
----
 --- Creates a new plugin context to facilitate interaction with the framework's modules and services.
 --- @alias plugins.createPlugin fun(identifier: string, options?: plugins.createPlugin.options): plugin
----
-
----
---- @class plugins.createPlugin.options
---- 
---- @field channels? { name: string, internal?: boolean, async?: boolean }[]
---- @field variables? { account?: string, character?: string }
 ---

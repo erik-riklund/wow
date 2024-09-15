@@ -7,8 +7,8 @@
 --
 
 ---
---- Merge multiple tables into a single table, appending the elements
---- of each table in the order they are provided.
+--- Creates a new table by merging multiple tables, preserving the original
+--- tables and appending their elements in the provided order.
 --- 
 --- @param first table
 --- @param second table

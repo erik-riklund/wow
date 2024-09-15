@@ -8,20 +8,8 @@
 --
 
 ---
---- Invokes the given callback function, optionally with arguments,
---- either immediately or asynchronously (default behavior).
+--- A function that schedules the asynchronous execution of a callback function,
+--- allowing for optional arguments and ensuring non-blocking operation.
 --- 
---- @alias dispatch.executeCallback
---- | fun(callback: function, arguments?: unknown[], options?: { async: boolean })
----
-
----
 --- @alias dispatch.executeCallbackAsync fun(callback: function, arguments?: unknown[])
----
-
----
---- @class dispatch.backgroundTask
---- 
---- @field callback function
---- @field arguments unknown[]
 ---

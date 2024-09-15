@@ -8,19 +8,7 @@
 --
 
 ---
---- @class storage.manager
----
-
----
---- @class storage.unit
----
-
----
 --- ?
---- @alias storage.unit.constructor fun(): storage.unit
----
-
----
 --- @class storage.api
 --- 
 --- @field getAccountVariable storage.getVariable
@@ -30,6 +18,13 @@
 ---
 
 ---
+--- ?
+--- 
 --- @alias storage.getVariable fun(self: plugin, identifier: string): unknown
+--- 
+
+---
+--- ?
+--- 
 --- @alias storage.setVariable fun(self: plugin, identifier: string, value: unknown)
 ---

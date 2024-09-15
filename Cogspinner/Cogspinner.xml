@@ -5,10 +5,12 @@
   
   <!-- globals: table utilities -->
   <Include file="globals/table/merge.lua"/>
+  <Include file="globals/table/integrate.lua"/>
   <Include file="globals/table/protect.lua"/>
   <Include file="globals/table/traverse.lua"/>
 
   <!-- globals: string utilities -->
+  <Include file="globals/string/not-empty.lua"/>
   <Include file="globals/string/starts-with.lua"/>
 
   <!-- core functions -->
@@ -24,6 +26,7 @@
 
   <!-- module: network -->
   <Include file="modules/network/controller.lua"/>
+  <Include file="modules/network/reserved.lua"/>
   <Include file="modules/network/integrate.lua"/>
 
   <!-- module: events -->
@@ -32,6 +35,8 @@
   <Include file="modules/events/relay.lua"/>
 
   <!-- module: storage -->
+  <Include file="modules/storage/manager.lua"/>
+  <Include file="modules/storage/unit.lua"/>
   <Include file="modules/storage/integrate.lua"/>
 
   <!-- module: plugins -->

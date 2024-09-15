@@ -1,0 +1,16 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- Represents a plugin within the framework, inheriting functionalities from various
+--- APIs to interact with the system, manage its state, and be uniquely identified.
+--- 
+--- @class plugin : events.api, network.api, storage.api
+--- @field identifier string
+---

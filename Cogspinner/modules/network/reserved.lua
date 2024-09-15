@@ -9,34 +9,11 @@
 local addon, framework = ...
 
 -- #region << imports >>
+--- @type network.controller
+local network = framework.import('network/controller')
 -- #endregion
 
----
---- ?
----
---- @type table<string, table<'account'|'character', storage.unit>>
----
-local storage = {}
-
----
---- ?
----
---- @type storage.manager
---- 
-local manager = {
-  --
-  -- ?
-  --
-  getStorageUnit = function(context, scope)
-    ---@diagnostic disable-next-line: missing-return
-  end,
-
-  --
-  -- ?
-  --
-  setupStorageUnit = function(context, variable) end
-}
-
--- #region << exports >>
-framework.export('storage/manager', manager)
--- #endregion
+--
+-- Reserve the channels used by the framework.
+--
+network.reserveChannel('PLUGIN_ADDED', { async = false, internal = true })

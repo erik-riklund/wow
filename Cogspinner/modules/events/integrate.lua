@@ -64,9 +64,6 @@ network.registerListener('PLUGIN_ADDED', {
   --- @param plugin plugin
   callback = function(plugin)
     -- Inherit the methods from the events API prototype.
-
-    plugin.onInitialize = api.onInitialize
-    plugin.registerEventListener = api.registerEventListener
-    plugin.removeEventListener = api.removeEventListener
+    integrateTable(plugin, api)
   end
 })

@@ -1,0 +1,17 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- Represents a communication channel within the network system,
+--- inheriting functionality from `listenerManager` to manage listeners
+--- associated with the channel, while also inheriting from `network.channelOptions`
+--- to store configuration settings such as asynchronous or internal behavior.
+--- 
+--- @class network.channel : listenerManager, network.channelOptions
+---

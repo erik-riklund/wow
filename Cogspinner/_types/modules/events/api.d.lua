@@ -1,0 +1,20 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- API interface designed specifically for plugin interaction with the event system,
+--- allowing them to register an initialization callback, add event listeners for specific events,
+--- and remove those listeners when they are no longer needed.
+--- 
+--- @class events.api
+--- 
+--- @field onInitialize          fun(self: plugin, callback: function)
+--- @field registerEventListener fun(self: plugin, event: string, listener: listener)
+--- @field removeEventListener   fun(self: plugin, event: string, identifier: string)
+---

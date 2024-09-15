@@ -98,11 +98,6 @@ local controller = {
   end
 }
 
---
--- Reserve the channels used by the framework.
---
-controller.reserveChannel('PLUGIN_ADDED', { async = false, internal = true })
-
 -- #region << exports >>
 framework.export('network/controller', controller)
 -- #endregion

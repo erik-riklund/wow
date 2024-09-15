@@ -1,0 +1,21 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- Represents a listener (or callback function) associated with an event/trigger.
+--- It may optionally include an identifier and a flag indicating its recurrence behavior.
+--- The flag specifies whether the listener should be invoked on every occurrence of
+--- the associated event/trigger or only once (non-recurring).
+--- 
+--- @class listener
+--- 
+--- @field identifier? string
+--- @field callback function
+--- @field recurring? boolean
+---

@@ -44,14 +44,11 @@ network.registerListener('PLUGIN_ADDED', {
   --- @param options plugins.createPlugin.options
   callback = function(plugin, options)
     -- Inherit the methods from the network API prototype.
+    integrateTable(plugin, api)
 
-    plugin.invokeChannel = api.invokeChannel
-    plugin.registerChannelListener = api.registerChannelListener
-    plugin.removeChannelListener = api.removeChannelListener
-
-    -- Reserves channels specified in the provided options,
+    -- Reserve the channels specified in the provided options,
     -- ensuring they are available for use by the plugin.
-
+    
     if type(options.channels) == 'table' then
       for index, channel in ipairs(options.channels) do
         network.reserveChannel(channel.name, {
