@@ -13,7 +13,7 @@
 --- The flag specifies whether the listener should be invoked on every occurrence of
 --- the associated event/trigger or only once (non-recurring).
 --- 
---- @class listener
+--- @class listeners.listener
 --- 
 --- @field identifier? string
 --- @field callback function

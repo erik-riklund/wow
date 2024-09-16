@@ -15,6 +15,6 @@
 --- @class events.api
 --- 
 --- @field onInitialize          fun(self: plugin, callback: function)
---- @field registerEventListener fun(self: plugin, event: string, listener: listener)
+--- @field registerEventListener fun(self: plugin, event: string, listener: listeners.listener)
 --- @field removeEventListener   fun(self: plugin, event: string, identifier: string)
 ---

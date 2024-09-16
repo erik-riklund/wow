@@ -16,6 +16,6 @@
 --- @class network.api
 --- 
 --- @field invokeChannel           fun(self: plugin, name: string, payload?: unknown[])
---- @field registerChannelListener fun(self: plugin, channel: string, listener: listener)
+--- @field registerChannelListener fun(self: plugin, channel: string, listener: listeners.listener)
 --- @field removeChannelListener   fun(self: plugin, channel: string, identifier: string)
 ---

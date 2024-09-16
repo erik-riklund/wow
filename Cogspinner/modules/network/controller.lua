@@ -9,7 +9,7 @@
 local addon, framework = ...
 
 -- #region << imports >>
---- @type listenerManager.constructor
+--- @type listeners.manager.constructor
 local createListenerManager = framework.import('shared/listeners')
 -- #endregion
 

@@ -8,9 +8,7 @@
 --
 
 ---
---- Represents a plugin within the framework, inheriting functionalities from various
---- APIs to interact with the system, manage its state, and be uniquely identified.
---- 
---- @class plugin : commands.api, events.api, locales.api, network.api, storage.api
---- @field identifier string
+--- Represents a slash command callback function.
+---
+--- @alias commands.callback fun(message: string, source: EditBox)
 ---

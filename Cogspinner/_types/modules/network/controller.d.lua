@@ -15,7 +15,7 @@
 --- @class network.controller
 --- 
 --- @field reserveChannel   fun(name: string, options?: network.channelOptions)
---- @field registerListener fun(channel: string, listener: listener, context?: plugin)
+--- @field registerListener fun(channel: string, listener: listeners.listener, context?: plugin)
 --- @field removeListener   fun(channel: string, identifier: string, context?: plugin)
 --- @field invokeChannel    fun(name: string, payload?: unknown[], context?: plugin)
 ---

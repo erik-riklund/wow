@@ -8,9 +8,10 @@
 --
 
 ---
---- Represents a plugin within the framework, inheriting functionalities from various
---- APIs to interact with the system, manage its state, and be uniquely identified.
+--- This specialized API interface enables plugins to interact with the command registration system,
+--- allowing them to register handlers and respond to user-entered slash commands.
 --- 
---- @class plugin : commands.api, events.api, locales.api, network.api, storage.api
---- @field identifier string
+--- @class commands.api
+---
+--- @field registerCommandHandler fun(self: plugin, options: { identifier: string, command: string|string[], callback: commands.callback })
 ---

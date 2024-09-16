@@ -1,6 +1,7 @@
 <Ui>
   <!-- globals: general -->
   <Include file="globals/throw.lua"/>
+  <Include file="globals/type-error.lua"/>
   <Include file="globals/context.lua"/>
   
   <!-- globals: table utilities -->
@@ -43,6 +44,10 @@
   <!-- module: locales -->
   <Include file="modules/locales/manager.lua"/>
   <Include file="modules/locales/api.lua"/>
+
+  <!-- module: slash commands -->
+  <Include file="modules/commands/handler.lua"/>
+  <Include file="modules/commands/api.lua"/>
 
   <!-- module: plugins -->
   <Include file="modules/plugins/manager.lua"/>

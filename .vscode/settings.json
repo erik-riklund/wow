@@ -58,6 +58,7 @@
     "UIDropDownMenu_SetAnchor",
     "ID",
     "EditModeManagerFrame",
-    "EditModeSystemMixin"
+    "EditModeSystemMixin",
+    "SlashCmdList"
   ]
 }

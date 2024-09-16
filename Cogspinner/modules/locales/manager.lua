@@ -60,8 +60,17 @@ local manager = {
   -- and allowing it to be optionally set as the fallback locale.
   --
   registerLocale = function(context, locale, content, fallback)
-    ensureType('locale', locale, 'string')
-    ensureType('content', content, 'table')
+    -- Input data type validation:
+
+    if type(locale) ~= 'string' then
+      throwTypeError('locale', 'string', type(locale))
+    end
+
+    if type(content) ~= 'table' then
+      throwTypeError('content', 'table', type(content))
+    end
+
+    -- ?
 
     local identifier = createLocaleIdentifier(context, locale)
 

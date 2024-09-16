@@ -11,7 +11,7 @@ local addon, framework = ...
 -- #region << imports >>
 --- @type Frame
 local frame = framework.import('core/frame')
---- @type listenerManager.constructor
+--- @type listeners.manager.constructor
 local createListenerManager = framework.import('shared/listeners')
 -- #endregion
 
@@ -19,7 +19,7 @@ local createListenerManager = framework.import('shared/listeners')
 --- Serves as a central hub for storing and managing
 --- event listeners within the framework.
 ---
---- @type table<string, listenerManager>
+--- @type table<string, listeners.manager>
 ---
 local events = {}
 

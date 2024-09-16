@@ -18,7 +18,7 @@ local executeCallback = framework.import('dispatch/execute')
 -- associated with specific events or triggers.
 --
 
---- @type listenerManager
+--- @type listeners.manager
 local listenerManager = {
   --
   -- Registers a new listener with a callback function. An optional identifier
@@ -71,7 +71,7 @@ local listenerManager = {
 -- Creates new `listenerManager` instances, providing a way to encapsulate
 -- and manage listeners in different parts of the framework.
 --
---- @type listenerManager.constructor
+--- @type listeners.manager.constructor
 --
 local createListenerManager = function()
   return {

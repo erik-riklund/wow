@@ -1,0 +1,16 @@
+--- @meta
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+
+---
+--- Handles the registration of slash commands, associating each command with a plugin or context,
+--- a unique identifier, and a callback function. The callback is executed when any of the command's
+--- associated trigger strings are entered.
+---
+--- @alias commands.registerHandler fun(context: plugin, identifier: string, commands: string[], callback: commands.callback)
+---

@@ -29,7 +29,10 @@ local api = {
 
   --
   registerLocale = function(self, options)
-    ensureType('options', options, 'table')
+    if type(options) ~= 'table' then
+      throwTypeError('options', 'table', type(options))
+    end
+
     locales.registerLocale(self, options.locale, options.content, options.fallback)
   end
 }

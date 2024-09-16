@@ -13,18 +13,18 @@
 --- (optionally with arguments and asynchronously), remove specific listeners by identifier,
 --- and remove all non-recurring listeners.
 --- 
---- @class listenerManager
---- @field listeners? table<number, listener>
+--- @class listeners.manager
+--- @field listeners? table<number, listeners.listener>
 --- 
---- @field registerListener fun(self: listenerManager, listener: listener)
---- @field invokeListeners fun(self: listenerManager, arguments?: unknown[], executeAsync?: boolean)
---- @field removeListener fun(self: listenerManager, identifier: string)
---- @field removeNonrecurringListeners fun(self: listenerManager)
+--- @field registerListener fun(self: listeners.manager, listener: listeners.listener)
+--- @field invokeListeners fun(self: listeners.manager, arguments?: unknown[], executeAsync?: boolean)
+--- @field removeListener fun(self: listeners.manager, identifier: string)
+--- @field removeNonrecurringListeners fun(self: listeners.manager)
 ---
 
 ---
---- Creates new `listenerManager` instances, providing a way to
+--- Creates new `ListenerManager` instances, providing a way to
 --- encapsulate and manage listeners in different parts of the framework.
 --- 
---- @alias listenerManager.constructor fun(): listenerManager
+--- @alias listeners.manager.constructor fun(): listeners.manager
 ---

@@ -13,5 +13,5 @@
 --- associated with the channel, while also inheriting from `network.channelOptions`
 --- to store configuration settings such as asynchronous or internal behavior.
 --- 
---- @class network.channel : listenerManager, network.channelOptions
+--- @class network.channel : listeners.manager, network.channelOptions
 ---

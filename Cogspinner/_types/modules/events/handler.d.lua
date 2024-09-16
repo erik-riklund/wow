@@ -15,6 +15,6 @@
 --- @class events.handler
 --- 
 --- @field invokeEvent      fun(event: string, arguments?: unknown[])
---- @field registerListener fun(event: string, listener: listener, context?: plugin)
+--- @field registerListener fun(event: string, listener: listeners.listener, context?: plugin)
 --- @field removeListener   fun(event: string, identifier: string, context?: plugin)
 ---
