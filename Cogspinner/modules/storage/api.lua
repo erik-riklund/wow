@@ -60,7 +60,7 @@ network.registerListener('PLUGIN_ADDED', {
       for index, scope in ipairs({ 'account', 'character' }) do
         if notEmptyString(options.variables[scope]) then
           local variable = options.variables[scope] --[[@as string]]
-          
+
           plugin:onInitialize(function()
             storage.setupStorageUnit(plugin, scope, variable)
           end)

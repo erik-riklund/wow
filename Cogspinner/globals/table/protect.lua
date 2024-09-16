@@ -5,12 +5,13 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
+
 ---
---- Safeguards a proxy against modifications by triggering
---- an error upon any changes to its contents.
+--- Safeguards a proxy against modifications by triggering an error upon any changes to its contents.
 ---
-local blockModifications =
- function() throw('Attempt to modify a protected table') end
+local blockModifications = function()
+  throw('Attempt to modify a protected table')
+end
 
 ---
 --- Creates a read-only proxy for a table, ensuring its contents cannot be modified.
@@ -34,8 +35,7 @@ _G.createProtectedProxy = function(target)
     --
     __index = function(self, key)
       if target[key] ~= nil then
-        return (type(target[key]) ~= 'table' and target[key])
-                or createProtectedProxy(target[key])
+        return (type(target[key]) ~= 'table' and target[key]) or createProtectedProxy(target[key])
       end
     end
   }

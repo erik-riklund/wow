@@ -10,9 +10,9 @@
 --- Integrates the contents of one table into another,
 --- optionally overwriting existing keys in the target table.
 ---
---- @param target table The table to receive the integrated elements.
---- @param source table The table providing the elements to be integrated.
---- @param overwrite? boolean If true, allows overwriting existing keys in the target table. Defaults to `false`.
+--- @param target     table    The table to receive the integrated elements.
+--- @param source     table    The table providing the elements to be integrated.
+--- @param overwrite? boolean  If true, allows overwriting existing keys in the target table. Defaults to `false`.
 ---
 _G.integrateTable = function(target, source, overwrite)
   if type(target) ~= 'table' or type(source) ~= 'table' then

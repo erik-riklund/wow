@@ -28,17 +28,21 @@
   <!-- module: network -->
   <Include file="modules/network/controller.lua"/>
   <Include file="modules/network/reserved.lua"/>
-  <Include file="modules/network/integrate.lua"/>
+  <Include file="modules/network/api.lua"/>
 
   <!-- module: events -->
   <Include file="modules/events/handler.lua"/>
-  <Include file="modules/events/integrate.lua"/>
+  <Include file="modules/events/api.lua"/>
   <Include file="modules/events/relay.lua"/>
 
   <!-- module: storage -->
   <Include file="modules/storage/unit.lua"/>
   <Include file="modules/storage/manager.lua"/>
-  <Include file="modules/storage/integrate.lua"/>
+  <Include file="modules/storage/api.lua"/>
+
+  <!-- module: locales -->
+  <Include file="modules/locales/manager.lua"/>
+  <Include file="modules/locales/api.lua"/>
 
   <!-- module: plugins -->
   <Include file="modules/plugins/manager.lua"/>

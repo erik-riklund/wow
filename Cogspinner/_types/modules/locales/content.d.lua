@@ -8,9 +8,8 @@
 --
 
 ---
---- Represents a plugin within the framework, inheriting functionalities from various
---- APIs to interact with the system, manage its state, and be uniquely identified.
---- 
---- @class plugin : events.api, locales.api, network.api, storage.api
---- @field identifier string
+--- A table representing a locale's content, mapping string keys
+--- (identifiers for localized strings) to their corresponding string values.
+---
+--- @alias locales.content table<string, string>
 ---

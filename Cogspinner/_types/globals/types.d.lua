@@ -8,9 +8,7 @@
 --
 
 ---
---- Represents a plugin within the framework, inheriting functionalities from various
---- APIs to interact with the system, manage its state, and be uniquely identified.
---- 
---- @class plugin : events.api, locales.api, network.api, storage.api
---- @field identifier string
+--- String representations of the basic data types available in Lua.
+---
+--- @alias lua.types 'nil'|'boolean'|'string'|'number'|'table'|'function'|'thread'|'userdata'
 ---

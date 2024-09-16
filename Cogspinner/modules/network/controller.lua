@@ -59,8 +59,7 @@ local controller = {
     end
 
     if context and listener.identifier then
-      listener.identifier =
-       string.format('%s:%s', context.identifier, listener.identifier)
+      listener.identifier = string.format('%s:%s', context.identifier, listener.identifier)
     end
 
     channels[channel]:registerListener(listener)
@@ -75,7 +74,9 @@ local controller = {
       throw('Listener removal failed, unknown channel "%s"', channel)
     end
 
-    if context then identifier = string.format('%s:%s', context.identifier, identifier) end
+    if context then
+      identifier = string.format('%s:%s', context.identifier, identifier)
+    end
 
     channels[channel]:removeListener(identifier)
   end,

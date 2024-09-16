@@ -13,5 +13,6 @@
 --- @class plugins.createPlugin.options
 --- 
 --- @field channels?  { name: string, internal?: boolean, async?: boolean }[]
+--- @field locales?   { locale: string, content: table<string, string>, fallback?: boolean }[]
 --- @field variables? { account?: string, character?: string }
 ---

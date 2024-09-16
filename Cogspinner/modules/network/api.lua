@@ -48,7 +48,7 @@ network.registerListener('PLUGIN_ADDED', {
 
     -- Reserve the channels specified in the provided options,
     -- ensuring they are available for use by the plugin.
-    
+
     if type(options.channels) == 'table' then
       for index, channel in ipairs(options.channels) do
         network.reserveChannel(channel.name, {

@@ -7,12 +7,12 @@
 --
 
 ---
---- ?
+--- Splits a string into an array of substrings using a specified separator.
 --- 
---- @param target string
---- @param separator string
+--- @param target    string The string to be split.
+--- @param separator string The character or string used to delimit the substrings.
 --- 
---- @return string[]
+--- @return string[] "An array containing the substrings resulting from the split operation."
 ---
 _G.splitString = function(target, separator)
   return { string.split(separator, target) }

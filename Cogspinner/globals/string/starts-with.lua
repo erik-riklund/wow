@@ -11,6 +11,7 @@
 ---
 --- @param target string The target string to check.
 --- @param prefix string The prefix to look for at the beginning of the target string.
+--- 
 --- @return boolean `true` if the target string starts with the specified prefix, `false` otherwise.
 ---
 _G.startsWith = function(target, prefix)

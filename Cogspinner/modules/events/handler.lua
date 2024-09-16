@@ -32,7 +32,9 @@ local events = {}
 local registerEvent = function(name)
   events[name] = createListenerManager()
 
-  if not startsWith(name, 'ADDON_LOADED') then frame:RegisterEvent(name) end
+  if not startsWith(name, 'ADDON_LOADED') then
+    frame:RegisterEvent(name)
+  end
 end
 
 ---
@@ -44,7 +46,9 @@ end
 local unregisterEvent = function(name)
   events[name] = nil -- clear the listener manager for the event.
 
-  if not startsWith(name, 'ADDON_LOADED') then frame:UnregisterEvent(name) end
+  if not startsWith(name, 'ADDON_LOADED') then
+    frame:UnregisterEvent(name)
+  end
 end
 
 ---
@@ -62,7 +66,9 @@ local handler = {
     if events[event] ~= nil then
       events[event]:invokeListeners(arguments)
 
-      if #events[event].listeners == 0 then unregisterEvent(event) end
+      if #events[event].listeners == 0 then
+        unregisterEvent(event)
+      end
     end
   end,
 
@@ -71,12 +77,13 @@ local handler = {
   -- optionally associating the listener with a context for identification purposes.
   --
   registerListener = function(event, listener, context)
-    if events[event] == nil then registerEvent(event) end
+    if events[event] == nil then
+      registerEvent(event)
+    end
 
     -- Formats the listener identifier to include the context identifier when both are provided.
     if type(context) == 'table' and context.identifier and listener.identifier then
-      listener.identifier = string.format('%s:%s', context.identifier,
-                                          listener.identifier)
+      listener.identifier = string.format('%s:%s', context.identifier, listener.identifier)
     end
 
     events[event]:registerListener(listener)
@@ -97,7 +104,9 @@ local handler = {
 
     events[event]:removeListener(identifier)
 
-    if #events[event].listeners == 0 then unregisterEvent(event) end
+    if #events[event].listeners == 0 then
+      unregisterEvent(event)
+    end
   end
 }
 

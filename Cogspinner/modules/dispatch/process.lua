@@ -39,8 +39,7 @@ local process = coroutine.create(function()
       if (GetTime() - initialized) < frameLimit then
         --- @type dispatch.backgroundTask
         local currentTask = table.remove(tasks, 1)
-        local success, result = pcall(currentTask.callback,
-                                      unpack(currentTask.arguments))
+        local success, result = pcall(currentTask.callback, unpack(currentTask.arguments))
 
         if not success then
           -- todo: implement error reporting.

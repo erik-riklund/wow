@@ -1,7 +1,7 @@
 <Ui>
   <!-- context initialization -->
-  <Include file="context.lua"/>
-  <Include file="plugin.lua"/>
+  <Include file="core/context.lua"/>
+  <Include file="core/plugin.lua"/>
 
   <!--  -->
 

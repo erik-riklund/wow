@@ -3,52 +3,44 @@
 
 component "framework" as Framework <<API>>
 
-note top of Framework
-  The framework API is primarily used for plugin
-  registration, enabling easy access to its features.
-end note
-
 component "plugins" as Plugins <<manager>>
 
-Framework ..|> Plugins
+Framework ..> Plugins
 
 component "plugin" as Plugin <<object>>
-
-note left of Plugin
-  The plugin object streamlines development by providing a
-  simplified interface for common tasks like event handling
-  and saved variable management.
-end note
 
 Plugins ==> Plugin : <<create>>
 
 component "network" as Network <<controller>>
 
-Plugin .|> Network
+Plugin --> Network
 
 component "events" as Events <<handler>>
 
-Events => Network
-Plugin .|> Events
+Plugin --> Events
 
 component "tasks" as Tasks <<handler>>
 
-Events ==> Tasks
-Network ==> Tasks
+Framework .right.> Tasks
 
 component "locales" as Locales <<manager>>
 
-Framework .down.|> Locales
-Plugins -[hidden]left-> Locales
-Plugin .|> Locales
+Plugin -left-> Locales
 
 component "storage" as DataStore <<controller>>
 
-DataStore ==> Network
-Plugin .|> DataStore
+Plugin -right-> DataStore
 
 component "services" as Services <<manager>>
 
-Framework ..|> Services
+Framework .left.> Services
+
+component "commands" as Commands <<handler>>
+
+Plugin --> Commands
+
+component "tooltips" as Tooltips <<controller>>
+
+Framework ..> Tooltips
 
 @enduml

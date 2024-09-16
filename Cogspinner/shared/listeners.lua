@@ -24,7 +24,9 @@ local listenerManager = {
   -- Registers a new listener with a callback function. An optional identifier
   -- can be provided, which is necessary for future removal of the listener.
   --
-  registerListener = function(self, listener) table.insert(self.listeners, listener) end,
+  registerListener = function(self, listener)
+    table.insert(self.listeners, listener)
+  end,
 
   --
   -- Removes a listener from the list, identifying it by its unique identifier.
@@ -58,7 +60,9 @@ local listenerManager = {
   --
   removeNonrecurringListeners = function(self)
     for index = #self.listeners, 1, -1 do
-      if self.listeners[index].recurring == false then table.remove(self.listeners, index) end
+      if self.listeners[index].recurring == false then
+        table.remove(self.listeners, index)
+      end
     end
   end
 }

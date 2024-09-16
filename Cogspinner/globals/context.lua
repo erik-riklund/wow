@@ -9,9 +9,9 @@
 ---
 --- Registers a new object, ensuring its uniqueness through its identifier.
 ---
---- @param self context
+--- @param self       context
 --- @param identifier string
---- @param object unknown
+--- @param object     unknown
 ---
 local export = function(self, identifier, object)
   if self.objects[identifier] ~= nil then
@@ -24,8 +24,9 @@ end
 ---
 --- Retrieves an exported object based on its identifier.
 ---
---- @param self context
+--- @param self       context
 --- @param identifier string
+--- 
 --- @return unknown
 ---
 local import = function(self, identifier)
