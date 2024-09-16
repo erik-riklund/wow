@@ -13,23 +13,26 @@ Plugins ==> Plugin : <<create>>
 
 component "network" as Network <<controller>>
 
-Plugin --> Network
+Plugin ..> Network
 
 component "events" as Events <<handler>>
 
-Plugin --> Events
+Plugin ..> Events
 
 component "tasks" as Tasks <<handler>>
 
-Framework .right.> Tasks
+Framework ..> Tasks
+
+Network -up-> Tasks
+Events -up-> Tasks
 
 component "locales" as Locales <<manager>>
 
-Plugin -left-> Locales
+Plugin .left.> Locales
 
 component "storage" as DataStore <<controller>>
 
-Plugin -right-> DataStore
+Plugin .right.> DataStore
 
 component "services" as Services <<manager>>
 
@@ -37,10 +40,14 @@ Framework .left.> Services
 
 component "commands" as Commands <<handler>>
 
-Plugin --> Commands
+Plugin ..> Commands
+
+component "configuration" as Config <<handler>>
+
+Plugin ..> Config
 
 component "tooltips" as Tooltips <<controller>>
 
-Framework ..> Tooltips
+Framework .right.> Tooltips
 
 @enduml

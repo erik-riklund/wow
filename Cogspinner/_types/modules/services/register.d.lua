@@ -1,3 +1,4 @@
+--- @meta
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -7,12 +8,9 @@
 --
 
 ---
---- ?
---- 
---- @param label    string
---- @param expected string
---- @param recieved string
+--- A function that registers a service within the framework. It associates a unique
+--- identifier with the service, which can be represented by either a function or a table
+--- containing its functionality or API.
 ---
-_G.throwTypeError = function(label, expected, recieved)
-  throw('Invalid argument type (%s), expected `%s` (recieved `%s`)', label, expected, recieved)
-end
+--- @alias services.registerService fun(identifier: string, object: function|table)
+---

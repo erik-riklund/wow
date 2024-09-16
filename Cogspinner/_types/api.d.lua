@@ -10,6 +10,8 @@
 ---
 --- @class api
 --- 
---- @field createPlugin plugins.createPlugin
+--- @field createPlugin    plugins.createPlugin
 --- @field executeCallback dispatch.executeCallback
+--- @field getService      services.getService
+--- @field registerService services.registerService
 ---

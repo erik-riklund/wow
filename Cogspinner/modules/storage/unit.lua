@@ -64,6 +64,5 @@ local createStorageUnit = function(variable)
   return { data = _G[variable], getVariable = unit.getVariable, setVariable = unit.setVariable } --[[@as storage.unit]]
 end
 
--- #region << exports >>
+--
 framework.export('storage/unit', createStorageUnit)
--- #endregion

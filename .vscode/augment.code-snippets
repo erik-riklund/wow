@@ -30,13 +30,7 @@
       "--              |___/    |_|                            ",
       "--",
       "--- @type string, ${1:framework.context}",
-      "local addon, ${2:framework} = ...",
-      "",
-      "-- #region << imports >>",
-      "-- #endregion",
-      "",
-      "-- #region << exports >>",
-      "-- #endregion"
+      "local addon, ${2:framework} = ..."
     ]
   },
 

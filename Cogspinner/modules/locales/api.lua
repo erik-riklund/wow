@@ -8,12 +8,11 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type locales.manager
 local locales = framework.import('locales/manager')
+
 --- @type network.controller
 local network = framework.import('network/controller')
--- #endregion
 
 ---
 --- The API prototype object provides methods for plugins to interact with localization

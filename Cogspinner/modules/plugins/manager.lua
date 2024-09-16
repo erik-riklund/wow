@@ -8,10 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type network.controller
 local network = framework.import('network/controller')
--- #endregion
 
 ---
 --- Serves as a central hub for storing and managing plugins within the framework.
@@ -37,6 +35,5 @@ local createPlugin = function(identifier, options)
   return createProtectedProxy(plugins[identifier])
 end
 
--- #region << exports >>
+--
 framework.export('plugins/create', createPlugin)
--- #endregion

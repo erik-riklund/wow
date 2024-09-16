@@ -8,12 +8,11 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type network.controller
 local network = framework.import('network/controller')
+
 --- @type commands.registerHandler
 local registerCommandHandler = framework.import('commands/register')
--- #endregion
 
 ---
 --- The API prototype object providing methods for plugins to register slash command handlers,

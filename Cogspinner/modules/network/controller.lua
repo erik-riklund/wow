@@ -8,10 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type listeners.manager.constructor
 local createListenerManager = framework.import('shared/listeners')
--- #endregion
 
 ---
 --- The central repository for registered channels and their associated
@@ -99,6 +97,5 @@ local controller = {
   end
 }
 
--- #region << exports >>
+--
 framework.export('network/controller', controller)
--- #endregion

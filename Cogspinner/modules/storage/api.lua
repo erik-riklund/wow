@@ -8,12 +8,11 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type network.controller
 local network = framework.import('network/controller')
+
 --- @type storage.manager
 local storage = framework.import('storage/manager')
--- #endregion
 
 ---
 --- The API prototype object provides methods for plugins to interact with storage,

@@ -8,12 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
-
 --- @type Frame
 local frame = framework.import('core/frame')
-
--- #endregion
 
 ---
 --- Maintains a queue for background tasks, with each task encapsulating
@@ -73,6 +69,5 @@ local executeCallbackAsync = function(callback, arguments)
   table.insert(tasks, { callback = callback, arguments = arguments })
 end
 
--- #region << exports >>
+--
 framework.export('dispatch/execute-async', executeCallbackAsync)
--- #endregion

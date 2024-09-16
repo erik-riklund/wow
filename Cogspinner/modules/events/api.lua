@@ -8,12 +8,11 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type events.handler
 local events = framework.import('events/handler')
+
 --- @type network.controller
 local network = framework.import('network/controller')
--- #endregion
 
 ---
 --- A prototype object enabling plugin interaction with game events,

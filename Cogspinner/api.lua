@@ -14,8 +14,10 @@ local addon, framework = ...
 --- @type api
 ---
 local api = {
-  createPlugin = framework.import('plugins/create'),
-  executeCallback = framework.import('dispatch/execute')
+  createPlugin    = framework.import('plugins/create'),
+  executeCallback = framework.import('dispatch/execute'),
+  getService      = framework.import('services/get'),
+  registerService = framework.import('services/register')
 }
 
 ---

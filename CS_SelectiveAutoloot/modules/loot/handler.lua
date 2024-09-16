@@ -5,14 +5,18 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
+--- @type string, context
+local addon, context = ...
+
+--- @type plugin
+local plugin = context:import('plugin')
 
 ---
 --- ?
---- 
---- @param label    string
---- @param expected string
---- @param recieved string
 ---
-_G.throwTypeError = function(label, expected, recieved)
-  throw('Invalid argument type (%s), expected `%s` (recieved `%s`)', label, expected, recieved)
-end
+--- @type loot.handler
+---
+local handler = {}
+
+--
+context:export('loot/handler', handler)

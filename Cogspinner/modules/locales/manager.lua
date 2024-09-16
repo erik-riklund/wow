@@ -86,6 +86,5 @@ local manager = {
   end
 }
 
--- #region << exports >>
+--
 framework.export('locales/manager', manager)
--- #endregion

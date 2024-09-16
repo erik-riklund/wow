@@ -8,10 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type dispatch.executeCallbackAsync
 local executeCallbackAsync = framework.import('dispatch/execute-async')
--- #endregion
 
 ---
 --- A dispatcher function providing a unified interface for callback execution,
@@ -33,6 +31,5 @@ local executeCallback = function(callback, arguments, options)
   end
 end
 
--- #region << exports >>
+--
 framework.export('dispatch/execute', executeCallback)
--- #endregion

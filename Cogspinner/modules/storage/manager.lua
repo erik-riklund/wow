@@ -8,10 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type storage.unit.constructor
 local createStorageUnit = framework.import('storage/unit')
--- #endregion
 
 ---
 --- Serves as a central hub for storing and managing storage units associated with plugins.
@@ -59,6 +57,5 @@ local manager = {
   end
 }
 
--- #region << exports >>
+--
 framework.export('storage/manager', manager)
--- #endregion

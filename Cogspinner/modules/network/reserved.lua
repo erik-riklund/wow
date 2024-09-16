@@ -8,10 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type network.controller
 local network = framework.import('network/controller')
--- #endregion
 
 --
 -- Reserve the channels used by the framework.

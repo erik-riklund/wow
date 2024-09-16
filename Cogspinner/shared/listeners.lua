@@ -8,10 +8,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type dispatch.executeCallback
 local executeCallback = framework.import('dispatch/execute')
--- #endregion
 
 --
 -- An object prototype providing methods for managing listeners (callbacks)
@@ -89,6 +87,5 @@ local createListenerManager = function()
   }
 end
 
--- #region << exports >>
+--
 framework.export('shared/listeners', createListenerManager)
--- #endregion

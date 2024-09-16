@@ -8,12 +8,11 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type Frame
 local frame = framework.import('core/frame')
+
 --- @type listeners.manager.constructor
 local createListenerManager = framework.import('shared/listeners')
--- #endregion
 
 ---
 --- Serves as a central hub for storing and managing
@@ -110,6 +109,5 @@ local handler = {
   end
 }
 
--- #region << exports >>
+--
 framework.export('events/handler', handler)
--- #endregion

@@ -1,3 +1,4 @@
+--- @meta
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -8,11 +9,6 @@
 
 ---
 --- ?
---- 
---- @param label    string
---- @param expected string
---- @param recieved string
 ---
-_G.throwTypeError = function(label, expected, recieved)
-  throw('Invalid argument type (%s), expected `%s` (recieved `%s`)', label, expected, recieved)
-end
+--- @class loot.handler
+---

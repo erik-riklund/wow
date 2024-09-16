@@ -8,12 +8,11 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type Frame
 local frame = framework.import('core/frame')
+
 --- @type events.handler
 local eventHandler = framework.import('events/handler')
--- #endregion
 
 --
 -- Registers the 'ADDON_LOADED' event to the frame, as it requires separate handling.

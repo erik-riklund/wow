@@ -52,6 +52,9 @@
   <!-- module: plugins -->
   <Include file="modules/plugins/manager.lua"/>
 
+  <!-- module: services -->
+  <Include file="modules/services/manager.lua"/>
+
   <!-- garbage collector -->
   <Include file="garbage.lua"/>
 

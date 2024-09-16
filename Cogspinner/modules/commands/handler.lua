@@ -8,9 +8,6 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
--- #endregion
-
 ---
 --- Used to keep track of registered slash commands to prevent conflicts.
 ---
@@ -43,6 +40,5 @@ local registerCommandHandler = function(context, identifier, commands, callback)
   (SlashCmdList --[[@as table]] )[identifier] = callback
 end
 
--- #region << exports >>
+--
 framework.export('commands/register', registerCommandHandler)
--- #endregion
