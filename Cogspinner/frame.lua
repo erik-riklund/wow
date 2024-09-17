@@ -1,3 +1,4 @@
+--
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -18,7 +19,5 @@ local frame = CreateFrame('Frame', 'CogspinnerFrame')
 --
 frame:SetShown(true)
 
---
--- Expose the frame object to the framework context.
 --
 framework.export('core/frame', frame)

@@ -1,3 +1,4 @@
+--
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -7,7 +8,9 @@
 --
 
 ---
---- ?
+--- Specialized error handling function tailored for type errors. It throws an error with
+--- a formatted message by clearly indicating the label of the value with the type mismatch,
+--- the expected type(s), and the actual type received, aiding in debugging type-related issues.
 --- 
 --- @param label    string
 --- @param expected string

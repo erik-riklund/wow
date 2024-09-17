@@ -1,3 +1,4 @@
+--
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -9,7 +10,7 @@
 ---
 --- Checks if a given value is a non-empty string.
 --- 
---- @param target string The value to check.
+--- @param target string  The value to check.
 --- 
 _G.notEmptyString = function(target)
   if target and type(target) ~= 'string' then

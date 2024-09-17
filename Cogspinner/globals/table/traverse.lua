@@ -1,3 +1,4 @@
+--
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -8,8 +9,8 @@
 ---
 --- Throws an error upon table traversal failure, providing a descriptive message and the traversal path.
 ---
---- @param message string   A message detailing the specific cause of the traversal failure.
---- @param steps   string[] An array representing the path taken within the table before the failure.
+--- @param message string    A message detailing the specific cause of the traversal failure.
+--- @param steps   string[]  An array representing the path taken within the table before the failure.
 ---
 ---
 local traverseException = function(message, steps)
@@ -20,9 +21,9 @@ end
 --- Traverses a nested table structure using a sequence of keys (steps),
 --- with options to create missing steps or enforce strict traversal rules.
 ---
---- @param target table            The table that will be traversed.
---- @param steps  unknown[]        An array of keys defining the location to access within the table.
---- @param mode?  'build'|'strict' (optional) `build` creates missing steps in the path if they do not exist, while `strict` throws an error if any step in the path is missing.
+--- @param target table             The table that will be traversed.
+--- @param steps  unknown[]         An array of keys defining the location to access within the table.
+--- @param mode?  'build'|'strict'  (optional) `build` creates missing steps in the path if they do not exist, while `strict` throws an error if any step in the path is missing.
 --- 
 --- @return table?
 ---

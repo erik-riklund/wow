@@ -1,3 +1,4 @@
+--
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
 --  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
@@ -8,10 +9,8 @@
 --- @type string, framework.context
 local addon, framework = ...
 
--- #region << imports >>
 --- @type events.handler
 local eventHandler = framework.import('events/handler')
--- #endregion
 
 --
 --- Use the 'PLAYER_ENTERING_WORLD' event to trigger a full

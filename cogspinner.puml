@@ -28,15 +28,15 @@ Events -up-> Tasks
 
 component "locales" as Locales <<manager>>
 
-Plugin .left.> Locales
+Plugin .> Locales
 
 component "storage" as DataStore <<controller>>
 
-Plugin .right.> DataStore
+Plugin ..> DataStore
 
 component "services" as Services <<manager>>
 
-Framework .left.> Services
+Framework ..> Services
 
 component "commands" as Commands <<handler>>
 
@@ -48,6 +48,6 @@ Plugin ..> Config
 
 component "tooltips" as Tooltips <<controller>>
 
-Framework .right.> Tooltips
+Framework ..> Tooltips
 
 @enduml
