@@ -25,7 +25,7 @@ local api = {
   --
   registerCommandHandler = function(self, options)
     local commands = (type(options.command) == 'string' and { options.command }) or (options.command)
-    registerCommandHandler(self, options.identifier, commands --[=[@as string[]]=] , options.callback)
+    registerCommandHandler(self, options.identifier, commands --[=[@as string[]]=], options.callback)
   end
 }
 

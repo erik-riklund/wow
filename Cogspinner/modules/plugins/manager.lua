@@ -26,6 +26,10 @@ local plugins = {}
 --- @type plugins.createPlugin
 ---
 local createPlugin = function(identifier, options)
+  if type(identifier) ~= 'string' then
+    throwTypeError('identifier', 'string', type(identifier))
+  end
+
   if plugins[identifier] ~= nil then
     throw('Unable to create plugin "%s" (non-unique identifier)', identifier)
   end

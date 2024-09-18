@@ -49,9 +49,7 @@ network.registerListener('PLUGIN_ADDED', {
     integrateTable(plugin, api) -- Inherits the API methods.
 
     if type(options) == 'table' and type(options.locales) == 'table' then
-      for index, locale in ipairs(options.locales) do
-        plugin:registerLocale(locale)
-      end
+      for index, locale in ipairs(options.locales) do plugin:registerLocale(locale) end
     end
   end
 })

@@ -26,8 +26,10 @@ local unit = {
   getVariable = function(self, path)
     local parents, variable = resolveVariablePath(path)
     local target = (parents and traverseTable(self.data, parents)) or self.data
-    
-    if type(target) == 'table' and target[variable] ~= nil then return target[variable] end
+
+    if type(target) == 'table' and target[variable] ~= nil then
+      return target[variable]
+    end
 
     return nil
   end,

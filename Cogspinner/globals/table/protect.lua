@@ -37,7 +37,8 @@ _G.createProtectedProxy = function(target)
     --
     __index = function(self, key)
       if target[key] ~= nil then
-        return (type(target[key]) ~= 'table' and target[key]) or createProtectedProxy(target[key])
+        return (type(target[key]) ~= 'table' and target[key])
+                or createProtectedProxy(target[key])
       end
     end
   }

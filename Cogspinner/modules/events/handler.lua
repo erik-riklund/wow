@@ -83,7 +83,8 @@ local handler = {
 
     -- Formats the listener identifier to include the context identifier when both are provided.
     if type(context) == 'table' and context.identifier and listener.identifier then
-      listener.identifier = string.format('%s:%s', context.identifier, listener.identifier)
+      listener.identifier =
+       string.format('%s:%s', context.identifier, listener.identifier)
     end
 
     events[event]:registerListener(listener)

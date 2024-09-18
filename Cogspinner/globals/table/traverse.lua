@@ -5,6 +5,7 @@
 --  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
+--
 
 ---
 --- Throws an error upon table traversal failure, providing a descriptive message and the traversal path.

@@ -9,7 +9,8 @@
 --
 
 ---
---- ?
+--- Manages the interaction with a plugin's settings, offering methods to retrieve,
+--- update, and register default settings within the plugin's context.
 ---
 --- @class config.handler
 --- 

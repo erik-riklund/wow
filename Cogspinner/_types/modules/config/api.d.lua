@@ -9,7 +9,10 @@
 --
 
 ---
---- ?
+--- This API manages the configuration of plugins, providing methods to retrieve,
+--- update, and apply default settings. It allows for the retrieval of individual 
+--- settings by their identifier, modification of settings, and the application 
+--- of a set of default settings for the plugin.
 ---
 --- @class config.api
 --- 
