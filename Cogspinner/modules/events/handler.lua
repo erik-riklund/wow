@@ -6,14 +6,14 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, framework.context
+--- @type string, framework
 local addon, framework = ...
 
 --- @type Frame
 local frame = framework.import('core/frame')
 
 --- @type listeners.manager.constructor
-local createListenerManager = framework.import('shared/listeners')
+local createListenerManager = framework.import('library/listeners')
 
 ---
 --- Serves as a central hub for storing and managing

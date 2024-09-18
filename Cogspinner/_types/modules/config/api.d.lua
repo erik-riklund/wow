@@ -1,3 +1,4 @@
+--- @meta
 --
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
@@ -6,18 +7,13 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, context
-local addon, context = ...
-
---- @type plugin
-local plugin = context:import('plugin')
 
 ---
 --- ?
 ---
---- @type loot.handler
+--- @class config.api
+--- 
+--- @field getSetting fun(self: plugin, identifier: string): unknown
+--- @field setSetting fun(self: plugin, identifier: string, value: unknown)
+--- @field setDefaultSettings fun(self: plugin, settings: table)
 ---
-local handler = {}
-
---
-context:export('loot/handler', handler)

@@ -12,6 +12,6 @@
 --- Represents a plugin within the framework, inheriting functionalities from various
 --- APIs to interact with the system, manage its state, and be uniquely identified.
 --- 
---- @class plugin : commands.api, events.api, locales.api, network.api, storage.api
+--- @class plugin : config.api, commands.api, events.api, locales.api, network.api, storage.api
 --- @field identifier string
 ---

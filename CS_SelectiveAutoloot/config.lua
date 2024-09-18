@@ -9,19 +9,10 @@
 --- @type string, context
 local addon, context = ...
 
----
---- ?
---- 
---- @type plugins.createPlugin.options
----
-local options = {
-  variables = {
-    account = 'CS_SelectiveAutoloot_Account',
-    character = 'CS_SelectiveAutoloot_Character'
-  }
-}
+--- @type plugin
+local plugin = context:import('plugin')
 
 ---
 --- ?
 ---
-context:export('plugin', cogspinner.createPlugin(addon, options));
+plugin:setDefaultSettings({})

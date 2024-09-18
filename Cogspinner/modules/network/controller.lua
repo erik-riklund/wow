@@ -6,11 +6,11 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, framework.context
+--- @type string, framework
 local addon, framework = ...
 
 --- @type listeners.manager.constructor
-local createListenerManager = framework.import('shared/listeners')
+local createListenerManager = framework.import('library/listeners')
 
 ---
 --- The central repository for registered channels and their associated

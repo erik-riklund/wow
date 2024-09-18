@@ -12,5 +12,5 @@
 --- A function that retrieves a registered service within the framework based on its unique identifier.
 --- It returns either a function or a table representing the service's functionality or API.
 ---
---- @alias services.getService fun(identifier: string): function|table
+--- @alias services.getService fun(identifier: string): unknown
 ---

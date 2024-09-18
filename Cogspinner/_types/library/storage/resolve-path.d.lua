@@ -1,3 +1,4 @@
+--- @meta
 --
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
@@ -6,22 +7,10 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, context
-local addon, context = ...
 
 ---
---- ?
---- 
---- @type plugins.createPlugin.options
+--- Facilitates navigation within nested data structures by parsing a path string
+--- into its constituent parts: parent steps and final variable name.
 ---
-local options = {
-  variables = {
-    account = 'CS_SelectiveAutoloot_Account',
-    character = 'CS_SelectiveAutoloot_Character'
-  }
-}
-
+--- @alias library.resolveVariablePath fun(path: string): string[]?, string
 ---
---- ?
----
-context:export('plugin', cogspinner.createPlugin(addon, options));

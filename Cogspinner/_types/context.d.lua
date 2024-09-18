@@ -12,7 +12,7 @@
 --- An interface for a context handler that provides object storage and retrieval,
 --- allowing internal objects to be exposed for use elsewhere in the system.
 --- 
---- @class framework.context
+--- @class framework
 --- 
 --- @field objects table<string, unknown>
 --- @field import fun(identifier: string): unknown

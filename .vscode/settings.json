@@ -59,6 +59,7 @@
     "ID",
     "EditModeManagerFrame",
     "EditModeSystemMixin",
-    "SlashCmdList"
+    "SlashCmdList",
+    "TRADE"
   ]
 }

@@ -6,7 +6,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, framework.context
+--- @type string, framework
 local addon, framework = ...
 
 --- @type dispatch.executeCallback
@@ -73,20 +73,8 @@ local listenerManager = {
 --- @type listeners.manager.constructor
 --
 local createListenerManager = function()
-  return {
-    -- An empty table to store listeners for this specific instance.
-
-    listeners = {},
-
-    -- Methods inherited from the `listenerManager` prototype, providing the core
-    -- functionality for registering, removing, and invoking listeners.
-
-    invokeListeners = listenerManager.invokeListeners,
-    registerListener = listenerManager.registerListener,
-    removeListener = listenerManager.removeListener,
-    removeNonrecurringListeners = listenerManager.removeNonrecurringListeners
-  }
+  return integrateTable({ listeners = {} }, listenerManager)
 end
 
 --
-framework.export('shared/listeners', createListenerManager)
+framework.export('library/listeners', createListenerManager)

@@ -1,3 +1,4 @@
+--- @meta
 --
 --    ____                      _                       
 --   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
@@ -6,22 +7,13 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, context
-local addon, context = ...
 
 ---
 --- ?
+---
+--- @class config.handler
 --- 
---- @type plugins.createPlugin.options
+--- @field getSetting fun(context: plugin, identifier: string): unknown?
+--- @field setSetting fun(context: plugin, identifier: string, value: unknown)
+--- @field registerDefaultSettings fun(context: plugin, settings: table)
 ---
-local options = {
-  variables = {
-    account = 'CS_SelectiveAutoloot_Account',
-    character = 'CS_SelectiveAutoloot_Character'
-  }
-}
-
----
---- ?
----
-context:export('plugin', cogspinner.createPlugin(addon, options));

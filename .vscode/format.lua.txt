@@ -2,7 +2,7 @@
 
 indent_width: 2
 continuation_indent_width: 1
-column_limit: 110
+column_limit: 90
 
 align_args: true
 chop_down_parameter: true
@@ -13,4 +13,4 @@ break_before_functioncall_rp: true
 spaces_inside_table_braces: true
 
 keep_simple_function_one_line: false
-keep_simple_control_block_one_line: false
+keep_simple_control_block_one_line: true

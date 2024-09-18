@@ -6,22 +6,11 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, framework.context
+--- @type string, framework
 local addon, framework = ...
 
----
---- Facilitates navigation within nested data structures by parsing a path string
---- into its constituent parts: parent steps and final variable name.
---- 
---- @param path string
---- @return string[]?, string
----
-local resolveVariablePath = function(path)
-  local steps = splitString(path, '/')
-  local variable = (#steps > 1 and table.remove(steps, #steps)) or path
-
-  return ((variable ~= path and steps) or nil), variable --[[@as string]]
-end
+--- @type library.resolveVariablePath
+local resolveVariablePath = framework.import('library/resolve-path')
 
 ---
 --- The prototype object for a storage unit provides methods for retrieving
@@ -37,8 +26,10 @@ local unit = {
   getVariable = function(self, path)
     local parents, variable = resolveVariablePath(path)
     local target = (parents and traverseTable(self.data, parents)) or self.data
+    
+    if type(target) == 'table' and target[variable] ~= nil then return target[variable] end
 
-    return (type(target) == 'table' and target[variable]) or nil
+    return nil
   end,
 
   --
@@ -62,7 +53,11 @@ local unit = {
 local createStorageUnit = function(variable)
   _G[variable] = _G[variable] or {}
 
-  return { data = _G[variable], getVariable = unit.getVariable, setVariable = unit.setVariable } --[[@as storage.unit]]
+  return {
+    data = _G[variable],
+    getVariable = unit.getVariable,
+    setVariable = unit.setVariable
+  } --[[@as storage.unit]]
 end
 
 --

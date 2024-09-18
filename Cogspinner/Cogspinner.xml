@@ -14,17 +14,21 @@
   <Include file="globals/string/not-empty.lua"/>
   <Include file="globals/string/split.lua"/>
   <Include file="globals/string/starts-with.lua"/>
+  <Include file="globals/string/substring-after.lua"/>
 
-  <!-- core functions -->
+  <!-- core modules -->
   <Include file="context.lua"/>
   <Include file="frame.lua"/>
+
+  <!-- core libraries -->
+  <Include file="library/storage/resolve-path.lua"/>
 
   <!-- module: dispatch -->
   <Include file="modules/dispatch/process.lua"/>
   <Include file="modules/dispatch/execute.lua"/>
 
-  <!-- shared: listener manager -->
-  <Include file="shared/listeners.lua"/>
+  <!-- library: listener manager -->
+  <Include file="library/listeners.lua"/>
 
   <!-- module: network -->
   <Include file="modules/network/controller.lua"/>
@@ -40,6 +44,10 @@
   <Include file="modules/storage/unit.lua"/>
   <Include file="modules/storage/manager.lua"/>
   <Include file="modules/storage/api.lua"/>
+
+  <!-- module: config -->
+  <Include file="modules/config/handler.lua"/>
+  <Include file="modules/config/api.lua"/>
 
   <!-- module: locales -->
   <Include file="modules/locales/manager.lua"/>

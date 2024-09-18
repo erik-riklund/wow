@@ -27,4 +27,6 @@ _G.integrateTable = function(target, source, overwrite)
 
     target[key] = value
   end
+
+  return target
 end

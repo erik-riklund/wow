@@ -3,6 +3,10 @@
   <Include file="core/context.lua"/>
   <Include file="core/plugin.lua"/>
 
+  <!-- configuration handler -->
+  <Include file="config.lua"/>
+
   <!-- module: looter -->
-  <Include file="modules/loot/handler.lua"/>
+  <Include file="modules/looter/handler.lua"/>
+  <Include file="modules/looter/controller.lua"/>
 </Ui>

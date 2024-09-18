@@ -6,7 +6,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, framework.context
+--- @type string, framework
 local addon, framework = ...
 
 --- @type Frame
@@ -39,7 +39,7 @@ local process = coroutine.create(function()
         local success, result = pcall(currentTask.callback, unpack(currentTask.arguments))
 
         if not success then
-          -- todo: implement error reporting.
+          print('[Cogspinner]:', getSubstringAfter(result, ':', 2))
         end
       end
     end

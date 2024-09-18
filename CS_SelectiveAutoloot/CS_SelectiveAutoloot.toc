@@ -1,6 +1,7 @@
 ## Interface: 110002
 ## Dependencies: Cogspinner
 ## SavedVariables: CS_SelectiveAutoloot_Account
+## SavedVariablesPerCharacter: CS_SelectiveAutoloot_Character
 
 ## Version: 1.0
 ## Title: Selective Autoloot (Cogspinner plugin)

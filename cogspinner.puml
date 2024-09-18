@@ -13,7 +13,8 @@ Plugins ==> Plugin : <<create>>
 
 component "network" as Network <<controller>>
 
-Plugin ..> Network
+Plugin .left.> Network
+Plugins --> Network
 
 component "events" as Events <<handler>>
 
@@ -23,8 +24,8 @@ component "tasks" as Tasks <<handler>>
 
 Framework ..> Tasks
 
-Network -up-> Tasks
-Events -up-> Tasks
+Network -> Tasks
+Events --> Tasks
 
 component "locales" as Locales <<manager>>
 
@@ -42,9 +43,10 @@ component "commands" as Commands <<handler>>
 
 Plugin ..> Commands
 
-component "configuration" as Config <<handler>>
+component "settings" as Config <<handler>>
 
 Plugin ..> Config
+Config -> DataStore
 
 component "tooltips" as Tooltips <<controller>>
 

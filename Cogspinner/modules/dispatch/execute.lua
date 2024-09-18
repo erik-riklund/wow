@@ -6,7 +6,7 @@
 --   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
 --              |___/    |_|                            
 --
---- @type string, framework.context
+--- @type string, framework
 local addon, framework = ...
 
 --- @type dispatch.executeCallbackAsync
@@ -27,7 +27,7 @@ local executeCallback = function(callback, arguments, options)
     local success, result = pcall(callback, unpack(arguments or {}))
 
     if not success then
-      -- todo: implement error reporting.
+      print('[Cogspinner]:', getSubstringAfter(result, ':', 2))
     end
   end
 end

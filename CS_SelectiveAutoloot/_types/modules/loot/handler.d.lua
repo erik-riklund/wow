@@ -11,5 +11,5 @@
 ---
 --- ?
 ---
---- @class loot.handler
+--- @class autoloot.handler
 ---

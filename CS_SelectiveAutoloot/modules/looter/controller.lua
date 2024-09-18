@@ -1,0 +1,41 @@
+--
+--    ____                      _                       
+--   / ___|___   __ _ ___ _ __ (_)_ __  _ __   ___ _ __ 
+--  | |   / _ \ / _` / __| '_ \| | '_ \| '_ \ / _ \ '__|
+--  | |__| (_) | (_| \__ \ |_) | | | | | | | |  __/ |   
+--   \____\___/ \__, |___/ .__/|_|_| |_|_| |_|\___|_|   
+--              |___/    |_|                            
+--
+--- @type string, context
+local addon, context = ...
+
+--- @type plugin
+local plugin = context:import('plugin')
+
+---
+--- ?
+---
+plugin:registerEventListener('LOOT_READY', {
+  --- @param isAutoloot boolean
+  callback = function(isAutoloot)
+    print(plugin:getSetting('tradegoods/quality-threshold'))
+  end
+})
+
+---
+--- ?
+---
+plugin:registerEventListener('LOOT_OPENED', {
+  --- @param isAutoloot boolean
+  --- @param isFromItem boolean
+  callback = function(isAutoloot, isFromItem)
+  end
+})
+
+---
+--- ?
+---
+plugin:registerEventListener('LOOT_CLOSED', {
+  callback = function()
+  end
+})
