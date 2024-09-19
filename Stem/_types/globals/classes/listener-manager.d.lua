@@ -1,0 +1,21 @@
+---@meta
+
+---
+--- ?
+--- 
+--- @class listenerManager
+--- @field listeners? listenerManager.listener[] "..."
+--- 
+--- @field invokeListeners  fun(self: listenerManager, arguments?: unknown[], executeAsync?: boolean) "..."
+--- @field registerListener fun(self: listenerManager, listener: listenerManager.listener)            "..."
+--- @field removeListener   fun(self: listenerManager, identifier: string)                            "..."
+---
+
+---
+--- ?
+---
+--- @class listenerManager.listener
+--- @field identifier? string    "..."
+--- @field callback    function  "..."
+--- @field persistent? boolean   "..."
+---

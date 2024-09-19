@@ -2,9 +2,13 @@
 ## Interface: 110002
 ## Title: Stem (framework)
 
-src/globals/utility/table/integrate.lua
-src/globals/utility/table/protect.lua
+src/globals/utilities/table/protect.lua
 src/globals/exception.lua
-src/globals/context.lua
+src/globals/utilities/table/integrate.lua
+src/globals/utilities/table/inherit.lua
+src/globals/utilities/table/merge.lua
+src/globals/classes/context-manager.lua
 src/context.lua
+src/frame.lua
+src/globals/classes/listener-manager.lua
 src/api.lua

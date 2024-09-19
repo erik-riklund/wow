@@ -4,19 +4,17 @@ local addon, context = ...
 --[[
 
   Project: Stem (framework)
-  Script: Framework context initialization
+  Script: Context Integration
   Version: 1.0.0
-
-  Description:
-  ?
 
   Author(s): Erik Riklund
   Created: 2024/09/19 | Updated: 2024/09/19
 
-  Dependencies: 
-    - List any other scripts, libraries, or frameworks 
-      required for this script to work.
+  Description:
+  Integrates the context manager into the framework's context, allowing it to expose 
+  and retrieve objects with unique identifiers. This ensures a consistent and 
+  structured approach to managing dependencies within the framework.
 
 ]]
 
-integrateContextProvider(context)
+integrateContextManager(context)

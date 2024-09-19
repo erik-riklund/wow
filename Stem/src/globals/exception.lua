@@ -20,7 +20,7 @@
 ]]
 
 ---
---- A global `exception` object that provides utility methods for handling errors. 
+--- A global `exception` object that provides utility methods for handling errors.
 --- It includes methods for throwing generic errors as well as type mismatch errors.
 
 ---
@@ -28,16 +28,16 @@
 ---
 _G.exception = createProtectedProxy {
   --
-  -- Throws a generic error message. If additional arguments are provided, the message 
-  -- will be formatted using `string.format`. This allows for dynamic error messages 
+  -- Throws a generic error message. If additional arguments are provided, the message
+  -- will be formatted using `string.format`. This allows for dynamic error messages
   -- based on the input provided.
 
   generic = function(message, ...)
     error((... and message:format(...)) or message, 3)
   end,
 
-  -- Throws an error when an argument type mismatch occurs. It provides a detailed message 
-  -- that specifies the label of the argument, the expected type(s), and the received type. 
+  -- Throws an error when an argument type mismatch occurs. It provides a detailed message
+  -- that specifies the label of the argument, the expected type(s), and the received type.
   -- This method is useful for enforcing type checks within functions.
 
   type = function(label, expected, recieved)
