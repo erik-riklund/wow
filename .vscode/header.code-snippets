@@ -1,0 +1,37 @@
+{
+  "header":
+  {
+    "prefix": "!header",
+    "body": [
+      "---@type string, context",
+      "local addon, context = ...",
+      "",
+      "--[[",
+      "",
+      "  Project: Stem (framework)",
+      "  Module: ?",
+      "  Version: 1.0.0",
+      "",
+      "  Description:",
+      "  ?",
+      "",
+      "  Author(s): Erik Riklund",
+      "  Created: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE | Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
+      "",
+      "  Dependencies: ",
+      "    - List any other scripts, libraries, or frameworks ",
+      "      required for this script to work.",
+      "",
+      "  Usage:",
+      "    - (Optional, if needed, brief notes on how the script is used)",
+      "",
+      "  Notes:",
+      "    - Any important details, todos, or implementation decisions.",
+      "    - Known issues or limitations.",
+      "",
+      "]]",
+      "",
+      ""
+    ]
+  }
+}
