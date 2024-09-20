@@ -8,6 +8,6 @@
 --- @class context
 --- @field objects? table<string, unknown> "Holds registered objects, identified by their unique string keys."
 --- 
---- @field use      fun(self: context, identifier: string): unknown          "Retrieves an object by its identifier. Throws an error if the identifier is not registered."
---- @field expose   fun(self: context, identifier: string, object: unknown)  "Registers an object with a unique identifier. Throws an error if the identifier is already in use."
+--- @field use      fun(self: context, identifier: string): unknown "Retrieves an object by its identifier. Throws an error if the identifier is not registered."
+--- @field expose   fun(self: context, identifier: string, object: unknown) "Registers an object with a unique identifier. Throws an error if the identifier is already in use."
 ---

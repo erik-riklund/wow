@@ -1,21 +1,26 @@
 ---@meta
 
 ---
---- ?
+--- Manages the registration, invocation, and removal of event listeners. Listeners 
+--- can be executed synchronously or asynchronously, and the manager ensures that 
+--- non-persistent listeners are removed after execution.
 --- 
 --- @class listenerManager
---- @field listeners? listenerManager.listener[] "..."
+--- @field listeners? listenerManager.listener[] "A list of registered listeners, each containing a callback, identifier, and optional persistence flag."
 --- 
---- @field invokeListeners  fun(self: listenerManager, arguments?: unknown[], executeAsync?: boolean) "..."
---- @field registerListener fun(self: listenerManager, listener: listenerManager.listener)            "..."
---- @field removeListener   fun(self: listenerManager, identifier: string)                            "..."
+--- @field invokeListeners  fun(self: listenerManager, arguments?: unknown[], executeAsync?: boolean) "Invokes all registered listeners, passing the provided arguments and optionally executing them asynchronously."
+--- @field registerListener fun(self: listenerManager, listener: listenerManager.listener) "Registers a new listener, including its callback, identifier, and optional persistence flag."
+--- @field removeListener   fun(self: listenerManager, identifier: string) "Removes a listener by its unique identifier."
 ---
 
 ---
---- ?
+--- Represents a listener that can be registered with a listener manager. Each listener includes 
+--- a callback function that is executed when triggered, an optional unique identifier for managing 
+--- the listener, and a persistence flag that determines whether the listener should be removed 
+--- after execution or retained for future use.
 ---
 --- @class listenerManager.listener
---- @field identifier? string    "..."
---- @field callback    function  "..."
---- @field persistent? boolean   "..."
+--- @field identifier? string    "A unique identifier for the listener, used for removing or managing the listener."
+--- @field callback    function  "The function to be executed when the listener is triggered."
+--- @field persistent? boolean   "If `false`, the listener will be removed after it is invoked once."
 ---

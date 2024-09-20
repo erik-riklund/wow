@@ -71,29 +71,31 @@ local listenerManager = {
       exception.type('executeAsync', 'boolean', type(executeAsync))
     end
 
-    -- ?
+    -- Execute each listener's callback, either synchronously or asynchronously.
 
     for i = 1, #self.listeners do
-      -- ?
+      --
 
       ((executeAsync and tasks.executeTaskAsync) or tasks.executeTask)(
-        self.listeners[i].callback, arguments or {}
+        self.listeners[i].callback,
+        arguments or {}
       )
 
-      -- ?
+      -- If the listener is not persistent, it is removed after execution.
 
       if self.listeners[i].persistent == false then
         table.remove(self.listeners, i)
-        i = i - 1 -- ?
+        i = i - 1 -- adjusts the index to ensure correct iteration after removal.
       end
     end
   end,
 
-  -- ?
+  -- Registers a new listener with a callback function, optional identifier,
+  -- and persistence flag. Ensures that all fields are of the correct types.
 
   registerListener = function(self, listener)
     --
-    -- ?
+    -- Validate the listener structure and its fields.
 
     if type(listener) ~= 'table' then
       exception.type('listener', 'table', type(listener))
@@ -111,39 +113,43 @@ local listenerManager = {
       exception.type('listener.persistent', 'boolean', type(listener.persistent))
     end
 
-    -- ?
+    -- Insert the validated listener into the list of listeners.
 
     table.insert(self.listeners, listener)
   end,
 
-  -- ?
+  -- Removes a listener by its identifier. Throws an error if no listener with
+  -- the given identifier is found.
 
   removeListener = function(self, identifier)
     --
-    -- ?
+    -- Validate that the identifier is a string.
 
     if type(identifier) ~= 'string' then
       exception.type('identifier', 'string', type(identifier))
     end
 
-    -- ?
+    -- Search for the listener by identifier and remove it if found.
 
     for index, listener in ipairs(self.listeners) do
       if listener.identifier == identifier then
         table.remove(self.listeners, index)
-        return -- ?
+        return -- exits after the listener is removed.
       end
     end
+
+    -- Throws an error if the listener with the given identifier was not found.
 
     exception.generic('Failed to remove listener "%s" (unknown identifier).', identifier)
   end,
 }
 
 ---
---- ?
+--- Creates a new listener manager, optionally integrating it with an existing object.
+--- The manager allows for the registration, invocation, and removal of listeners.
 ---
---- @param object? table    "..."
---- @return listenerManager "..."
+--- @param object? table    "Optionally, an existing object to integrate with."
+--- @return listenerManager "Returns the created listener manager."
 ---
 _G.createListenerManager = function(object)
   return inheritFromParent(integrateTable(object or {}, { listeners = {} }), listenerManager)

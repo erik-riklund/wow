@@ -4,6 +4,9 @@
 
 src/globals/utilities/table/protect.lua
 src/globals/exception.lua
+src/globals/utilities/type.lua
+src/globals/utilities/validate-args.lua
+src/globals/utilities/callback.lua
 src/globals/utilities/table/integrate.lua
 src/globals/utilities/table/inherit.lua
 src/globals/utilities/table/merge.lua

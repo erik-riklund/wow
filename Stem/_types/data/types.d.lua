@@ -1,0 +1,16 @@
+---@meta
+
+---
+--- ?
+---
+--- @alias extendedType 'undefined'
+---                   | 'boolean'
+---                   | 'string'
+---                   | 'number'
+---                   | 'array'
+---                   | 'table'
+---                   | 'empty-table'
+---                   | 'function'
+---                   | 'thread'
+---                   | 'userdata'
+---
