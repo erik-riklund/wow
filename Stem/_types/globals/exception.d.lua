@@ -7,5 +7,5 @@
 --- 
 --- @class exception
 --- @field generic fun(message: string, ...: string) "Throws a generic error, optionally formatted with additional arguments."
---- @field type fun(label: string, expected: string|string[], recieved: string) "Throws an error for argument type mismatches, specifying the expected and received types."
+--- @field type fun(label: string, expected: extendedType|array<extendedType>, recieved: extendedType) "Throws an error for argument type mismatches, specifying the expected and received types."
 ---

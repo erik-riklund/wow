@@ -31,7 +31,22 @@
 --- @return extendedType "..."
 ---
 _G.getExtendedType = function(value)
-  ---@diagnostic disable-next-line: missing-return
+  --
+  -- ?
+
+  local valueType = type(value)
+
+  -- ?
+
+  if valueType == 'table' then
+    -- ?
+
+    -- todo: perform tests on tables to see how the # operator behave!
+  end
+
+  -- ?
+
+  return (valueType == 'nil' and 'undefined') or valueType --[[@as extendedType]]
 end
 
 ---
@@ -39,8 +54,9 @@ end
 ---
 --- @param value unknown "..."
 --- @param types extendedType|array<extendedType> "..."
---- @param options? { onError: 'throw'|'return' } "..."
---- 
---- @return boolean? "..."
 ---
-_G.compareExtendedTypes = function(value, types, options) end
+--- @return boolean, extendedType "..."
+---
+_G.compareExtendedTypes = function(value, types)
+  ---@diagnostic disable-next-line: missing-return
+end

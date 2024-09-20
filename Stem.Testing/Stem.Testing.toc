@@ -2,3 +2,5 @@
 ## Interface: 110002
 ## Title: Testing (branch)
 ## Dependencies: Stem
+
+experiments/table-size.lua
