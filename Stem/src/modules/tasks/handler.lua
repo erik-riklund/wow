@@ -27,4 +27,4 @@ local addon, context = ...
 
 ]]
 
-
+context:expose('tasks', {})

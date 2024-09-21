@@ -5,35 +5,38 @@
   Version: 1.0.0
 
   Author(s): Erik Riklund
-  Created: 2024/09/20 | Updated: 2024/09/20
+  Created: 2024/09/21 | Updated: 2024/09/21
 
   Description:
-  Provides a utility function to validate the types of a list of arguments. It compares 
-  each argument's actual type to an expected set of types and throws an error if the types 
-  do not match.
+  Provides a utility to validate arguments by comparing their actual types with the expected 
+  types. It supports optional arguments and throws descriptive errors if a type mismatch occurs.
 
   Notes:
 
-  - This function leverages the extended type system to support additional type checks.
-
+  - This utility leverages the extended type system and supports validation for optional arguments.
+  
 ]]
 
 ---
---- Validates a list of arguments, comparing each argument's actual type to the expected 
---- types. If an argument's type does not match the expected type(s), an error is thrown.
+--- Validates a list of arguments by checking if their types match the expected types.
+--- If the argument is marked as optional and has an 'undefined' type, no error is thrown.
 ---
 --- @param arguments argumentValidation[] "A list of arguments to validate, each containing a value, label, and expected types."
 ---
 _G.validateArguments = function(arguments)
   --
-  -- Iterates through the list of arguments and checks their types using the extended type 
-  -- comparison function. Throws an error if the actual type does not match the expected type(s).
+  -- Iterates over each argument, comparing the argument's type with the expected types.
 
   for index, argument in ipairs(arguments) do
-    local result, actualType = compareExtendedTypes(argument.value, argument.types)
+    --
+    -- Compares the argument's actual type with the expected types.
 
-    if result == false then
-      exception.type(argument.label, argument.types, actualType)
+    local typesMatch, extendedType = compareExtendedTypes(argument.value, argument.types)
+
+    -- Throws an error if the types don't match and the argument is not optional.
+
+    if not typesMatch and not (extendedType == 'undefined' and argument.optional == true) then
+      exception.type(argument.label, argument.types, extendedType)
     end
   end
 end

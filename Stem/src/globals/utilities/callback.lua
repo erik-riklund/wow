@@ -35,11 +35,13 @@ _G.executeCallback = function(identifier, callback, arguments)
   --
   -- ?
 
-  if arguments ~= nil and type(arguments) ~= 'table' then
-    
-  end
+  validateArguments {
+    { label = 'identifier', value = identifier, types = 'string' },
+    { label = 'callback', value = callback, types = 'function' },
+    { label = 'arguments', value = arguments, types = 'array', optional = true },
+  }
 
   -- ?
 
-
+  
 end

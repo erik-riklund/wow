@@ -5,7 +5,8 @@
 ---
 --- @class argumentValidation
 --- 
---- @field label string  "..."
---- @field value unknown "..."
---- @field types extendedType|array<extendedType> "..."
+--- @field label      string  "..."
+--- @field value      unknown "..."
+--- @field types      extendedType | array<extendedType> "..."
+--- @field optional?  boolean "..."
 ---

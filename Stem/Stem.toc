@@ -13,5 +13,6 @@ src/globals/utilities/table/merge.lua
 src/globals/classes/context-manager.lua
 src/context.lua
 src/frame.lua
+src/modules/tasks/handler.lua
 src/globals/classes/listener-manager.lua
 src/api.lua

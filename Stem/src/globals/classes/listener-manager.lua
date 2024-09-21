@@ -18,7 +18,7 @@ local tasks = context:use 'tasks' --[[@as taskHandler]]
 
   Dependencies:
 
-  - tasks (taskHandler for async execution)
+  - tasks (task handler for async execution)
   - exception (for error handling)
 
   Notes:
@@ -30,21 +30,7 @@ local tasks = context:use 'tasks' --[[@as taskHandler]]
   
   Usage:
 
-  -- Create a new listener manager
-  local manager = createListenerManager()
-
-  -- Register a listener
-  manager:registerListener({
-    callback = function(args) print('Hello world') end,
-    identifier = 'hello_listener',
-    persistent = true
-  })
-
-  -- Invoke listeners with arguments, optionally executing asynchronously
-  manager:invokeListeners({ message = 'Hello' }, false)
-
-  -- Remove a listener by identifier
-  manager:removeListener('hello_listener')
+  ...
 
 ]]
 
@@ -63,13 +49,10 @@ local listenerManager = {
     --
     -- Validate the input arguments to avoid unexpected behavior.
 
-    if arguments ~= nil and type(arguments) ~= 'table' then
-      exception.type('arguments', 'table', type(arguments))
-    end
-
-    if executeAsync ~= nil and type(executeAsync) ~= 'boolean' then
-      exception.type('executeAsync', 'boolean', type(executeAsync))
-    end
+    validateArguments {
+      { label = 'arguments', value = arguments, types = 'array', optional = true },
+      { label = 'executeAsync', value = executeAsync, types = 'boolean', optional = true },
+    }
 
     -- Execute each listener's callback, either synchronously or asynchronously.
 
@@ -97,21 +80,12 @@ local listenerManager = {
     --
     -- Validate the listener structure and its fields.
 
-    if type(listener) ~= 'table' then
-      exception.type('listener', 'table', type(listener))
-    end
-
-    if type(listener.callback) ~= 'function' then
-      exception.type('listener.callback', 'function', type(listener.callback))
-    end
-
-    if listener.identifier ~= nil and type(listener.identifier) ~= 'string' then
-      exception.type('listener.identifier', 'string', type(listener.identifier))
-    end
-
-    if listener.persistent ~= nil and type(listener.persistent) ~= 'boolean' then
-      exception.type('listener.persistent', 'boolean', type(listener.persistent))
-    end
+    validateArguments {
+      { label = 'listener', value = listener, types = 'table' },
+      { label = 'listener.callback', value = listener.callback, types = 'function' },
+      { label = 'listener.identifier', value = listener.identifier, types = 'string', optional = true },
+      { label = 'listener.persistent', value = listener.persistent, types = 'boolean', optional = true },
+    }
 
     -- Insert the validated listener into the list of listeners.
 
@@ -125,9 +99,9 @@ local listenerManager = {
     --
     -- Validate that the identifier is a string.
 
-    if type(identifier) ~= 'string' then
-      exception.type('identifier', 'string', type(identifier))
-    end
+    validateArguments {
+      { label = 'identifier', value = identifier, types = 'string' },
+    }
 
     -- Search for the listener by identifier and remove it if found.
 

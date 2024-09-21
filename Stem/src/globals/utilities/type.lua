@@ -80,17 +80,25 @@ _G.compareExtendedTypes = function(value, types)
   -- Ensures `types` is always an array, allowing for multiple type comparisons.
 
   if type(types) ~= 'table' then
-    types = { types } -- ?
+    types = { types } -- convert a single type into a table.
   end
 
   -- Iterates through the expected types and checks if any match the extended type.
 
   for index, expectedType in ipairs(types) do
     --
-    -- Returns `true` if the extended type matches the expected type.
+    -- Returns true if the extended type matches the expected type.
 
     if expectedType == extendedType then
       return true, extendedType -- match found.
+    end
+
+    -- Special handling for empty tables, which can match both 'array' and 'table'.
+
+    if extendedType == 'empty-table' then
+      if expectedType == 'array' or expectedType == 'table' then
+        return true, expectedType -- ?
+      end
     end
   end
 
