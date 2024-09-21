@@ -20,8 +20,7 @@
 
 ---
 --- Validates a list of arguments, comparing each argument's actual type to the expected 
---- types. If an argument's type does not match the expected type(s), an error is thrown 
---- using the `exception.type` method.
+--- types. If an argument's type does not match the expected type(s), an error is thrown.
 ---
 --- @param arguments argumentValidation[] "A list of arguments to validate, each containing a value, label, and expected types."
 ---

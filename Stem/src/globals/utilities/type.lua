@@ -20,8 +20,8 @@
 ]]
 
 ---
---- Returns the extended type of the target. This extended system introduces `array` for 
---- tables with sequential numeric keys, `empty-table` for empty tables, and `undefined` 
+--- Returns the extended type of the target. This extended system introduces `array` for
+--- tables with sequential numeric keys, `empty-table` for empty tables, and `undefined`
 --- for `nil` values.
 ---
 --- @param target unknown "The value to determine the extended type of."
@@ -29,20 +29,21 @@
 ---
 _G.getExtendedType = function(target)
   --
-  -- ?
+  -- Retrieves the base type of the target.
 
   local valueType = type(target)
 
-  -- ?
+  -- Handles the special case of tables.
 
   if valueType == 'table' then
-    -- ?
+    --
+    -- Returns "empty-table" if the table has no elements.
 
     if next(target) == nil then
       return 'empty-table'
     end
 
-    -- ?
+    -- Counts the elements in the table and compares the length to determine if it is an array.
 
     local elementCount = #target
     local actualElementCount = 0
@@ -51,47 +52,49 @@ _G.getExtendedType = function(target)
       actualElementCount = actualElementCount + 1
     end
 
-    -- ?
+    -- Returns "array" if the table has sequential numeric keys, otherwise returns "table".
 
     return (elementCount == actualElementCount and 'array') or 'table'
   end
 
-  -- ?
+  -- Returns "undefined" for `nil` values, otherwise returns the base type.
 
   return (valueType == 'nil' and 'undefined') or valueType --[[@as extendedType]]
 end
 
 ---
---- ?
+--- Compares the extended type of a value with the expected types. Returns `true` if the
+--- extended type matches one of the expected types, and `false` otherwise.
 ---
---- @param value unknown "..."
---- @param types extendedType|array<extendedType> "..."
+--- @param value unknown "The value whose type is to be compared."
+--- @param types extendedType|array<extendedType> "The expected extended type or a list of types to compare against."
 ---
---- @return boolean, extendedType "..."
+--- @return boolean, extendedType "Returns a boolean indicating if the types match, and the actual extended type."
 ---
 _G.compareExtendedTypes = function(value, types)
   --
-  -- ?
+  -- Retrieves the extended type of the value.
 
   local extendedType = getExtendedType(value)
 
-  -- ?
+  -- Ensures `types` is always an array, allowing for multiple type comparisons.
 
   if type(types) ~= 'table' then
-    types = { types }
+    types = { types } -- ?
   end
 
-  -- ?
+  -- Iterates through the expected types and checks if any match the extended type.
 
   for index, expectedType in ipairs(types) do
-    -- ?
+    --
+    -- Returns `true` if the extended type matches the expected type.
 
     if expectedType == extendedType then
-      return true, extendedType -- ?
+      return true, extendedType -- match found.
     end
   end
 
-  -- ?
+  -- Returns `false` if no match is found, along with the actual extended type.
 
   return false, extendedType
 end
