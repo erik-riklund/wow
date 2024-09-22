@@ -4,18 +4,13 @@
   Module: Exception Handling
   Version: 1.0.0
 
+  Author(s): Erik Riklund
+  Created: 2024/09/19 | Updated: 2024/09/22
+
   Description:
   Provides a global `exception` object for handling errors. This module ensures
   that errors are raised with clear and consistent messaging, particularly
   when dealing with argument type mismatches or generic error cases.
-
-  Author(s): Erik Riklund
-  Created: 2024/09/19 | Updated: 2024/09/19
-
-  Usage:
-
-  - Call `exception.generic()` for simple errors or
-    `exception.type()` for argument type validation errors.
 
 ]]
 
@@ -42,8 +37,7 @@ _G.exception = createProtectedProxy {
 
   type = function(label, expected, recieved)
     local message = 'Invalid argument type (%s); expected %s, recieved %s.'
-    expected = (type(expected) == 'string' and expected)
-      or table.concat(expected --[[@as array<string>]], ' or ')
+    expected = (type(expected) == 'string' and expected) or table.concat(expected --[[@as array<string>]], ' or ')
 
     error(message:format(label, expected, recieved), 3)
   end,

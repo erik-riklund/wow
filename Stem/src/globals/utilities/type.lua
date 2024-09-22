@@ -5,7 +5,7 @@
   Version: 1.0.0
 
   Author(s): Erik Riklund
-  Created: 2024/09/20 | Updated: 2024/09/20
+  Created: 2024/09/20 | Updated: 2024/09/22
 
   Description:
   Provides a system to extend Lua's native type system by introducing new types such as 
@@ -67,7 +67,7 @@ end
 --- extended type matches one of the expected types, and `false` otherwise.
 ---
 --- @param value unknown "The value whose type is to be compared."
---- @param types extendedType|array<extendedType> "The expected extended type or a list of types to compare against."
+--- @param types extendedType | array<extendedType> "The expected extended type or a list of types to compare against."
 ---
 --- @return boolean, extendedType "Returns a boolean indicating if the types match, and the actual extended type."
 ---
@@ -77,13 +77,11 @@ _G.compareExtendedTypes = function(value, types)
 
   local extendedType = getExtendedType(value)
 
-  -- Ensures `types` is always an array, allowing for multiple type comparisons.
+  -- Iterates through the expected types and checks if any match the extended type.
 
   if type(types) ~= 'table' then
-    types = { types } -- convert a single type into a table.
+    types = { types } -- convert a single type into an array.
   end
-
-  -- Iterates through the expected types and checks if any match the extended type.
 
   for index, expectedType in ipairs(types) do
     --
@@ -97,7 +95,7 @@ _G.compareExtendedTypes = function(value, types)
 
     if extendedType == 'empty-table' then
       if expectedType == 'array' or expectedType == 'table' then
-        return true, expectedType -- ?
+        return true, expectedType -- match found for 'empty-table' as array or table.
       end
     end
   end

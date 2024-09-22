@@ -1,7 +1,3 @@
----@type string, context
-local addon, context = ...
-local tasks = context:use 'tasks' --[[@as taskHandler]]
-
 --[[
 
   Project: Stem (framework)
@@ -14,7 +10,7 @@ local tasks = context:use 'tasks' --[[@as taskHandler]]
   based on user configuration.
 
   Author(s): Erik Riklund
-  Created: 2024/09/19 | Updated: 2024/09/19
+  Created: 2024/09/19 | Updated: 2024/09/22
 
   Dependencies:
 
@@ -25,12 +21,26 @@ local tasks = context:use 'tasks' --[[@as taskHandler]]
 
   - The `listeners` are stored as a table. Each listener is expected to have the following fields:
     - `callback`   (function): The function to be invoked.
-    - `identifier` (optional, string): A unique identifier for the listener.
+    - `identifier` (string): A unique identifier for the listener.
     - `persistent` (optional, boolean): If `false`, the listener is removed after execution.
   
   Usage:
 
-  ...
+  -- Create a new listener manager
+  local manager = createListenerManager()
+
+  -- Register a listener
+  manager:registerListener({
+    callback = function() print('Hello, World!') end,
+    identifier = 'hello_listener',
+    persistent = true
+  })
+
+  -- Invoke listeners
+  manager:invokeListeners({ message = 'Hello' }, false)
+
+  -- Remove a listener
+  manager:removeListener('hello_listener')
 
 ]]
 
@@ -58,10 +68,10 @@ local listenerManager = {
 
     for i = 1, #self.listeners do
       --
+      -- ?
 
-      ((executeAsync and tasks.executeTaskAsync) or tasks.executeTask)(
-        self.listeners[i].callback,
-        arguments or {}
+      ((executeAsync and executeCallbackAsync) or executeCallback)(
+        self.listeners[i].identifier, self.listeners[i].callback, arguments or {}
       )
 
       -- If the listener is not persistent, it is removed after execution.
@@ -83,7 +93,7 @@ local listenerManager = {
     validateArguments {
       { label = 'listener', value = listener, types = 'table' },
       { label = 'listener.callback', value = listener.callback, types = 'function' },
-      { label = 'listener.identifier', value = listener.identifier, types = 'string', optional = true },
+      { label = 'listener.identifier', value = listener.identifier, types = 'string' },
       { label = 'listener.persistent', value = listener.persistent, types = 'boolean', optional = true },
     }
 
@@ -126,5 +136,12 @@ local listenerManager = {
 --- @return listenerManager "Returns the created listener manager."
 ---
 _G.createListenerManager = function(object)
-  return inheritFromParent(integrateTable(object or {}, { listeners = {} }), listenerManager)
+  --
+  -- Integrates the manager with an optional existing object, adding listener capabilities.
+
+  object = integrateTable(object or {}, { listeners = {} })
+
+  -- Returns the object with the listener manager's functionality inherited.
+
+  return inheritFromParent(object, listenerManager)
 end

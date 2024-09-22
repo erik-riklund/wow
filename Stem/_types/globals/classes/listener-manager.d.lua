@@ -20,7 +20,7 @@
 --- after execution or retained for future use.
 ---
 --- @class listenerManager.listener
---- @field identifier? string    "A unique identifier for the listener, used for removing or managing the listener."
+--- @field identifier  string    "A unique identifier for the listener, used for removing or managing the listener."
 --- @field callback    function  "The function to be executed when the listener is triggered."
 --- @field persistent? boolean   "If `false`, the listener will be removed after it is invoked once."
 ---
