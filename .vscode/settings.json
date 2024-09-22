@@ -4,12 +4,22 @@
   },
   "Lua.diagnostics.disable": [
     "trailing-space",
-    "empty-block"
+    "empty-block",
+    "unused-function"
   ],
   "better-comments.tags": [
     {
       "tag": "#region [module: ",
       "color": "#D5AA4D",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "#region [class: ",
+      "color": "#986EA3",
       "strikethrough": false,
       "underline": false,
       "backgroundColor": "transparent",

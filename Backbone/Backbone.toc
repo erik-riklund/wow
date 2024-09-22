@@ -2,5 +2,9 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
+utilities/throw-error.lua
+utilities/extended-types.lua
+utilities/validate-args.lua
 utilities/tables/protect.lua
+
 framework.lua
