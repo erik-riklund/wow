@@ -2,4 +2,5 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
+utilities/tables/protect.lua
 framework.lua

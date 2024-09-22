@@ -1,3 +1,5 @@
+local addon = ...
+
 --[[
 
   Project: Filtered Autoloot
@@ -10,4 +12,10 @@
 
 ]]
 
-print 'Hello world'
+-- ?
+
+local plugin = backbone.createPlugin(addon)
+
+-- ?
+
+
