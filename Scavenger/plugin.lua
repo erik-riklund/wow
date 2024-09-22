@@ -2,7 +2,7 @@ local addon = ...
 
 --[[
 
-  Project: Filtered Autoloot
+  Project: Scavenger
   Version: 1.0.0
 
   Author(s): Erik Riklund
@@ -17,5 +17,4 @@ local addon = ...
 local plugin = backbone.createPlugin(addon)
 
 -- ?
-
 

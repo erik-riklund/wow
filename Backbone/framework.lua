@@ -1,5 +1,3 @@
-local api = { framework = {}, plugin = {} }
-
 --[[
 
   Project: Backbone (framework)  
@@ -12,6 +10,13 @@ local api = { framework = {}, plugin = {} }
   to streamline the development of addons. It includes features such as ...
 
 ]]
+
+local api = {
+  framework = {} --[[@as api]],
+  plugin = {} --[[@as plugin]],
+}
+
+local frame = CreateFrame 'Frame' --[[@as Frame]]
 
 --#region [module: plugins]
 
@@ -61,7 +66,7 @@ api.framework.createPlugin = function(identifier)
 
   -- Returns the plugin wrapped in a protected proxy to prevent unauthorized modifications.
 
-  return createProtectedProxy(plugins[identifier])
+  return xtable.getProtectedProxy(plugins[identifier])
 end
 
 --#endregion
@@ -309,30 +314,123 @@ local createListenableObject = function() return setmetatable({ listeners = {} }
 --[[
 
   Project: Backbone (framework)
-  [Module|Script|Utility]: ?
+  Module: Game Events
   Version: 1.0.0
 
   Author(s): Erik Riklund
   Created: 2024/09/22 | Updated: 2024/09/22
 
   Description:
-  ?
-
-  Dependencies:
-
-  - ?
+  Manages the registration, invocation, and removal of event listeners for game events. 
+  It provides functions for handling event listeners, invoking callbacks when events 
+  are triggered, and managing event unregistration when no listeners are left.
 
   Notes:
 
-  - ?
+  - The system handles the `ADDON_LOADED` event specially by prefixing it with the 
+    addon's name.
 
 ]]
 
+---
+--- Stores the registered events, indexed by their names.
+---
+--- @type table<string, event>
+---
+local events = {}
 
+-- Registers the initial event listener for ADDON_LOADED.
+
+frame:RegisterEvent 'ADDON_LOADED'
+
+---
+--- Registers a new event by name. If the event does not start with `ADDON_LOADED`, it
+--- is registered with the frame for listening.
+---
+--- @param name  string  "The name of the event to register."
+---
+local registerEvent = function(name)
+  if not xstring.hasPrefix(name, 'ADDON_LOADED') then frame:RegisterEvent(name) end
+  events[name] = createListenableObject() --[[@as event]]
+end
+
+---
+--- Unregisters an event by name. If the event is not part of the `ADDON_LOADED` series,
+--- it is removed from the frame's registered events.
+---
+local unregisterEvent = function(name)
+  if not xstring.hasPrefix(name, 'ADDON_LOADED') then frame:UnregisterEvent(name) end
+  events[name] = nil -- ?
+end
+
+---
+--- Registers a listener for a specific event. If the event does not exist, it is first
+--- registered.
+---
+--- @param eventName  string   "The name of the event to listen for."
+--- @param listener   listener "The listener to register for the event."
+---
+local registerEventListener = function(eventName, listener)
+  if events[eventName] == nil then registerEvent(eventName) end
+  events[eventName]:registerListener(listener)
+end
+
+---
+--- Removes a listener from an event. If no more listeners are left, the event is unregistered.
+---
+--- @param eventName   string  "The name of the event to remove the listener from."
+--- @param identifier  string  "The unique identifier of the listener to remove."
+---
+local removeEventListener = function(eventName, identifier)
+  if events[eventName] ~= nil then events[eventName]:removeListener(identifier) end
+  if #events[eventName].listeners == 0 then unregisterEvent(eventName) end
+end
+
+---
+--- Invokes all listeners registered for a given event, passing the event's arguments.
+---
+--- @param eventName  string    "The name of the event to invoke."
+--- @param arguments  unknown[] "The arguments to pass to the event listeners."
+---
+local invokeEvent = function(eventName, arguments)
+  if events[eventName] ~= nil then events[eventName]:invokeListeners(arguments) end
+end
+
+-- Sets up the frame to handle incoming events and invoke the relevant listeners.
+
+frame:SetScript('OnEvent', function(sender, eventName, ...)
+  if eventName == 'ADDON_LOADED' then
+    local addonName = ...
+    eventName = 'ADDON_LOADED:' .. addonName
+  end
+
+  invokeEvent(eventName, { ... })
+end)
+
+-- Registers a one-time initialization callback for the plugin, triggered when `ADDON_LOADED` fires.
+
+api.plugin.onInitialize = function(self, identifier, callback)
+  local listener = { identifier = identifier, callback = callback, persistent = false }
+  self:registerEventListener('ADDON_LOADED:' .. self.identifier, listener)
+end
+
+-- Registers an event listener for a plugin, appending the plugin identifier to the listener identifier.
+
+api.plugin.registerEventListener = function(self, eventName, listener)
+  listener.identifier = self.identifier .. listener.identifier
+  registerEventListener(eventName, listener)
+end
+
+-- Removes an event listener for a plugin, using the plugin's identifier as a prefix.
+
+api.plugin.removeEventListener = function(self, eventName, identifier)
+  identifier = self.identifier .. identifier
+  removeEventListener(eventName, identifier)
+end
 
 --#endregion
 
 ---
 --- ?
 ---
-_G.backbone = createProtectedProxy(api.framework) --[[@as api]]
+_G.backbone = xtable.getProtectedProxy(api.framework) --[[@as api]]

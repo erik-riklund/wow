@@ -1,0 +1,7 @@
+--- @meta
+
+---
+--- ?
+---
+--- @class event : listenable
+---

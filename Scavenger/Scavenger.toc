@@ -1,6 +1,6 @@
 ## Version: 1.0
 ## Interface: 110002
 ## Dependencies: Backbone
-## Title: Filtered Autoloot (Backbone plugin)
+## Title: Scavenger (Backbone plugin)
 
 plugin.lua

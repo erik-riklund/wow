@@ -5,5 +5,7 @@
 ---
 --- @class api
 --- 
---- @field createPlugin fun(identifier: string): plugin "..."
+--- @field createPlugin?         fun(identifier: string): plugin "..."
+--- @field executeCallback?      fun(identifier: string, callback: function, arguments?: unknown[]) "..."
+--- @field executeCallbackAsync? fun(identifier: string, callback: function, arguments?: unknown[]) "..."
 ---
