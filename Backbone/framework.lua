@@ -3,9 +3,6 @@
   Project: Backbone (framework)  
   Version: 1.0.0
   
-  Author(s): Erik Riklund
-
-  Description:
   Backbone is a foundational framework that provides key utilities and structures 
   to streamline the development of addons. It includes features such as ...
 
@@ -25,16 +22,8 @@ local frame = CreateFrame 'Frame' --[[@as Frame]]
   Module: Plugin Management
   Version: 1.0.0
 
-  Author(s): Erik Riklund
-  Created: 2024/09/22 | Updated: 2024/09/22
-
-  Description:
   Provides functionality for creating and managing plugins. This module ensures 
   that plugins are uniquely identified and registered within the framework.
-
-  Notes:
-
-  - Plugins are stored in the `plugins` table, indexed by their unique identifiers.
 
 ]]
 
@@ -53,19 +42,11 @@ local plugins = {}
 --- @return plugin "The newly created plugin instance."
 ---
 api.framework.createPlugin = function(identifier)
-  --
-  -- Ensures that the plugin identifier is unique.
-
   if plugins[identifier] ~= nil then
     throwError('Unable to create plugin "%s" (non-unique identifier).', identifier)
   end
 
-  -- Registers the plugin and sets up inheritance from the `api.plugin` class.
-
   plugins[identifier] = setmetatable({ identifier = identifier }, { __index = api.plugin })
-
-  -- Returns the plugin wrapped in a protected proxy to prevent unauthorized modifications.
-
   return xtable.getProtectedProxy(plugins[identifier])
 end
 
@@ -75,22 +56,12 @@ end
 
 --[[
 
-  Project: Backbone (framework)
   Module: Callback Management
   Version: 1.0.0
 
-  Author(s): Erik Riklund
-  Created: 2024/09/22 | Updated: 2024/09/22
-
-  Description:
   Manages the execution of callback functions, both synchronously and asynchronously. 
   This module provides a task queue for asynchronous callbacks and ensures that callbacks 
   are executed within the frame time limit to maintain performance.
-
-  Notes:
-
-  - Asynchronous tasks are processed in the background using a coroutine to respect 
-    frame limits and prevent performance degradation.
 
 ]]
 
@@ -111,21 +82,13 @@ local tasks = {}
 --- @param arguments?  unknown[]  "Optional arguments to pass to the callback."
 ---
 local executeCallback = function(identifier, callback, arguments)
-  --
-  -- Validates the input arguments to ensure they are of the correct types.
-
   validateArguments {
     { label = 'identifier', value = identifier, types = 'string' },
     { label = 'callback', value = callback, types = 'function' },
     { label = 'arguments', value = arguments, types = 'array', optional = true },
   }
 
-  -- Attempts to execute the callback function using `pcall`, passing the arguments.
-
   local success, result = pcall(callback, (arguments ~= nil and unpack(arguments)) or nil)
-
-  -- If the callback execution fails, an error is raised.
-
   if not success then throwError('Execution of callback "%s" failed. Reason: %s', identifier, result) end
 end
 
@@ -134,26 +97,16 @@ end
 --- for performance reasons. Uses coroutines and timers to manage execution time.
 ---
 local process --[[@as thread]]
+
 process = coroutine.create(function()
-  --
-  -- Defines the time limit per frame to ensure the task execution doesn't exceed 60fps.
-
-  local frameLimit = 0.01667
-
-  -- A continuous loop to keep the process alive in the background.
+  local frameLimit = 0.01667 -- 60fps
 
   while true do
-    --
-    -- Records the start time to compare against the frame limit.
-
     local started = GetTime()
 
     -- Executes tasks within the frame time limit.
 
     while #tasks > 0 and ((GetTime() - started) <= frameLimit) do
-      --
-      -- Removes the first task from the queue and executes the callback.
-
       local task = table.remove(tasks, 1) --[[@as task]]
       executeCallback(task.identifier, task.callback, task.arguments)
     end
@@ -161,8 +114,6 @@ process = coroutine.create(function()
     -- If tasks remain, schedule the next processing loop after the frame limit delay.
 
     if #tasks > 0 then C_Timer.After(frameLimit, function() coroutine.resume(process) end) end
-
-    -- Yields control back to the main program until resumed.
 
     coroutine.yield()
   end
@@ -178,13 +129,7 @@ end)
 --- @param arguments?  unknown[]  "Optional arguments to pass to the callback."
 ---
 local executeCallbackAsync = function(identifier, callback, arguments)
-  --
-  -- Adds the task to the queue for asynchronous execution.
-
   table.insert(tasks, { identifier = identifier, callback = callback, arguments = arguments } --[[@as task]])
-
-  -- Resumes the coroutine if it's suspended, triggering the processing loop.
-
   if coroutine.status(process) == 'suspended' then coroutine.resume(process) end
 end
 
@@ -199,22 +144,12 @@ api.framework.executeCallbackAsync = executeCallbackAsync
 
 --[[
 
-  Project: Backbone (framework)
   Class: Listenable
   Version: 1.0.0
 
-  Author(s): Erik Riklund
-  Created: 2024/09/22 | Updated: 2024/09/22
-
-  Description:
   Provides functionality to register, invoke, and remove listeners. The `listenable` 
   class supports asynchronous and synchronous execution of registered listeners 
   and ensures listener management through unique identifiers.
-
-  Notes:
-
-  - Listeners are stored in the `listeners` table.
-  - Non-persistent listeners are removed after execution.
 
 ]]
 
@@ -229,9 +164,6 @@ local listenable = {
     -- respective callback functions. Supports both synchronous and asynchronous execution.
 
     invokeListeners = function(self, arguments, executeAsync)
-      --
-      -- Validate the input arguments to avoid unexpected behavior.
-
       validateArguments {
         { label = 'arguments', value = arguments, types = 'array', optional = true },
         { label = 'executeAsync', value = executeAsync, types = 'boolean', optional = true },
@@ -240,9 +172,6 @@ local listenable = {
       -- Execute each listener's callback, either synchronously or asynchronously.
 
       for i = 1, #self.listeners do
-        --
-        -- Executes the callback asynchronously or synchronously based on the flag.
-
         local handler = (executeAsync and executeCallbackAsync) or executeCallback
         handler(self.listeners[i].identifier, self.listeners[i].callback, arguments or {})
 
@@ -259,17 +188,12 @@ local listenable = {
     -- and persistence flag. Ensures that all fields are of the correct types.
 
     registerListener = function(self, listener)
-      --
-      -- Validate the listener structure and its fields.
-
       validateArguments {
         { label = 'listener', value = listener, types = 'table' },
         { label = 'listener.callback', value = listener.callback, types = 'function' },
         { label = 'listener.identifier', value = listener.identifier, types = 'string' },
         { label = 'listener.persistent', value = listener.persistent, types = 'boolean', optional = true },
       }
-
-      -- Insert the validated listener into the list of listeners.
 
       table.insert(self.listeners, listener)
     end,
@@ -278,9 +202,6 @@ local listenable = {
     -- the given identifier is found.
 
     removeListener = function(self, identifier)
-      --
-      -- Validate that the identifier is a string.
-
       validateArguments {
         { label = 'identifier', value = identifier, types = 'string' },
       }
@@ -293,8 +214,6 @@ local listenable = {
           return -- exits after the listener is removed.
         end
       end
-
-      -- Throws an error if the listener with the given identifier was not found.
 
       throwError('Failed to remove listener "%s" (unknown identifier).', identifier)
     end,
@@ -313,22 +232,12 @@ local createListenableObject = function() return setmetatable({ listeners = {} }
 
 --[[
 
-  Project: Backbone (framework)
   Module: Game Events
   Version: 1.0.0
 
-  Author(s): Erik Riklund
-  Created: 2024/09/22 | Updated: 2024/09/22
-
-  Description:
   Manages the registration, invocation, and removal of event listeners for game events. 
   It provides functions for handling event listeners, invoking callbacks when events 
   are triggered, and managing event unregistration when no listeners are left.
-
-  Notes:
-
-  - The system handles the `ADDON_LOADED` event specially by prefixing it with the 
-    addon's name.
 
 ]]
 
@@ -360,7 +269,7 @@ end
 ---
 local unregisterEvent = function(name)
   if not xstring.hasPrefix(name, 'ADDON_LOADED') then frame:UnregisterEvent(name) end
-  events[name] = nil -- ?
+  events[name] = nil -- clears the listenable event object.
 end
 
 ---
@@ -434,23 +343,10 @@ end
 
 --[[
 
-  Project: Backbone (framework)
   [Module|Script|Utility]: ?
   Version: 1.0.0
 
-  Author(s): Erik Riklund
-  Created: 2024/09/22 | Updated: 2024/09/22
-
-  Description:
   ?
-
-  Dependencies:
-
-  - ?
-
-  Notes:
-
-  - ?
 
 ]]
 
