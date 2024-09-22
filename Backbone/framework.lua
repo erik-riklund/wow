@@ -430,6 +430,34 @@ end
 
 --#endregion
 
+--#region [module: saved variables]
+
+--[[
+
+  Project: Backbone (framework)
+  [Module|Script|Utility]: ?
+  Version: 1.0.0
+
+  Author(s): Erik Riklund
+  Created: 2024/09/22 | Updated: 2024/09/22
+
+  Description:
+  ?
+
+  Dependencies:
+
+  - ?
+
+  Notes:
+
+  - ?
+
+]]
+
+
+
+--#endregion
+
 ---
 --- ?
 ---
