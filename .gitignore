@@ -1,8 +1,7 @@
 /*/
 *.min.lua
 *.zip
-
 !.vscode/
 
-!Stem/
-!Stem.*/
+!Backbone/
+!FilteredAutoloot/

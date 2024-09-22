@@ -3,12 +3,9 @@
   {
     "prefix": "!header",
     "body": [
-      "---@type string, context",
-      "local addon, context = ...",
-      "",
       "--[[",
       "",
-      "  Project: Stem (framework)",
+      "  Project: Backbone (framework)",
       "  [Module|Script|Utility]: ?",
       "  Version: 1.0.0",
       "",
