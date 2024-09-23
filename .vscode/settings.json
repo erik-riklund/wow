@@ -7,9 +7,10 @@
     "empty-block",
     "unused-function"
   ],
+  "better-comments.multilineComments": true,
   "better-comments.tags": [
     {
-      "tag": "#region [module: ",
+      "tag": "[[~",
       "color": "#D5AA4D",
       "strikethrough": false,
       "underline": false,
@@ -17,15 +18,6 @@
       "bold": false,
       "italic": false
     },
-    {
-      "tag": "#region [class: ",
-      "color": "#986EA3",
-      "strikethrough": false,
-      "underline": false,
-      "backgroundColor": "transparent",
-      "bold": false,
-      "italic": false
-    }
   ],
   "Lua.runtime.version": "Lua 5.1",
   "Lua.runtime.builtin": {

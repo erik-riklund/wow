@@ -5,18 +5,9 @@
   Version: 1.0.0
 
   Author(s): Erik Riklund
-  Created: 2024/09/22 | Updated: 2024/09/22
+  Created: 2024/09/22 | Updated: 2024/09/23
 
-  Description:
   ?
-
-  Dependencies:
-
-  - ?
-
-  Notes:
-
-  - ?
 
 ]]
 
@@ -43,7 +34,8 @@ _G.xtable = {
       -- proxy is created for it to maintain the protection recursively.
 
       __index = function(proxy, key)
-        return (type(object[key]) ~= 'table' and object[key]) or xtable.getProtectedProxy(object[key])
+        return (type(object[key]) ~= 'table' and object[key])
+          or xtable.getProtectedProxy(object[key])
       end,
     })
   end,

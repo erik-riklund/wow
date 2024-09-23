@@ -7,7 +7,7 @@
 --- @class listenable
 --- @field listeners? listener[] "A list of registered listeners, each containing a callback, identifier, and optional persistence flag."
 --- 
---- @field invokeListeners  fun(self: listenable, arguments?: unknown[], executeAsync?: boolean) "Invokes all registered listeners, passing the provided arguments and optionally executing them asynchronously."
+--- @field invokeListeners  fun(self: listenable, arguments?: unknown[], options?: { async: boolean }) "Invokes all registered listeners, passing the provided arguments and optionally executing them asynchronously."
 --- @field registerListener fun(self: listenable, listener: listener) "Registers a new listener, including its callback, identifier, and optional persistence flag."
 --- @field removeListener   fun(self: listenable, identifier: string) "Removes a listener by its unique identifier."
 ---
@@ -21,4 +21,4 @@
 --- @field identifier  string    "A unique identifier for the listener, used for removing or managing the listener."
 --- @field callback    function  "The function to be executed when the listener is triggered."
 --- @field persistent? boolean   "If `false`, the listener will be removed after it is invoked once."
-
+---

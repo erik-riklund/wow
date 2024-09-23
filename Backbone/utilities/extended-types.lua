@@ -5,17 +5,11 @@
   Version: 1.0.0
 
   Author(s): Erik Riklund
-  Created: 2024/09/20 | Updated: 2024/09/22
+  Created: 2024/09/20 | Updated: 2024/09/23
 
-  Description:
   Provides a system to extend Lua's native type system by introducing new types such as 
   `array`, `empty-table`, and `undefined`. It allows for more granular type checking in 
   the framework.
-
-  Notes:
-
-  - This module introduces custom types for tables, including `array` and `empty-table`, 
-    and replaces `nil` with `undefined`.
 
 ]]
 
@@ -28,22 +22,10 @@
 --- @return extendedType  "The extended type of the value."
 ---
 _G.getExtendedType = function(target)
-  --
-  -- Retrieves the base type of the target.
-
   local valueType = type(target)
 
-  -- Handles the special case of tables.
-
   if valueType == 'table' then
-    --
-    -- Returns "empty-table" if the table has no elements.
-
-    if next(target) == nil then
-      return 'empty-table'
-    end
-
-    -- Counts the elements in the table and compares the length to determine if it is an array.
+    if next(target) == nil then return 'empty-table' end
 
     local elementCount = #target
     local actualElementCount = 0
@@ -52,12 +34,8 @@ _G.getExtendedType = function(target)
       actualElementCount = actualElementCount + 1
     end
 
-    -- Returns "array" if the table has sequential numeric keys, otherwise returns "table".
-
     return (elementCount == actualElementCount and 'array') or 'table'
   end
-
-  -- Returns "undefined" for `nil` values, otherwise returns the base type.
 
   return (valueType == 'nil' and 'undefined') or valueType --[[@as extendedType]]
 end
@@ -72,26 +50,16 @@ end
 --- @return boolean, extendedType "Returns a boolean indicating if the types match, and the actual extended type."
 ---
 _G.compareExtendedTypes = function(value, types)
-  --
-  -- Retrieves the extended type of the value.
-
   local extendedType = getExtendedType(value)
-
-  -- Iterates through the expected types and checks if any match the extended type.
 
   if type(types) ~= 'table' then
     types = { types } -- convert a single type into an array.
   end
 
   for index, expectedType in ipairs(types) do
-    --
-    -- Returns true if the extended type matches the expected type.
-
     if expectedType == extendedType then
       return true, extendedType -- match found.
     end
-
-    -- Special handling for empty tables, which can match both 'array' and 'table'.
 
     if extendedType == 'empty-table' then
       if expectedType == 'array' or expectedType == 'table' then
@@ -99,8 +67,6 @@ _G.compareExtendedTypes = function(value, types)
       end
     end
   end
-
-  -- Returns `false` if no match is found, along with the actual extended type.
 
   return false, extendedType
 end

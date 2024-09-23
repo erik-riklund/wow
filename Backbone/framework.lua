@@ -1,360 +1,200 @@
 --[[
 
+  Version: 1.0.0  
   Project: Backbone (framework)  
-  Version: 1.0.0
+  Author(s): Erik Riklund
   
   Backbone is a foundational framework that provides key utilities and structures 
   to streamline the development of addons. It includes features such as ...
 
 ]]
 
-local api = {
-  framework = {} --[[@as api]],
-  plugin = {} --[[@as plugin]],
-}
+---@type api
+local api = {}
 
-local frame = CreateFrame 'Frame' --[[@as Frame]]
+---@type plugin
+local plugin = {}
 
---#region [module: plugins]
+---@type Frame
+local frame = CreateFrame 'Frame'
 
---[[
+---@type api
+_G.backbone = xtable.getProtectedProxy(api)
 
-  Module: Plugin Management
-  Version: 1.0.0
+--[[~
 
-  Provides functionality for creating and managing plugins. This module ensures 
-  that plugins are uniquely identified and registered within the framework.
+  Module: Plugin Manager
+  Version: 1.0.0 | Updated: 2024/09/23
+  Author(s): Erik Riklund
+
+  ?
 
 ]]
 
----
---- A table storing all registered plugins, indexed by their unique identifiers.
----
---- @type table<string, plugin>
----
+---@type table<string, plugin>
 local plugins = {}
 
 ---
---- Creates a new plugin with a unique identifier. If a plugin with the same identifier
---- already exists, an error is thrown.
+--- Registers a new plugin using the provided identifier. This function ensures
+--- that each plugin has a unique identifier to prevent conflicts within the system.
 ---
---- @param identifier string "A unique identifier for the plugin."
---- @return plugin "The newly created plugin instance."
+---@param identifier string "A unique identifier for the plugin."
 ---
-api.framework.createPlugin = function(identifier)
+api.createPlugin = function(identifier)
+  --
+  -- Ensure that the identifier is unique. If a plugin with the same identifier
+  -- already exists, we throw an error to prevent accidental overwrites or conflicts.
+
   if plugins[identifier] ~= nil then
-    throwError('Unable to create plugin "%s" (non-unique identifier).', identifier)
+    throwError('Unable to register plugin "%s" (non-unique identifier).', identifier)
   end
 
-  plugins[identifier] = setmetatable({ identifier = identifier }, { __index = api.plugin })
+  --
+  -- Register the plugin by creating an entry in the `plugins` table. The metatable
+  -- for the plugin is set to inherit from the base `plugin` class, allowing for
+  -- shared behavior between plugins.
+
+  plugins[identifier] = setmetatable({ identifier = identifier }, { __index = plugin })
+
+  --
+  -- Return the plugin as a protected proxy to ensure that it cannot be accidentally
+  -- modified after registration. This enforces immutability, protecting the integrity
+  -- of the plugin's state while still allowing read access.
+
   return xtable.getProtectedProxy(plugins[identifier])
 end
 
---#endregion
+--[[~
 
---#region [module: callbacks]
+  Module: ?
+  Version: 1.0.0 | Updated: 2024/09/23
 
---[[
-
-  Module: Callback Management
-  Version: 1.0.0
-
-  Manages the execution of callback functions, both synchronously and asynchronously. 
-  This module provides a task queue for asynchronous callbacks and ensures that callbacks 
-  are executed within the frame time limit to maintain performance.
+  Provides synchronous and asynchronous task execution. Tasks are queued and processed 
+  within a set frame limit to ensure that performance is maintained. Tasks are either 
+  executed immediately or added to a task queue for later execution.
 
 ]]
 
----
---- A list of tasks queued for asynchronous execution.
----
---- @type task[]
----
+---@type task[]
 local tasks = {}
 
 ---
---- Executes a callback function associated with an identifier. This function validates
---- the arguments, executes the callback safely, and handles errors that occur during
---- execution.
+--- Executes a callback function associated with a given identifier. This function 
+--- ensures that the arguments are validated before the callback is executed. If an 
+--- error occurs during execution, it is caught and logged for debugging.
 ---
---- @param identifier  string     "A unique identifier for the callback."
---- @param callback    function   "The callback function to execute."
---- @param arguments?  unknown[]  "Optional arguments to pass to the callback."
+---@param identifier string    "A unique identifier for the callback."
+---@param callback   function  "The function to be executed."
+---@param arguments? unknown[] "Optional arguments to pass to the callback."
 ---
 local executeCallback = function(identifier, callback, arguments)
+  --
+  -- Validate the arguments to prevent errors caused by incorrect types or missing values.
+
   validateArguments {
     { label = 'identifier', value = identifier, types = 'string' },
     { label = 'callback', value = callback, types = 'function' },
     { label = 'arguments', value = arguments, types = 'array', optional = true },
   }
 
-  local success, result = pcall(callback, (arguments ~= nil and unpack(arguments)) or nil)
-  if not success then throwError('Execution of callback "%s" failed. Reason: %s', identifier, result) end
+  --
+  -- Execute the callback and capture any exceptions. Using `pcall` ensures that errors 
+  -- are caught, preventing crashes and allowing for graceful error handling.
+
+  local success, exception = pcall(callback, unpack(arguments or {}))
+
+  --
+  -- If the callback execution fails, log the error for debugging purposes, including 
+  -- the identifier to make tracking easier.
+
+  if not success then
+    print(('[Backbone] Callback execution failed for "%s":\n%s'):format(identifier, exception))
+  end
 end
 
 ---
---- Processes asynchronous tasks, ensuring that tasks are executed within a frame limit
---- for performance reasons. Uses coroutines and timers to manage execution time.
+--- Queues a callback for asynchronous execution. This allows the system to manage tasks 
+--- without blocking the main thread. Tasks are stored in a queue and processed when 
+--- the frame limit permits.
 ---
-local process --[[@as thread]]
+---@param identifier string    "A unique identifier for the callback."
+---@param callback   function  "The function to be executed."
+---@param arguments? unknown[] "Optional arguments to pass to the callback."
+---
+local executeCallbackAsync = function(identifier, callback, arguments)
+  --
+  -- Add the task to the task queue for asynchronous execution. This defers the task 
+  -- to be executed when the frame limit permits, allowing for non-blocking behavior.
+  
+  table.insert(tasks, { identifier = identifier, callback = callback, arguments = arguments })
+end
 
-process = coroutine.create(function()
-  local frameLimit = 0.01667 -- 60fps
+-- 
+-- Creates a coroutine to process tasks. The task queue is processed within a frame 
+-- time limit (e.g., 60 frames per second) to ensure the system remains responsive 
+-- without overloading the frame execution time.
+--
+local process = coroutine.create(function()
+  local frameLimit = 0.01667 -- 60 FPS limit
 
   while true do
     local started = GetTime()
 
-    -- Executes tasks within the frame time limit.
+    --
+    -- Process tasks as long as there are tasks in the queue and the frame limit 
+    -- has not been exceeded. This ensures that tasks are executed efficiently 
+    -- without impacting performance.
 
     while #tasks > 0 and ((GetTime() - started) <= frameLimit) do
       local task = table.remove(tasks, 1) --[[@as task]]
       executeCallback(task.identifier, task.callback, task.arguments)
     end
 
-    -- If tasks remain, schedule the next processing loop after the frame limit delay.
-
-    if #tasks > 0 then C_Timer.After(frameLimit, function() coroutine.resume(process) end) end
-
-    coroutine.yield()
+    coroutine.yield() -- yield control until the next frame.
   end
 end)
 
----
---- Queues a callback function for asynchronous execution. The callback is identified
---- by a unique identifier and can optionally receive arguments. The task is executed
---- when the coroutine resumes within the frame limit.
----
---- @param identifier  string     "A unique identifier for the callback."
---- @param callback    function   "The callback function to execute."
---- @param arguments?  unknown[]  "Optional arguments to pass to the callback."
----
-local executeCallbackAsync = function(identifier, callback, arguments)
-  table.insert(tasks, { identifier = identifier, callback = callback, arguments = arguments } --[[@as task]])
-  if coroutine.status(process) == 'suspended' then coroutine.resume(process) end
-end
-
--- Exposes the `executeCallback` and `executeCallbackAsync` functions through the framework API.
-
-api.framework.executeCallback = executeCallback
-api.framework.executeCallbackAsync = executeCallbackAsync
-
---#endregion
-
---#region [class: listenable]
-
---[[
-
-  Class: Listenable
-  Version: 1.0.0
-
-  Provides functionality to register, invoke, and remove listeners. The `listenable` 
-  class supports asynchronous and synchronous execution of registered listeners 
-  and ensures listener management through unique identifiers.
-
-]]
-
----
---- A class that manages the registration, invocation, and removal of listeners.
---- This class supports both synchronous and asynchronous listener execution.
----
-local listenable = {
-  __index = {
-    --
-    -- Invokes all registered listeners, passing the provided arguments to their
-    -- respective callback functions. Supports both synchronous and asynchronous execution.
-
-    invokeListeners = function(self, arguments, executeAsync)
-      validateArguments {
-        { label = 'arguments', value = arguments, types = 'array', optional = true },
-        { label = 'executeAsync', value = executeAsync, types = 'boolean', optional = true },
-      }
-
-      -- Execute each listener's callback, either synchronously or asynchronously.
-
-      for i = 1, #self.listeners do
-        local handler = (executeAsync and executeCallbackAsync) or executeCallback
-        handler(self.listeners[i].identifier, self.listeners[i].callback, arguments or {})
-
-        -- If the listener is not persistent, it is removed after execution.
-
-        if self.listeners[i].persistent == false then
-          table.remove(self.listeners, i)
-          i = i - 1 -- adjusts the index to ensure correct iteration after removal.
-        end
-      end
-    end,
-
-    -- Registers a new listener with a callback function, optional identifier,
-    -- and persistence flag. Ensures that all fields are of the correct types.
-
-    registerListener = function(self, listener)
-      validateArguments {
-        { label = 'listener', value = listener, types = 'table' },
-        { label = 'listener.callback', value = listener.callback, types = 'function' },
-        { label = 'listener.identifier', value = listener.identifier, types = 'string' },
-        { label = 'listener.persistent', value = listener.persistent, types = 'boolean', optional = true },
-      }
-
-      table.insert(self.listeners, listener)
-    end,
-
-    -- Removes a listener by its identifier. Throws an error if no listener with
-    -- the given identifier is found.
-
-    removeListener = function(self, identifier)
-      validateArguments {
-        { label = 'identifier', value = identifier, types = 'string' },
-      }
-
-      -- Search for the listener by identifier and remove it if found.
-
-      for index, listener in ipairs(self.listeners) do
-        if listener.identifier == identifier then
-          table.remove(self.listeners, index)
-          return -- exits after the listener is removed.
-        end
-      end
-
-      throwError('Failed to remove listener "%s" (unknown identifier).', identifier)
-    end,
-  } --[[@as listenable]],
-}
-
----
---- Creates a new `listenable` object, initializing it with an empty list of listeners.
---- @return listenable "The newly created listenable object."
----
-local createListenableObject = function() return setmetatable({ listeners = {} }, listenable) end
-
---#endregion
-
---#region [module: game events]
-
---[[
-
-  Module: Game Events
-  Version: 1.0.0
-
-  Manages the registration, invocation, and removal of event listeners for game events. 
-  It provides functions for handling event listeners, invoking callbacks when events 
-  are triggered, and managing event unregistration when no listeners are left.
-
-]]
-
----
---- Stores the registered events, indexed by their names.
----
---- @type table<string, event>
----
-local events = {}
-
--- Registers the initial event listener for ADDON_LOADED.
-
-frame:RegisterEvent 'ADDON_LOADED'
-
----
---- Registers a new event by name. If the event does not start with `ADDON_LOADED`, it
---- is registered with the frame for listening.
----
---- @param name  string  "The name of the event to register."
----
-local registerEvent = function(name)
-  if not xstring.hasPrefix(name, 'ADDON_LOADED') then frame:RegisterEvent(name) end
-  events[name] = createListenableObject() --[[@as event]]
-end
-
----
---- Unregisters an event by name. If the event is not part of the `ADDON_LOADED` series,
---- it is removed from the frame's registered events.
----
-local unregisterEvent = function(name)
-  if not xstring.hasPrefix(name, 'ADDON_LOADED') then frame:UnregisterEvent(name) end
-  events[name] = nil -- clears the listenable event object.
-end
-
----
---- Registers a listener for a specific event. If the event does not exist, it is first
---- registered.
----
---- @param eventName  string   "The name of the event to listen for."
---- @param listener   listener "The listener to register for the event."
----
-local registerEventListener = function(eventName, listener)
-  if events[eventName] == nil then registerEvent(eventName) end
-  events[eventName]:registerListener(listener)
-end
-
----
---- Removes a listener from an event. If no more listeners are left, the event is unregistered.
----
---- @param eventName   string  "The name of the event to remove the listener from."
---- @param identifier  string  "The unique identifier of the listener to remove."
----
-local removeEventListener = function(eventName, identifier)
-  if events[eventName] ~= nil then events[eventName]:removeListener(identifier) end
-  if #events[eventName].listeners == 0 then unregisterEvent(eventName) end
-end
-
----
---- Invokes all listeners registered for a given event, passing the event's arguments.
----
---- @param eventName  string    "The name of the event to invoke."
---- @param arguments  unknown[] "The arguments to pass to the event listeners."
----
-local invokeEvent = function(eventName, arguments)
-  if events[eventName] ~= nil then events[eventName]:invokeListeners(arguments) end
-end
-
--- Sets up the frame to handle incoming events and invoke the relevant listeners.
-
-frame:SetScript('OnEvent', function(sender, eventName, ...)
-  if eventName == 'ADDON_LOADED' then
-    local addonName = ...
-    eventName = 'ADDON_LOADED:' .. addonName
-  end
-
-  invokeEvent(eventName, { ... })
+-- 
+-- Sets up an `OnUpdate` script that checks if there are tasks in the queue and 
+-- resumes the coroutine if necessary. This ensures that tasks are processed on
+-- every frame update when the queue is not empty.
+--
+frame:SetScript('OnUpdate', function()
+  if #tasks > 0 and coroutine.status(process) == 'suspended' then coroutine.resume(process) end
 end)
 
--- Registers a one-time initialization callback for the plugin, triggered when `ADDON_LOADED` fires.
+--[[~
 
-api.plugin.onInitialize = function(self, identifier, callback)
-  local listener = { identifier = identifier, callback = callback, persistent = false }
-  self:registerEventListener('ADDON_LOADED:' .. self.identifier, listener)
-end
-
--- Registers an event listener for a plugin, appending the plugin identifier to the listener identifier.
-
-api.plugin.registerEventListener = function(self, eventName, listener)
-  listener.identifier = self.identifier .. listener.identifier
-  registerEventListener(eventName, listener)
-end
-
--- Removes an event listener for a plugin, using the plugin's identifier as a prefix.
-
-api.plugin.removeEventListener = function(self, eventName, identifier)
-  identifier = self.identifier .. identifier
-  removeEventListener(eventName, identifier)
-end
-
---#endregion
-
---#region [module: saved variables]
-
---[[
-
-  [Module|Script|Utility]: ?
-  Version: 1.0.0
+  Component: Listenable
+  Version: 1.0.0 | Updated: 2024/09/23
 
   ?
 
 ]]
 
+---@type listenable
+local listenable = {
+  --
+  -- ?
 
+  invokeListeners = function(self, arguments, options) end,
 
---#endregion
+  --
+  -- ?
+
+  registerListener = function(self, listener) end,
+
+  --
+  -- ?
+
+  removeListener = function(self, identifier) end,
+}
 
 ---
 --- ?
 ---
-_G.backbone = xtable.getProtectedProxy(api.framework) --[[@as api]]
+---@return listenable "..."
+---
+local createListenableObject = function()
+  return setmetatable({ listeners = {} }, { __index = listenable })
+end

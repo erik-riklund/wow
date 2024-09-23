@@ -15,13 +15,22 @@
       "  Description:",
       "  ?",
       "",
-      "  Dependencies:",
+      "]]",
       "",
-      "  - ?",
+      ""
+    ]
+  },
+
+  "module":
+  {
+    "prefix": "!module",
+    "body": [
+      "--[[~",
       "",
-      "  Notes:",
+      "  Module: ?",
+      "  Version: 1.0.0 | Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
       "",
-      "  - ?",
+      "  ?",
       "",
       "]]",
       "",
