@@ -3,16 +3,14 @@
   {
     "prefix": "!header",
     "body": [
-      "--[[",
+      "--[[~ Project: Backbone (framework) ~",
       "",
-      "  Project: Backbone (framework)",
       "  [Module|Script|Utility]: ?",
       "  Version: 1.0.0",
       "",
       "  Author(s): Erik Riklund",
       "  Created: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE | Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
       "",
-      "  Description:",
       "  ?",
       "",
       "]]",
@@ -25,9 +23,8 @@
   {
     "prefix": "!module",
     "body": [
-      "--[[~",
-      "",
-      "  Module: ?",
+      "--[[~ Module: ? ~",
+      "  ",
       "  Version: 1.0.0 | Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
       "",
       "  ?",

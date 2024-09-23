@@ -4,9 +4,6 @@
 
 libraries/xstring.lua
 libraries/xtable.lua
-
-utilities/throw-error.lua
-utilities/extended-types.lua
-utilities/validate-args.lua
+libraries/utilities.lua
 
 framework.lua
