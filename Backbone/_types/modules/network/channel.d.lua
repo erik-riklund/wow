@@ -4,7 +4,7 @@
 --- Represents a communication channel that listens to incoming events and sends messages.
 --- Each channel may be associated with a plugin and can be configured through options.
 ---
----@class channel : listener, channel.options
+---@class channel : listenable, channel.options
 ---@field context? plugin "An optional plugin instance associated with this channel."
 ---
 

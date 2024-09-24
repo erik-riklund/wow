@@ -28,6 +28,56 @@ _G.backbone = xtable.getProtectedProxy(api)
 
 _G.production = false
 
+--[[~ Module: Plugin Manager ~
+
+  Author(s): Erik Riklund
+  Version: 1.0.0 | Updated: 2024/09/24
+
+  This module handles the management of plugins in the system. Its primary responsibility 
+  is to ensure that each plugin is registered with a unique identifier and that the plugins 
+  are protected from direct modification by external entities. Plugins are wrapped in 
+  a proxy, which helps maintain controlled access and modification restrictions.
+
+  Design choices:
+  - Unique identifiers for plugins prevent conflicts when registering multiple plugins.
+  - The use of a proxy ensures that plugins cannot be directly modified, enhancing safety.
+  - Internal storage of plugins is handled via a table for efficient lookup based on 
+    the identifier.
+
+  Dependencies: xtable
+
+]]
+
+---@type table<string, plugin>
+local plugins = {}
+
+---
+--- Registers a plugin with a given identifier. If a plugin with the same identifier already
+--- exists, the function throws an error to prevent identifier conflicts. The newly registered
+--- plugin is wrapped in a protected proxy, limiting external modification.
+---
+---@param identifier string "The identifier for the plugin being registered."
+---
+api.createPlugin = function(identifier)
+  --
+  -- First, ensure that the plugin identifier is unique. If a plugin with the same
+  -- identifier is already registered, raise an error to prevent conflicts.
+
+  if plugins[identifier] ~= nil then
+    throwError('Unable to register plugin "%s" (non-unique identifier).', identifier)
+  end
+
+  -- Register the new plugin and associate it with the identifier in the plugins table.
+  -- The use of setmetatable allows the plugin to inherit methods from the base plugin object.
+
+  plugins[identifier] = setmetatable({ identifier = identifier }, { __index = plugin })
+
+  -- Return a protected proxy for the registered plugin to ensure that the plugin cannot
+  -- be modified directly by external code. This reinforces safety and data encapsulation.
+
+  return xtable.getProtectedProxy(plugins[identifier])
+end
+
 --[[~ Module: Task Management ~
 
   Author(s): Erik Riklund
@@ -220,9 +270,6 @@ local listenable = {
 
     validateArguments { { 'identifier:string', identifier } }
 
-    -- Search for the listener and remove it if found. If no listener is found, an
-    -- error is thrown to notify the developer.
-
     for index, listener in ipairs(self.listeners) do
       if listener.identifier == identifier then
         table.remove(self.listeners, index)
@@ -230,17 +277,12 @@ local listenable = {
       end
     end
 
-    -- Provide clear feedback if the listener was not found, aiding debugging and
-    -- preventing silent failures.
-
     throwError('Failed to remove listener "%s" (unknown identifier).', identifier)
   end,
 }
 
 ---
---- Creates a new `Listenable` object. This provides an easy-to-use interface for
---- managing listeners, allowing developers to register, invoke, and remove listeners
---- in a consistent and predictable manner.
+--- ?
 ---
 ---@return listenable "The newly created listenable object."
 ---
@@ -252,11 +294,7 @@ end
 
   Version: 1.0.0 | Updated: 2024/09/23
 
-  This module handles the registration, invocation, and removal of event listeners 
-  for game events. Listeners are tied to specific events, and when the event is 
-  triggered, the listeners are invoked. Event listeners are removed automatically 
-  when no longer needed, preventing unnecessary memory usage. Special handling is 
-  provided for the `ADDON_LOADED` event to ensure plugins initialize properly.
+  ?
 
   Dependencies: ?
 
@@ -266,82 +304,48 @@ end
 local events = {}
 
 --
--- Register the `ADDON_LOADED` event to ensure that plugins are initialized when the addon
--- they belong to is fully loaded. This event is critical for proper plugin initialization.
+-- ?
 
 frame:RegisterEvent 'ADDON_LOADED'
 
 ---
---- Registers a listener for a specific event. If the event has not been registered
---- yet, it is added to the system and the listener is attached. Only registering
---- events when necessary reduces overhead and keeps the system efficient.
+--- ?
 ---
 ---@param event    string   "The name of the event to listen for."
 ---@param listener listener "The listener to attach to the event."
 ---
 local registerEventListener = function(event, listener)
-  -- Only register the event if it hasn’t been registered yet. This avoids redundant
-  -- registrations, improving performance and preventing unnecessary memory usage.
-
   if events[event] == nil then
-    -- Special case for the `ADDON_LOADED` event, which is managed separately to
-    -- avoid re-registering for multiple addons.
-
     if not xstring.hasPrefix(event, 'ADDON_LOADED') then frame:RegisterEvent(event) end
-
-    -- Create a new listenable object to manage listeners for the event.
-
     events[event] = createListenableObject() --[[@as event]]
   end
-
-  -- Attach the listener to the event. When the event is triggered, the listener
-  -- will be invoked with the appropriate context and arguments.
 
   events[event]:registerListener(listener)
 end
 
 ---
---- Removes a listener from a registered event. If no listeners remain for the event,
---- the event itself is unregistered to prevent unnecessary overhead. This approach
---- helps ensure efficient memory usage.
+--- ?
 ---
 ---@param event      string "The event name from which to remove the listener."
 ---@param identifier string "The unique identifier for the listener to remove."
 ---
 local removeEventListener = function(event, identifier)
-  -- Check if the event has active listeners before attempting to remove one. If
-  -- no listeners exist, an error is thrown to prevent silent failures.
-
   if events[event] ~= nil then
     events[event]:removeListener(identifier)
     return -- Early exit if the listener was successfully removed.
   end
 
-  -- If the event had no listeners, provide clear feedback to the developer. This
-  -- helps avoid confusion when debugging event listener issues.
-
   throwError('Event "%s" has no active listeners.', event)
 end
 
 --
--- This function is triggered whenever an event occurs. It handles invoking all
--- registered listeners and performs cleanup if no listeners remain. By unregistering
--- events with no listeners, we prevent memory bloat and improve overall system performance.
+-- ?
 
 frame:SetScript('OnEvent', function(source, event, ...)
-  -- Special case handling for `ADDON_LOADED` to ensure that addon-specific events
-  -- are handled correctly, with each addon receiving its own event trigger.
-
   if event == 'ADDON_LOADED' then event = string.format('ADDON_LOADED:%s', ...) end
-
-  -- Invoke listeners for the event. If no listeners remain afterward, the event
-  -- is unregistered to prevent further overhead.
 
   if events[event] ~= nil then
     events[event]:invokeListeners { source, ... }
-
-    -- If no listeners are left, unregister the event to free up resources. This
-    -- prevents unnecessary listeners from accumulating, which could degrade performance.
 
     if #events[event].listeners == 0 then
       if not xstring.hasPrefix(event, 'ADDON_LOADED') then frame:UnregisterEvent(event) end
@@ -351,50 +355,30 @@ frame:SetScript('OnEvent', function(source, event, ...)
 end)
 
 ---
---- Registers a listener for the `ADDON_LOADED` event, specific to a plugin. This
---- ensures that each plugin initializes at the appropriate time when its addon is loaded.
+--- ?
 
 plugin.onInitialize = function(self, identifier, callback)
-  -- Create a uniquely identified listener by combining the plugin identifier and
-  -- the listener identifier. This prevents conflicts between multiple plugins.
-
   local listener = {
     identifier = self.identifier .. identifier,
     callback = callback,
     persistent = false,
   }
 
-  -- Register the listener for the `ADDON_LOADED` event, ensuring that it is triggered
-  -- when the addon is fully loaded.
-
   registerEventListener('ADDON_LOADED:' .. self.identifier, listener)
 end
 
 ---
---- Registers a listener for any event, ensuring that the listener identifier is unique
---- to the plugin. This avoids conflicts between plugins that may be listening for
---- the same event.
+--- ?
 
 plugin.registerEventListener = function(self, event, listener)
-  -- Prefix the listener identifier with the plugin’s identifier to avoid conflicts
-  -- with listeners from other plugins.
-
   listener.identifier = self.identifier .. '.' .. listener.identifier
-
-  -- Register the listener for the event, ensuring that it is triggered when the event occurs.
-
   registerEventListener(event, listener)
 end
 
 ---
---- Removes a listener for any event, ensuring that only the correct listener is
---- removed. The plugin's identifier is used as a prefix to avoid removing listeners
---- registered by other plugins.
+--- ?
 
 plugin.removeEventListener = function(self, event, identifier)
-  -- Prefix the identifier with the plugin’s identifier to ensure that only the intended
-  -- listener is removed, even if multiple plugins are listening for the same event.
-
   removeEventListener(event, self.identifier .. '.' .. identifier)
 end
 
@@ -418,7 +402,25 @@ local channels = {}
 ---@param options   channel.options "..."
 ---@param context?  plugin "..."
 ---
-local reserveChannel = function(channel, options, context) end
+local reserveChannel = function(channel, options, context)
+  options = options or {}
+
+  validateArguments {
+    { 'channel:string', channel },
+    { 'options.async:boolean?', options.async },
+    { 'options.internal:boolean?', options.internal },
+  }
+
+  if channels[channel] ~= nil then
+    throwError('Unable to reserve channel "%s" (non-unique name).', channel)
+  end
+
+  channels[channel] = createListenableObject() --[[@as channel]]
+
+  channels[channel].async = options.async
+  channels[channel].internal = options.internal
+  channels[channel].context = context
+end
 
 ---
 --- ?
@@ -478,50 +480,4 @@ end
 ---
 plugin.invokeChannelListeners = function(self, channel, payload)
   invokeChannelListeners(channel, payload, self)
-end
-
---[[~ Module: Plugin Manager ~
-
-  Author(s): Erik Riklund
-  Version: 1.0.0 | Updated: 2024/09/23
-
-  This module handles the creation and management of plugins. Plugins are registered 
-  with a unique identifier to prevent conflicts, and once registered, their state becomes
-  immutable. Immutability guarantees the integrity of each plugin, preventing any unintentional
-  changes that could lead to unpredictable behavior.
-
-  Dependencies: ?
-
-]]
-
----@type table<string, plugin>
-local plugins = {}
-
----
---- Registers a new plugin using a unique identifier. This ensures that no two
---- plugins share the same identifier, preventing conflicts or overwrites.
---- Once registered, the plugin is immutable, making it safe from accidental changes.
----
----@param identifier string "A unique identifier for the plugin."
----
-api.createPlugin = function(identifier)
-  -- Check for unique identifiers to prevent accidental overwrites or conflicts.
-  -- This guarantees that each plugin operates in isolation, avoiding any unintended
-  -- interactions with other plugins.
-
-  if plugins[identifier] ~= nil then
-    throwError('Unable to register plugin "%s" (non-unique identifier).', identifier)
-  end
-
-  -- Create a new plugin, inheriting shared behavior from the base `plugin` class.
-  -- Inheriting common behavior reduces duplication and makes the code easier to
-  -- maintain across different plugins.
-
-  plugins[identifier] = setmetatable({ identifier = identifier }, { __index = plugin })
-
-  -- Return the plugin wrapped in a protected proxy. Immutability ensures that once
-  -- a plugin is registered, its internal state cannot be modified, reducing the
-  -- potential for bugs caused by accidental changes.
-
-  return xtable.getProtectedProxy(plugins[identifier])
 end
