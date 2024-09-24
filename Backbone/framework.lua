@@ -28,50 +28,6 @@ _G.backbone = xtable.getProtectedProxy(api)
 
 _G.production = false
 
---[[~ Module: Plugin Manager ~
-
-  Author(s): Erik Riklund
-  Version: 1.0.0 | Updated: 2024/09/23
-
-  This module handles the creation and management of plugins. Plugins are registered 
-  with a unique identifier to prevent conflicts, and once registered, their state 
-  becomes immutable. Immutability guarantees the integrity of each plugin, preventing 
-  any unintentional changes that could lead to unpredictable behavior.
-
-]]
-
----@type table<string, plugin>
-local plugins = {}
-
----
---- Registers a new plugin using a unique identifier. This ensures that no two
---- plugins share the same identifier, preventing conflicts or overwrites.
---- Once registered, the plugin is immutable, making it safe from accidental changes.
----
----@param identifier string "A unique identifier for the plugin."
----
-api.createPlugin = function(identifier)
-  -- Check for unique identifiers to prevent accidental overwrites or conflicts.
-  -- This guarantees that each plugin operates in isolation, avoiding any unintended
-  -- interactions with other plugins.
-
-  if plugins[identifier] ~= nil then
-    throwError('Unable to register plugin "%s" (non-unique identifier).', identifier)
-  end
-
-  -- Create a new plugin, inheriting shared behavior from the base `plugin` class.
-  -- Inheriting common behavior reduces duplication and makes the code easier to
-  -- maintain across different plugins.
-
-  plugins[identifier] = setmetatable({ identifier = identifier }, { __index = plugin })
-
-  -- Return the plugin wrapped in a protected proxy. Immutability ensures that once
-  -- a plugin is registered, its internal state cannot be modified, reducing the
-  -- potential for bugs caused by accidental changes.
-
-  return xtable.getProtectedProxy(plugins[identifier])
-end
-
 --[[~ Module: Task Management ~
 
   Author(s): Erik Riklund
@@ -81,6 +37,8 @@ end
   processed within a frame limit to maintain system performance, ensuring that no 
   single task hogs too much processing time. Asynchronous tasks are queued to be 
   executed when the system allows, avoiding performance bottlenecks.
+
+  Dependencies: ?
 
 ]]
 
@@ -185,6 +143,8 @@ end)
   The `Listenable` component provides a flexible way to manage event listeners. 
   It supports both synchronous and asynchronous execution, with automatic removal 
   of non-persistent listeners once they have been triggered.
+
+  Dependencies: ?
 
 ]]
 
@@ -298,6 +258,8 @@ end
   when no longer needed, preventing unnecessary memory usage. Special handling is 
   provided for the `ADDON_LOADED` event to ensure plugins initialize properly.
 
+  Dependencies: ?
+
 ]]
 
 ---@type table<string, event>
@@ -391,7 +353,7 @@ end)
 ---
 --- Registers a listener for the `ADDON_LOADED` event, specific to a plugin. This
 --- ensures that each plugin initializes at the appropriate time when its addon is loaded.
----
+
 plugin.onInitialize = function(self, identifier, callback)
   -- Create a uniquely identified listener by combining the plugin identifier and
   -- the listener identifier. This prevents conflicts between multiple plugins.
@@ -412,7 +374,7 @@ end
 --- Registers a listener for any event, ensuring that the listener identifier is unique
 --- to the plugin. This avoids conflicts between plugins that may be listening for
 --- the same event.
----
+
 plugin.registerEventListener = function(self, event, listener)
   -- Prefix the listener identifier with the plugin’s identifier to avoid conflicts
   -- with listeners from other plugins.
@@ -428,10 +390,138 @@ end
 --- Removes a listener for any event, ensuring that only the correct listener is
 --- removed. The plugin's identifier is used as a prefix to avoid removing listeners
 --- registered by other plugins.
----
+
 plugin.removeEventListener = function(self, event, identifier)
   -- Prefix the identifier with the plugin’s identifier to ensure that only the intended
   -- listener is removed, even if multiple plugins are listening for the same event.
 
   removeEventListener(event, self.identifier .. '.' .. identifier)
+end
+
+--[[~ Module: ? ~
+  
+  Version: 1.0.0 | Updated: 2024/09/24
+
+  ?
+
+  Dependencies: ?
+
+]]
+
+---@type table<string, channel>
+local channels = {}
+
+---
+--- ?
+---
+---@param channel   string "..."
+---@param options   channel.options "..."
+---@param context?  plugin "..."
+---
+local reserveChannel = function(channel, options, context) end
+
+---
+--- ?
+---
+---@param channel   string "..."
+---@param listener  listener "..."
+---@param context?  plugin "..."
+---
+local registerChannelListener = function(channel, listener, context) end
+
+---
+--- ?
+---
+---@param channel    string "..."
+---@param identifier string "..."
+---@param context?   plugin "..."
+---
+local removeChannelListener = function(channel, identifier, context) end
+
+---
+--- ?
+---
+---@param channel   string "..."
+---@param payload?  unknown "..."
+---@param context?  plugin "..."
+---
+local invokeChannelListeners = function(channel, payload, context) end
+
+---
+--- ?
+---
+reserveChannel('PLUGIN_ADDED', { async = false, internal = true })
+
+---
+--- ?
+---
+plugin.reserveChannel = function(self, channel, options)
+  reserveChannel(channel, options, self)
+end
+
+---
+--- ?
+---
+plugin.registerChannelListener = function(self, channel, listener)
+  registerChannelListener(channel, listener, self)
+end
+
+---
+--- ?
+---
+plugin.removeChannelListener = function(self, channel, identifier)
+  removeChannelListener(channel, identifier, self)
+end
+
+---
+--- ?
+---
+plugin.invokeChannelListeners = function(self, channel, payload)
+  invokeChannelListeners(channel, payload, self)
+end
+
+--[[~ Module: Plugin Manager ~
+
+  Author(s): Erik Riklund
+  Version: 1.0.0 | Updated: 2024/09/23
+
+  This module handles the creation and management of plugins. Plugins are registered 
+  with a unique identifier to prevent conflicts, and once registered, their state becomes
+  immutable. Immutability guarantees the integrity of each plugin, preventing any unintentional
+  changes that could lead to unpredictable behavior.
+
+  Dependencies: ?
+
+]]
+
+---@type table<string, plugin>
+local plugins = {}
+
+---
+--- Registers a new plugin using a unique identifier. This ensures that no two
+--- plugins share the same identifier, preventing conflicts or overwrites.
+--- Once registered, the plugin is immutable, making it safe from accidental changes.
+---
+---@param identifier string "A unique identifier for the plugin."
+---
+api.createPlugin = function(identifier)
+  -- Check for unique identifiers to prevent accidental overwrites or conflicts.
+  -- This guarantees that each plugin operates in isolation, avoiding any unintended
+  -- interactions with other plugins.
+
+  if plugins[identifier] ~= nil then
+    throwError('Unable to register plugin "%s" (non-unique identifier).', identifier)
+  end
+
+  -- Create a new plugin, inheriting shared behavior from the base `plugin` class.
+  -- Inheriting common behavior reduces duplication and makes the code easier to
+  -- maintain across different plugins.
+
+  plugins[identifier] = setmetatable({ identifier = identifier }, { __index = plugin })
+
+  -- Return the plugin wrapped in a protected proxy. Immutability ensures that once
+  -- a plugin is registered, its internal state cannot be modified, reducing the
+  -- potential for bugs caused by accidental changes.
+
+  return xtable.getProtectedProxy(plugins[identifier])
 end

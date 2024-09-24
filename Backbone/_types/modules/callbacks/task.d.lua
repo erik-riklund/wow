@@ -7,7 +7,7 @@
 ---
 --- @class task
 --- 
---- @field identifier  string     "A unique identifier for the task, used for tracking and execution."
---- @field callback    function   "The function to be executed when the task is processed."
---- @field arguments?  unknown[]  "Optional arguments to pass to the callback function when executed."
+--- @field identifier string    "A unique identifier for the task, used for tracking and execution."
+--- @field callback   function  "The function to be executed when the task is processed."
+--- @field arguments? unknown[] "Optional arguments to pass to the callback function when executed."
 ---
