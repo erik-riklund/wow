@@ -1,11 +1,9 @@
 --- @meta
 
 ---
---- Represents a plugin within the framework. Each plugin is uniquely identified by 
---- its `identifier`, which is used to register and manage it within the system.
+--- Represents a plugin within the framework. Each plugin has access to
+--- the plugin API which simplifies interactions with the framework.
 ---
---- @class plugin : events.api, network.api
---- 
---- @field identifier? string "A unique identifier for the plugin, used for registration and management."
---- @field storage? table "..."
+--- @class plugin : events.api, network.api, storage.api
+--- @field identifier? string "A unique identifier for the plugin."
 ---

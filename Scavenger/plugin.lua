@@ -1,31 +1,13 @@
 local addon = ...
 
---[[
+--[[~ Project: Scavenger ~
 
-  Project: Scavenger
-  Version: 1.0.0
+  Author(s): Erik Riklund  
+  Version: 1.0.0 | Updated: 2024/09/24
 
-  Author(s): Erik Riklund
-
-  Description:
   ?
 
 ]]
 
--- ?
-
 local plugin = backbone.createPlugin(addon)
-
--- ?
-
-plugin:onInitialize('test', function() print 'Hello world' end)
-
--- ?
-
-plugin:registerEventListener('LOOT_OPENED', {
-  identifier = 'LOOT_OPENED',
-  callback = function()
-    print 'Loot opened.'
-    plugin:removeEventListener('LOOT_OPENED', 'LOOT_OPENED')
-  end,
-})
+backbone.useStorage(plugin, { account = 'test' })
