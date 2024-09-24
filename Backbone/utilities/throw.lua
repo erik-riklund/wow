@@ -6,9 +6,11 @@
   The function accepts an error message and optional formatting arguments, making
   it easier to generate consistent error messages throughout the codebase.
 
-  Design choices:
+  Developer's notes:
+
   - The `throw` function uses Lua's `error` function to raise exceptions at the
     correct stack level (level 3), allowing for proper error reporting.
+  
   - Optional formatting arguments are supported, ensuring that error messages
     can be dynamically constructed.
 
