@@ -1,0 +1,17 @@
+---@meta
+
+---
+--- Represents the extended set of Lua types, including custom types introduced
+--- in the framework such as `array`, `empty-table`, and `undefined`.
+---
+--- @alias xtype.type 'undefined'
+---                 | 'boolean'
+---                 | 'string'
+---                 | 'number'
+---                 | 'array'
+---                 | 'table'
+---                 | 'empty-table'
+---                 | 'function'
+---                 | 'thread'
+---                 | 'userdata'
+---

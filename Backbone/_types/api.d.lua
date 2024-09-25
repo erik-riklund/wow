@@ -5,10 +5,10 @@
 ---
 ---@class api
 ---
----@field createPlugin?          api.createPlugin
----@field executeCallback?       api.executeCallback
----@field executeCallbackAsync?  api.executeCallbackAsync
----@field useStorage?            api.useStorage
+---@field createPlugin          api.createPlugin
+---@field executeCallback       api.executeCallback
+---@field executeCallbackAsync  api.executeCallbackAsync
+---@field useStorage            api.useStorage
 ---
 
 ---

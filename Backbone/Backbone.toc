@@ -2,9 +2,19 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
+environment.lua
+
+libraries/x-string.lua
+libraries/x-type.lua
+
 utilities/throw.lua
 utilities/table/inherit.lua
 utilities/table/protect.lua
 
 context.lua
 framework.lua
+
+modules/plugins/manager.lua
+modules/tasks/handler.lua
+components/listenable.lua
+modules/events/handler.lua
