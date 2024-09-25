@@ -18,3 +18,6 @@ modules/plugins/manager.lua
 modules/tasks/handler.lua
 components/listenable.lua
 modules/events/handler.lua
+modules/network/manager.lua
+modules/storage/unit.lua
+modules/storage/manager.lua

@@ -58,13 +58,11 @@ local registerEventListener = function(event, listener)
     end
 
     -- Create a new listenable object to handle listeners for this event.
-
     events[event] = createListenableObject() --[[@as event]]
   end
 
   -- Attach the provided listener to the event, so it will be invoked
   -- whenever the event is triggered by the game.
-
   events[event]:registerListener(listener)
 end
 
@@ -91,14 +89,14 @@ local removeEventListener = function(event, identifier)
         frame:UnregisterEvent(event)
       end
 
-      events[event] = nil -- Clear the event from the `events` table to free up memory.
+      -- Clear the event from the `events` table to free up memory.
+      events[event] = nil
     end
     return
   end
 
   -- Throw an error if the event has no active listeners, as this indicates
   -- an attempt to remove a listener from an unknown or inactive event.
-
   throw('Event "%s" has no active listeners.', event)
 end
 
@@ -145,3 +143,37 @@ plugin.removeEventListener = function(self, event, identifier)
 
   removeEventListener(event, self.identifier .. '.' .. identifier)
 end
+
+---
+--- The event handler listens for game events and triggers the appropriate
+--- listeners when an event occurs. It checks if the event is registered and
+--- has active listeners, invoking them if they exist.
+---
+frame:SetScript('OnEvent', function(source, event, ...)
+  -- Handle the special case for the `ADDON_LOADED` event, where the event name
+  -- includes the specific addon name. This allows the event handler to work
+  -- with addon-specific loading events.
+
+  if event == 'ADDON_LOADED' then event = string.format('ADDON_LOADED:%s', ...) end
+
+  -- Check if there are any listeners registered for the event. If listeners
+  -- exist, invoke them with the event arguments.
+
+  if events[event] ~= nil then
+    -- Invoke all listeners associated with the event, passing along any
+    -- arguments provided by the event.
+
+    events[event]:invokeListeners { source, ... }
+
+    -- If no listeners remain after invocation, unregister the event and
+    -- remove it from memory to conserve resources.
+
+    if #events[event].listeners == 0 then
+      if not xstring.hasPrefix(event, 'ADDON_LOADED') then
+        frame:UnregisterEvent(event)
+      end
+
+      events[event] = nil -- Clear the event to free memory.
+    end
+  end
+end)
