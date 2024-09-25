@@ -10,4 +10,4 @@ local addon = ...
 ]]
 
 local plugin = backbone.createPlugin(addon)
--- backbone.useStorage(plugin, { account = 'test' })
+backbone.useStorage(plugin, { account = 'test' })
