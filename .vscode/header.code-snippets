@@ -35,5 +35,14 @@
       "",
       ""
     ]
+  },
+
+  "context":
+  {
+    "prefix": "!context",
+    "body": [
+      "---@type string, contextProvider",
+      "local addon, repository = ..."
+    ]
   }
 }

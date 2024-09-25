@@ -1,5 +1,5 @@
 ---@type string, contextProvider
-local addon, framework = ...
+local addon, repository = ...
 
 --[[~ Project: Backbone (framework) ~
 
@@ -23,28 +23,28 @@ local addon, framework = ...
 -- This flag can be toggled to enable or disable production-specific behaviors in
 -- the framework, allowing different behavior in production vs. development modes.
 
-framework.expose('production', false)
+repository.expose('production', false)
 
 -- 
 -- Expose the main API object to the framework. This API will be used by other 
 -- components or plugins within the framework to register or access functionality.
 
-framework.expose('api', {})
+repository.expose('api', {})
 
 -- 
 -- Expose the plugin API, which allows plugins to interact with the framework 
 -- and access necessary resources or register themselves within the system.
 
-framework.expose('plugin-api', {})
+repository.expose('plugin-api', {})
 
 -- 
 -- Expose a frame object for handling game-related events.
 
-framework.expose('frame', CreateFrame 'Frame')
+repository.expose('frame', CreateFrame 'Frame')
 
 -- 
 -- Retrieve a protected version of the API from the framework's context and assign 
 -- it to the global `backbone` object, making it available throughout the ecosystem 
 -- without allowing direct modifications.
 
-_G.backbone = getProtectedProxy(framework.use 'api') --[[@as api]]
+_G.backbone = getProtectedProxy(repository.use 'api') --[[@as api]]

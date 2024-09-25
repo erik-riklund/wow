@@ -3,6 +3,8 @@
 ## Title: Backbone (framework)
 
 utilities/throw.lua
+utilities/table/inherit.lua
+utilities/table/protect.lua
 
 context.lua
 framework.lua
