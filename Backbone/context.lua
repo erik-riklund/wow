@@ -1,5 +1,5 @@
 ---@type string, contextProvider
-local addon, repository = ...
+local addon, context = ...
 
 --[[~ Module: Context Repository ~
 
@@ -24,7 +24,7 @@ local repository = {}
 -- Retrieves an object from the repository based on the provided identifier. If the
 -- identifier does not exist, an error is thrown.
 --
-repository.use = function(identifier)
+context.use = function(identifier)
   if repository[identifier] == nil then
     throw('Unable to find object with identifier "%s".', identifier)
   end
@@ -36,7 +36,7 @@ end
 -- Exposes a new object to the repository under the given identifier. If an object
 -- with the same identifier already exists, an error is thrown to prevent overwriting.
 --
-repository.expose = function(identifier, object)
+context.expose = function(identifier, object)
   if repository[identifier] ~= nil then
     throw('Object with identifier "%s" already exists.', identifier)
   end

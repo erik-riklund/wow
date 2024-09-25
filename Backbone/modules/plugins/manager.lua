@@ -1,5 +1,6 @@
 ---@type string, contextProvider
 local addon, repository = ...
+
 local api = repository.use 'api' --[[@as api]]
 local plugin = repository.use 'plugin-api' --[[@as plugin]]
 
@@ -46,17 +47,13 @@ end
 --- Exposes a method to retrieve a plugin by its identifier. Throws an error if
 --- the plugin does not exist.
 ---
-repository.expose(
-  'get-plugin',
-  ---@param identifier string
-  function(identifier)
-    -- Check if the plugin exists, throw an error if it does not.
-    if plugins[identifier] == nil then
-      throw('Plugin with identifier "%s" not found.', identifier)
-    end
-    return plugins[identifier]
+repository.expose('get-plugin', function(identifier)
+  -- Check if the plugin exists, throw an error if it does not.
+  if plugins[identifier] == nil then
+    throw('Plugin with identifier "%s" not found.', identifier)
   end
-)
+  return plugins[identifier]
+end)
 
 ---
 --- Registers the `createPlugin` function within the API, allowing plugins to be
