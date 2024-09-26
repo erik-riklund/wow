@@ -17,10 +17,7 @@ local createListenableObject = repository.use 'listenable'
   Developer's notes:
 
   - Each channel must have a unique name to prevent conflicts.
-
-  - Channels can be reserved as internal, meaning only the reserving context 
-    can use them.
-    
+  - Channels can be reserved as internal, meaning only the reserving context can use them.
   - Listeners are registered to channels and invoked when messages are broadcasted.
   
   Dependencies: Listenable

@@ -6,19 +6,15 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
 
 --[[~ Module: Plugin Manager ~
 
-  Version: 1.0.0 | Updated: 2024/09/25
+  Version: 1.0.0 | Updated: 2024/09/26
 
-  The plugin manager is responsible for managing plugins within the system. Plugins
-  are identified by unique strings and stored in a protected form to prevent external
-  modification. It provides mechanisms to create, register, and retrieve plugins.
+  This module is responsible for registering and managing plugins within the framework. Each plugin
+  is identified by a unique string and protected through a read-only proxy to ensure data integrity.
 
-  Developer's notes:
-
-  - The `createPlugin` function ensures that plugin identifiers are unique before 
-    registering a new plugin.
-  
-  - The manager exposes a method for retrieving registered plugins by their identifier,
-    allowing safe access to plugins without external modification.
+  Features:
+  - Registers plugins with unique identifiers.
+  - Protects registered plugins by returning them via a read-only proxy.
+  - Provides a method to retrieve registered plugins.
 
 ]]
 
@@ -26,37 +22,28 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
 local plugins = {}
 
 ---
---- Creates a new plugin and registers it under a unique identifier. The plugin is
---- wrapped in a protected proxy to ensure it cannot be directly modified.
+--- Registers a new plugin with a unique identifier. Throws an error if the identifier
+--- already exists and returns a protected proxy of the registered plugin.
+---
+---@param identifier string "The unique identifier for the plugin being registered."
+---@return plugin "A protected proxy of the registered plugin."
 ---
 ---@type api.createPlugin
 local createPlugin = function(identifier)
-  -- Ensure the plugin identifier is unique. Throw an error if it already exists.
   if plugins[identifier] ~= nil then
     throw('Plugin with identifier "%s" already exists.', identifier)
   end
 
-  -- Create a new plugin, inheriting from the base plugin API, and store it in the plugins table.
   plugins[identifier] = inheritParent({ identifier = identifier }, plugin)
-
-  -- Return a protected proxy to the registered plugin to prevent external modification.
   return getProtectedProxy(plugins[identifier]) --[[@as plugin]]
 end
 
----
---- Exposes a method to retrieve a plugin by its identifier. Throws an error if
---- the plugin does not exist.
----
 repository.expose('get-plugin', function(identifier)
-  -- Check if the plugin exists, throw an error if it does not.
   if plugins[identifier] == nil then
     throw('Plugin with identifier "%s" not found.', identifier)
   end
+
   return plugins[identifier]
 end)
 
----
---- Registers the `createPlugin` function within the API, allowing plugins to be
---- created using the framework's public API.
----
 api.createPlugin = createPlugin

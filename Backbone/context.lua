@@ -4,26 +4,21 @@ local addon, context = ...
 --[[~ Module: Context Repository ~
 
   Author(s): Erik Riklund
-  Version: 1.0.0 | Updated: 2024/09/24
+  Version: 1.0.0 | Updated: 2024/09/26
 
-  This module provides a repository for managing and sharing objects between different
-  parts of the system. Objects can be exposed under a unique identifier and accessed 
-  later using that identifier, ensuring a controlled way of sharing resources.
+  The Context Repository provides a centralized mechanism for storing and retrieving objects by
+  their unique identifiers. This allows different components of the framework or plugins to share
+  resources, such as APIs or data, without requiring direct references.
 
-  Design choices:
-  - The repository ensures that each identifier is unique, preventing collisions.
-  - The `use` function retrieves objects by identifier, while the `expose` function 
-    allows new objects to be added.
+  Features:
+  - `use`: Retrieves an object by its identifier from the repository.
+  - `expose`: Registers a new object in the repository under a given identifier, ensuring uniqueness.
 
 ]]
 
 ---@type table<string, unknown>
 local repository = {}
 
---
--- Retrieves an object from the repository based on the provided identifier. If the
--- identifier does not exist, an error is thrown.
---
 context.use = function(identifier)
   if repository[identifier] == nil then
     throw('Unable to find object with identifier "%s".', identifier)
@@ -32,10 +27,6 @@ context.use = function(identifier)
   return repository[identifier]
 end
 
---
--- Exposes a new object to the repository under the given identifier. If an object
--- with the same identifier already exists, an error is thrown to prevent overwriting.
---
 context.expose = function(identifier, object)
   if repository[identifier] ~= nil then
     throw('Object with identifier "%s" already exists.', identifier)

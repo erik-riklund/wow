@@ -4,20 +4,13 @@ local api = repository.use 'api' --[[@as api]]
 local frame = repository.use 'frame' --[[@as Frame]]
 
 --[[~ Module: Task Management ~
-  
-  Version: 1.0.0 | Updated: 2024/09/25
 
-  This module is responsible for scheduling and executing tasks in a way that ensures
-  smooth frame rendering. It handles both synchronous and asynchronous execution of
-  tasks, distributing workloads over multiple frames to avoid impacting performance.
+  Version: 1.0.0 | Updated: 2024/09/26
 
-  Developer's notes:
-
-  - Tasks are executed either immediately or deferred across multiple frames using 
-    the asynchronous mechanism. This keeps the game's frame rate stable even with 
-    heavy task loads.
-  
-  Dependencies: xtype (for type validation)
+  This module handles the execution of tasks in both synchronous and asynchronous modes. Tasks are
+  queued for asynchronous execution to prevent the overloading of a single frame, which helps maintain
+  smooth gameplay performance. It also manages the processing of tasks within frame time limits to
+  ensure consistent frame rates.
 
 ]]
 
@@ -25,9 +18,12 @@ local frame = repository.use 'frame' --[[@as Frame]]
 local tasks = {}
 
 ---
---- Executes a callback immediately. If the callback fails, an error is caught and
---- the failure is logged. Optional arguments can be provided to the callback for
---- execution.
+--- Executes a callback function immediately. If an error occurs during the execution 
+--- of the callback, it is caught and logged, along with the identifier of the task.
+---
+---@param identifier string "A unique identifier for the callback task."
+---@param callback function "The function to be executed."
+---@param arguments? unknown[] "Optional arguments to pass to the callback."
 ---
 api.executeCallback = function(identifier, callback, arguments)
   xtype.validate {
@@ -36,37 +32,35 @@ api.executeCallback = function(identifier, callback, arguments)
     { 'arguments:array?', arguments },
   }
 
-  -- Execute the callback and handle any errors that may occur. This ensures that
-  -- even if the callback throws an exception, the framework will log the error and
-  -- continue running without crashing.
-
   local success, exception = pcall(callback, unpack(arguments or {}))
 
   if not success then
     local message = '[Backbone] Callback execution failed for "%s":\n%s'
+
+    if xstring.hasPrefix(exception, 'Interface/') or xstring.hasPrefix(exception, '...') then
+      -- todo: extract the error message!
+    end
+
     print(string.format(message, identifier, exception))
   end
 end
 
 ---
---- Queues a callback for asynchronous execution. The callback will be processed
---- in future frames to prevent overloading the current frame. This ensures smooth
---- rendering and defers heavy operations over time.
+--- Queues a callback task for asynchronous execution. The task will be processed 
+--- in subsequent frames to distribute the workload and prevent frame drops.
+---
+---@param identifier string "A unique identifier for the callback task."
+---@param callback function "The function to be executed asynchronously."
+---@param arguments? unknown[] "Optional arguments to pass to the callback."
 ---
 api.executeCallbackAsync = function(identifier, callback, arguments)
-  -- Add the callback and its associated arguments to the task queue for deferred
-  -- execution across multiple frames, helping distribute work to prevent frame rate drops.
-
-  table.insert(
-    tasks,
-    { identifier = identifier, callback = callback, arguments = arguments }
-  )
+  table.insert(tasks, { identifier = identifier, callback = callback, arguments = arguments })
 end
 
 ---
---- The coroutine-based task processor that executes tasks in batches, ensuring
---- that tasks are processed within the frame time limit, preserving smooth rendering
---- while allowing deferred operations.
+--- A coroutine-based task processor that runs within the frame's `OnUpdate` script.
+--- It processes tasks within the frame time limit (targeting 60 FPS) to ensure smooth 
+--- rendering. Tasks are executed in small batches until the time limit is reached.
 ---
 local process = coroutine.create(function()
   local frameLimit = 0.01667 -- Target frame time to maintain 60 FPS.
@@ -74,23 +68,19 @@ local process = coroutine.create(function()
   while true do
     local started = GetTime()
 
-    -- Process tasks as long as there is time remaining in the current frame and
-    -- there are pending tasks in the queue. This spreads out the work across
-    -- multiple frames to avoid stalling the game.
-
     while #tasks > 0 and ((GetTime() - started) <= frameLimit) do
       local task = table.remove(tasks, 1) --[[@as task]]
       api.executeCallback(task.identifier, task.callback, task.arguments)
     end
 
-    coroutine.yield() -- Yield control back to the game until the next frame.
+    coroutine.yield()
   end
 end)
 
 ---
---- The OnUpdate event handler triggers the coroutine each frame to process any
---- pending tasks. This ensures that the framework can perform deferred operations
---- while keeping the frame rate stable.
+--- The `OnUpdate` handler for the frame that checks for pending tasks and resumes 
+--- the coroutine to process them. This ensures that asynchronous tasks are executed 
+--- in the background without affecting frame rate.
 ---
 frame:SetScript('OnUpdate', function()
   if #tasks > 0 and coroutine.status(process) == 'suspended' then

@@ -6,44 +6,25 @@ local addon, repository = ...
   Author(s): Erik Riklund  
   Version: 1.0.0 | Updated: 2024/09/24
   
-  This script initializes the Backbone framework by exposing core components like 
-  the main API, plugin API, and a frame for handling events. These components are 
-  made accessible to other parts of the framework while being protected against 
-  external modification.
+  The Backbone framework provides core functionality for managing plugin interaction and event
+  handling. It serves as a foundational layer where plugins can be registered and interact with
+  the underlying game API in a structured and controlled manner.
 
-  Developer's notes:
-
-  - The main API and plugin API are exposed early in the process to ensure
-    they are available to the entire framework.
-
-  - A frame object is exposed for handling game-related events, which will 
-    be central to the framework's event handling system.
-
-  - The `backbone` global object is set up as a protected version of the API, 
-    ensuring that it can be accessed but not modified externally.
+  Features:
+  - Exposes a protected `api` object that can be accessed globally but cannot be modified directly.
+  - Provides an isolated `plugin-api` for managing plugin interactions with the framework.
+  - Offers a `frame` object to handle game-related events.
 
 ]]
 
--- 
--- Expose the main API object to the framework. This API will be used by other 
--- components or plugins within the framework to register or access functionality.
---
+-- Exposing the main API and plugin API to the framework. These objects are used by 
+-- other components or plugins to access or register functionality in the system.
 repository.expose('api', {})
-
--- 
--- Expose the plugin API, which allows plugins to interact with the framework 
--- and access necessary resources or register themselves within the system.
---
 repository.expose('plugin-api', {})
 
--- 
--- Expose a frame object for handling game-related events.
---
+-- Create and expose a frame object to handle game events.
 repository.expose('frame', CreateFrame 'Frame')
 
--- 
--- Retrieve a protected version of the API from the framework's context and assign 
--- it to the global `backbone` object, making it available throughout the ecosystem 
--- without allowing direct modifications.
---
+-- Make the protected API accessible globally, while preventing direct
+-- modifications to it by using a protected proxy.
 _G.backbone = getProtectedProxy(repository.use 'api') --[[@as api]]
