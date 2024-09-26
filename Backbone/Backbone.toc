@@ -15,10 +15,10 @@ utilities/table/walk.lua
 context.lua
 framework.lua
 
-modules/plugins/manager.lua
-modules/tasks/handler.lua
+modules/plugins.lua
+modules/tasks.lua
 components/listenable.lua
-modules/events/handler.lua
-modules/network/manager.lua
+modules/events.lua
+modules/network.lua
 modules/storage/unit.lua
 modules/storage/manager.lua
