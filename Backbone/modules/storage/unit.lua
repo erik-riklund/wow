@@ -12,9 +12,28 @@ local addon, repository = ...
 ]]
 
 ---@type storage.unit
-local unit = {}
+local unit = {
+  ---
+  ---
+  ---
+  getEntry = function(self, path) end,
+
+  ---
+  ---
+  ---
+  setEntry = function(self, path, value) end,
+}
+
+---
+---
+---
+---@type storage.unitConstructor
+---
+local constructor = function(variable)
+  ---@diagnostic disable-next-line: missing-return
+end
 
 ---
 --- ?
 ---
-repository.expose('storage-unit', function(variable) end)
+repository.expose('storage-unit', constructor)
