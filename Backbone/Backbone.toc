@@ -20,5 +20,5 @@ modules/tasks.lua
 components/listenable.lua
 modules/events.lua
 modules/network.lua
-modules/storage/unit.lua
-modules/storage/manager.lua
+components/storage-unit.lua
+modules/storage.lua
