@@ -18,6 +18,8 @@
 ---@param steps string[] "A list of keys representing the traversal path."
 ---@param options? { mode: 'exit'|'build'|'strict' }
 ---
+---@return table?
+---
 _G.traverseTable = function(target, steps, options)
   options = options or {}
   options.mode = options.mode or 'exit'
