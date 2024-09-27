@@ -49,5 +49,15 @@
       "---@type string, contextProvider",
       "local addon, repository = ..."
     ]
+  },
+
+  "comment-purpose": {
+    "prefix": "!comment-purpose",
+    "body": "-- [explain what the purpose and result of this function is]"
+  },
+
+  "comment-section": {
+    "prefix": "!comment-section",
+    "body": "-- [explain the section up until the next placeholder]"
   }
 }

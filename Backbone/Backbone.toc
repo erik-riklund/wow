@@ -23,4 +23,5 @@ modules/network.lua
 components/storage-unit.lua
 modules/storage.lua
 modules/services.lua
+modules/locales.lua
 services/config.lua

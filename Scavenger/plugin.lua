@@ -31,7 +31,7 @@ local config = createConfigHandler(plugin, {
 
 })
 
-DevTools_Dump(config)
+--DevTools_Dump(config)
 
 -- expose the plugin and config objects:
 
