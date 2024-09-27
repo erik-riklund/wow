@@ -18,7 +18,7 @@ local addon, repository = ...
 ]]
 
 ---
---- Resolves a given string path into table steps and a final variable.
+---- [explain what the purpose and result of this function is]
 ---
 ---@param path string "A slash-delimited string representing the path in a table."
 ---@return string[], string "A table of steps and the final variable to access."
