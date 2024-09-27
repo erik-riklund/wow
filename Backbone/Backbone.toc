@@ -4,10 +4,10 @@
 
 environment.lua
 
+utilities/throw.lua
 libraries/x-string.lua
 libraries/x-type.lua
 
-utilities/throw.lua
 utilities/table/inherit.lua
 utilities/table/protect.lua
 utilities/table/walk.lua

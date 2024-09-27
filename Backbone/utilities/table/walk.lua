@@ -22,23 +22,24 @@ _G.traverseTable = function(target, steps, options)
   options = options or {}
   options.mode = options.mode or 'exit'
 
-  if type(target) ~= 'table' then throw 'Target must be a table.' end
+  if type(target) ~= 'table' then
+    throw 'Target must be a table.'
+  end
 
   local history = {}
   local reference = target
   for index, step in ipairs(steps) do
     table.insert(history, step)
 
-    -- Handle missing keys based on the selected mode.
     if reference[step] == nil then
       if options.mode == 'strict' then
         throw('Invalid path: %s', table.concat(history, '.'))
       end
 
-      -- In exit mode, return `nil` when a missing key is encountered.
-      if options.mode == 'exit' then return nil end
+      if options.mode == 'exit' then
+        return nil
+      end
 
-      -- In build mode, create an empty table at the missing key and continue traversal.
       reference[step] = {}
     end
 

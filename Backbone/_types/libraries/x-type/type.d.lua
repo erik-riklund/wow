@@ -6,6 +6,7 @@
 ---
 --- @alias xtype.type 'undefined'
 ---                 | 'boolean'
+---                 | 'character'
 ---                 | 'string'
 ---                 | 'number'
 ---                 | 'array'

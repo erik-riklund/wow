@@ -9,7 +9,7 @@
 ]]
 
 ---
---- Establishes an inheritance-like relationship between a child table and a parent 
+--- Establishes an inheritance-like relationship between a child table and a parent
 --- table, allowing the child to access properties and methods from the parent.
 ---
 ---@param child table "The child table that will inherit properties and methods."

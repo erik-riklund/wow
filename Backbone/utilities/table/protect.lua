@@ -23,13 +23,13 @@ end
 ---
 _G.getProtectedProxy = function(target)
   return setmetatable({}, {
-    -- Intercepts any attempt to assign a value to the table and throws an error.
     __newindex = blockModification,
 
-    -- Provides read-only access to the target table, recursively protecting nested tables.
     __index = function(self, key)
-      if type(target[key]) == 'table' then return getProtectedProxy(target[key]) end
-      return target[key]
+      if type(target[key]) == 'table' then
+        return getProtectedProxy(target[key])
+      end
+      return target[key] -- non-table value.
     end,
   })
 end

@@ -10,10 +10,10 @@ local createListenableObject = repository.use 'listenable'
 
   Version: 1.0.0 | Updated: 2024/09/26
 
-  The Event Handler module manages event registration and dispatching within the 
-  framework. It allows listeners to be registered for specific events and ensures 
-  that they are invoked when the event occurs. The module provides support for 
-  automatically removing events when no more listeners are registered.
+  This module provides functionality to register and manage event listeners. It 
+  ensures efficient handling of game events, including automatic registration and 
+  unregistration based on listener activity, as well as handling the `ADDON_LOADED` 
+  event for plugin initialization.
 
   Features:
 
@@ -25,8 +25,6 @@ local createListenableObject = repository.use 'listenable'
 
 ---@type table<string, event>
 local events = {}
-
-frame:RegisterEvent 'ADDON_LOADED'
 
 ---
 --- Registers a listener for the specified event. If the event is not already registered,
@@ -62,36 +60,22 @@ local removeEventListener = function(event, identifier)
       if not xstring.hasPrefix(event, 'ADDON_LOADED') then
         frame:UnregisterEvent(event)
       end
-
       events[event] = nil
     end
-    return
+
+    return -- exit.
   end
 
   throw('Event "%s" has no active listeners.', event)
 end
 
-plugin.onInitialize = function(self, identifier, callback)
-  local listener = {
-    identifier = self.identifier .. '.' .. identifier,
-    callback = callback,
-    persistent = false,
-  }
+-- the script responsible for handling events:
 
-  registerEventListener('ADDON_LOADED:' .. self.identifier, listener)
-end
-
-plugin.registerEventListener = function(self, event, listener)
-  listener.identifier = self.identifier .. '.' .. listener.identifier
-  registerEventListener(event, listener)
-end
-
-plugin.removeEventListener = function(self, event, identifier)
-  removeEventListener(event, self.identifier .. '.' .. identifier)
-end
-
+frame:RegisterEvent 'ADDON_LOADED'
 frame:SetScript('OnEvent', function(source, event, ...)
-  if event == 'ADDON_LOADED' then event = string.format('ADDON_LOADED:%s', ...) end
+  if event == 'ADDON_LOADED' then
+    event = string.format('ADDON_LOADED:%s', ...)
+  end
 
   if events[event] ~= nil then
     events[event]:invokeListeners { source, ... }
@@ -105,3 +89,21 @@ frame:SetScript('OnEvent', function(source, event, ...)
     end
   end
 end)
+
+-- methods for the plugin API:
+
+plugin.onInitialize = function(self, identifier, callback)
+  identifier = self.identifier .. '.' .. identifier
+  local listener = { identifier = identifier, callback = callback, persistent = false }
+
+  registerEventListener('ADDON_LOADED:' .. self.identifier, listener)
+end
+
+plugin.registerEventListener = function(self, event, listener)
+  listener.identifier = self.identifier .. '.' .. listener.identifier
+  registerEventListener(event, listener)
+end
+
+plugin.removeEventListener = function(self, event, identifier)
+  removeEventListener(event, self.identifier .. '.' .. identifier)
+end

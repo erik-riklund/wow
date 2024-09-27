@@ -3,7 +3,8 @@ local addon, repository = ...
 
 --[[~ Component: Storage Unit ~
 
-  Version: 1.0.0 | Updated: 2024/09/26
+  Author(s): Erik Riklund (Gopher)
+  Version: 1.0.0 | Updated: 2024/09/27
 
   This module provides a storage unit that allows accessing and manipulating entries in a
   hierarchical table structure using path notation. It resolves paths into separate table steps,
@@ -24,7 +25,9 @@ local addon, repository = ...
 ---
 local resolvePath = function(path)
   local steps = { string.split('/', path) }
-  if #steps == 1 then return {}, steps[1] end
+  if #steps == 1 then
+    return {}, steps[1] -- exit.
+  end
 
   local variable = table.remove(steps) --[[@as string]]
   return steps, variable
@@ -56,4 +59,5 @@ local constructor = function(variable)
   return inheritParent({ data = _G[variable] }, unit)
 end
 
+-- expose the constructor to the framework context:
 repository.expose('storage-unit', constructor)

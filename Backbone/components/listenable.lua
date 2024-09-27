@@ -4,11 +4,10 @@ local api = repository.use 'api' --[[@as api]]
 
 --[[~ Component: Listenable ~
 
+  Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/09/25
 
-  The Listenable component manages event listeners, allowing registration, removal, 
-  and invocation of listeners. This component is useful for plugins or systems 
-  that need to react to specific events.
+  This component manages registration, removal, and invocation of listeners.
 
   Features:
 

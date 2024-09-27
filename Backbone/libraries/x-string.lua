@@ -1,50 +1,113 @@
---[[~ Library: String Utilities (xstring) ~
+--[[~ Library: String Utilities ~
 
-  Version: 1.0.0 | Updated: 2024/09/25
+  Author(s): Erik Riklund (Gopher)
+  Version: 1.0.0 | Updated: 2024/09/27
 
-  A library providing string manipulation utilities, including functions
-  for checking string prefixes and suffixes.
+  ?
 
   Features:
   
-  - Check if a string starts with a specific prefix.
-  - Check if a string ends with a specific suffix.
+  - ?
 
 ]]
 
 _G.xstring = {}
 
 ---
---- Checks if the target string starts with the specified prefix.
+--- ?
 ---
----@param target  string  "The string to check."
----@param prefix  string  "The prefix to match."
----@return boolean "Returns true if the target starts with the prefix, otherwise false."
+---@param target  string "?"
+---@param prefix  string | string[] "?"
+---
+---@return boolean "?"
 ---
 xstring.hasPrefix = function(target, prefix)
-  return (target:sub(1, prefix:len()) == prefix)
-end
+  if type(target) ~= 'string' then
+    throw '?'
+  end
 
----
---- Checks if the target string ends with the specified suffix.
----
----@param target string "The string to check."
----@param suffix string "The suffix to match."
----@return boolean "Returns true if the target ends with the suffix, otherwise false."
----
-xstring.hasSuffix = function(target, suffix)
-  local targetLength = #target
-  local suffixLength = #suffix
+  if type(prefix) == 'string' then
+    prefix = { prefix } -- convert a single prefix to an array.
+  end
 
-  if suffixLength > targetLength then return false end
-  return (suffix == target:sub(targetLength - suffixLength + 1))
+  for index, value in ipairs(prefix) do
+    if target:sub(1, string.len(value)) == value then
+      return true -- ?
+    end
+  end
+
+  return false
 end
 
 ---
 --- ?
 ---
+---@param target string "?"
+---@param suffix string | string[] "?"
 ---
+---@return boolean "?"
 ---
-xstring.getSubstringAfter = function()
-  -- todo: implement this!
+xstring.hasSuffix = function(target, suffix)
+  if type(target) ~= 'string' then
+    throw '?'
+  end
+
+  if type(suffix) == 'string' then
+    suffix = { suffix } -- convert a single suffix to an array.
+  end
+
+  local targetLength = string.len(target)
+  for index, value in ipairs(suffix) do
+    local suffixLength = string.len(value)
+
+    if suffixLength <= targetLength then
+      if string.sub(target, targetLength - suffixLength + 1) == value then
+        return true -- ?
+      end
+    end
+  end
+
+  return false
+end
+
+---
+--- ?
+---
+---@param target     string "?"
+---@param character  string "?"
+---@param occurence? number "?"
+---
+---@return string "?"
+---
+xstring.getSubstringAfter = function(target, character, occurence)
+  if type(occurence) ~= 'number' then
+    occurence = 1 -- ?
+  end
+
+  if type(character) ~= 'string' or string.len(character) > 1 then
+    throw '?'
+  end
+
+  if type(target) ~= 'string' then
+    throw '?'
+  end
+
+  ---@type string[]
+  local result = {}
+  local targetLength = string.len(target)
+  local charactersFound = 0
+
+  for i = 1, targetLength do
+    local currentCharacter = string.sub(target, i, i)
+
+    if charactersFound >= occurence then
+      table.insert(result, currentCharacter)
+    end
+
+    if currentCharacter == character then
+      charactersFound = charactersFound + 1
+    end
+  end
+
+  return table.concat(result)
 end

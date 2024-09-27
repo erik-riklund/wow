@@ -8,8 +8,8 @@
 ]]
 
 ---
---- Raises a formatted error message, using optional arguments for dynamic 
---- content. The error is thrown at stack level 3, ensuring it reflects the 
+--- Raises a formatted error message, using optional arguments for dynamic
+--- content. The error is thrown at stack level 3, ensuring it reflects the
 --- correct context from the calling function.
 ---
 ---@param exception string "The base error message, with optional format specifiers."

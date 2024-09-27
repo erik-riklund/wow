@@ -6,10 +6,12 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
 
 --[[~ Module: Plugin Manager ~
 
-  Version: 1.0.0 | Updated: 2024/09/26
+  Author(s): Erik Riklund (Gopher)
+  Version: 1.0.0 | Updated: 2024/09/27
 
-  This module is responsible for registering and managing plugins within the framework. Each plugin
-  is identified by a unique string and protected through a read-only proxy to ensure data integrity.
+  This module is responsible for registering and managing plugins
+  within the framework. Each plugin is identified by a unique string
+  and protected through a read-only proxy to ensure data integrity.
 
   Features:
   - Registers plugins with unique identifiers.
@@ -21,15 +23,8 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
 ---@type table<string, plugin>
 local plugins = {}
 
----
---- Registers a new plugin with a unique identifier. Throws an error if the identifier
---- already exists and returns a protected proxy of the registered plugin.
----
----@param identifier string "The unique identifier for the plugin being registered."
----@return plugin "A protected proxy of the registered plugin."
----
 ---@type api.createPlugin
-local createPlugin = function(identifier)
+api.createPlugin = function(identifier)
   if plugins[identifier] ~= nil then
     throw('Plugin with identifier "%s" already exists.', identifier)
   end
@@ -45,5 +40,3 @@ repository.expose('get-plugin', function(identifier)
 
   return plugins[identifier]
 end)
-
-api.createPlugin = createPlugin

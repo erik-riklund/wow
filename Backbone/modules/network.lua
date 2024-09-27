@@ -6,21 +6,23 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
 local createListenableObject = repository.use 'listenable'
 
 --[[~ Module: Channel Manager ~
-  
+
   Version: 1.0.0 | Updated: 2024/09/25
 
-  This module manages communication channels within the framework. Channels are used 
-  to broadcast messages to multiple listeners, providing a structured way for plugins 
-  to communicate asynchronously. The module handles the reservation of channels, 
-  registering listeners, and invoking them when necessary.
+  This module manages communication channels within the framework. It allows
+  for reserving, registering listeners, removing listeners, and invoking
+  listeners on specific channels. The module supports asynchronous execution 
+  and internal channels tied to specific plugin contexts.
 
-  Developer's notes:
+  Features:
 
-  - Each channel must have a unique name to prevent conflicts.
-  - Channels can be reserved as internal, meaning only the reserving context can use them.
-  - Listeners are registered to channels and invoked when messages are broadcasted.
-  
-  Dependencies: Listenable
+  - Reserve communication channels with unique names.
+  - Register listeners for specific channels.
+  - Remove listeners from channels based on unique identifiers.
+  - Invoke listeners on channels with optional payload support.
+  - Support asynchronous and internal (plugin-specific) channels.
+
+  Dependencies: Listenable (component)
 
 ]]
 
@@ -28,13 +30,12 @@ local createListenableObject = repository.use 'listenable'
 local channels = {}
 
 ---
---- Reserves a new communication channel. If a channel with the same name already
---- exists, an error is thrown. The reserved channel can be asynchronous and
---- internal, limiting access to the reserving plugin.
+--- Reserves a communication channel with specified options. The channel is registered
+--- only if the name is unique.
 ---
----@param channel   string "The name of the channel being reserved."
----@param options   table  "Options for the channel (async, internal)."
----@param context?  plugin "The context of the plugin reserving the channel."
+---@param channel   string "The name of the channel to reserve."
+---@param options   table  "Options for the channel, including async and internal flags."
+---@param context?  plugin "The plugin context in which this channel is reserved."
 ---
 local reserveChannel = function(channel, options, context)
   options = options or {}
@@ -45,16 +46,9 @@ local reserveChannel = function(channel, options, context)
     { 'options.internal:boolean?', options.internal },
   }
 
-  -- Throw an error if a channel with the same name has already been reserved.
-  -- This ensures that channel names remain unique across the framework.
-
   if channels[channel] ~= nil then
     throw('Unable to reserve channel "%s" (non-unique name).', channel)
   end
-
-  -- Create a new listenable object for the channel, allowing listeners to
-  -- register and be invoked. The async and internal options are stored
-  -- for future handling.
 
   channels[channel] = createListenableObject() --[[@as channel]]
   channels[channel].async = options.async
@@ -63,12 +57,13 @@ local reserveChannel = function(channel, options, context)
 end
 
 ---
---- Registers a listener to a specified channel. If the channel is internal
---- and the context does not match the reserving plugin, an error is thrown.
+--- Registers a listener to a specific channel. Listeners can only be attached to
+--- channels that are already reserved. If the channel is internal, it must belong to
+--- the same plugin context.
 ---
 ---@param channel   string   "The name of the channel to register the listener to."
----@param listener  listener "The listener to register."
----@param context?  plugin   "The context of the plugin registering the listener."
+---@param listener  listener "The listener object that will be attached to the channel."
+---@param context?  plugin   "The plugin context for the listener registration."
 ---
 local registerChannelListener = function(channel, listener, context)
   xtype.validate {
@@ -77,22 +72,13 @@ local registerChannelListener = function(channel, listener, context)
     { 'context:table?', context },
   }
 
-  -- Throw an error if the channel does not exist, as listeners can only be
-  -- registered to active channels.
-
   if channels[channel] == nil then
     throw('Failed to register listener to channel "%s" (unknown channel).', channel)
   end
 
-  -- Prevent listeners from registering to internal channels unless they belong
-  -- to the plugin that reserved the channel. This ensures channel integrity.
-
   if channels[channel].internal == true and channels[channel].context ~= context then
     throw('Failed to register listener to channel "%s" (internal channel).', channel)
   end
-
-  -- Prepend the context identifier to the listener's identifier if the listener
-  -- is being registered in the context of a plugin. This ensures listener uniqueness.
 
   if context ~= nil then
     listener.identifier = context.identifier .. '.' .. listener.identifier
@@ -102,12 +88,12 @@ local registerChannelListener = function(channel, listener, context)
 end
 
 ---
---- Removes a listener from the specified channel. If the channel is internal,
---- the context must match the reserving plugin for the listener to be removed.
+--- Removes a listener from a specific channel. If the channel is internal, the context
+--- must match. The listener is identified by a unique identifier.
 ---
 ---@param channel    string "The name of the channel to remove the listener from."
 ---@param identifier string "The unique identifier of the listener to remove."
----@param context?   plugin "The context of the plugin removing the listener."
+---@param context?   plugin "The plugin context for listener removal."
 ---
 local removeChannelListener = function(channel, identifier, context)
   xtype.validate {
@@ -116,84 +102,51 @@ local removeChannelListener = function(channel, identifier, context)
     { 'context:table?', context },
   }
 
-  -- Throw an error if the channel does not exist, as listeners cannot be removed
-  -- from inactive or non-existent channels.
-
   if channels[channel] == nil then
     throw('Failed to remove listener from channel "%s" (unknown channel).', channel)
   end
-
-  -- Adjust the listener's identifier if a context is provided, ensuring the correct
-  -- listener is removed in the context of a plugin.
 
   if context ~= nil then identifier = context.identifier .. '.' .. identifier end
   channels[channel]:removeListener(identifier)
 end
 
 ---
---- Invokes all listeners on a specified channel, passing along any payload.
---- The listeners are executed asynchronously if the channel is marked as async.
---- Internal channels can only be invoked by the reserving plugin.
+--- Invokes all listeners on a specific channel, optionally passing a payload.
+--- If the channel is internal, the context must match. The invocation can be
+--- performed asynchronously based on the channel configuration.
 ---
----@param channel   string    "The name of the channel to invoke listeners on."
----@param payload?  unknown[] "The payload to pass to the listeners."
----@param context?  plugin    "The context of the plugin invoking the listeners."
+---@param channel   string    "The name of the channel to invoke the listeners on."
+---@param payload?  unknown[] "Optional data to pass to the listeners."
+---@param context?  plugin    "The plugin context for listener invocation."
 ---
 local invokeChannelListeners = function(channel, payload, context)
-  xtype.validate {
-    { 'channel:string', channel },
-    { 'context:table?', context },
-  }
-
-  -- Throw an error if the channel does not exist, as listeners cannot be invoked
-  -- on inactive or non-existent channels.
+  xtype.validate { { 'channel:string', channel }, { 'context:table?', context } }
 
   if channels[channel] == nil then
     throw('Failed to invoke listeners on channel "%s" (unknown channel).', channel)
   end
 
-  -- Throw an error if an attempt is made to invoke listeners on an internal channel
-  -- by a plugin that does not own the channel.
-
   if channels[channel].context ~= context then
     throw('Failed to invoke listeners on channel "%s" (invalid context).', channel)
   end
 
-  -- Invoke all listeners on the channel. If the channel is asynchronous, listeners
-  -- will be executed asynchronously to avoid blocking the main thread.
-
   channels[channel]:invokeListeners(payload, { async = channels[channel].async })
 end
 
----
---- Allows plugins to reserve communication channels by calling the reserveChannel function
---- with the plugin's context. This ensures that the reserved channel is associated
---- with the plugin for future communication.
----
+-- methods for the plugin API:
+
 plugin.reserveChannel = function(self, channel, options)
   reserveChannel(channel, options, self)
 end
 
----
---- Allows plugins to register listeners to specific channels, ensuring that the
---- listeners are uniquely identified by the plugin's context.
----
 plugin.registerChannelListener = function(self, channel, listener)
   registerChannelListener(channel, listener, self)
 end
 
----
---- Allows plugins to remove their registered listeners from a channel, using
---- the plugin's context to ensure correct identification.
----
 plugin.removeChannelListener = function(self, channel, identifier)
   removeChannelListener(channel, identifier, self)
 end
 
----
---- Allows plugins to invoke listeners on a specified channel, passing along
---- any payload to the registered listeners.
----
 plugin.invokeChannelListeners = function(self, channel, payload)
   invokeChannelListeners(channel, payload, self)
 end

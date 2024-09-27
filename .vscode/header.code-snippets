@@ -25,6 +25,7 @@
     "body": [
       "--[[~ Module: ? ~",
       "  ",
+      "  Author(s): Erik Riklund (Gopher)",
       "  Version: 1.0.0 | Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
       "",
       "  ?",
@@ -32,6 +33,8 @@
       "  Features:",
       "",
       "  - ?",
+      "",
+      "  Dependencies: ?",
       "",
       "]]",
       "",
