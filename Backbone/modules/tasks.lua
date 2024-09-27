@@ -3,18 +3,21 @@ local addon, repository = ...
 local api = repository.use 'api' --[[@as api]]
 local frame = repository.use 'frame' --[[@as Frame]]
 
---[[~ Module: ? ~
-  
+--[[~ Module: Task Manager ~
+
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/09/27
 
-  ?
+  This module provides functionality for handling callback tasks, allowing both 
+  synchronous and asynchronous execution. It distributes asynchronous tasks 
+  over multiple frames to ensure smooth performance and prevent frame drops.
 
   Features:
 
-  - ?
-
-  Dependencies: ?
+  - Execute callback tasks either synchronously or asynchronously.
+  - Asynchronous tasks are processed in batches to avoid performance issues.
+  - Built-in error handling for task execution.
+  - Supports passing arguments to callback functions.
 
 ]]
 
@@ -22,7 +25,8 @@ local frame = repository.use 'frame' --[[@as Frame]]
 local tasks = {}
 
 ---
---- ?
+--- Executes a callback task immediately, with optional arguments. If an error occurs
+--- during execution, it will be caught and logged in non-production environments.
 ---
 ---@param identifier string "A unique identifier for the callback task."
 ---@param callback   function "The function to be executed."
@@ -38,7 +42,7 @@ api.executeCallback = function(identifier, callback, arguments)
   local success, exception = pcall(callback, unpack(arguments or {}))
 
   if not success and not _G.production then
-    local message = '[Backbone] Failed to execute callback \'%s\':\n%s'
+    local message = "[Backbone] Failed to execute callback '%s':\n%s"
 
     if xstring.hasPrefix(exception, { 'Interface/', 'Interface\\', '...' }) then
       exception = string.trim(xstring.getSubstringAfter(exception, ':', 2))

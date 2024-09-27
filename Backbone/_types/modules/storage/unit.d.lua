@@ -27,5 +27,5 @@
 ---
 --- ?
 ---
----@alias storage.unitConstructor fun(variable: string): storage.unit
+---@alias storage.unitConstructor fun(variable: table): storage.unit
 ---

@@ -29,7 +29,7 @@ local createStorageUnit = repository.use 'storage-unit'
 local storage = {}
 
 ---
---- Retrieves the storage unit for the specified scope (account or character) for 
+--- Retrieves the storage unit for the specified scope (account or character) for
 --- a given plugin context. Throws an error if the storage unit is not initialized.
 ---
 ---@param context plugin "The plugin context requesting the storage unit."
@@ -38,17 +38,17 @@ local storage = {}
 ---
 local getStorageUnit = function(context, scope)
   if not storage[context.identifier] then
-    throw('Storage unit for context "%s" is not initialized.', context.identifier)
+    throw("Storage unit for '%s' is not initialized.", context.identifier)
   end
   if not storage[context.identifier][scope] then
-    throw('Storage unit for scope "%s" is not initialized.', scope)
+    throw('Storage unit for scope "%s" is not initialized (%s).', scope, context.identifier)
   end
 
   return storage[context.identifier][scope]
 end
 
 ---
---- Sets up the storage unit for the given scope and variable in the specified 
+--- Sets up the storage unit for the given scope and variable in the specified
 --- plugin context. Initializes the storage variable if it doesn't exist.
 ---
 ---@param context  plugin "The plugin context where the storage unit is being set up."
@@ -61,14 +61,14 @@ local setupStorageUnit = function(context, scope, variable)
   end
 
   if storage[context.identifier][scope] then
-    throw('Storage unit for scope "%s" already exists in context "%s".', scope, context.identifier)
+    throw('Storage unit for scope "%s" already exists (%s).', scope, context.identifier)
   end
 
   if type(_G[variable]) ~= 'table' then
     _G[variable] = {} -- initialize the specified storage variable.
   end
 
-  storage[context.identifier][scope] = createStorageUnit(variable)
+  storage[context.identifier][scope] = createStorageUnit(_G[variable])
 end
 
 -- methods for the framework API:

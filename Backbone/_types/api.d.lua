@@ -8,6 +8,8 @@
 ---@field createPlugin          api.createPlugin
 ---@field executeCallback       api.executeCallback
 ---@field executeCallbackAsync  api.executeCallbackAsync
+---@field provideService        api.provideService
+---@field useService            api.useService
 ---@field useStorage            api.useStorage
 ---
 
@@ -37,4 +39,18 @@
 ---
 ---@alias api.useStorage
 ---| fun(context: plugin, variables: { account?: string, character?: string })
+---
+
+---
+--- ?
+---
+---@alias api.useService
+---| fun(identifier: string): unknown
+---
+
+---
+--- ?
+---
+---@alias api.provideService
+---| fun(identifier: string, object: function|table)
 ---

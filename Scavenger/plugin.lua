@@ -1,4 +1,4 @@
-local addon = ...
+local addon, context = ...
 
 --[[~ Project: Scavenger ~
 
@@ -9,5 +9,31 @@ local addon = ...
 
 ]]
 
+-- ?
+
 local plugin = backbone.createPlugin(addon)
-backbone.useStorage(plugin, { account = 'test' })
+
+-- ?
+
+backbone.useStorage(plugin, {
+  account = 'ScavengerAccount',
+  character = 'ScavengerCharacter',
+})
+
+-- ?
+
+---@type configService
+local createConfigHandler = backbone.useService('config')
+
+-- ?
+
+local config = createConfigHandler(plugin, {
+
+})
+
+DevTools_Dump(config)
+
+-- expose the plugin and config objects:
+
+context.plugin = plugin
+context.config = config

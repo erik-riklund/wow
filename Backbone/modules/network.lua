@@ -7,6 +7,7 @@ local createListenableObject = repository.use 'listenable'
 
 --[[~ Module: Channel Manager ~
 
+  Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/09/25
 
   This module manages communication channels within the framework. It allows

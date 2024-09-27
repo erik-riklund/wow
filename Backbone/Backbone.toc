@@ -22,3 +22,5 @@ modules/events.lua
 modules/network.lua
 components/storage-unit.lua
 modules/storage.lua
+modules/services.lua
+services/config.lua

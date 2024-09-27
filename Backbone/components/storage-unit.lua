@@ -56,7 +56,7 @@ local unit = {
 
 ---@type storage.unitConstructor
 local constructor = function(variable)
-  return inheritParent({ data = _G[variable] }, unit)
+  return inheritParent({ data = variable }, unit)
 end
 
 -- expose the constructor to the framework context:

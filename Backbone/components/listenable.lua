@@ -38,7 +38,7 @@ local listenable = {
     for index, listener in ipairs(self.listeners) do
       if listener.identifier == identifier then
         table.remove(self.listeners, index)
-        return
+        return -- exit.
       end
     end
 
@@ -54,18 +54,22 @@ local listenable = {
       { 'options.async:boolean?', options.async },
     }
 
-    for i = 1, #self.listeners do
-      local listener = self.listeners[i];
+    local listenerCount = #self.listeners
 
-      ((options.async and api.executeCallbackAsync) or api.executeCallback)(
-        listener.identifier,
-        listener.callback,
-        arguments or {}
-      )
+    if listenerCount > 0 then
+      local currentIndex = 1
 
-      if listener.persistent == false then
-        table.remove(self.listeners, i)
-        i = i - 1 -- Adjust the index to account for the removed listener.
+      for i = 1, listenerCount do
+        local listener = self.listeners[currentIndex]
+
+        local callback = (options.async and api.executeCallbackAsync) or api.executeCallback
+        callback(listener.identifier, listener.callback, arguments or {})
+
+        if listener.persistent == false then
+          table.remove(self.listeners, currentIndex)
+        else
+          currentIndex = currentIndex + 1
+        end
       end
     end
   end,
