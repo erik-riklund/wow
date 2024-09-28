@@ -24,4 +24,10 @@ components/storage-unit.lua
 modules/storage.lua
 modules/services.lua
 modules/locales.lua
+modules/commands.lua
+
 services/config.lua
+services/storage-unit.lua
+
+commands.lua
+garbage.lua

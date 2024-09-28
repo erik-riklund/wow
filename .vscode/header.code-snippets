@@ -58,6 +58,6 @@
 
   "comment-section": {
     "prefix": "!comment-section",
-    "body": "-- [explain the section up until the next placeholder]"
+    "body": "-- [explain this section up until the next placeholder]"
   }
 }

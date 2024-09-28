@@ -9,34 +9,45 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/09/27
 
-  This module is responsible for registering and managing plugins
-  within the framework. Each plugin is identified by a unique string
-  and protected through a read-only proxy to ensure data integrity.
+  This module manages the registration and retrieval of plugins. It ensures that plugins are 
+  uniquely identified and provides a way to create new plugins and access existing ones.
 
   Features:
-  - Registers plugins with unique identifiers.
-  - Protects registered plugins by returning them via a read-only proxy.
-  - Provides a method to retrieve registered plugins.
-
+  - Create and register plugins with unique identifiers.
+  - Access plugins by their unique identifiers.
+  
 ]]
 
 ---@type table<string, plugin>
 local plugins = {}
 
+--- This function creates a new plugin with the specified identifier. The identifier is normalized 
+--- to ensure case-insensitivity. If the identifier is already in use or if it matches the reserved 
+--- 'backbone' identifier, an error is thrown. The new plugin is then registered and returned as a 
+--- protected proxy to ensure its integrity.
+
 ---@type api.createPlugin
 api.createPlugin = function(identifier)
-  if plugins[identifier] ~= nil then
+  local normalizedIdentifier = string.lower(identifier)
+
+  if normalizedIdentifier == 'backbone' or plugins[normalizedIdentifier] ~= nil then
     throw('Plugin with identifier "%s" already exists.', identifier)
   end
 
-  plugins[identifier] = inheritParent({ identifier = identifier }, plugin)
-  return getProtectedProxy(plugins[identifier]) --[[@as plugin]]
+  plugins[normalizedIdentifier] = inheritParent({ identifier = identifier }, plugin)
+  return getProtectedProxy(plugins[normalizedIdentifier]) --[[@as plugin]]
 end
 
+--- This function exposes a method to retrieve an existing plugin by its identifier. The identifier 
+--- is normalized to ensure case-insensitive access. If no plugin is found with the given identifier, 
+--- an error is thrown. The function returns the plugin if it exists.
+
 repository.expose('get-plugin', function(identifier)
-  if plugins[identifier] == nil then
+  local normalizedIdentifier = string.lower(identifier)
+
+  if plugins[normalizedIdentifier] == nil then
     throw('Plugin with identifier "%s" not found.', identifier)
   end
 
-  return plugins[identifier]
+  return plugins[normalizedIdentifier]
 end)

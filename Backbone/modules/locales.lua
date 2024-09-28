@@ -38,8 +38,8 @@ plugin.getLocalizedString = function(self, identifier)
     throw('No locales registered for plugin "%s".', self.identifier)
   end
 
-  -- Attempt to retrieve the string from the current game locale, then fallback to
-  -- the fallback locale if it's defined. If neither is available, return an error message.
+  -- Attempt to retrieve the string from the current game locale, then fallback to the
+  -- default locale if it's defined. If neither is available, return an error message.
 
   return locales[self.identifier][gameLocale][identifier]
     or (

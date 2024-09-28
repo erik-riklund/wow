@@ -27,6 +27,8 @@ local createListenableObject = repository.use 'listenable'
 local events = {}
 
 ---
+--- registerEventListener()
+--- 
 --- Registers a listener for the specified event. If the event is not already registered,
 --- it is added to the `events` table and registered with the game.
 ---
@@ -46,8 +48,10 @@ local registerEventListener = function(event, listener)
 end
 
 ---
---- Removes a listener from the specified event. If no listeners remain, the event
---- is unregistered from the game to conserve resources.
+--- removeEventListener()
+--- 
+--- Removes a listener from the specified event. If no listeners remain,
+--- the event is unregistered from the game to conserve resources.
 ---
 ---@param event      string "The name of the event to remove the listener from."
 ---@param identifier string "The unique identifier of the listener to remove."
@@ -60,7 +64,8 @@ local removeEventListener = function(event, identifier)
       if not xstring.hasPrefix(event, 'ADDON_LOADED') then
         frame:UnregisterEvent(event)
       end
-      events[event] = nil
+
+      events[event] = nil -- remove the event when no listeners remain.
     end
 
     return -- exit.
@@ -69,8 +74,12 @@ local removeEventListener = function(event, identifier)
   throw('Event "%s" has no active listeners.', event)
 end
 
--- the script responsible for handling events:
-
+---
+--- Handles the `OnEvent` script for the frame. It listens for game events and invokes the
+--- registered listeners when the event occurs. If no listeners remain after invocation,
+--- the event is unregistered from the game.
+---
+---
 frame:RegisterEvent 'ADDON_LOADED'
 frame:SetScript('OnEvent', function(source, event, ...)
   if event == 'ADDON_LOADED' then
@@ -85,12 +94,17 @@ frame:SetScript('OnEvent', function(source, event, ...)
         frame:UnregisterEvent(event)
       end
 
-      events[event] = nil
+      events[event] = nil -- remove the event if no listeners remain.
     end
   end
 end)
 
--- methods for the plugin API:
+---
+--- plugin.onInitialize()
+---
+--- Registers a listener for the `ADDON_LOADED` event, which is used to initialize the plugin. 
+--- The listener is attached to the plugin's identifier and is invoked when the event occurs.
+---
 
 plugin.onInitialize = function(self, identifier, callback)
   identifier = self.identifier .. '.' .. identifier
@@ -99,10 +113,26 @@ plugin.onInitialize = function(self, identifier, callback)
   registerEventListener('ADDON_LOADED:' .. self.identifier, listener)
 end
 
+---
+--- plugin.registerEventListener()
+---
+--- Registers a listener for a specific event, attaching the listener to the plugin's identifier. 
+--- This function ensures that the listener is associated with the plugin, allowing for proper 
+--- event handling and listener management.
+---
+
 plugin.registerEventListener = function(self, event, listener)
   listener.identifier = self.identifier .. '.' .. listener.identifier
   registerEventListener(event, listener)
 end
+
+---
+--- plugin.removeEventListener()
+---
+--- Removes a listener from a specific event, ensuring that the listener is associated with the 
+--- correct plugin by using the plugin's identifier. If no listeners remain for the event, it is 
+--- unregistered from the game to conserve resources.
+---
 
 plugin.removeEventListener = function(self, event, identifier)
   removeEventListener(event, self.identifier .. '.' .. identifier)

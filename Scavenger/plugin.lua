@@ -23,15 +23,17 @@ backbone.useStorage(plugin, {
 -- ?
 
 ---@type configService
-local createConfigHandler = backbone.useService('config')
+local createConfigHandler = backbone.useService 'config'
 
 -- ?
 
-local config = createConfigHandler(plugin, {
+local config = createConfigHandler(plugin, {})
 
-})
+-- ?
 
---DevTools_Dump(config)
+plugin:registerCommand('TESTING', 'test', function(message, source)
+  print 'Hello world'
+end)
 
 -- expose the plugin and config objects:
 

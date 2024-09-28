@@ -14,6 +14,8 @@ local blockModification = function()
 end
 
 ---
+--- getProtectedProxy()
+--- 
 --- Creates a protected proxy for the target table, preventing any modification attempts.
 --- It recursively applies protection to nested tables, ensuring all parts of the
 --- structure remain immutable.

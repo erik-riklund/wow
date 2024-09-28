@@ -9,6 +9,8 @@
 ]]
 
 ---
+--- inheritParent()
+--- 
 --- Establishes an inheritance-like relationship between a child table and a parent
 --- table, allowing the child to access properties and methods from the parent.
 ---
