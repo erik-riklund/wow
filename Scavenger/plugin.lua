@@ -1,5 +1,8 @@
 local addon, context = ...
 
+---@type configService
+local createConfigHandler = backbone.useService 'config'
+
 --[[~ Project: Scavenger ~
 
   Author(s): Erik Riklund  
@@ -22,20 +25,5 @@ backbone.useStorage(plugin, {
 
 -- ?
 
----@type configService
-local createConfigHandler = backbone.useService 'config'
-
--- ?
-
 local config = createConfigHandler(plugin, {})
 
--- ?
-
-plugin:registerCommand('TESTING', 'test', function(message, source)
-  print 'Hello world'
-end)
-
--- expose the plugin and config objects:
-
-context.plugin = plugin
-context.config = config

@@ -21,16 +21,15 @@ local plugin = repository.use 'plugin-api' --[[@as plugin]]
 ---@type table<string, plugin>
 local plugins = {}
 
---- This function creates a new plugin with the specified identifier. The identifier is normalized 
---- to ensure case-insensitivity. If the identifier is already in use or if it matches the reserved 
---- 'backbone' identifier, an error is thrown. The new plugin is then registered and returned as a 
---- protected proxy to ensure its integrity.
+--- This function creates a new plugin with the specified identifier. The identifier is normalized
+--- to ensure case-insensitivity. If the identifier is already in use an error is thrown. The new
+--- plugin is then registered and returned as a protected proxy to ensure its integrity.
 
 ---@type api.createPlugin
 api.createPlugin = function(identifier)
   local normalizedIdentifier = string.lower(identifier)
 
-  if normalizedIdentifier == 'backbone' or plugins[normalizedIdentifier] ~= nil then
+  if plugins[normalizedIdentifier] ~= nil then
     throw('Plugin with identifier "%s" already exists.', identifier)
   end
 
@@ -38,9 +37,10 @@ api.createPlugin = function(identifier)
   return getProtectedProxy(plugins[normalizedIdentifier]) --[[@as plugin]]
 end
 
---- This function exposes a method to retrieve an existing plugin by its identifier. The identifier 
---- is normalized to ensure case-insensitive access. If no plugin is found with the given identifier, 
---- an error is thrown. The function returns the plugin if it exists.
+--- Exposes a method to retrieve an existing plugin by its identifier. The identifier is normalized
+--- to ensure case-insensitive access. If no plugin is found with the given identifier, an error is thrown.
+--- 
+--- The function returns the plugin if it exists.
 
 repository.expose('get-plugin', function(identifier)
   local normalizedIdentifier = string.lower(identifier)
@@ -51,3 +51,10 @@ repository.expose('get-plugin', function(identifier)
 
   return plugins[normalizedIdentifier]
 end)
+
+---
+--- Exposes a default 'backbone' plugin for the framework. It creates the 'backbone' plugin using the
+--- `api.createPlugin` function and registers it within the repository.
+---
+
+repository.expose('backbone-plugin', api.createPlugin 'backbone')

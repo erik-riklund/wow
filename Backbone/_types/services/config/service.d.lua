@@ -5,7 +5,6 @@
 --- settings. This is used to initialize a configuration handler (with default settings)
 --- within a specific plugin context.
 ---
----@alias configService
----| fun(context: plugin, defaults: table): configHandler
+---@alias configService  fun(context: plugin, defaults: table): configHandler
 ---
 

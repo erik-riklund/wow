@@ -12,21 +12,22 @@
 ---@field removeEventListener    events.api.removeEventListener
 
 ---
---- Registers a one-time initialization callback, triggered when the `ADDON_LOADED` event fires.
+--- Registers a one-time initialization callback, triggered when
+--- the `ADDON_LOADED` event fires for the plugin.
 ---
 ---@alias events.api.onInitialize
 ---| fun(self: plugin, identifier: string, callback: function)
 ---
 
 ---
---- Registers a listener for a specified event, appending the plugin identifier to the listener identifier.
+--- Registers a listener for a specified event.
 ---
 ---@alias events.api.registerEventListener
 ---| fun(self: plugin, event: string, listener: listener)
 ---
 
 ---
---- Removes a listener from a specified event, using the plugin identifier as a prefix.
+--- Removes a listener from a specified event.
 ---
 ---@alias events.api.removeEventListener
 ---| fun(self: plugin, event: string, identifier: string)

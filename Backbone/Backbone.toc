@@ -12,6 +12,9 @@ utilities/table/inherit.lua
 utilities/table/protect.lua
 utilities/table/walk.lua
 
+utilities/markup.lua
+utilities/console.lua
+
 context.lua
 framework.lua
 

@@ -1,5 +1,6 @@
 ---@type string, contextProvider
 local addon, repository = ...
+local plugin = repository.use 'backbone-plugin' --[[@as plugin]]
 
 --[[~ Script: ? ~
   

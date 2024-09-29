@@ -50,9 +50,9 @@ local handler = {
 
       return useCharacterProfile
     else
-      -- For other settings, determine the scope based on `useCharacterProfile`.
-      -- If `useCharacterProfile` is true, use the character profile; otherwise,
-      -- use the account profile.
+      -- If the identifier is not 'useCharacterProfile', determine the scope (account or
+      -- character) based on the value of 'useCharacterProfile'. Retrieve the setting from
+      -- the appropriate scope and return it if available.
 
       local useCharacterProfile = self:getSetting 'useCharacterProfile'
       local scope = (useCharacterProfile == true and 'character') or 'account'
@@ -68,7 +68,16 @@ local handler = {
         return setting -- Return the stored value.
       end
 
-      return self:getDefaultSetting(identifier) -- Fallback to default if not set.
+      -- If the setting is not found in the chosen scope, return the default value for the
+      -- setting. If the default value does not exist, throw an error.
+
+      local defaultSetting = self:getDefaultSetting(identifier) -- Fallback to default if not set.
+
+      if defaultSetting == nil then
+        throw('No default setting found for "%s" (%s).', identifier, self.context.identifier)
+      end
+
+      return defaultSetting
     end
   end,
 
@@ -159,8 +168,7 @@ local createHandler = function(context, defaults)
   return inheritParent({ context = context, defaults = createStorageUnit(defaults) }, handler)
 end
 
--- This section registers the configuration service with the API, making it available to other
--- components and plugins. The service provides functionality to manage configuration settings
--- for both account-wide and character-specific profiles.
+-- Register the configuration service with the API, making it available to other components and plugins.
+-- The service provides functionality to manage configuration settings for both account-wide and character-specific profiles.
 
 api.provideService('config', createHandler)

@@ -18,20 +18,17 @@
 ---
 --- Retrieves a stored setting based on its identifier.
 ---
----@alias configHandler.getSetting
----| fun(self: configHandler, identifier: string): unknown?
+---@alias configHandler.getSetting  fun(self: configHandler, identifier: string): unknown
 ---
 
 ---
 --- Retrieves the default value for a given setting.
 ---
----@alias configHandler.getDefaultSetting
----| fun(self: configHandler, identifier: string): unknown
+---@alias configHandler.getDefaultSetting  fun(self: configHandler, identifier: string): unknown
 ---
 
 ---
 --- Updates or sets a value for a specified setting in the plugin's configuration.
 ---
----@alias configHandler.setSetting
----| fun(self: configHandler, identifier: string, value: unknown)
+---@alias configHandler.setSetting  fun(self: configHandler, identifier: string, value: unknown)
 ---
