@@ -41,14 +41,15 @@ api.executeCallback = function(identifier, callback, arguments)
 
   local success, exception = pcall(callback, unpack(arguments or {}))
 
-  if not success and not _G.production then
-    local message = "[Backbone] Failed to execute callback '%s':\n%s"
+  if not success then
+    local message = '<color=pale-red>Failed to execute callback <color=gainsboro>'
+      .. "'$identifier'</color>:\n<color=wheat>$exception</color></color>"
 
     if xstring.hasPrefix(exception, { 'Interface/', 'Interface\\', '...' }) then
       exception = string.trim(xstring.getSubstringAfter(exception, ':', 2))
     end
 
-    print(string.format(message, identifier, exception))
+    console.exception(message, { identifier = identifier, exception = exception })
   end
 end
 
@@ -90,7 +91,5 @@ end)
 --- in the background without affecting frame rate.
 ---
 frame:SetScript('OnUpdate', function()
-  if #tasks > 0 and coroutine.status(process) == 'suspended' then
-    coroutine.resume(process)
-  end
+  if #tasks > 0 and coroutine.status(process) == 'suspended' then coroutine.resume(process) end
 end)

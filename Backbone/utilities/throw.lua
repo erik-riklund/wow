@@ -26,12 +26,8 @@
 ---@param ...       string "(optional) Arguments used to format the error message."
 ---
 _G.throw = function(exception, ...)
-  if _G.production ~= true then
-    error((... and exception:format(...)) or exception, 3)
-  end
+  if not _G.production then error((... and exception:format(...)) or exception, 3) end
 
-  print(
-    '[Backbone] The framework encountered an internal or plugin-related exception. You can try "/reload" to '
-      .. 'see if the problem persists, or use "/backbone development" to enable more detailed error reporting.'
-  )
+  console.exception '?' -- this is only used to trigger the generic error
+  --                        message that is displayed in production mode.
 end

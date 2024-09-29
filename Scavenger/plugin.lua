@@ -26,4 +26,3 @@ backbone.useStorage(plugin, {
 -- ?
 
 local config = createConfigHandler(plugin, {})
-

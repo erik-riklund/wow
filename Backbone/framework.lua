@@ -17,14 +17,17 @@ local addon, repository = ...
 
 ]]
 
--- Exposing the main API and plugin API to the framework. These objects are used by 
+-- Exposing the main API and plugin API to the framework. These objects are used by
 -- other components or plugins to access or register functionality in the system.
+
 repository.expose('api', {})
 repository.expose('plugin-api', {})
 
 -- Create and expose a frame object to handle game events.
+
 repository.expose('frame', CreateFrame 'Frame')
 
 -- Make the protected API accessible globally, while preventing direct
 -- modifications to it by using a protected proxy.
+
 _G.backbone = getProtectedProxy(repository.use 'api') --[[@as api]]
