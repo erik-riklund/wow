@@ -1,6 +1,6 @@
 --[[~ Utility: Inherit Parent ~
 
-  Version: 1.0.0 | Updated: 2024/09/26
+  Version: 1.0.0 | Updated: 2024/09/30
 
   This utility allows a child table to inherit properties and methods from a parent table by setting
   the parent table as the `__index` in the child's metatable. This creates an inheritance-like relationship
@@ -9,8 +9,6 @@
 ]]
 
 ---
---- inheritParent()
---- 
 --- Establishes an inheritance-like relationship between a child table and a parent
 --- table, allowing the child to access properties and methods from the parent.
 ---

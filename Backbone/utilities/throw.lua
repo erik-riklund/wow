@@ -1,6 +1,6 @@
 --[[~ Utility: Error Handling ~
 
-  Version: 1.0.0 | Updated: 2024/09/24
+  Version: 1.0.0 | Updated: 2024/09/30
 
   This utility provides a centralized error handling mechanism for the framework. It differentiates 
   between development and production modes, ensuring that detailed error messages are only displayed 
@@ -15,12 +15,10 @@
 ]]
 
 ---
---- throw()
----
---- This function throws an error message in development mode. If the framework is not running in
---- production mode, the error message is formatted using any provided arguments and raised as an
---- exception. In production mode, it prints a user-friendly message to the console, advising the
---- user to reload or enable development mode for more detailed error reporting.
+--- Throws an error message in development mode. If the framework is not running in production mode,
+--- the error message is formatted using any provided arguments and raised as an exception.
+--- In production mode, it prints a user-friendly message to the console, advising the user to reload or
+--- enable development mode for more detailed error reporting.
 ---
 ---@param exception string "The base error message, with optional format specifiers."
 ---@param ...       string "(optional) Arguments used to format the error message."
@@ -28,6 +26,6 @@
 _G.throw = function(exception, ...)
   if not _G.production then error((... and exception:format(...)) or exception, 3) end
 
-  console.exception '?' -- this is only used to trigger the generic error
-  --                        message that is displayed in production mode.
+  console.exception '?' -- This is only used to trigger the generic error
+  --                       message that is displayed in production mode.
 end

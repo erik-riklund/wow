@@ -1,30 +1,24 @@
 --[[~ Module: Console Logger ~
 
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/09/29
+  Version: 1.0.0 | Updated: 2024/09/30
 
-  This module provides a console logging utility for the framework. It supports various logging 
-  levels, such as `info`, `log`, and `exception`, with support for formatted messages and variables. 
-  The logging output is color-coded based on the log level, and exceptions are handled differently 
-  depending on the environment (development vs. production).
+  Provides logging functionality for informational, debug, and
+  exception messages, with optional variable replacement.
 
   Features:
 
-  - Color-coded console logging for different log levels.
-  - Support for variable replacement in log messages.
-  - Custom exception handling based on the environment.
+  - Supports logging informational, debug, and exception messages.
+  - Handles variable replacements in messages.
+  - Differentiates logging behavior based on the production environment.
 
 ]]
 
 _G.console = {
-  ---
-  --- This function logs an informational message to the console. The message is formatted with
-  --- a color-coded prefix indicating that it comes from the Backbone framework. Optionally, variables
-  --- in the message can be replaced using the provided `variables` table.
-  ---
+  -- Logs an informational message to the console, supporting variable replacements.
+
   ---@param message    string "The informational message to log."
   ---@param variables? table<string, string|number> "(optional) Table of variables for replacement."
-  ---
   info = function(message, variables)
     print(
       processMarkup(
@@ -34,29 +28,21 @@ _G.console = {
     )
   end,
 
-  ---
-  --- This function logs a debug message to the console. It only outputs the message when the
-  --- framework is not in production mode. The log message is color-coded to differentiate it
-  --- from other types of messages, and variables in the message can be replaced using the
-  --- `variables` table.
-  ---
+  -- Logs a debug message to the console, only if not in the production environment.
+
   ---@param message    string "The debug message to log."
   ---@param variables? table<string, string|number> "(optional) Table of variables for replacement."
-  ---
   log = function(message, variables)
     if not _G.production then
       print(processMarkup('<color=olivine>[Backbone]</color> ' .. message, variables))
     end
   end,
 
-  ---
-  --- This function logs an exception message to the console. In development mode, the message
-  --- is printed with color-coded formatting. In production mode, a simplified message is logged,
-  --- advising the user to reload or enable development mode for more detailed error reporting.
-  ---
+  -- Logs an exception message. In production, logs a simplified error message
+  -- and suggests reloading or enabling detailed error reporting.
+
   ---@param message    string "The exception message to log."
   ---@param variables? table<string, string|number> "(optional) Table of variables for replacement."
-  ---
   exception = function(message, variables)
     if not _G.production then
       print(processMarkup('<color=vivid-orange>[Backbone]</color> ' .. message, variables))

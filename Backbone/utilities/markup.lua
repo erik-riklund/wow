@@ -1,7 +1,7 @@
 --[[~ Module: Markup Processor ~
 
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/09/29
+  Version: 1.0.0 | Updated: 2024/09/30
 
   This module processes markup in strings, converting tags such as color codes and variables
   into their respective in-game format. It allows dynamic string rendering with customizable
@@ -15,58 +15,86 @@
 ]]
 
 local colors = {
-  ['alabaster'] = 'F7F7F7', -- Off-white
-  ['ash-gray'] = 'B8B8B8', -- Light gray
-  ['berry'] = '800080', -- Purple
-  ['blue-dianne'] = '2E4553', -- Dark blue-green
-  ['brown-rust'] = 'AA552A', -- Reddish-brown
-  ['cadet-blue'] = '5F9EA0', -- Muted blue-green
-  ['charcoal'] = '36454F', -- Dark charcoal gray
-  ['chartreuse'] = '7FFF00', -- Bright green-yellow
-  ['cloudy-gray'] = 'B4B4B4', -- Soft cloudy gray
-  ['cocoa'] = '826342', -- Dark brown
-  ['davy-grey'] = '555555', -- Dark steel gray
-  ['deep-saffron'] = 'FF9933', -- Saffron orange
-  ['dim-gray'] = '696969', -- Dark gray
-  ['electric-lime'] = 'CCFF00', -- Neon green-yellow
-  ['fire-opal'] = 'E95C4B', -- Bright orange-red
-  ['french-rose'] = 'F64A8A', -- Vivid pink
-  ['gainsboro'] = 'DCDCDC', -- Very light gray
-  ['glacier'] = '86AFAF', -- Light blue-green
-  ['ghost-white'] = 'F8F8FF', -- Nearly white with a hint of gray
-  ['golden'] = 'EEC400', -- Bright yellow
-  ['granite-gray'] = '676767', -- Mid-tone gray
-  ['heavy-metal'] = '292828', -- Very dark gray
-  ['jasper'] = 'DC3545', -- Deep red
-  ['jet-gray'] = '343434', -- Deep black-gray
-  ['jungle-green'] = '29AB87', -- Dark green
-  ['lemon-yellow'] = 'FFF700', -- Bright yellow
-  ['lion'] = 'C39563', -- Light brown
-  ['light-mustard'] = 'FCD462', -- ?
-  ['light-slate-gray'] = '778899', -- Muted bluish-gray
-  ['magenta'] = 'FF00FF', -- Bright pink
-  ['milk-white'] = 'FBFBFC', -- Very pale white
-  ['mountain-mist'] = '959595', -- Medium gray
-  ['navy-blue'] = '000080', -- Dark blue
-  ['nickel'] = '727472', -- Gray with a hint of green
-  ['olivine'] = 'A9B665', -- Olive green
-  ['orchid'] = 'DA70D6', -- Light purple
-  ['pale-red'] = 'DE4B37', -- Pale red
-  ['peach-puff'] = 'F5DEB3', -- Light peach
-  ['pearl-gray'] = 'CECECE', -- Light pearly gray
-  ['persian-blue'] = '1C39BB', -- Deep blue
-  ['river-bed'] = '3E4E5E', -- Dark blue-gray
-  ['rose-quartz'] = 'AA98A9', -- Pale pink-lavender
-  ['sea-green'] = '2E8B57', -- Green-blue
-  ['silver'] = 'C0C0C0', -- Light silver gray
-  ['sky-blue'] = '87CEEB', -- Light blue
-  ['slate-gray'] = '708090', -- Dark bluish-gray
-  ['smoke'] = '848484', -- Smoky medium gray
-  ['tiger-eye'] = 'D88F42', -- Golden orange
-  ['turquoise'] = '40E0D0', -- Bright greenish-blue
-  ['vivid-orange'] = 'FF5F00', -- Bright orange
-  ['watermelon'] = 'FF5555', -- Bright red
-  ['wheat'] = 'F3EDCF' -- ?
+  -- Grays
+  ['cloudy-sky'] = 'B0C4DE', -- Soft blue-gray
+  ['dark-cloudy-sky'] = '6E8196', -- Dark blue-gray
+  ['dark-lavender-gray'] = '8A8A99', -- Dark lavender-gray
+  ['dark-pearl-gray'] = 'A8A8A8', -- Dark pearly gray
+  ['lavender-gray'] = 'C4C3D0', -- Soft gray with lavender undertones
+  ['misty-gray'] = 'C1C1C1', -- Light gray
+  ['pearl-gray'] = 'E8E8E8', -- Light pearly gray
+
+  -- Greens
+  ['celery-green'] = 'D1E231', -- Light pastel green
+  ['dark-celery-green'] = '9DB400', -- Dark pastel green
+  ['dark-dreamy-mint'] = '6DC69B', -- Dark mint green
+  ['dark-pistachio'] = '85B34F', -- Dark pistachio green
+  ['dreamy-mint'] = 'AAF0D1', -- Soft pastel mint green
+  ['light-pistachio'] = 'BEF574', -- Soft pastel green
+  ['seafoam'] = '93E9BE', -- Soft pastel green
+
+  -- Blues
+  ['baby-blue'] = 'A1CAF1', -- Soft pastel blue
+  ['dark-baby-blue'] = '6A94BA', -- Dark pastel blue
+  ['dark-pale-blue'] = '8AA1B9', -- Dark pastel blue
+  ['dark-turquoise'] = '5FCFCF', -- Dark turquoise
+  ['pale-blue'] = 'D6E6F2', -- Very light pastel blue
+  ['pastel-turquoise'] = '99FFFF', -- Soft pastel turquoise
+  ['periwinkle'] = 'C5D0E6', -- Soft pastel blue-purple
+
+  -- Reds
+  ['blush-pink'] = 'F4C2C2', -- Light pastel pink
+  ['blush-red'] = 'FF6F61', -- Warm blush pastel red
+  ['dark-blush-pink'] = 'C48A8A', -- Dark blush pink
+  ['dark-blush-red'] = 'C13E38', -- Dark blush red
+  ['dark-pastel-red'] = 'BF4040', -- Dark pastel red
+  ['pastel-red'] = 'FF6961', -- Soft pastel red
+  ['pastel-rose'] = 'FFC1C1', -- Light pastel rose-red
+
+  -- Yellows
+  ['buttercream'] = 'FFF1B6', -- Soft pastel yellow
+  ['dark-buttercream'] = 'D1C487', -- Dark buttercream
+  ['dark-mellow-yellow'] = 'C2B450', -- Dark mellow yellow
+  ['dark-soft-sand'] = 'C5B6A1', -- Dark pastel beige
+  ['mellow-yellow'] = 'F8DE7E', -- Light pastel yellow
+  ['soft-sand'] = 'F4E7D6', -- Pale pastel beige
+  ['sunset-peach'] = 'FFDAB9', -- Soft pastel peach
+
+  -- Purples
+  ['dark-delicate-lavender'] = 'B0B0C8', -- Dark delicate lavender
+  ['dark-frosted-lilac'] = '9A8AC1', -- Dark frosted lilac
+  ['dark-lilac'] = '986898', -- Dark lilac
+  ['delicate-lavender'] = 'E6E6FA', -- Pale pastel purple
+  ['frosted-lilac'] = 'DCD0FF', -- Light pastel purple
+  ['lilac'] = 'C8A2C8', -- Soft pastel purple
+  ['pastel-lavender'] = 'ECDDF9', -- Light pastel lavender
+
+  -- Pinks
+  ['cherry-blossom'] = 'FFB7C5', -- Light pastel pink
+  ['cotton-candy'] = 'FFBCD9', -- Pastel pink
+  ['dark-cherry-blossom'] = 'C9879A', -- Dark cherry blossom
+  ['dark-cotton-candy'] = 'C98BA2', -- Dark cotton candy
+  ['dark-light-rose'] = 'C8B1B7', -- Dark pastel pink
+  ['light-rose'] = 'FDEEF4', -- Very pale pastel pink
+  ['pearl-blush'] = 'FDD7E4', -- Pale pastel pink
+
+  -- Browns
+  ['almond'] = 'EED9C4', -- Light pastel brown
+  ['beige'] = 'F5F5DC', -- Soft pastel beige
+  ['caramel'] = 'F3B798', -- Light pastel caramel
+  ['dark-almond'] = 'BFA889', -- Dark pastel almond
+  ['dark-beige'] = 'D9D1A9', -- Dark beige
+  ['dark-caramel'] = 'B3866C', -- Dark caramel
+  ['taupe'] = 'D3B5A0', -- Soft taupe brown
+
+  -- Oranges
+  ['apricot'] = 'FFDAB1', -- Light pastel apricot
+  ['burnt-peach'] = 'FFB385', -- Soft pastel orange-peach
+  ['cantaloupe'] = 'FFCBA4', -- Light pastel cantaloupe
+  ['dark-apricot'] = 'FFB278', -- Dark pastel apricot
+  ['dark-papaya'] = 'FFA766', -- Dark pastel papaya orange
+  ['melon'] = 'FFB891', -- Soft pastel melon orange
+  ['tangerine'] = 'FFA07A', -- Soft pastel tangerine
 }
 
 ---
@@ -76,9 +104,9 @@ local colors = {
 local parsers = {}
 
 ---
---- This parser function converts color markup in the format `<color=color-name>` into in-game color
---- codes. The color is replaced by its corresponding hex code from the `colors` table. The closing
---- tag `</color>` is replaced with the in-game reset color code `|r`.
+--- Converts color markup in the format `<color=color-name>` into in-game color codes. The color is
+--- replaced by its corresponding hex code from the `colors` table. The closing tag `</color>` is replaced
+--- with the in-game reset color code `|r`.
 ---
 table.insert(
   parsers,
@@ -95,11 +123,9 @@ table.insert(
 )
 
 ---
---- processVariables()
----
---- This function processes variables in the string, replacing placeholders in the format `$variable-name`
---- with their corresponding values from the `variables` table. If a variable is not found in the table,
---- it is replaced with an empty string.
+--- Processes variables in the string, replacing placeholders in the format `$variable-name`
+--- with their corresponding values from the `variables` table. If a variable is not found in
+--- the table, it is replaced with an empty string.
 ---
 ---@param target    string "The string containing variable placeholders."
 ---@param variables table<string, string|number> "A table of variable values."
@@ -113,11 +139,9 @@ local processVariables = function(target, variables)
 end
 
 ---
---- processMarkup()
----
---- This function processes a string to apply markup such as color codes and variables. It runs the
---- string through all registered parsers, applying transformations like color changes, and then
---- replaces variable placeholders if a variables table is provided.
+--- Processes a string to apply markup such as color codes and variables. It runs the string through
+--- all registered parsers, applying transformations like color changes, and then replaces variable
+--- placeholders if a variables table is provided.
 ---
 ---@param target     string "The string to process with markup."
 ---@param variables? table<string, string|number> "Optional table of variables for replacement."

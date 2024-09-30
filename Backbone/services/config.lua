@@ -8,19 +8,18 @@ local createStorageUnit = repository.use 'storage-unit'
 --[[~ Service: Configuration Manager ~
 
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/09/28
+  Version: 1.0.0 | Updated: 2024/09/30
 
-  This service manages configuration settings for plugins, supporting both account-wide and 
-  character-specific profiles. It allows retrieval and modification of settings while handling 
-  default values and profile scope (account or character).
+  Provides functionality for managing configuration settings at both character 
+  and account levels. It supports retrieving, setting, and validating settings 
+  with defaults. Settings are applied based on the 'useCharacterProfile' flag 
+  to differentiate between character-specific and account-wide configurations.
 
   Features:
 
-  - Retrieve and set configuration settings based on scope.
-  - Use default values when settings are not explicitly defined.
-  - Support account-level and character-specific profiles.
-
-  Dependencies: Storage Unit (component)
+  - Supports default values for settings.
+  - Handles settings on both character and account levels.
+  - Validates settings using xtype to ensure type safety.
 
 ]]
 
@@ -28,20 +27,14 @@ local prefix = '__config/'
 
 ---@type configHandler
 local handler = {
-  --
-  -- getSetting()
-  --
-  -- This function retrieves a configuration setting based on the identifier. If the setting
-  -- is `useCharacterProfile`, it retrieves the account-level profile. For other settings, it
-  -- determines whether to use the account or character profile based on the `useCharacterProfile`
-  -- value. If no value is found, it returns the default setting.
-  --
+  -- Returns the value of the specified setting, falling back to a default if
+  -- undefined. Handles whether the setting applies to a character or account
+  -- based on 'useCharacterProfile'.
 
   getSetting = function(self, identifier)
     if identifier == 'useCharacterProfile' then
-      --
-      -- Retrieve the 'useCharacterProfile' setting from the account profile. If the setting
-      -- is not found, return the default value for this setting.
+      -- Retrieves the 'useCharacterProfile' setting, falling back to the default
+      -- if it's not defined for the account.
 
       local useCharacterProfile = self.context:getAccountVariable(prefix .. identifier)
       if useCharacterProfile == nil then
@@ -50,9 +43,9 @@ local handler = {
 
       return useCharacterProfile
     else
-      -- If the identifier is not 'useCharacterProfile', determine the scope (account or
-      -- character) based on the value of 'useCharacterProfile'. Retrieve the setting from
-      -- the appropriate scope and return it if available.
+      -- Retrieves the setting for the given identifier. If 'useCharacterProfile'
+      -- is true, the setting is retrieved from the character's profile; otherwise,
+      -- it is retrieved from the account's profile.
 
       local useCharacterProfile = self:getSetting 'useCharacterProfile'
       local scope = (useCharacterProfile == true and 'character') or 'account'
@@ -68,8 +61,7 @@ local handler = {
         return setting -- Return the stored value.
       end
 
-      -- If the setting is not found in the chosen scope, return the default value for the
-      -- setting. If the default value does not exist, throw an error.
+      -- Returns the default value for the setting if no stored value exists.
 
       local defaultSetting = self:getDefaultSetting(identifier) -- Fallback to default if not set.
 
@@ -81,32 +73,20 @@ local handler = {
     end
   end,
 
-  --
-  -- getDefaultSetting()
-  --
-  -- This function retrieves the default setting for the specified identifier. Default settings
-  -- are stored in a separate storage unit, and this function ensures that a value is always
-  -- returned, even if no custom setting has been defined.
-  --
+  -- Returns the default setting for the specified identifier by retrieving the
+  -- corresponding entry from the defaults table.
 
-  getDefaultSetting = function(self, identifier)
-    return self.defaults:getEntry(identifier)
-  end,
+  getDefaultSetting = function(self, identifier) return self.defaults:getEntry(identifier) end,
 
-  --
-  -- setSetting()
-  --
-  -- This function sets a configuration setting based on the provided identifier and value.
-  -- It first validates the value against the default setting type to ensure that the correct
-  -- data type is being used. Depending on whether `useCharacterProfile` is set to true, the
-  -- setting is stored either in the account or character profile.
-  --
+  -- Sets a new value for the specified setting, ensuring that it matches the
+  -- type of the default value. Throws an error if no default is defined or if
+  -- the value type is invalid.
 
   setSetting = function(self, identifier, value)
     xtype.validate { { 'identifier:string', identifier } }
 
-    -- Retrieve the default setting for comparison and validation. If the setting is not
-    -- defined in the defaults, an error is thrown, indicating that no valid setting exists.
+    -- Retrieves the default setting for the identifier, validating its type. If
+    -- no default is defined, an error is thrown.
 
     local defaultSetting = self:getDefaultSetting(identifier)
     local defaultSettingType = xtype.examine(defaultSetting)
@@ -115,9 +95,8 @@ local handler = {
       throw('No default setting defined for "%s" (%s).', identifier, self.context.identifier)
     end
 
-    -- Compare the provided value with the expected type of the default setting. If the types
-    -- do not match, an error is thrown, indicating that the wrong type has been used for this
-    -- configuration setting.
+    -- Validates that the provided value matches the type of the default setting.
+    -- Throws an error if the types do not match.
 
     local typesMatch, valueType = xtype.compare(value, defaultSettingType)
     if not typesMatch then
@@ -130,14 +109,14 @@ local handler = {
       )
     end
 
-    -- If `useCharacterProfile` is being set, store the value in the account profile. For other
-    -- settings, determine the correct scope (account or character) based on `useCharacterProfile`.
+    -- Stores the setting at the account level if 'useCharacterProfile' is false,
+    -- otherwise stores it at the character level.
 
     if identifier == 'useCharacterProfile' then
       self.context:setAccountVariable(identifier, value)
     else
-      -- Determine the correct profile scope and set the value in either the account or
-      -- character profile, depending on the `useCharacterProfile` setting.
+      -- Determines the scope for storing the setting based on 'useCharacterProfile'.
+      -- If true, the setting is stored for the character, otherwise for the account.
 
       local useCharacterProfile = self:getSetting 'useCharacterProfile'
       local scope = (useCharacterProfile == true and 'character') or 'account'
@@ -151,14 +130,9 @@ local handler = {
   end,
 }
 
---
--- createHandler()
---
--- This function creates a configuration handler by linking it to the plugin's context and default
--- settings. The handler allows the plugin to retrieve and set configuration values, ensuring that
--- account and character profiles are supported. Default settings are initialized when the handler
--- is created.
---
+-- Creates the configuration handler, setting default values and applying xtype
+-- validation to ensure proper types are used. Returns a new handler instance
+-- with the provided context and defaults.
 
 ---@type configService
 local createHandler = function(context, defaults)
@@ -168,7 +142,7 @@ local createHandler = function(context, defaults)
   return inheritParent({ context = context, defaults = createStorageUnit(defaults) }, handler)
 end
 
--- Register the configuration service with the API, making it available to other components and plugins.
--- The service provides functionality to manage configuration settings for both account-wide and character-specific profiles.
+-- Registers the configuration manager service within the API, making it
+-- available for other components to use.
 
 api.provideService('config', createHandler)

@@ -1,6 +1,6 @@
 --[[~ Utility: Table Traversal ~
 
-  Version: 1.0.0 | Updated: 2024/09/26
+  Version: 1.0.0 | Updated: 2024/09/30
 
   This utility provides functionality to traverse nested tables based on a series of keys. It 
   supports different traversal modes such as exiting early, strictly validating paths, or 
@@ -15,12 +15,10 @@
 ]]
 
 ---
---- traverseTable()
----
---- This function traverses a nested table based on a list of keys (`steps`). The function can operate
---- in different modes based on the `options` provided: 'exit' mode returns `nil` if the path is not
---- found, 'strict' mode throws an error if the path is invalid, and 'build' mode automatically creates
---- missing tables along the path.
+--- Traverses a nested table based on a list of keys (`steps`). The function can operate in
+--- different modes based on the `options` provided: 'exit' mode returns `nil` if the path is
+--- not found, 'strict' mode throws an error if the path is invalid, and 'build' mode automatically
+--- creates missing tables along the path.
 ---
 ---@param target table "The table to traverse."
 ---@param steps string[] "A list of keys representing the traversal path."
@@ -62,14 +60,14 @@ _G.traverseTable = function(target, steps, options)
       end
 
       if options.mode == 'exit' then
-        return nil -- return `nil` in 'exit' mode.
+        return nil -- Return `nil` in 'exit' mode.
       end
 
-      reference[step] = {} -- automatically create a new table in 'build' mode.
+      reference[step] = {} -- Automatically create a new table in 'build' mode.
     end
 
-    reference = reference[step] -- move to the next level of the table structure.
+    reference = reference[step] -- Move to the next level of the table structure.
   end
 
-  return reference -- return the final table reference after successful traversal.
+  return reference -- Return the final table reference after successful traversal.
 end

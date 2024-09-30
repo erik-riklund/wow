@@ -1,6 +1,6 @@
 --[[~ Utility: Protected Proxy ~
 
-  Version: 1.0.0 | Updated: 2024/09/26
+  Version: 1.0.0 | Updated: 2024/09/30
 
   This utility provides a way to create a protected proxy for tables, preventing 
   any external modifications to them. The proxy ensures that attempts to modify 
@@ -14,8 +14,6 @@ local blockModification = function()
 end
 
 ---
---- getProtectedProxy()
---- 
 --- Creates a protected proxy for the target table, preventing any modification attempts.
 --- It recursively applies protection to nested tables, ensuring all parts of the
 --- structure remain immutable.
