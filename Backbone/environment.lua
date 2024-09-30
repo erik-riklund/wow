@@ -1,17 +1,32 @@
---[[~ Module: Environment Control ~
+--[[~ Script: Environment Toggle ~
+  
+  Author(s): Erik Riklund (Gopher)
+  Version: 1.0.0 | Updated: 2024/09/30
 
-  Version: 1.0.0 | Updated: 2024/09/25
-
-  This module provides a simple mechanism to toggle between development and production modes in the
-  framework. This flag can be used to conditionally enable or disable specific behaviors depending on
-  the environment, such as logging, error handling, or performance-related optimizations.
-
-  Features:
-  - A global `production` flag that components and plugins can check
-    to adjust their behavior based on the environment.
+  Toggles the environment flag between 'production' and 'development',
+  allowing for fine-tuned behavior depending on the active environment.
 
 ]]
 
--- This flag can be toggled to enable or disable production-specific behaviors in
--- the framework, allowing different behavior in production vs. development modes.
-_G.production = false
+local environment = 'development'
+
+---
+--- Returns `true` if production mode is active, otherwise `false`.
+---
+backbone.isProductionMode = function()
+  return environment == 'production'
+end
+
+---
+--- Set the global environment flag to `production`.
+---
+backbone.enableProductionMode = function()
+  environment = 'production'
+end
+
+---
+--- Set the global environment flag to `development`.
+---
+backbone.disableProductionMode = function()
+  environment = 'development'
+end

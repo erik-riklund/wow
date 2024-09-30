@@ -1,28 +1,14 @@
-local addon, context = ...
-
----@type configService
-local createConfigHandler = backbone.useService 'config'
-
---[[~ Project: Scavenger ~
-
-  Author(s): Erik Riklund  
-  Version: 1.0.0 | Updated: 2024/09/24
+--[[~ Plugin: Scavenger ~
+  
+  Author(s): Erik Riklund (Gopher)
+  Version: 1.0.0 | Updated: 2024/09/30
 
   ?
 
+  Features:
+
+  - ?
+
 ]]
 
--- ?
 
-local plugin = backbone.createPlugin(addon)
-
--- ?
-
-backbone.useStorage(plugin, {
-  account = 'ScavengerAccount',
-  character = 'ScavengerCharacter',
-})
-
--- ?
-
-local config = createConfigHandler(plugin, {})

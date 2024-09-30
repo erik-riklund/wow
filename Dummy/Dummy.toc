@@ -1,0 +1,6 @@
+## Version: 1.0
+## Interface: 110002
+## Dependencies: Backbone
+## Title: Dummy (Backbone plugin)
+
+extended-type.test.lua

@@ -34,8 +34,6 @@
       "",
       "  - ?",
       "",
-      "  Dependencies: ?",
-      "",
       "]]",
       "",
       ""
@@ -51,13 +49,8 @@
     ]
   },
 
-  "comment-purpose": {
-    "prefix": "!comment-purpose",
-    "body": "-- [explain what the purpose and result of this function is]"
-  },
-
   "comment-section": {
     "prefix": "!comment-section",
-    "body": "-- [explain this section up until the next placeholder]"
+    "body": "-- [explain this section]"
   }
 }
