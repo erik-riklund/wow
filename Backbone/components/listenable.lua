@@ -5,27 +5,23 @@ local api = repository.use 'api' --[[@as api]]
 --[[~ Component: Listenable ~
 
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/09/27
+  Version: 1.0.0 | Updated: 2024/09/30
 
-  This component manages registration, removal, and invocation of listeners.
+  Provides a mechanism for registering, removing, and invoking listeners,
+  which can respond to specific events or actions.
 
   Features:
 
-  - Register and remove listeners for specific events.
-  - Invoke listeners synchronously or asynchronously.
-  - Handle persistent and non-persistent listeners.
+  - Supports registering and removing listeners.
+  - Invokes registered listeners with optional arguments.
+  - Handles both persistent and non-persistent listeners.
 
 ]]
 
 ---@type listenable
 local listenable = {
-  --
-  -- registerListener()
-  --
-  -- This function registers a new listener to the listenable component. It validates that the 
-  -- listener object contains a valid `callback` function, `identifier`, and optionally, a 
-  -- `persistent` flag. The listener is then added to the list of listeners.
-  --
+  -- Registers a listener with the component, validating its structure and ensuring
+  -- it contains the required fields such as a callback and identifier.
 
   registerListener = function(self, listener)
     xtype.validate {
@@ -38,18 +34,16 @@ local listenable = {
     table.insert(self.listeners, listener)
   end,
 
-  --
-  -- removeListener()
-  --
-  -- This function removes a listener from the list based on its `identifier`. If the identifier 
-  -- matches a registered listener, the listener is removed. If no match is found, an error is 
-  -- thrown. This ensures that only known listeners can be removed.
-  --
+  -- Removes a listener from the component by its identifier. If the identifier
+  -- is unknown, an error is thrown.
 
   removeListener = function(self, identifier)
     xtype.validate {
       { 'identifier:string', identifier },
     }
+
+    -- Iterates through the list of listeners to find and remove the one that
+    -- matches the given identifier.
 
     for index, listener in ipairs(self.listeners) do
       if listener.identifier == identifier then
@@ -61,13 +55,9 @@ local listenable = {
     throw('Failed to remove listener "%s" (unknown identifier).', identifier)
   end,
 
-  --
-  -- invokeListeners()
-  --
-  -- This function invokes all registered listeners. It accepts an optional array of arguments 
-  -- and an options table to control whether the listeners should be invoked asynchronously. 
-  -- If the listener is not persistent, it is removed after invocation.
-  --
+  -- Invokes all registered listeners, passing the provided arguments and handling
+  -- options for synchronous or asynchronous execution. Non-persistent listeners
+  -- are removed after being invoked.
 
   invokeListeners = function(self, arguments, options)
     options = options or {}
@@ -80,16 +70,18 @@ local listenable = {
 
     local listenerCount = #self.listeners
 
+    -- If listeners are present, iterates through them to invoke their callbacks,
+    -- removing non-persistent listeners after invocation.
+
     if listenerCount > 0 then
       local currentIndex = 1
 
       for i = 1, listenerCount do
         local listener = self.listeners[currentIndex]
 
-        -- Determine whether to invoke the listener synchronously or asynchronously. The appropriate 
-        -- callback function (`api.executeCallback` or `api.executeCallbackAsync`) is selected based 
-        -- on the `async` flag in the options.
-        
+        -- Chooses the appropriate method for invoking the callback (synchronous
+        -- or asynchronous) and executes it.
+
         local callback = (options.async and api.executeCallbackAsync) or api.executeCallback
         callback(listener.identifier, listener.callback, arguments or {})
 
@@ -103,22 +95,13 @@ local listenable = {
   end,
 }
 
---
--- constructor()
---
--- This function constructs a new listenable object by inheriting the `listenable`
--- component's methods and initializing an empty list of listeners. The resulting
--- object can then register, remove, and invoke listeners.
---
+-- Constructs and returns a new instance of the Listenable component with an
+-- empty list of listeners.
 
 ---@type listenableConstructor
-local constructor = function()
-  return inheritParent({ listeners = {} }, listenable)
-end
+local constructor = function() return inheritParent({ listeners = {} }, listenable) end
 
---
--- Expose the `listenable` constructor through the repository, allowing other components or  
--- plugins to create new instances of the listenable component for managing event listeners.
---
+-- Exposes the Listenable component through the repository, making it available
+-- for use by other components or modules.
 
 repository.expose('listenable', constructor)
