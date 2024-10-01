@@ -3,17 +3,16 @@
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/10/01
 
-  Provides testing utilities for the Backbone ecosystem, including test suites 
-  and groups, as well as support for mocking and resetting values during tests.
+  Provides testing utilities for the Backbone ecosystem, including test suites
+  and groups, as well as support for mocking values and functions during tests.
 
 ]]
-
 
 ---@type table<string, { source: table, key: unknown, content: unknown }>
 local mocks = {}
 
 ---
----
+--- ?
 ---
 backbone.testing = {
   ---
@@ -23,8 +22,10 @@ backbone.testing = {
   ---@param suites function
   ---
   group = function(label, suites)
-    print('\n~ ' .. label .. ' ~\n\n')
-    suites() -- execute the provided test suites.
+    if not backbone.isProductionMode() then
+      print('\n|cFFD69D85 ~' .. label .. ' ~|r\n\n')
+      suites() -- execute the provided test suites.
+    end
   end,
 
   ---
@@ -54,9 +55,10 @@ backbone.testing = {
 
     print(
       '|cFFEEC400' .. label .. ' :|r',
-      (passed == 0 and #failed == 0 and '|cFFA39477no tests available|r')
+      (passed == 0 and #failed == 0 and '|cFFA39477no tests specified|r')
         or (#failed == 0 and '|cFFA9B665' .. passed .. ' passed|r')
-        or string.format('|cFFA9B665%s passed|r , |cFFDE4B37%s failed|r', passed, #failed)
+        or (passed == 0 and #failed > 0 and '|cFFFF9933' .. #failed .. ' failed|r')
+        or string.format('|cFFA9B665%s passed|r , |cFFFF9933%s failed|r', passed, #failed)
     )
 
     -- [explain this section]
@@ -65,7 +67,7 @@ backbone.testing = {
       print ' '
 
       for index, result in ipairs(failed) do
-        print('|cFFC65555   ' .. result.id .. ':|r', result.message)
+        print('|cFFFF8040   ' .. result.id .. ':|r', result.message)
       end
 
       print ' '
@@ -78,7 +80,7 @@ backbone.testing = {
   ---@param first unknown
   ---@param second unknown
   ---
-  isEqual = function(first, second)
+  assertEqual = function(first, second)
     -- [explain this section]
 
     if type(first) == 'table' and type(second) == 'table' then
@@ -87,14 +89,8 @@ backbone.testing = {
 
     -- [explain this section]
 
-    assert(
-      first == second,
-      string.format(
-        '|cFFD4BE98expected "|cFFF8E9CC%s|r" \124 recieved "|cFFF8E9CC%s|r"|r',
-        tostring(first),
-        tostring(second)
-      )
-    )
+    local message = '|cFFD4BE98expected "|cFFF8E9CC%s|r" \124 recieved "|cFFF8E9CC%s|r"|r'
+    assert(first == second, string.format(message, tostring(first), tostring(second)))
   end,
 
   ---
@@ -103,8 +99,32 @@ backbone.testing = {
   ---@param first unknown
   ---@param second unknown
   ---
-  isNotEqual = function(first, second)
-    -- how do we implement this in the most efficient way?
+  assertNotEqual = function(first, second)
+    local success = pcall(backbone.testing.isEqual, first, second)
+    assert(success == false, '|cFFD4BE98expected values to be different|r')
+  end,
+
+  ---
+  --- ?
+  ---
+  ---@param exception string
+  ---@param callback function
+  ---
+  assertError = function(exception, callback)
+    local success, result = pcall(callback)
+    
+    assert(result == exception, string.format('expected error (%s)', exception))
+  end,
+
+  ---
+  --- ?
+  ---
+  ---@param callback function
+  ---
+  assertNoError = function(callback)
+    local success, result = pcall(callback)
+    
+    assert(success == true, string.format('expected no error (%s)', result or ''))
   end,
 
   ---
@@ -123,19 +143,11 @@ backbone.testing = {
       if type(value) == 'table' and type(source[key]) == 'table' then
         backbone.testing.compareTables(value, source[key], parents .. '/' .. key)
       else
-        -- [explain this section]
-
         if source[key] ~= value then
-          error(
-            string.format(
-              '|cFFD4BE98expected "|cFFF8E9CC%s|r" but recieved "|cFFF8E9CC%s|r" '
-                .. 'at index "|cFFF8E9CC%s%s|r"|r',
-              tostring(value),
-              tostring(source[key]),
-              parents,
-              key
-            )
-          )
+          local message = '|cFFD4BE98expected "|cFFF8E9CC%s|r" but recieved '
+            .. '"|cFFF8E9CC%s|r" at index "|cFFF8E9CC%s%s|r"|r'
+
+          error(string.format(message, tostring(value), tostring(source[key]), parents, key))
         end
       end
     end
@@ -150,9 +162,7 @@ backbone.testing = {
   ---@param replacement unknown
   ---
   mock = function(identifier, source, key, replacement)
-    if source[key] == nil then
-      error('Mock failed, verify the source.', 3)
-    end
+    if source[key] == nil then error('Mock failed, verify the source.', 3) end
 
     if mocks[identifier] ~= nil then
       error(string.format('Mock failed, non-unique identifier "%s".', identifier), 3)

@@ -8,3 +8,5 @@ environment.lua
 utilities/unit-testing.lua
 utilities/extended-type.lua
 utilities/process-tags.lua
+
+tests/utilities/extended-type.test.lua
