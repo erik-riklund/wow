@@ -1,7 +1,8 @@
---[[~ Module: ? ~
+--[[~ Script: ? ~
+  Created: 2024/10/01
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/09/30
+  Version: 1.0.0 | Updated: ?
 
   ?
 
@@ -52,14 +53,42 @@ test.group('Type Extension', function()
   -- [explain this section]
 
   test.suite('compareExtendedTypes', {
-    ['character equals character'] = function()
-      test.compareTables({ compareExtendedTypes('c', 'character') }, { true, 'character' })
+    -- [explain this section]
+
+    ['character should match character'] = function()
+      test.isEqual({ compareExtendedTypes('c', 'character') }, { true, 'character' })
     end,
-    ['string match character'] = function()
-      test.compareTables({ compareExtendedTypes('c', 'string') }, { true, 'string' })
+    ['string should match character'] = function()
+      test.isEqual({ compareExtendedTypes('c', 'string') }, { true, 'string' })
     end,
-    ['character does not match string'] = function()
-      test.compareTables({ compareExtendedTypes('alpha', 'character') }, { false, 'string' })
+    ['character should not match string'] = function()
+      test.isEqual({ compareExtendedTypes('alpha', 'character') }, { false, 'string' })
     end,
+
+    -- [explain this section]
+
+    ['array should match table'] = function()
+      test.isEqual({ compareExtendedTypes({}, 'array') }, { true, 'array' })
+    end,
+    ['array should match array'] = function()
+      test.isEqual({ compareExtendedTypes(numericTable, 'array') }, { true, 'array' })
+    end,
+    ['array should not match hashmap'] = function()
+      test.isEqual({ compareExtendedTypes(associativeTable, 'array') }, { false, 'hashmap' })
+    end,
+
+    -- [explain this section]
+
+    ['hashmap should match table'] = function()
+      test.isEqual({ compareExtendedTypes({}, 'hashmap') }, { true, 'hashmap' })
+    end,
+    ['hashmap should match hashmap'] = function()
+      test.isEqual({ compareExtendedTypes(associativeTable, 'hashmap') }, { true, 'hashmap' })
+    end,
+    ['hashmap should not match array'] = function()
+      test.isEqual({ compareExtendedTypes(numericTable, 'hashmap') }, { false, 'array' })
+    end,
+
+    -- [explain this section]
   })
 end)

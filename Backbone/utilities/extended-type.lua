@@ -1,13 +1,9 @@
---[[~ Module: ? ~
+--[[~ Library: Type Extension ~
   
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/09/30
 
   ?
-
-  Features:
-
-  - ?
 
 ]]
 
@@ -45,7 +41,7 @@ backbone.getExtendedType = function(target)
   -- Single-letter strings are classified as the 'character' type.
 
   if targetType == 'string' and string.len(target) == 1 then
-    return 'character'
+    return 'character' --
   end
 
   -- For other value types, return the standard Lua type,
@@ -67,7 +63,7 @@ backbone.compareExtendedTypes = function(value, types)
   -- Performance is more important than type safety in production environments.
 
   if backbone.isProductionMode() then
-    return true, extendedType
+    return true, extendedType --
   end
 
   -- [explain this section]
@@ -84,7 +80,7 @@ backbone.compareExtendedTypes = function(value, types)
     -- [explain this section]
 
     if extendedType == 'character' and expectedType == 'string' then
-      return true, 'string'
+      return true, 'string' --
     end
 
     -- [explain this section]
@@ -103,6 +99,6 @@ backbone.compareExtendedTypes = function(value, types)
 end
 
 ---
----
+--- ?
 ---
 backbone.validateExtendedTypes = function() end
