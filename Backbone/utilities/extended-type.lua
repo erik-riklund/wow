@@ -8,13 +8,24 @@
   `hashmap` (associative table), `character` (single-letter string), and `undefined` (nil).
 
   Additionally, includes functions for classifying values using the full range of types,
-  comparing values against a single or list of expected types, and validating function
-  arguments using string-based rules with an intuitive syntax.
+  comparing values against one or multple expected types, and validating function arguments
+  using string-based rules with an intuitive, easy-to-use syntax.
+
+  Examples:
+
+  Expect the argument 'test' to be a string:
+    test:string
+  
+  Expect the optional argument 'test' to be a string:
+    test:string?
+
+  Expect the argument 'test' to be either a string or number:
+    test:string/number
 
 ]]
 
 ---
---- Examines the given value and returns an extended type classification.
+--- Examines the given value and returns its extended type classification.
 ---
 ---@param target unknown
 ---@return ExtendedType
@@ -57,7 +68,10 @@ backbone.getExtendedType = function(target)
 end
 
 ---
---- Compares a value against one or more expected types.
+--- Compares a given value against one or more expected types.
+---
+--- Returns a boolean that specify if the type of `value` match any of the specified `types`,
+--- alongside the extended type classification of the provided value.
 ---
 ---@param value unknown
 ---@param types ExtendedType | ExtendedType[]
@@ -81,13 +95,15 @@ backbone.compareExtendedTypes = function(value, types)
       return true, extendedType -- matching types.
     end
 
-    -- [explain this section]
+    -- Strings classified as `character` should still count as a string
+    -- if that is the expected type, but not the other way around.
 
     if extendedType == 'character' and expectedType == 'string' then
       return true, 'string' --
     end
 
-    -- [explain this section]
+    -- Since empty tables are indistinguishable between arrays and hashmaps,
+    -- the expected type (`array` or `hashmap`) is explicitly returned.
 
     if extendedType == 'table' then
       if expectedType == 'array' or expectedType == 'hashmap' then
@@ -96,22 +112,25 @@ backbone.compareExtendedTypes = function(value, types)
     end
   end
 
-  -- The provided value did not match any of the expected types,
-  -- hence we return `false` alongside the type classification.
+  -- The provided value did not match any of the expected types; therefore,
+  -- the returned values are `false` and the type classification.
 
   return false, extendedType
 end
 
 ---
---- ?
+--- Performs rule-based type validation of the provided arguments.
 ---
 ---@param arguments array<{ rule: string, value: unknown }>
+---@param throwErrors? boolean
 ---
-backbone.validateExtendedTypes = function(arguments)
+---@return boolean?, { identifier: string, actualType: ExtendedType, expectedTypes: ExtendedType[] }?
+---
+backbone.validateExtendedTypes = function(arguments, throwErrors)
+  if type(throwErrors) ~= 'boolean' then throwErrors = true end
+
   if not backbone.isProductionMode() then
     for index, argument in ipairs(arguments) do
-      -- [explain this section]
-
       ---@type string, string?
       local identifier, types = string.split(':', argument.rule)
 
@@ -120,12 +139,15 @@ backbone.validateExtendedTypes = function(arguments)
         error(string.format(message, identifier), 3)
       end
 
-      -- [explain this section]
+      -- Determine if the argument is marked as optional. If it is,
+      -- the trailing question mark is removed.
 
       local optional = (string.sub(types, -1) == '?')
       if optional == true then types = string.sub(types, 1, #types - 1) end
 
-      -- [explain this section]
+      -- To perform the actual type validation, the type definition is split into an array.
+      -- If the type comparison fails and the argument is not marked as optional,
+      -- an error is thrown by default, or the result is returned as a hashmap.
 
       ---@type ExtendedType[]
       local expectedTypes = { string.split('/', types) }
@@ -133,10 +155,22 @@ backbone.validateExtendedTypes = function(arguments)
         backbone.compareExtendedTypes(argument.value, expectedTypes)
 
       if not typesMatch and not (extendedType == 'undefined' and optional) then
-        local expected = table.concat(expectedTypes, ' or ')
-        local message = 'Invalid argument type for "%s": expected %s, got %s.'
+        if throwErrors == true then
+          local expected = table.concat(expectedTypes, ' or ')
+          local message = 'Invalid argument type for "%s": expected %s, got %s.'
 
-        error(message:format(identifier, expected, extendedType), 3)
+          error(message:format(identifier, expected, extendedType), 3)
+        end
+
+        -- If the default behavior is explicitly disabled, the returned values are
+        -- `false` and a hashmap containing information about the failed validation.
+
+        return false,
+          {
+            identifier = identifier,
+            actualType = extendedType,
+            expectedTypes = expectedTypes,
+          }
       end
     end
   end

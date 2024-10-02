@@ -18,14 +18,14 @@ backbone.isProductionMode = function()
 end
 
 ---
---- Set the global environment flag to `production`.
+--- Set the 'environment' flag to `production`.
 ---
 backbone.enableProductionMode = function()
   environment = 'production'
 end
 
 ---
---- Set the global environment flag to `development`.
+--- Set the environment flag to `development`.
 ---
 backbone.disableProductionMode = function()
   environment = 'development'

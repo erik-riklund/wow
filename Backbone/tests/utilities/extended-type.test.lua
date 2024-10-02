@@ -2,13 +2,9 @@
   Created: 2024/10/01
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: ?
+  Version: 1.0.0 | Updated: 2024/10/02
 
-  ?
-
-  Features:
-
-  - ?
+  Unit tests for the type extension library.
 
 ]]
 
@@ -115,7 +111,7 @@ test.group('Type Extension', function()
 
     ['rule without type should error'] = function()
       test.assertError('Missing type declaration for argument "alpha".', function()
-        backbone.validateExtendedTypes { { rule = 'alpha', value = 'alpha' } }
+        validateExtendedTypes { { rule = 'alpha', value = 'alpha' } }
       end)
     end,
 
@@ -123,7 +119,7 @@ test.group('Type Extension', function()
       test.assertError(
         'Invalid argument type for "alpha": expected string, got number.',
         function()
-          backbone.validateExtendedTypes { { rule = 'alpha:string', value = 1 } }
+          validateExtendedTypes { { rule = 'alpha:string', value = 1 } }
         end
       )
     end,
@@ -132,7 +128,7 @@ test.group('Type Extension', function()
       test.assertError(
         'Invalid argument type for "alpha": expected string, got undefined.',
         function()
-          backbone.validateExtendedTypes { { rule = 'alpha:string' } }
+          validateExtendedTypes { { rule = 'alpha:string' } }
         end
       )
     end,
@@ -141,19 +137,19 @@ test.group('Type Extension', function()
 
     ['missing optional argument should not error'] = function()
       test.assertNoError(function()
-        backbone.validateExtendedTypes { { rule = 'alpha:string?' } }
+        validateExtendedTypes { { rule = 'alpha:string?' } }
       end)
     end,
 
     ['matching single type should not error'] = function()
       test.assertNoError(function()
-        backbone.validateExtendedTypes { { rule = 'alpha:string', value = '123' } }
+        validateExtendedTypes { { rule = 'alpha:string', value = '123' } }
       end)
     end,
 
-    ['matching multiple types should not error'] = function()
+    ['matching one of multiple types should not error'] = function()
       test.assertNoError(function()
-        backbone.validateExtendedTypes { { rule = 'alpha:string/table', value = {} } }
+        validateExtendedTypes { { rule = 'alpha:string/table', value = {} } }
       end)
     end,
   })

@@ -7,6 +7,9 @@ environment.lua
 
 utilities/unit-testing.lua
 utilities/extended-type.lua
-utilities/process-tags.lua
+utilities/markup/process.lua
+utilities/markup/parsers/colors.lua
+
+protect-api.lua
 
 tests/utilities/extended-type.test.lua
