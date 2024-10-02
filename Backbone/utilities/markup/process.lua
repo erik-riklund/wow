@@ -18,11 +18,19 @@ backbone.markupParsers = {}
 ---@return string
 ---
 backbone.processMarkup = function(target, variables)
-  ---@diagnostic disable-next-line: missing-return
+  -- [explain this section]
 
   for index, parser in ipairs(backbone.markupParsers) do
-    target = parser(target) --
+    local success, result = pcall(parser, target)
+
+    if not success then
+      -- todo: implement error reporting through the console.
+    else
+      target = result
+    end
   end
+
+  -- [explain this section]
 
   if type(variables) == 'table' then
     target = target:gsub('[$]([a-zA-Z][a-zA-Z0-9-]*[a-zA-Z0-9]*)', function(variable)

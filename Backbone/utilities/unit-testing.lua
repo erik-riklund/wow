@@ -8,6 +8,8 @@
 
 ]]
 
+local processMarkup = backbone.processMarkup
+
 ---@type table<string, { source: table, key: unknown, content: unknown }>
 local mocks = {}
 
@@ -23,7 +25,7 @@ backbone.testing = {
   ---
   group = function(label, suites)
     if not backbone.isProductionMode() then
-      print('\n|cFFD69D85 ~' .. label .. ' ~|r\n\n')
+      print(processMarkup('\n<color: donkey-brown>~ $label ~</color>\n\n', { label = label }))
       suites() -- execute the provided test suites.
     end
   end,
@@ -54,11 +56,24 @@ backbone.testing = {
     -- [explain this section]
 
     print(
-      '|cFFEEC400' .. label .. ' :|r',
-      (passed == 0 and #failed == 0 and '|cFFA39477no tests specified|r')
-        or (#failed == 0 and '|cFFA9B665' .. passed .. ' passed|r')
-        or (passed == 0 and #failed > 0 and '|cFFFF9933' .. #failed .. ' failed|r')
-        or string.format('|cFFA9B665%s passed|r , |cFFFF9933%s failed|r', passed, #failed)
+      processMarkup('<color: golden>$label:</color>', { label = label }),
+      (
+        passed == 0
+        and #failed == 0
+        and processMarkup '<color: donkey-brown>no tests specified</color>'
+      )
+        or (#failed == 0 and processMarkup(
+          '<color: olive-green>$passed passed</color>',
+          { passed = passed }
+        ))
+        or (passed == 0 and processMarkup(
+          '<color: saffron>$failed failed</color>',
+          { failed = #failed }
+        ))
+        or processMarkup(
+          '<color: olive-green>$passed passed</color> , <color: saffron>$failed failed</color>',
+          { passed = passed, failed = #failed }
+        )
     )
 
     -- [explain this section]
@@ -67,7 +82,7 @@ backbone.testing = {
       print ' '
 
       for index, result in ipairs(failed) do
-        print('|cFFFF8040   ' .. result.id .. ':|r', result.message)
+        print(processMarkup('<color: mango-orange>$id:\n</color> $message', result))
       end
 
       print ' '
@@ -89,8 +104,13 @@ backbone.testing = {
 
     -- [explain this section]
 
-    local message = '|cFFD4BE98expected "|cFFF8E9CC%s|r" \124 recieved "|cFFF8E9CC%s|r"|r'
-    assert(first == second, string.format(message, tostring(first), tostring(second)))
+    local message = '<color: vanilla>expected "<color: white>$expected</color>" '
+      .. 'but recieved "<color: white>$recieved</color>"</color>'
+
+    assert(
+      first == second,
+      processMarkup(message, { expected = tostring(first), recieved = tostring(second) })
+    )
   end,
 
   ---
@@ -100,8 +120,8 @@ backbone.testing = {
   ---@param second unknown
   ---
   assertNotEqual = function(first, second)
-    local success = pcall(backbone.testing.isEqual, first, second)
-    assert(success == false, '|cFFD4BE98expected values to be different|r')
+    local success = pcall(backbone.testing.assertEqual, first, second)
+    assert(success == false, processMarkup '<color: vanilla>expected different values</color>')
   end,
 
   ---
@@ -112,8 +132,14 @@ backbone.testing = {
   ---
   assertError = function(exception, callback)
     local success, result = pcall(callback)
-    
-    assert(result == exception, string.format('expected error (%s)', exception))
+
+    assert(
+      result == exception,
+      processMarkup(
+        '<color: vanilla>expected error (<color: white>$exception</color>)</color>',
+        { exception = exception }
+      )
+    )
   end,
 
   ---
@@ -123,8 +149,14 @@ backbone.testing = {
   ---
   assertNoError = function(callback)
     local success, result = pcall(callback)
-    
-    assert(success == true, string.format('expected no error (%s)', result or ''))
+
+    assert(
+      success == true,
+      processMarkup(
+        '<color: vanilla>expected no error (<color: white>$exception</color>)</color>',
+        { exception = result or '' }
+      )
+    )
   end,
 
   ---
@@ -144,10 +176,15 @@ backbone.testing = {
         backbone.testing.compareTables(value, source[key], parents .. '/' .. key)
       else
         if source[key] ~= value then
-          local message = '|cFFD4BE98expected "|cFFF8E9CC%s|r" but recieved '
-            .. '"|cFFF8E9CC%s|r" at index "|cFFF8E9CC%s%s|r"|r'
+          local message = '<color: vanilla>expected "<color: white>$expected</color>" but recieved '
+            .. '"<color: white>$recieved</color>" at index "<color: white>$parents$key</color>"</color>'
 
-          error(string.format(message, tostring(value), tostring(source[key]), parents, key))
+          error(processMarkup(message, {
+            expected = tostring(value),
+            recieved = tostring(source[key]),
+            parents = parents,
+            key = key,
+          }))
         end
       end
     end

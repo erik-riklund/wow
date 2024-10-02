@@ -53,5 +53,14 @@
   "comment-section": {
     "prefix": "!comment-section",
     "body": "-- [explain this section]"
+  },
+
+  "test": {
+    "prefix": "!test",
+    "body": [
+      "['${1}'] = function()",
+      "",
+      "end,"
+    ]
   }
 }

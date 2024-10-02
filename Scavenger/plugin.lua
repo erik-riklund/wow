@@ -1,7 +1,8 @@
 --[[~ Plugin: Scavenger ~
+  Created: 2024/10/02
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/09/30
+  Version: 1.0.0 | Updated: ?
 
   ?
 
@@ -11,4 +12,4 @@
 
 ]]
 
-
+local plugin = backbone.createPlugin('Scavenger')
