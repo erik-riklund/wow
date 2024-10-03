@@ -1,60 +1,44 @@
 --[[~ Module: Console ~
-  Created: 2024/10/02
   
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/10/03
 
-  Provides logging and messaging utilities for the Backbone ecosystem.
+  Provides a simple console message display system, supporting different 
+  log levels (debug, error, info) with color-coded output.
+
+  Future plans:
+  - Replace this simple print solution with a proper console (UI).
 
 ]]
 
-
-local processMarkup = backbone.processMarkup
-
----
---- ?
----
-backbone.console = {
-  ---
-  --- Prints a message intended for debugging in development mode.
-  ---
-  ---@param message string
-  ---@param variables? hashmap<string, string|number>
-  ---
-  debug = function(message, variables)
-    if not backbone.isProductionMode() then
-      print(processMarkup('<color: golden>[Backbone] ' .. message .. '</color>', variables))
-    end
-  end,
-
-  ---
-  --- Prints the provided error message in development mode,
-  --- or a generic error message in production mode.
-  ---
-  ---@param message string
-  ---@param variables? hashmap<string, string|number>
-  ---
-  exception = function(message, variables)
-    print(
-      (
-        not backbone.isProductionMode()
-        and processMarkup('<color: saffron>[Backbone] ' .. message .. '</color>', variables)
-      )
-        or processMarkup(
-          '<color: saffron>[Backbone] The framework encountered an internal or plugin-related exception. '
-            .. 'You can try "/reload" to check if the problem persists, or use "/backbone development" to '
-            .. 'enable more detailed error reporting.</color>'
-        )
-    )
-  end,
-
-  ---
-  --- Prints an informational message to the chat frame.
-  ---
-  ---@param message string
-  ---@param variables? hashmap<string, string|number>
-  ---
-  message = function(message, variables)
-    print(processMarkup('<color: vanilla>[Backbone] ' .. message .. '</color>', variables))
-  end,
+local colors = {
+  debug = 'yellow-orange',
+  error = 'bright-orange',
+  info = 'albescent-white',
 }
+
+---
+--- Prints the provided `message` to the console at the specified `level`.
+---
+---@param level 'debug'|'error'|'info'
+---@param message string
+---@param variables? MarkupVariables
+---
+backbone.displayMessage = function(level, message, variables)
+  if backbone.getEnvironment() == 'development' or level ~= 'debug' then
+    if level == 'error' and backbone.getEnvironment() == 'production' then
+      print(
+        backbone.processMarkup(
+          '<color=yellow-orange>[Backbone] The framework encountered an internal or plugin-related exception.'
+            .. '</color>\n<color=albescent-white>You can try "/reload" to check if the problem persists, '
+            .. 'or use "/backbone development" to enable more detailed error reporting.</color>\n\n'
+        )
+      )
+    else
+      local template = '<color=%s>Backbone:</color>\n<color=albescent-white>%s</color>\n\n'
+      message = string.format(template, colors[level], message)
+
+      print(backbone.processMarkup(message, variables))
+    end
+  end
+end

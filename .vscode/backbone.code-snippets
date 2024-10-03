@@ -24,16 +24,11 @@
     "prefix": "!module",
     "body": [
       "--[[~ Module: ? ~",
-      "  Created: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
       "  ",
       "  Author(s): Erik Riklund (Gopher)",
       "  Version: 1.0.0 | Updated: ?",
       "",
       "  ?",
-      "",
-      "  Features:",
-      "",
-      "  - ?",
       "",
       "]]",
       "",
@@ -45,7 +40,7 @@
   {
     "prefix": "!context",
     "body": [
-      "---@type string, contextProvider",
+      "---@type string, Repository",
       "local addon, repository = ..."
     ]
   },

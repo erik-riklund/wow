@@ -1,10 +1,10 @@
+---@type string, Repository
 local addon, repository = ...
 
 --[[~ Module: Backbone API ~
-  Created: 2024/10/01
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/10/01
+  Version: 1.0.0 | Updated: 2024/10/03
 
   Initializes the core API for the framework.
 
@@ -13,20 +13,10 @@ local addon, repository = ...
 ---
 --- The core API for the Backbone framework.
 ---
-_G.backbone = { components = {} }
+_G.backbone = {}
 
 ---
 --- The frame used internally to handle invocation of event listeners
---- and continuous execution of asynchronous background tasks.
+--- and ensure continuous execution of asynchronous background tasks.
 ---
-backbone.frame = CreateFrame 'Frame' --[[@as Frame]]
-
----
---- ?
----
-repository.plugin = { id = 'backbone', name = 'Backbone' }
-
----
---- ?
----
-repository.pluginApi = {}
+repository.frame = CreateFrame 'Frame'

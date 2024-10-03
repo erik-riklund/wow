@@ -5,20 +5,12 @@
 framework.lua
 environment.lua
 
-utilities/extended-type.lua
-utilities/markup/process.lua
-utilities/markup/parsers/colors.lua
-utilities/tables/protected-proxy.lua
-
 modules/console.lua
+modules/markup.lua
+modules/types.lua
+
 utilities/throw.lua
-modules/tasks.lua
 components/listenable.lua
-modules/network.lua
+
+modules/tasks.lua
 modules/plugins.lua
-
-utilities/unit-testing.lua
-tests/utilities/extended-type.test.lua
-tests/utilities/markup.test.lua
-
-protect-api.lua

@@ -1,7 +1,0 @@
----@meta
-
----
---- ?
----
----@class Channel : Listenable
----

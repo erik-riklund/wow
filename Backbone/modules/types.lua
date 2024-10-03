@@ -1,4 +1,4 @@
---[[~ Library: Type Extension ~
+--[[~ Module: Type Extension ~
 
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/10/01
@@ -9,18 +9,7 @@
 
   Additionally, includes functions for classifying values using the full range of types,
   comparing values against one or multple expected types, and validating function arguments
-  using string-based rules with an intuitive, easy-to-use syntax.
-
-  Examples:
-
-  Expect the argument 'test' to be a string:
-    test:string
-  
-  Expect the optional argument 'test' to be a string:
-    test:string?
-
-  Expect the argument 'test' to be either a string or number:
-    test:string/number
+  using string-based rules with an intuitive syntax.
 
 ]]
 
@@ -82,7 +71,7 @@ backbone.compareExtendedTypes = function(value, types)
 
   -- Performance is more important than type safety in production environments.
 
-  if backbone.isProductionMode() then
+  if backbone.getEnvironment() == 'production' then
     return true, extendedType --
   end
 
@@ -129,7 +118,9 @@ end
 backbone.validateExtendedTypes = function(arguments, throwErrors)
   if type(throwErrors) ~= 'boolean' then throwErrors = true end
 
-  if not backbone.isProductionMode() then
+  if backbone.getEnvironment() == 'development' then
+    -- Iterate over the provided arguments, ensuring that each contain a valid type declaration.
+
     for index, argument in ipairs(arguments) do
       ---@type string, string?
       local identifier, types = string.split(':', argument.rule)
@@ -139,8 +130,7 @@ backbone.validateExtendedTypes = function(arguments, throwErrors)
         error(string.format(message, identifier), 3)
       end
 
-      -- Determine if the argument is marked as optional. If it is,
-      -- the trailing question mark is removed.
+      -- Determine if the argument is marked as optional. If it is, remove the trailing question mark.
 
       local optional = (string.sub(types, -1) == '?')
       if optional == true then types = string.sub(types, 1, #types - 1) end
