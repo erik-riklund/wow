@@ -12,4 +12,4 @@
 
 ]]
 
-local plugin = backbone.createPlugin('Scavenger')
+local plugin = backbone.createPlugin 'Scavenger'

@@ -12,6 +12,9 @@ utilities/tables/protected-proxy.lua
 
 modules/console.lua
 utilities/throw.lua
+modules/tasks.lua
+components/listenable.lua
+modules/network.lua
 modules/plugins.lua
 
 utilities/unit-testing.lua
