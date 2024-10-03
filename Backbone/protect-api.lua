@@ -12,6 +12,10 @@
 ---@type hashmap<table, table>
 local proxies = setmetatable({}, { __mode = 'v' })
 
+---
+--- In order to not lose the automatic type inference from the API declarations across
+--- the framework, the table protection utility is manually defined here as well.
+---
 setmetatable(_G.backbone, {
   __newindex = function()
     error('Modifications to the framework API are not allowed.', 3)
@@ -21,11 +25,12 @@ setmetatable(_G.backbone, {
     -- Non-table values are returned as they are.
     if type(self[key]) ~= 'table' then return self[key] end
 
-    -- Table values are returned wrapped in a protected proxy. If the proxy
-    -- doesn't exist in the cache, it's created and then returned.
+    -- Table values are returned wrapped in a protected proxy.
+    -- Proxies are cached for efficiency.
 
-    if proxies[self[key]] ~= nil then return proxies[self[key]] end
-    proxies[self[key]] = backbone.createProtectedProxy(self[key])
+    if proxies[self[key]] == nil then
+      proxies[self[key]] = backbone.createProtectedProxy(self[key])
+    end
 
     return proxies[self[key]]
   end,

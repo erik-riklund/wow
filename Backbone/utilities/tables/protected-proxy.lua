@@ -9,12 +9,19 @@
 
 ]]
 
+---@type hashmap<table, table>
+local proxies = setmetatable({}, { __mode = 'v' })
+
+---
+--- Shared between all proxies for efficiency.
+---
 local blockModifications = function()
   error 'Attempt to modify a protected table.'
 end
 
 ---
---- Creates a read-only proxy that reference the provided table.
+--- Creates a read-only proxy that references the provided table, granting full access
+--- to the table and its children while ensuring the internal state remains immutable.
 ---
 ---@param target table
 ---
@@ -23,8 +30,17 @@ backbone.createProtectedProxy = function(target)
     __newindex = blockModifications,
 
     __index = function(self, key)
+      -- Non-table values are returned as they are.
       if type(target[key]) ~= 'table' then return target[key] end
-      return backbone.createProtectedProxy(target[key])
+
+      -- Table values are returned wrapped in a protected proxy.
+      -- Proxies are cached for efficiency.
+
+      if proxies[target[key]] == nil then
+        proxies[target[key]] = backbone.createProtectedProxy(target[key])
+      end
+
+      return proxies[target[key]]
     end,
   }
 

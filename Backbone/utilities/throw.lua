@@ -1,19 +1,18 @@
---[[~ Module: ? ~
+--[[~ Utility: Error Handling ~
   Created: 2024/10/02
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: ?
+  Version: 1.0.0 | Updated: 2024/10/02
 
-  ?
-
-  Features:
-
-  - ?
+  Provides a utility to handle errors, throwing detailed error messages in 
+  development mode, while triggering a generic error message in production mode.
 
 ]]
 
+
 ---
---- ?
+--- Throws a detailed Lua error in development mode,
+--- or triggers a generic error message in production mode.
 ---
 ---@param message string
 ---@param ... string|number
@@ -23,8 +22,5 @@ _G.throw = function(message, ...)
     error((... and string.format(message, ...) or message), 3)
   end
 
-  backbone.console.exception(
-    'The framework encountered an internal or plugin-related exception. You can try "/reload" to check if '
-      .. 'the problem persists, or use "/backbone development" to enable more detailed error reporting.'
-  )
+  backbone.console.exception '?' -- Triggers the generic error message shown in production mode.
 end
