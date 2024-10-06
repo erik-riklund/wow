@@ -10,4 +10,12 @@ local addon, repository = ...
 
 ]]
 
+local pages = {}
+
+-- [explain this section]
+
+repository.registerPage = function() end
+
+-- [explain this section]
+
 repository.setActivePage = function(name) end

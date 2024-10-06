@@ -23,6 +23,13 @@
                 bottom="-10"
                 left="-9" />
     </HitRectInsets>
+    <!-- <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="1" g="1" b="1" a="0.1" />
+        </Texture>
+      </Layer>
+    </Layers> -->
   </Button>
   <!-- Frame: Main overlay -->
   <Frame parent="UIParent"
@@ -131,7 +138,7 @@
                   relativeTo="$parent"
                   relativePoint="TOPRIGHT" />
         </Anchors>
-        <Size x="160"
+        <Size x="170"
               y="32" />
       </Button>
       <Button name="$parentConsoleButton"
@@ -143,7 +150,7 @@
                   relativeTo="$parentCloseButton"
                   relativePoint="TOPLEFT" />
         </Anchors>
-        <Size x="140"
+        <Size x="145"
               y="32" />
       </Button>
       <Button name="$parentSettingsButton"
@@ -155,7 +162,7 @@
                   relativeTo="$parentConsoleButton"
                   relativePoint="TOPLEFT" />
         </Anchors>
-        <Size x="75"
+        <Size x="80"
               y="32" />
       </Button>
       <Button name="$parentPluginsButton"
@@ -167,7 +174,7 @@
                   relativeTo="$parentSettingsButton"
                   relativePoint="TOPLEFT" />
         </Anchors>
-        <Size x="80"
+        <Size x="70"
               y="32" />
       </Button>
       <Button name="$parentStartpageButton"
@@ -179,7 +186,7 @@
                   relativeTo="$parentPluginsButton"
                   relativePoint="TOPLEFT" />
         </Anchors>
-        <Size x="80"
+        <Size x="90"
               y="32" />
       </Button>
     </Frames>

@@ -12,6 +12,8 @@
 
 ---
 ---@class Repository
----@field frame Frame "Used internally for events and background tasks."
+---
+---@field frame Frame
 ---@field setActivePage fun(name: string)
+---@field registerPage fun(name: string, panels?: { left?: boolean, right?: boolean })
 ---

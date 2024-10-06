@@ -1,4 +1,4 @@
 <Ui>
   
-  <Script file="behavior.lua" />
+  <Script file="controller.lua" />
 </Ui>

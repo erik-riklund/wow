@@ -5,8 +5,6 @@
 framework.lua
 environment.lua
 
-ui/_imports.xml
-
 utilities/string-prefix.lua
 utilities/substring-after.lua
 
@@ -21,4 +19,7 @@ components/listenable.lua
 modules/tasks.lua
 modules/plugins.lua
 
-_tests/utilities/string.lua
+ui/_imports.xml
+initialize.lua
+
+#_tests/utilities/string.lua
