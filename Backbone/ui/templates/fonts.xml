@@ -1,0 +1,62 @@
+<Ui>
+  <Font virtual="true"
+        name="FontComfortaa"
+        font="Interface\Addons\Backbone\media\fonts\comfortaa.ttf"
+        outline="NORMAL">
+    <Color r="0.93"
+           g="0.77"
+           b="0"
+           a="1" />
+    <FontHeight val="28" />
+  </Font>
+  <Font virtual="true"
+        name="FontDosis"
+        font="Interface\Addons\Backbone\media\fonts\dosis.ttf"
+        outline="NORMAL">
+    <Color r="0.64"
+           g="0.58"
+           b="0.47"
+           a="1" />
+    <FontHeight val="48" />
+  </Font>
+  <Font virtual="true"
+        name="FontDosisThick"
+        font="Interface\Addons\Backbone\media\fonts\dosis.ttf"
+        outline="THICK">
+    <Color r="0.64"
+           g="0.58"
+           b="0.47"
+           a="1" />
+    <FontHeight val="48" />
+  </Font>
+  <Font virtual="true"
+        name="FontHammersmithOne"
+        font="Interface\Addons\Backbone\media\fonts\hammersmith-one.ttf"
+        outline="NORMAL">
+    <Color r="0.96"
+           g="0.87"
+           b="0.70"
+           a="1" />
+    <FontHeight val="13" />
+  </Font>
+  <Font virtual="true"
+        name="FontHammersmithOneSmall"
+        font="Interface\Addons\Backbone\media\fonts\hammersmith-one.ttf"
+        outline="NORMAL">
+    <Color r="0.96"
+           g="0.87"
+           b="0.70"
+           a="1" />
+    <FontHeight val="12" />
+  </Font>
+  <Font virtual="true"
+        name="FontNotoSans"
+        font="Interface\Addons\Backbone\media\fonts\noto-sans.ttf"
+        outline="NORMAL">
+    <Color r="0.95"
+           g="0.93"
+           b="0.8"
+           a="1" />
+    <FontHeight val="12" />
+  </Font>
+</Ui>

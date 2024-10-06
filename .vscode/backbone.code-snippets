@@ -57,5 +57,15 @@
       "",
       "end,"
     ]
+  },
+
+  "media": {
+    "prefix": "!media",
+    "body": "Interface\\Addons\\Backbone\\media\\"
+  },
+
+  "xml-color": {
+    "prefix": "!xml-color",
+    "body": "<Color r=\"1\" g=\"1\" b=\"1\" a=\"1\" />"
   }
 }

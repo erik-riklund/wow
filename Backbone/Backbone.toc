@@ -5,12 +5,20 @@
 framework.lua
 environment.lua
 
+ui/_imports.xml
+
+utilities/string-prefix.lua
+utilities/substring-after.lua
+
 modules/console.lua
 modules/markup.lua
 modules/types.lua
+modules/errors.lua
+modules/testing.lua
 
-utilities/throw.lua
 components/listenable.lua
 
 modules/tasks.lua
 modules/plugins.lua
+
+_tests/utilities/string.lua

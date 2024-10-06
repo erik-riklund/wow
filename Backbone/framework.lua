@@ -16,6 +16,11 @@ local addon, repository = ...
 _G.backbone = {}
 
 ---
+---
+---
+_G.utilities = {}
+
+---
 --- The frame used internally to handle invocation of event listeners
 --- and ensure continuous execution of asynchronous background tasks.
 ---

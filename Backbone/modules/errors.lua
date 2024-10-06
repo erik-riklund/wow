@@ -1,4 +1,4 @@
---[[~ Utility: Error Handling ~
+--[[~ Module: Errors ~
   
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: 2024/10/03
@@ -14,7 +14,7 @@
 ---@param message string
 ---@param ... string|number
 ---
-_G.throwError = function(message, ...)
+backbone.throwError = function(message, ...)
   if backbone.getEnvironment() == 'development' then
     error((... and message:format(...)) or message, 3)
   end

@@ -1,0 +1,5 @@
+<Ui>
+  <Include file="templates/fonts.xml" />
+  <Include file="frame.xml" />
+  <Script file="frame.lua" />
+</Ui>
