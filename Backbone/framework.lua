@@ -13,7 +13,7 @@ local addon, repository = ...
 ---
 --- The core API for the Backbone framework.
 ---
-_G.backbone = {}
+_G.backbone = { version = '1.0.0' }
 
 ---
 ---

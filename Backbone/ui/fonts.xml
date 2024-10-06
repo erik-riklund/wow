@@ -59,4 +59,14 @@
            a="1" />
     <FontHeight val="12" />
   </Font>
+  <Font virtual="true"
+        name="FontNotoSansSmall"
+        font="Interface\Addons\Backbone\media\fonts\noto-sans.ttf"
+        outline="NORMAL">
+    <Color r="0.95"
+           g="0.93"
+           b="0.8"
+           a="1" />
+    <FontHeight val="11" />
+  </Font>
 </Ui>

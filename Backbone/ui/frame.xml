@@ -4,18 +4,24 @@
     <NormalFont style="FontHammersmithOne" />
     <ButtonText parentKey="Text" />
     <Scripts>
-      <OnLoad>
+      <OnLoad>        
         self.Text:SetTextColor(0.96, 0.87, 0.7)
       </OnLoad>
-      <OnEnter>
+      <OnEnter>        
         self.Text:SetTextColor(0.93, 0.77, 0)
         self.Text:SetTextScale(1.15)
       </OnEnter>
-      <OnLeave>
+      <OnLeave>        
         self.Text:SetTextColor(0.96, 0.87, 0.7)
         self.Text:SetTextScale(1)
       </OnLeave>
     </Scripts>
+    <HitRectInsets>
+      <AbsInset top="-10"
+                right="-9"
+                bottom="-10"
+                left="-9" />
+    </HitRectInsets>
   </Button>
   <Frame parent="UIParent"
          name="BackboneFrame"
@@ -32,10 +38,10 @@
     <Layers>
       <Layer level="BACKGROUND">
         <Texture setAllPoints="true">
-          <Color r="0.07"
-                 g="0.09"
-                 b="0.09"
-                 a="0.9" />
+          <Color r="0"
+                 g="0"
+                 b="0"
+                 a="0.85" />
         </Texture>
       </Layer>
       <Layer level="ARTWORK">
@@ -74,6 +80,29 @@
           <Color r="0.64"
                  g="0.64"
                  b="0.46" />
+        </FontString>
+        <FontString text="?"
+                    name="BackboneVersionText"
+                    inherits="FontNotoSansSmall">
+          <Anchors>
+            <Anchor x="-5"
+                    y="5"
+                    point="BOTTOMRIGHT"
+                    relativeTo="UIParent"
+                    relativePoint="BOTTOMRIGHT" />
+          </Anchors>
+          <Scripts>
+            <OnLoad>self:SetText(backbone.version)</OnLoad>
+          </Scripts>
+        </FontString>
+        <FontString text="Version: "
+                    name="BackboneVersionTextLabel"
+                    inherits="FontNotoSansSmall">
+          <Anchors>
+            <Anchor point="TOPRIGHT"
+                    relativeTo="BackboneVersionText"
+                    relativePoint="TOPLEFT" />
+          </Anchors>
         </FontString>
       </Layer>
     </Layers>
@@ -151,22 +180,70 @@
                   relativeTo="$parent"
                   relativePoint="BOTTOMLEFT" />
         </Anchors>
+        <!-- <Layers>
+          <Layer level="BACKGROUND">
+            <Texture setAllPoints="true">
+              <Color r="1"
+                     g="1"
+                     b="1"
+                     a="0.05" />
+            </Texture>
+          </Layer>
+        </Layers> -->
+      </Frame>
+      <Frame name="$parentRightContentPanel">
+        <Size x="300" />
+        <Anchors>
+          <Anchor x="-100"
+                  y="-200"
+                  point="TOPRIGHT"
+                  relativeTo="$parent"
+                  relativePoint="TOPRIGHT" />
+          <Anchor y="150"
+                  point="BOTTOMRIGHT"
+                  relativeTo="$parent"
+                  relativePoint="BOTTOMRIGHT" />
+        </Anchors>
+        <!-- <Layers>
+          <Layer level="BACKGROUND">
+            <Texture setAllPoints="true">
+              <Color r="1"
+                     g="1"
+                     b="1"
+                     a="0.05" />
+            </Texture>
+          </Layer>
+        </Layers> -->
       </Frame>
       <Frame name="$parentMainContentPanel">
         <Anchors>
-          <Anchor x="100"
+          <Anchor x="75"
                   point="TOPLEFT"
                   relativeTo="$parentLeftContentPanel"
                   relativePoint="TOPRIGHT" />
           <Anchor point="BOTTOMLEFT"
                   relativeTo="$parentLeftContentPanel"
                   relativePoint="BOTTOMRIGHT" />
-          <Anchor x="-100"
-                  point="RIGHT"
-                  relativeTo="UIParent"
-                  relativePoint="RIGHT" />
+          <Anchor x="-75"
+                  point="TOPRIGHT"
+                  relativeTo="$parentRightContentPanel"
+                  relativePoint="TOPLEFT" />
+          <Anchor point="BOTTOMRIGHT"
+                  relativeTo="$parentRightContentPanel"
+                  relativePoint="BOTTOMLEFT" />
         </Anchors>
+        <!-- <Layers>
+          <Layer level="BACKGROUND">
+            <Texture setAllPoints="true">
+              <Color r="1"
+                     g="1"
+                     b="1"
+                     a="0.05" />
+            </Texture>
+          </Layer>
+        </Layers> -->
       </Frame>
     </Frames>
   </Frame>
+  <Script file="frame.lua" />
 </Ui>

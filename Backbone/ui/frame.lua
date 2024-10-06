@@ -10,5 +10,17 @@
 local frame = _G.BackboneFrame --[[@as Frame]]
 
 ---@type Button
-local TopMenuCloseButton = _G['BackboneFrameTopMenuPanelCloseButton']
-TopMenuCloseButton:HookScript('OnClick', function() frame:SetShown(false) end)
+local StartpageButton = _G['BackboneFrameTopMenuPanelStartpageButton']
+StartpageButton:HookScript('OnClick', function() print 'Startpage?' end)
+
+---@type Button
+local SettingsButton = _G['BackboneFrameTopMenuPanelSettingsButton']
+SettingsButton:HookScript('OnClick', function() print 'Settings?' end)
+
+---@type Button
+local ConsoleButton = _G['BackboneFrameTopMenuPanelConsoleButton']
+ConsoleButton:HookScript('OnClick', function() print 'Console?' end)
+
+---@type Button
+local CloseButton = _G['BackboneFrameTopMenuPanelCloseButton']
+CloseButton:HookScript('OnClick', function() frame:SetShown(false) end)

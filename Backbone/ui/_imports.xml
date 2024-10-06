@@ -1,5 +1,7 @@
 <Ui>
-  <Include file="templates/fonts.xml" />
+  <Include file="fonts.xml" />
+  <Include file="templates/panel.xml" />
+  <Include file="templates/scrollable-panel.xml" />
   <Include file="frame.xml" />
-  <Script file="frame.lua" />
+  <Include file="pages/startpage/content.xml" />
 </Ui>
