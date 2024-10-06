@@ -1,4 +1,5 @@
 <Ui>
+  <!-- Template: TopMenuButton -->
   <Button virtual="true"
           name="BackboneTopMenuButtonTemplate">
     <NormalFont style="FontHammersmithOne" />
@@ -23,10 +24,12 @@
                 left="-9" />
     </HitRectInsets>
   </Button>
+  <!-- Frame: Main overlay -->
   <Frame parent="UIParent"
          name="BackboneFrame"
          frameStrata="FULLSCREEN_DIALOG"
-         enableMouse="true">
+         enableMouse="true"
+         hidden="true">
     <Anchors>
       <Anchor point="TOPLEFT"
               relativeTo="$parent"
@@ -106,144 +109,163 @@
         </FontString>
       </Layer>
     </Layers>
+  </Frame>
+  <!-- Frame: Main menu -->
+  <Frame parent="BackboneFrame"
+         name="$parentTopMenuPanel">
+    <Size x="500"
+          y="32" />
+    <Anchors>
+      <Anchor x="-100"
+              y="-48"
+              point="RIGHT"
+              relativeTo="UIParent"
+              relativePoint="TOPRIGHT" />
+    </Anchors>
     <Frames>
-      <Frame name="$parentTopMenuPanel">
-        <Size x="500"
+      <Button name="$parentCloseButton"
+              inherits="BackboneTopMenuButtonTemplate"
+              text="Return to the game >">
+        <Anchors>
+          <Anchor point="TOPRIGHT"
+                  relativeTo="$parent"
+                  relativePoint="TOPRIGHT" />
+        </Anchors>
+        <Size x="160"
               y="32" />
+      </Button>
+      <Button name="$parentConsoleButton"
+              inherits="BackboneTopMenuButtonTemplate"
+              text="Developer console">
         <Anchors>
-          <Anchor x="-100"
-                  y="-48"
-                  point="RIGHT"
-                  relativeTo="UIParent"
-                  relativePoint="TOPRIGHT" />
-        </Anchors>
-        <Frames>
-          <Button name="$parentCloseButton"
-                  inherits="BackboneTopMenuButtonTemplate"
-                  text="Return to the game >">
-            <Anchors>
-              <Anchor point="TOPRIGHT"
-                      relativeTo="$parent"
-                      relativePoint="TOPRIGHT" />
-            </Anchors>
-            <Size x="160"
-                  y="32" />
-          </Button>
-          <Button name="$parentConsoleButton"
-                  inherits="BackboneTopMenuButtonTemplate"
-                  text="Developer console">
-            <Anchors>
-              <Anchor x="-18"
-                      point="TOPRIGHT"
-                      relativeTo="$parentCloseButton"
-                      relativePoint="TOPLEFT" />
-            </Anchors>
-            <Size x="140"
-                  y="32" />
-          </Button>
-          <Button name="$parentSettingsButton"
-                  inherits="BackboneTopMenuButtonTemplate"
-                  text="Settings">
-            <Anchors>
-              <Anchor x="-18"
-                      point="TOPRIGHT"
-                      relativeTo="$parentConsoleButton"
-                      relativePoint="TOPLEFT" />
-            </Anchors>
-            <Size x="80"
-                  y="32" />
-          </Button>
-          <Button name="$parentStartpageButton"
-                  inherits="BackboneTopMenuButtonTemplate"
-                  text="Startpage">
-            <Anchors>
-              <Anchor x="-18"
-                      point="TOPRIGHT"
-                      relativeTo="$parentSettingsButton"
-                      relativePoint="TOPLEFT" />
-            </Anchors>
-            <Size x="80"
-                  y="32" />
-          </Button>
-        </Frames>
-      </Frame>
-      <Frame name="$parentLeftContentPanel">
-        <Size x="300" />
-        <Anchors>
-          <Anchor x="100"
-                  y="-200"
-                  point="TOPLEFT"
-                  relativeTo="$parent"
-                  relativePoint="TOPLEFT" />
-          <Anchor y="150"
-                  point="BOTTOMLEFT"
-                  relativeTo="$parent"
-                  relativePoint="BOTTOMLEFT" />
-        </Anchors>
-        <!-- <Layers>
-          <Layer level="BACKGROUND">
-            <Texture setAllPoints="true">
-              <Color r="1"
-                     g="1"
-                     b="1"
-                     a="0.05" />
-            </Texture>
-          </Layer>
-        </Layers> -->
-      </Frame>
-      <Frame name="$parentRightContentPanel">
-        <Size x="300" />
-        <Anchors>
-          <Anchor x="-100"
-                  y="-200"
+          <Anchor x="-18"
                   point="TOPRIGHT"
-                  relativeTo="$parent"
-                  relativePoint="TOPRIGHT" />
-          <Anchor y="150"
-                  point="BOTTOMRIGHT"
-                  relativeTo="$parent"
-                  relativePoint="BOTTOMRIGHT" />
-        </Anchors>
-        <!-- <Layers>
-          <Layer level="BACKGROUND">
-            <Texture setAllPoints="true">
-              <Color r="1"
-                     g="1"
-                     b="1"
-                     a="0.05" />
-            </Texture>
-          </Layer>
-        </Layers> -->
-      </Frame>
-      <Frame name="$parentMainContentPanel">
-        <Anchors>
-          <Anchor x="75"
-                  point="TOPLEFT"
-                  relativeTo="$parentLeftContentPanel"
-                  relativePoint="TOPRIGHT" />
-          <Anchor point="BOTTOMLEFT"
-                  relativeTo="$parentLeftContentPanel"
-                  relativePoint="BOTTOMRIGHT" />
-          <Anchor x="-75"
-                  point="TOPRIGHT"
-                  relativeTo="$parentRightContentPanel"
+                  relativeTo="$parentCloseButton"
                   relativePoint="TOPLEFT" />
-          <Anchor point="BOTTOMRIGHT"
-                  relativeTo="$parentRightContentPanel"
-                  relativePoint="BOTTOMLEFT" />
         </Anchors>
-        <!-- <Layers>
-          <Layer level="BACKGROUND">
-            <Texture setAllPoints="true">
-              <Color r="1"
-                     g="1"
-                     b="1"
-                     a="0.05" />
-            </Texture>
-          </Layer>
-        </Layers> -->
-      </Frame>
+        <Size x="140"
+              y="32" />
+      </Button>
+      <Button name="$parentSettingsButton"
+              inherits="BackboneTopMenuButtonTemplate"
+              text="Settings">
+        <Anchors>
+          <Anchor x="-18"
+                  point="TOPRIGHT"
+                  relativeTo="$parentConsoleButton"
+                  relativePoint="TOPLEFT" />
+        </Anchors>
+        <Size x="75"
+              y="32" />
+      </Button>
+      <Button name="$parentPluginsButton"
+              inherits="BackboneTopMenuButtonTemplate"
+              text="Plugins">
+        <Anchors>
+          <Anchor x="-18"
+                  point="TOPRIGHT"
+                  relativeTo="$parentSettingsButton"
+                  relativePoint="TOPLEFT" />
+        </Anchors>
+        <Size x="80"
+              y="32" />
+      </Button>
+      <Button name="$parentStartpageButton"
+              inherits="BackboneTopMenuButtonTemplate"
+              text="Startpage">
+        <Anchors>
+          <Anchor x="-18"
+                  point="TOPRIGHT"
+                  relativeTo="$parentPluginsButton"
+                  relativePoint="TOPLEFT" />
+        </Anchors>
+        <Size x="80"
+              y="32" />
+      </Button>
     </Frames>
   </Frame>
+  <!-- Frame: Left content panel -->
+  <Frame parent="BackboneFrame"
+         name="$parentLeftContentPanel">
+    <Size x="300" />
+    <Anchors>
+      <Anchor x="100"
+              y="-200"
+              point="TOPLEFT"
+              relativeTo="$parent"
+              relativePoint="TOPLEFT" />
+      <Anchor y="150"
+              point="BOTTOMLEFT"
+              relativeTo="$parent"
+              relativePoint="BOTTOMLEFT" />
+    </Anchors>
+    <!-- <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.05" />
+        </Texture>
+      </Layer>
+    </Layers> -->
+  </Frame>
+  <!-- Frame: Right content panel -->
+  <Frame parent="BackboneFrame"
+         name="$parentRightContentPanel">
+    <Size x="300" />
+    <Anchors>
+      <Anchor x="-100"
+              y="-200"
+              point="TOPRIGHT"
+              relativeTo="$parent"
+              relativePoint="TOPRIGHT" />
+      <Anchor y="150"
+              point="BOTTOMRIGHT"
+              relativeTo="$parent"
+              relativePoint="BOTTOMRIGHT" />
+    </Anchors>
+    <!-- <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.05" />
+        </Texture>
+      </Layer>
+    </Layers> -->
+  </Frame>
+  <!-- Frame: Main content panel -->
+  <Frame parent="BackboneFrame"
+         name="$parentMainContentPanel">
+    <Anchors>
+      <Anchor x="75"
+              point="TOPLEFT"
+              relativeTo="$parentLeftContentPanel"
+              relativePoint="TOPRIGHT" />
+      <Anchor point="BOTTOMLEFT"
+              relativeTo="$parentLeftContentPanel"
+              relativePoint="BOTTOMRIGHT" />
+      <Anchor x="-75"
+              point="TOPRIGHT"
+              relativeTo="$parentRightContentPanel"
+              relativePoint="TOPLEFT" />
+      <Anchor point="BOTTOMRIGHT"
+              relativeTo="$parentRightContentPanel"
+              relativePoint="BOTTOMLEFT" />
+    </Anchors>
+    <!-- <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.05" />
+        </Texture>
+      </Layer>
+    </Layers> -->
+  </Frame>
+  <!-- Script: Behavior -->
   <Script file="frame.lua" />
 </Ui>

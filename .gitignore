@@ -1,6 +1,7 @@
 /*/
 *.min.lua
 *.zip
+*.png
 !.vscode/
 
 !Backbone/

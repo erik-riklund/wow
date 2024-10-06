@@ -14,6 +14,10 @@ local StartpageButton = _G['BackboneFrameTopMenuPanelStartpageButton']
 StartpageButton:HookScript('OnClick', function() print 'Startpage?' end)
 
 ---@type Button
+local PluginsButton = _G['BackboneFrameTopMenuPanelPluginsButton']
+PluginsButton:HookScript('OnClick', function() print 'Plugins?' end)
+
+---@type Button
 local SettingsButton = _G['BackboneFrameTopMenuPanelSettingsButton']
 SettingsButton:HookScript('OnClick', function() print 'Settings?' end)
 

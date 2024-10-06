@@ -1,7 +1,11 @@
 <Ui>
+  <!-- Templates -->
   <Include file="fonts.xml" />
   <Include file="templates/panel.xml" />
   <Include file="templates/scrollable-panel.xml" />
+  <!-- Scripts -->
+  <Include file="controller.lua" />
+  <!-- Frames -->
   <Include file="frame.xml" />
   <Include file="pages/startpage/content.xml" />
 </Ui>

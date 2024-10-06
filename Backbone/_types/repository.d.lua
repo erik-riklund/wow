@@ -13,4 +13,5 @@
 ---
 ---@class Repository
 ---@field frame Frame "Used internally for events and background tasks."
+---@field setActivePage fun(name: string)
 ---
