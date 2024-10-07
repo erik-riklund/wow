@@ -1,0 +1,5 @@
+<Ui>
+  <Include file="app/overlay.xml" />
+  <Include file="app/header.xml" />
+  <Include file="app/logo.xml" />
+</Ui>

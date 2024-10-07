@@ -1,0 +1,12 @@
+<Ui>
+  <Font virtual="true"
+        name="BackboneFontHuge"
+        font="Interface\Addons\Backbone\media\fonts\dosis.ttf"
+        outline="NORMAL">
+    <Color r="0.64"
+           g="0.58"
+           b="0.47"
+           a="1" />
+    <FontHeight val="48" />
+  </Font>
+</Ui>

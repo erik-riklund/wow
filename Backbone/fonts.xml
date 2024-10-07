@@ -1,6 +1,11 @@
 <Ui>
-  <Font virtual="true"
-        name="FontComfortaa"
+  <Include file="ui/fonts/tiny.xml" />
+  <Include file="ui/fonts/small.xml" />
+  <Include file="ui/fonts/normal.xml" />
+  <Include file="ui/fonts/huge.xml" />
+  
+  <!-- <Font virtual="true"
+        name="BackboneFontComfortaa"
         font="Interface\Addons\Backbone\media\fonts\comfortaa.ttf"
         outline="NORMAL">
     <Color r="0.93"
@@ -10,7 +15,7 @@
     <FontHeight val="28" />
   </Font>
   <Font virtual="true"
-        name="FontDosis"
+        name="BackboneFontDosis"
         font="Interface\Addons\Backbone\media\fonts\dosis.ttf"
         outline="NORMAL">
     <Color r="0.64"
@@ -20,7 +25,7 @@
     <FontHeight val="48" />
   </Font>
   <Font virtual="true"
-        name="FontDosisThick"
+        name="BackboneFontDosisThick"
         font="Interface\Addons\Backbone\media\fonts\dosis.ttf"
         outline="THICK">
     <Color r="0.64"
@@ -30,7 +35,7 @@
     <FontHeight val="48" />
   </Font>
   <Font virtual="true"
-        name="FontHammersmithOne"
+        name="BackboneFontHammersmithOne"
         font="Interface\Addons\Backbone\media\fonts\hammersmith-one.ttf"
         outline="NORMAL">
     <Color r="0.96"
@@ -40,7 +45,7 @@
     <FontHeight val="13" />
   </Font>
   <Font virtual="true"
-        name="FontHammersmithOneSmall"
+        name="BackboneFontHammersmithOneSmall"
         font="Interface\Addons\Backbone\media\fonts\hammersmith-one.ttf"
         outline="NORMAL">
     <Color r="0.96"
@@ -50,7 +55,7 @@
     <FontHeight val="12" />
   </Font>
   <Font virtual="true"
-        name="FontNotoSans"
+        name="BackboneFontNotoSans"
         font="Interface\Addons\Backbone\media\fonts\noto-sans.ttf"
         outline="NORMAL">
     <Color r="0.95"
@@ -60,7 +65,7 @@
     <FontHeight val="12" />
   </Font>
   <Font virtual="true"
-        name="FontNotoSansSmall"
+        name="BackboneFontNotoSansSmall"
         font="Interface\Addons\Backbone\media\fonts\noto-sans.ttf"
         outline="NORMAL">
     <Color r="0.95"
@@ -68,5 +73,5 @@
            b="0.8"
            a="1" />
     <FontHeight val="11" />
-  </Font>
+  </Font> -->
 </Ui>

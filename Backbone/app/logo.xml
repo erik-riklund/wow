@@ -1,0 +1,72 @@
+<Ui>
+  <Frame name="BackboneLogo"
+         parent="BackboneHeader">
+    <Size x="350" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              relativeTo="$parent"
+              relativePoint="TOPLEFT" />
+      <Anchor point="BOTTOMLEFT"
+              relativeTo="$parent"
+              relativePoint="BOTTOMLEFT" />
+    </Anchors>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString text="Backbone"
+                    name="$parentText"
+                    inherits="BackboneFontHuge">
+          <Anchors>
+            <Anchor point="CENTER" />
+            <Anchor point="RIGHT"
+                    relativeTo="$parent"
+                    relativePoint="RIGHT" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="BackboneFontTiny">
+          <Color r="0.64"
+                 g="0.58"
+                 b="0.47"
+                 a="1" />
+          <Anchors>
+            <Anchor x="-4"
+                    y="-12"
+                    point="BOTTOMRIGHT"
+                    relativeTo="$parentText"
+                    relativePoint="TOPRIGHT" />
+          </Anchors>
+          <Scripts>
+            <OnLoad>self:SetText('v'.. _G.backbone.version)</OnLoad>
+          </Scripts>
+        </FontString>
+        <FontString text="Providing the 'fun' in functional addons since 2024."
+                    inherits="BackboneFontTiny">
+          <Color r="0.66"
+                 g="0.71"
+                 b="0.4"
+                 a="1" />
+          <Anchors>
+            <Anchor x="-5"
+                    point="TOPLEFT"
+                    relativeTo="$parentText"
+                    relativePoint="BOTTOMLEFT" />
+          </Anchors>
+        </FontString>
+      </Layer>
+      <Layer level="ARTWORK">
+        <Texture file="Interface\Addons\Backbone\media\icons\skull">
+          <Size>
+            <AbsDimension x="64"
+                          y="64" />
+          </Size>
+          <Anchors>
+            <Anchor point="CENTER" />
+            <Anchor x="-24"
+                    point="RIGHT"
+                    relativeTo="$parentText"
+                    relativePoint="LEFT" />
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

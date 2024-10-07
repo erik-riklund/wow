@@ -5,6 +5,8 @@
 framework.lua
 environment.lua
 
+utilities/inherit-parent.lua
+utilities/integrate-table.lua
 utilities/string-prefix.lua
 utilities/substring-after.lua
 
@@ -17,9 +19,10 @@ modules/testing.lua
 components/listenable.lua
 
 modules/tasks.lua
+modules/network.lua
 modules/plugins.lua
 
-ui/_imports.xml
 lock-api.lua
 
-#_tests/utilities/string.lua
+fonts.xml
+app.xml
