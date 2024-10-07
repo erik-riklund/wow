@@ -25,8 +25,8 @@ local SettingsButton = _G['BackboneFrameTopMenuPanelSettingsButton']
 SettingsButton:HookScript('OnClick', function() repository.setActivePage 'Settings' end)
 
 ---@type Button
-local ConsoleButton = _G['BackboneFrameTopMenuPanelConsoleButton']
-ConsoleButton:HookScript('OnClick', function() repository.setActivePage 'Console' end)
+local DeveloperToolsButton = _G['BackboneFrameTopMenuPanelDeveloperToolsButton']
+DeveloperToolsButton:HookScript('OnClick', function() repository.setActivePage 'DeveloperTools' end)
 
 ---@type Button
 local CloseButton = _G['BackboneFrameTopMenuPanelCloseButton']
@@ -36,14 +36,14 @@ CloseButton:HookScript('OnClick', function() frame:SetShown(false) end)
 
 SettingsButton:HookScript('OnUpdate', function(self)
   if backbone.getEnvironment() == 'production' then
-    if ConsoleButton:IsShown() then
+    if DeveloperToolsButton:IsShown() then
       self --[[@as Button]]:SetPoint('TOPRIGHT', CloseButton, 'TOPLEFT', -18, 0)
-      ConsoleButton:SetShown(false)
+      DeveloperToolsButton:SetShown(false)
     end
   else
-    if not ConsoleButton:IsShown() then
-      self --[[@as Button]]:SetPoint('TOPRIGHT', ConsoleButton, 'TOPLEFT', -18, 0)
-      ConsoleButton:SetShown(true)
+    if not DeveloperToolsButton:IsShown() then
+      self --[[@as Button]]:SetPoint('TOPRIGHT', DeveloperToolsButton, 'TOPLEFT', -18, 0)
+      DeveloperToolsButton:SetShown(true)
     end
   end
 end)

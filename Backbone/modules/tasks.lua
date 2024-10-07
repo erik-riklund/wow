@@ -4,9 +4,11 @@ local addon, repository = ...
 --[[~ Module: Tasks ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: ?
+  Version: 1.0.0 | Updated: 2024/10/07
 
-  ?
+  Manages execution of tasks for the framework, supporting both synchronous and
+  asynchronous callbacks. Asynchronous tasks are queued and processed within frame
+  time limits to maintain performance (60+ FPS).
 
 ]]
 
@@ -27,6 +29,7 @@ backbone.executeCallback = function(identifier, callback, arguments)
   local success, exception = pcall(callback, unpack(arguments))
 
   if not success then
+    -- todo: implement error reporting.
   end
 end
 
@@ -41,7 +44,9 @@ backbone.executeCallbackAsync = function(identifier, callback, arguments)
   table.insert(tasks, { id = identifier, callback = callback, arguments = arguments })
 end
 
--- [explain this section]
+-- The coroutine used to asynchronously process queued tasks while maintaining performance.
+-- To possibly avoid long-running operations to cause lockups or lag, executions are resumed
+-- on the next frame if the specified time limit is reached.
 
 local process = coroutine.create(function()
   local frameLimit = 0.01667 -- target: 60fps
@@ -58,7 +63,7 @@ local process = coroutine.create(function()
   end
 end)
 
--- [explain this section]
+-- Resumes the coroutine when there are tasks queued and it's not already active.
 
 repository.frame:SetScript('OnUpdate', function()
   if coroutine.status(process) == 'suspended' then

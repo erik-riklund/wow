@@ -1,4 +1,11 @@
 <Ui>
-  
+  <Frame name="BackboneStartpageMainPanel"
+         inherits="BackbonePanelTemplate">
+    <!-- ? -->
+  </Frame>
+  <Frame name="BackboneStartpageLeftPanel"
+         inherits="BackbonePanelTemplate">
+    <!-- ? -->
+  </Frame>
   <Script file="controller.lua" />
 </Ui>

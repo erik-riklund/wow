@@ -10,4 +10,7 @@ local addon, repository = ...
 
 ]]
 
-repository.registerPage('Startpage', { left = true })
+repository.registerPage('Startpage', {
+  main = _G['BackboneStartpageMainPanel'],
+  left = _G['BackboneStartpageLeftPanel'],
+})

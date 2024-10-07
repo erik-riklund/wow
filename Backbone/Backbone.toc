@@ -20,6 +20,6 @@ modules/tasks.lua
 modules/plugins.lua
 
 ui/_imports.xml
-initialize.lua
+lock-api.lua
 
 #_tests/utilities/string.lua

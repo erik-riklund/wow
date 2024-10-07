@@ -141,16 +141,16 @@
         <Size x="170"
               y="32" />
       </Button>
-      <Button name="$parentConsoleButton"
+      <Button name="$parentDeveloperToolsButton"
               inherits="BackboneTopMenuButtonTemplate"
-              text="Developer console">
+              text="Developer tools">
         <Anchors>
           <Anchor x="-18"
                   point="TOPRIGHT"
                   relativeTo="$parentCloseButton"
                   relativePoint="TOPLEFT" />
         </Anchors>
-        <Size x="145"
+        <Size x="140"
               y="32" />
       </Button>
       <Button name="$parentSettingsButton"
@@ -159,7 +159,7 @@
         <Anchors>
           <Anchor x="-18"
                   point="TOPRIGHT"
-                  relativeTo="$parentConsoleButton"
+                  relativeTo="$parentDeveloperToolsButton"
                   relativePoint="TOPLEFT" />
         </Anchors>
         <Size x="80"
