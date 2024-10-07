@@ -1,3 +1,6 @@
+---@type string, Repository
+local addon, repository = ...
+
 --[[~ Module: Plugins ~
   
   Author(s): Erik Riklund (Gopher)
@@ -7,6 +10,9 @@
 
 ]]
 
+---@type hashmap<string, Plugin>
+local plugins = {}
+
 ---
 --- ?
 ---
@@ -14,5 +20,14 @@
 ---@return Plugin
 ---
 backbone.createPlugin = function(name)
-  ---@diagnostic disable-next-line: missing-return
+  local identifier = string.lower(name)
+
+  if plugins[identifier] ~= nil then
+    backbone.throwError('Failed to register plugin "%s" (non-unique name).', name) --
+  end
+
+  plugins[identifier] = { identifier = identifier, name = name }
+  repository.invokeChannelListeners('PLUGIN_ADDED', { plugins[identifier] })
+
+  return plugins[identifier]
 end
