@@ -1,14 +1,13 @@
 <Ui>
   <Frame name="BackboneLogo"
          parent="BackboneHeader">
-    <Size x="350" />
+    <Size x="300" />
     <Anchors>
       <Anchor point="TOPLEFT"
               relativeTo="$parent"
-              relativePoint="TOPLEFT" />
+              x="85" />
       <Anchor point="BOTTOMLEFT"
-              relativeTo="$parent"
-              relativePoint="BOTTOMLEFT" />
+              relativeTo="$parent" />
     </Anchors>
     <Layers>
       <Layer level="OVERLAY">
@@ -17,9 +16,8 @@
                     inherits="BackboneFontHuge">
           <Anchors>
             <Anchor point="CENTER" />
-            <Anchor point="RIGHT"
-                    relativeTo="$parent"
-                    relativePoint="RIGHT" />
+            <Anchor point="LEFT"
+                    relativeTo="$parent" />
           </Anchors>
         </FontString>
         <FontString inherits="BackboneFontTiny">
@@ -53,17 +51,15 @@
         </FontString>
       </Layer>
       <Layer level="ARTWORK">
-        <Texture file="Interface\Addons\Backbone\media\icons\skull">
-          <Size>
-            <AbsDimension x="64"
-                          y="64" />
-          </Size>
+        <Texture file="interface\addons\backbone\media\icons\skeleton">
+          <Size x="48"
+                y="48" />
           <Anchors>
-            <Anchor point="CENTER" />
-            <Anchor x="-24"
-                    point="RIGHT"
+            <Anchor point="TOPLEFT"
                     relativeTo="$parentText"
-                    relativePoint="LEFT" />
+                    relativePoint="TOPRIGHT"
+                    x="18"
+                    y="4" />
           </Anchors>
         </Texture>
       </Layer>

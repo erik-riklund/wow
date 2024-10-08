@@ -1,0 +1,49 @@
+<Ui>
+  <Frame virtual="true"
+         name="BackboneWindowTemplate"
+         inherits="BackbonePanelTemplate"
+         frameStrata="HIGH"
+         enableMouse="true"
+         movable="true">
+    <Frames>
+      <Button name="$parentCloseButton"
+              frameStrata="HIGH"
+              inherits="BackboneCloseButtonTemplate" />
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND"
+             textureSubLevel="-4">
+        <Texture name="$parentTitleBackground"
+                 parentKey="titleBackground">
+          <Size y="24" />
+          <Color r="0.07"
+                 g="0.09"
+                 b="0.09"
+                 a="1" />
+          <Anchors>
+            <Anchor point="TOPLEFT" />
+            <Anchor point="TOPRIGHT" />
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="BACKGROUND"
+             textureSubLevel="-3">
+        <Texture name="$parentTitleBackgroundShader"
+                 parentKey="titleBackgroundShader"
+                 inherits="BackboneBorderColor">
+          <Size y="1" />
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="$parentTitleBackground"
+                    relativePoint="BOTTOMLEFT"
+                    x="1" />
+            <Anchor point="TOPRIGHT"
+                    relativeTo="$parentTitleBackground"
+                    relativePoint="BOTTOMRIGHT"
+                    x="-1" />
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

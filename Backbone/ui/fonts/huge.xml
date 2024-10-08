@@ -2,7 +2,7 @@
   <Font virtual="true"
         name="BackboneFontHuge"
         font="Interface\Addons\Backbone\media\fonts\dosis.ttf"
-        outline="NORMAL">
+        outline="NONE">
     <Color r="0.64"
            g="0.58"
            b="0.47"

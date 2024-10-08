@@ -1,0 +1,49 @@
+<Ui>
+  <Button virtual="true"
+          name="BackboneCloseButtonTemplate"
+          inherits="BackboneButtonTemplate">
+    <Size x="24"
+          y="24" />
+    <Anchors>
+      <Anchor point="TOPRIGHT" />
+    </Anchors>
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture name="$parentIdleTexture"
+                 parentKey="idleTexture"
+                 file="interface\addons\backbone\media\icons\close-grey">
+          <Size x="16"
+                y="16" />
+          <Anchors>
+            <Anchor point="CENTER"
+                    y="1" />
+          </Anchors>
+        </Texture>
+        <Texture name="$parentHoverTexture"
+                 parentKey="hoverTexture"
+                 file="interface\addons\backbone\media\icons\close-red"
+                 hidden="true">
+          <Size x="16"
+                y="16" />
+          <Anchors>
+            <Anchor point="CENTER"
+                    y="1" />
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnClick>        
+        (self:GetParent()):Hide()
+      </OnClick>
+      <OnEnter>        
+        self.idleTexture:Hide()
+        self.hoverTexture:Show()
+      </OnEnter>
+      <OnLeave>        
+        self.hoverTexture:Hide()
+        self.idleTexture:Show()
+      </OnLeave>
+    </Scripts>
+  </Button>
+</Ui>

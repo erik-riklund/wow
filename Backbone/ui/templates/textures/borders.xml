@@ -1,0 +1,122 @@
+<Ui>
+  <!-- The color of the outer border shared by all border templates -->
+  <Texture virtual="true"
+           name="BackboneBorderColor">
+    <Color r="0.05"
+           g="0.05"
+           b="0.05"
+           a="1" />
+  </Texture>
+  <!-- The color of the inner border (shader) shared by X-axis border templates -->
+  <Texture virtual="true"
+           name="BackboneBorderShaderColorX">
+    <Color r="1"
+           g="1"
+           b="1"
+           a="0.2" />
+  </Texture>
+  <!-- The color of the inner border (shader) shared by Y-axis border templates -->
+  <Texture virtual="true"
+           name="BackboneBorderShaderColorY">
+    <Color r="1"
+           g="1"
+           b="1"
+           a="0.1" />
+  </Texture>
+  <!-- Top border -->
+  <Texture virtual="true"
+           name="BackboneTopBorder"
+           inherits="BackboneBorderColor">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              y="1" />
+      <Anchor point="TOPRIGHT"
+              y="1" />
+    </Anchors>
+  </Texture>
+  <!-- Top border (shader) -->
+  <Texture virtual="true"
+           name="BackboneTopBorderShader"
+           inherits="BackboneBorderShaderColorX">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              x="1" />
+      <Anchor point="TOPRIGHT"
+              x="-1" />
+    </Anchors>
+  </Texture>
+  <!-- Right border -->
+  <Texture virtual="true"
+           name="BackboneRightBorder"
+           inherits="BackboneBorderColor">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPRIGHT"
+              x="1" />
+      <Anchor point="BOTTOMRIGHT"
+              x="1" />
+    </Anchors>
+  </Texture>
+  <!-- Right border (shader) -->
+  <Texture virtual="true"
+           name="BackboneRightBorderShader"
+           inherits="BackboneBorderShaderColorY">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPRIGHT"
+              y="-1" />
+      <Anchor point="BOTTOMRIGHT"
+              y="1" />
+    </Anchors>
+  </Texture>
+  <!-- Bottom border -->
+  <Texture virtual="true"
+           name="BackboneBottomBorder"
+           inherits="BackboneBorderColor">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              y="-1" />
+      <Anchor point="BOTTOMRIGHT"
+              y="-1" />
+    </Anchors>
+  </Texture>
+  <!-- Bottom border (shader) -->
+  <Texture virtual="true"
+           name="BackboneBottomBorderShader"
+           inherits="BackboneBorderShaderColorX">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              x="1" />
+      <Anchor point="BOTTOMRIGHT"
+              x="-1" />
+    </Anchors>
+  </Texture>
+  <!-- Left border -->
+  <Texture virtual="true"
+           name="BackboneLeftBorder"
+           inherits="BackboneBorderColor">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              x="-1" />
+      <Anchor point="BOTTOMLEFT"
+              x="-1" />
+    </Anchors>
+  </Texture>
+  <!-- Left border (shader) -->
+  <Texture virtual="true"
+           name="BackboneLeftBorderShader"
+           inherits="BackboneBorderShaderColorY">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              y="-1" />
+      <Anchor point="BOTTOMLEFT"
+              y="1" />
+    </Anchors>
+  </Texture>
+</Ui>

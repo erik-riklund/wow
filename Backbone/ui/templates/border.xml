@@ -1,0 +1,17 @@
+<Ui>
+  <Frame virtual="true"
+         name="BackboneBorderTemplate">
+    <Layers>
+      <Layer level="BORDER">
+        <Texture inherits="BackboneTopBorder" />
+        <Texture inherits="BackboneTopBorderShader" />
+        <Texture inherits="BackboneRightBorder" />
+        <Texture inherits="BackboneRightBorderShader" />
+        <Texture inherits="BackboneBottomBorder" />
+        <Texture inherits="BackboneBottomBorderShader" />
+        <Texture inherits="BackboneLeftBorder" />
+        <Texture inherits="BackboneLeftBorderShader" />
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

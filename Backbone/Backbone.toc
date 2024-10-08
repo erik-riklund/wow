@@ -24,5 +24,7 @@ modules/plugins.lua
 
 lock-api.lua
 
-fonts.xml
+ui/fonts.xml
+ui/templates.xml
+
 app.xml

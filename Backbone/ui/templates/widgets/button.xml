@@ -1,0 +1,27 @@
+<Ui>
+  <Button virtual="true"
+          name="BackboneButtonTemplate"
+          inherits="BackboneBorderTemplate">
+    <Layers>
+      <Layer level="BACKGROUND"
+             textureSubLevel="-1">
+        <Texture setAllPoints="true">
+          <Color r="0.57"
+                 g="0.51"
+                 b="0.45"
+                 a="0.4" />
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY"
+             textureSubLevel="5">
+        <Texture name="$parentActiveEffect"
+                 inherits="BackboneActiveEffect"
+                 parentKey="activeEffect" />
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnEnter>self.activeEffect:Show()</OnEnter>
+      <OnLeave>self.activeEffect:Hide()</OnLeave>
+    </Scripts>
+  </Button>
+</Ui>

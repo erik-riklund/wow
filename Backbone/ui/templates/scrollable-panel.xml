@@ -1,7 +1,0 @@
-<Ui>
-  <ScrollFrame virtual="true"
-               name="BackboneScrollablePanelTemplate"
-               inherits="HybridScrollFrameTemplate">
-    <!-- ? -->
-  </ScrollFrame>
-</Ui>

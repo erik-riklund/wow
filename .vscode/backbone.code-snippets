@@ -61,7 +61,7 @@
 
   "media": {
     "prefix": "!media",
-    "body": "Interface\\Addons\\Backbone\\media\\"
+    "body": "interface\\addons\\backbone\\media\\"
   },
 
   "xml-color": {
