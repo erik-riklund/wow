@@ -2,12 +2,11 @@
   <!-- HUGE font variation with NO OUTLINE -->
   <FontString virtual="true"
               name="BackboneTextHuge"
-              inherits="BackboneFontDosis">
+              inherits="BackboneFontDosisHuge">
     <Color r="0.64"
            g="0.58"
            b="0.47"
            a="1" />
-    <FontHeight val="48" />
   </FontString>
   <!-- HUGE font variation with a THIN OUTLINE -->
   <FontString virtual="true"

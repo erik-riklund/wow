@@ -1,8 +1,22 @@
 <Ui>
   <Font virtual="true"
-        name="BackboneFontDosis"
-        font="interface\addons\backbone\media\fonts\dosis.ttf" />
+        name="BackboneFontDosisHuge"
+        font="interface\addons\backbone\media\fonts\dosis.ttf">
+    <FontHeight val="48" />
+  </Font>
+  <Font virtual="true"
+        name="BackboneFontHammersmithOneTiny"
+        font="interface\addons\backbone\media\fonts\hammersmith-one.ttf">
+    <FontHeight val="11" />
+  </Font>
+  <Font virtual="true"
+        name="BackboneFontHammersmithOneSmall"
+        font="interface\addons\backbone\media\fonts\hammersmith-one.ttf">
+    <FontHeight val="12" />
+  </Font>
   <Font virtual="true"
         name="BackboneFontHammersmithOne"
-        font="interface\addons\backbone\media\fonts\hammersmith-one.ttf" />
+        font="interface\addons\backbone\media\fonts\hammersmith-one.ttf">
+    <FontHeight val="13" />
+  </Font>
 </Ui>

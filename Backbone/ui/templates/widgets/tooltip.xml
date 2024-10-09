@@ -1,0 +1,7 @@
+<Ui>
+  <!-- TEMPLATE -->
+  <Frame virtual="true"
+         name="BackboneTooltipTemplate">    
+    ?
+  </Frame>
+</Ui>

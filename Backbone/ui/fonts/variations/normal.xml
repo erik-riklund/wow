@@ -7,7 +7,6 @@
            g="0.87"
            b="0.70"
            a="1" />
-    <FontHeight val="13" />
   </FontString>
   <!-- NORMAL font variation with a THIN OUTLINE -->
   <FontString virtual="true"

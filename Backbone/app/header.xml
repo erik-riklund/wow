@@ -1,5 +1,5 @@
 <Ui>
-  <Frame name="BackboneHeader"
+  <!-- <Frame name="BackboneHeader"
          parent="BackboneFrame">
     <Size y="100" />
     <Anchors>
@@ -36,5 +36,5 @@
         </Texture>
       </Layer>
     </Layers>
-  </Frame>
+  </Frame> -->
 </Ui>

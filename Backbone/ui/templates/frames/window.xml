@@ -1,6 +1,11 @@
 <Ui>
   <Frame virtual="true"
          name="BackboneWindowTemplate"
+         inherits="BackboneBorderedFrameTemplate">    
+    ?
+  </Frame>
+  <!-- <Frame virtual="true"
+         name="BackboneWindowTemplate"
          inherits="BackbonePanelTemplate"
          frameStrata="HIGH"
          enableMouse="true"
@@ -45,5 +50,5 @@
         </Texture>
       </Layer>
     </Layers>
-  </Frame>
+  </Frame> -->
 </Ui>

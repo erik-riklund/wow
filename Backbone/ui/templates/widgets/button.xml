@@ -1,4 +1,7 @@
 <Ui>
+  <!-- BEHAVIOR -->
+  <Script file="button.lua" />
+  <!-- TEMPLATE -->
   <Button virtual="true"
           name="BackboneButtonTemplate"
           inherits="BackboneBorderedFrameTemplate">
@@ -20,8 +23,16 @@
       </Layer>
     </Layers>
     <Scripts>
-      <OnEnter>self.activeEffect:Show()</OnEnter>
-      <OnLeave>self.activeEffect:Hide()</OnLeave>
+      <OnEnter>BackboneButtonTemplate_ToggleActiveEffect(self)</OnEnter>
+      <OnLeave>BackboneButtonTemplate_ToggleActiveEffect(self)</OnLeave>
     </Scripts>
+  </Button>
+  <!-- TEMPLATE -->
+  <Button virtual="true"
+          name="BackboneButtonWithTooltipTemplate"
+          inherits="BackboneButtonTemplate">    
+    <Frames>
+      ?
+    </Frames>
   </Button>
 </Ui>

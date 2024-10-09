@@ -26,7 +26,7 @@ modules/app.lua
 
 lock-api.lua
 
-ui/fonts.xml
-ui/templates.xml
+ui/_fonts.xml
+ui/_templates.xml
 
 app.xml

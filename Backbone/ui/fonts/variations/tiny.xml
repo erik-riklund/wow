@@ -2,8 +2,11 @@
   <!-- TINY font variation with NO OUTLINE -->
   <FontString virtual="true"
               name="BackboneTextTiny"
-              inherits="BackboneText">
-    <FontHeight val="11" />
+              inherits="BackboneFontHammersmithOneTiny">
+    <Color r="0.96"
+           g="0.87"
+           b="0.70"
+           a="1" />
   </FontString>
   <!-- TINY font variation with a THIN OUTLINE -->
   <FontString virtual="true"
