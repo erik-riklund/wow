@@ -1,7 +1,7 @@
 <Ui>
   <Button virtual="true"
           name="BackboneButtonTemplate"
-          inherits="BackboneBorderTemplate">
+          inherits="BackboneBorderedFrameTemplate">
     <Layers>
       <Layer level="BACKGROUND"
              textureSubLevel="-1">

@@ -1,6 +1,6 @@
 <Ui>
   <Frame virtual="true"
-         name="BackboneBorderTemplate">
+         name="BackboneBorderedFrameTemplate">
     <Layers>
       <Layer level="BORDER">
         <Texture inherits="BackboneTopBorder" />

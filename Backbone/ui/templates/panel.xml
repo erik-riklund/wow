@@ -1,7 +1,7 @@
 <Ui>
   <Frame virtual="true"
          name="BackbonePanelTemplate"
-         inherits="BackboneBorderTemplate">
+         inherits="BackboneBorderedFrameTemplate">
     <Layers>
       <Layer level="BACKGROUND"
              textureSubLevel="-5">
