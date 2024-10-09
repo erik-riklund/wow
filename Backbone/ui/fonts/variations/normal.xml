@@ -1,0 +1,22 @@
+<Ui>
+  <!-- NORMAL font variation with NO OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneText"
+              inherits="BackboneFontHammersmithOne">
+    <Color r="0.96"
+           g="0.87"
+           b="0.70"
+           a="1" />
+    <FontHeight val="13" />
+  </FontString>
+  <!-- NORMAL font variation with a THIN OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneTextThinOutline"
+              inherits="BackboneText"
+              outline="NORMAL" />
+  <!-- NORMAL font variation with a THICK OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneTextThickOutline"
+              inherits="BackboneText"
+              outline="THICK" />
+</Ui>

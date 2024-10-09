@@ -1,0 +1,8 @@
+<Ui>
+  <Font virtual="true"
+        name="BackboneFontDosis"
+        font="interface\addons\backbone\media\fonts\dosis.ttf" />
+  <Font virtual="true"
+        name="BackboneFontHammersmithOne"
+        font="interface\addons\backbone\media\fonts\hammersmith-one.ttf" />
+</Ui>

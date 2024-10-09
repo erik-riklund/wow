@@ -1,0 +1,18 @@
+<Ui>
+  <!-- TINY font variation with NO OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneTextTiny"
+              inherits="BackboneText">
+    <FontHeight val="11" />
+  </FontString>
+  <!-- TINY font variation with a THIN OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneTextTinyThinOutline"
+              inherits="BackboneTextTiny"
+              outline="NORMAL" />
+  <!-- TINY font variation with a THICK OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneTextTinyThickOutline"
+              inherits="BackboneTextTiny"
+              outline="THICK" />
+</Ui>
