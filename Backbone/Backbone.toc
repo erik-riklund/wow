@@ -20,7 +20,9 @@ components/listenable.lua
 
 modules/tasks.lua
 modules/network.lua
+modules/events.lua
 modules/plugins.lua
+modules/app.lua
 
 lock-api.lua
 

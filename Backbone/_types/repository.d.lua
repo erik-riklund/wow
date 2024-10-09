@@ -15,6 +15,6 @@
 ---@field frame Frame
 ---
 ---@field invokeChannelListeners fun(channel: string, arguments?: unknown[])
----@field setActivePage fun(name: string)
----@field registerPage fun(name: string, panels: { main: table, left?: table, right?: table })
+---@field registerPage fun(identifier: string, page: Page)
+---@field setActivePage fun(identifier: string)
 ---
