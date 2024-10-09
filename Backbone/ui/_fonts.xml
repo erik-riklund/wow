@@ -1,7 +1,4 @@
 <Ui>
-  <Include file="fonts/fonts.xml" />
-  <Include file="fonts/variations/huge.xml" />
-  <Include file="fonts/variations/normal.xml" />
-  <Include file="fonts/variations/small.xml" />
-  <Include file="fonts/variations/tiny.xml" />
+  <Include file="fonts/buttons.xml" />
+  <Include file="fonts/tooltips.xml" />
 </Ui>

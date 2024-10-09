@@ -1,7 +1,77 @@
 <Ui>
-  <!-- TEMPLATE -->
+  <!-- BEHAVIOR -->
+  <Script file="tooltip.lua" />
+  <!-- TEMPLATE: ARROW color -->
+  <Texture virtual="true"
+           name="BackboneTooltipArrowColor">
+    <Color r="0.95"
+           g="0.37"
+           b="0.02"
+           a="0.75" />
+  </Texture>
+  <!-- TEMPLATE: TOOLTIP -->
   <Frame virtual="true"
-         name="BackboneTooltipTemplate">    
-    ?
+         name="BackboneTooltipTemplate"
+         inherits="BackboneBorderedFrameTemplate"
+         hidden="true">
+    <Size x="100"
+          y="25" />
+    <Anchors>
+      <Anchor point="TOP"
+              relativePoint="BOTTOM"
+              y="-8" />
+      <Anchor point="CENTER" />
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="0.15"
+                 g="0.15"
+                 b="0.15"
+                 a="0.8" />
+        </Texture>
+        <Texture inherits="BackboneTooltipArrowColor">
+          <Size x="8"
+                y="1" />
+          <Anchors>
+            <Anchor point="BOTTOM"
+                    relativePoint="TOP"
+                    y="1" />
+          </Anchors>
+        </Texture>
+        <Texture inherits="BackboneTooltipArrowColor">
+          <Size x="6"
+                y="1" />
+          <Anchors>
+            <Anchor point="BOTTOM"
+                    relativePoint="TOP"
+                    y="2" />
+          </Anchors>
+        </Texture>
+        <Texture inherits="BackboneTooltipArrowColor">
+          <Size x="4"
+                y="1" />
+          <Anchors>
+            <Anchor point="BOTTOM"
+                    relativePoint="TOP"
+                    y="3" />
+          </Anchors>
+        </Texture>
+        <Texture inherits="BackboneTooltipArrowColor">
+          <Size x="2"
+                y="1" />
+          <Anchors>
+            <Anchor point="BOTTOM"
+                    relativePoint="TOP"
+                    y="4" />
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY">
+        <FontString parentKey="label"
+                    name="$parentTooltipText"
+                    inherits="BackboneTooltipText" />
+      </Layer>
+    </Layers>
   </Frame>
 </Ui>

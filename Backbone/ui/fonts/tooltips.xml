@@ -1,0 +1,8 @@
+<Ui>
+  <!-- NORMAL size with NO OUTLINE -->
+  <FontString virtual="true"
+              name="BackboneTooltipText"
+              font="interface\addons\backbone\media\fonts\rubik.ttf">
+    <FontHeight val="11" />
+  </FontString>
+</Ui>

@@ -20,5 +20,18 @@
               x="-200"
               y="150" />
     </Anchors>
+    <Frames>
+      <Button parentKey="minimizeButton"
+              inherits="BackboneButtonWithTooltipTemplate"
+              text="Collapse[Show the shortcut panel at the top of the screen]">
+        <Size y="25" />
+        <Anchors>
+          <Anchor point="TOPRIGHT"
+                  relativeTo="$parentCloseButton"
+                  relativePoint="TOPLEFT"
+                  x="-1" />
+        </Anchors>
+      </Button>
+    </Frames>
   </Frame>
 </Ui>

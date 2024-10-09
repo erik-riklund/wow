@@ -1,9 +1,8 @@
 <Ui>
-  <!-- EFFECTS and TEXTURES -->
   <Include file="templates/effects/active.xml" />
   <Include file="templates/textures/borders.xml" />
-  <!-- FRAMES -->
   <Include file="templates/frames/bordered-frame.xml" />
+  <Include file="templates/widgets/tooltip.xml" />
+  <Include file="templates/widgets/buttons.xml" />
   <Include file="templates/frames/window.xml" />
-  <!-- WIDGETS -->
 </Ui>

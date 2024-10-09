@@ -1,4 +1,5 @@
 <Ui>
+  <!-- TEMPLATE: BORDER with a SHADER -->
   <Frame virtual="true"
          name="BackboneBorderedFrameTemplate">
     <Layers>
@@ -10,6 +11,30 @@
         <Texture inherits="BackboneBottomBorder" />
         <Texture inherits="BackboneBottomBorderShader" />
         <Texture inherits="BackboneLeftBorder" />
+        <Texture inherits="BackboneLeftBorderShader" />
+      </Layer>
+    </Layers>
+  </Frame>
+  <!-- TEMPLATE: BORDER with NO SHADER -->
+  <Frame virtual="true"
+         name="BackboneBorderedFrameWithoutShaderTemplate">
+    <Layers>
+      <Layer level="BORDER">
+        <Texture inherits="BackboneTopBorder" />
+        <Texture inherits="BackboneRightBorder" />
+        <Texture inherits="BackboneBottomBorder" />
+        <Texture inherits="BackboneLeftBorder" />
+      </Layer>
+    </Layers>
+  </Frame>
+  <!-- TEMPLATE: BORDER with ONLY SHADER -->
+  <Frame virtual="true"
+         name="BackboneBorderedFrameWithOnlyShaderTemplate">
+    <Layers>
+      <Layer level="BORDER">
+        <Texture inherits="BackboneTopBorderShader" />
+        <Texture inherits="BackboneRightBorderShader" />
+        <Texture inherits="BackboneBottomBorderShader" />
         <Texture inherits="BackboneLeftBorderShader" />
       </Layer>
     </Layers>
