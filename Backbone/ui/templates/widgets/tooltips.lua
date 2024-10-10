@@ -15,4 +15,6 @@ _G.BackboneTooltipTemplate_OnLoad = function(parent)
 end
 
 ---@param self Frame
-_G.BackboneTooltipTemplate_ToggleState = function(self) self:SetShown(not self:IsShown()) end
+_G.BackboneTooltipTemplate_ToggleState = function(self)
+  self:SetShown(not self:IsShown()) --
+end

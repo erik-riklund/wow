@@ -1,6 +1,6 @@
 <Ui>
   <!-- BEHAVIOR -->
-  <Script file="tooltip.lua" />
+  <Script file="tooltips.lua" />
   <!-- TEMPLATE: ARROW color -->
   <Texture virtual="true"
            name="BackboneTooltipArrowColor">
