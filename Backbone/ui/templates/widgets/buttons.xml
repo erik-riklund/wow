@@ -25,9 +25,15 @@
     <ButtonText parentKey="text"
                 inherits="BackboneButtonText" />
     <Scripts>
-      <OnLoad>BackboneButtonTemplate_UpdateWidth(self)</OnLoad>
-      <OnEnter>BackboneButtonTemplate_ToggleActiveEffect(self)</OnEnter>
-      <OnLeave>BackboneButtonTemplate_ToggleActiveEffect(self)</OnLeave>
+      <OnLoad>
+        BackboneButtonTemplate_UpdateWidth(self)
+      </OnLoad>
+      <OnEnter>
+        BackboneButtonTemplate_ToggleActiveEffect(self)
+      </OnEnter>
+      <OnLeave>
+        BackboneButtonTemplate_ToggleActiveEffect(self)
+      </OnLeave>
     </Scripts>
   </Button>
   <!-- TEMPLATE: BASIC Button with a TOOLTIP -->
@@ -40,7 +46,7 @@
     </Frames>
     <Scripts>
       <OnLoad>
-        BackboneTooltipTemplate_OnLoad(self)
+        BackboneButtonWithTooltipTemplate_OnLoad(self)
         BackboneButtonTemplate_UpdateWidth(self)
       </OnLoad>
       <OnEnter>

@@ -16,7 +16,12 @@ end
 ---@param self Button
 _G.BackboneButtonTemplate_UpdateWidth = function(self)
   local _, height = self:GetSize()
-  local content = self.text --[[@as FontString]]:GetText()
-  
-  self:SetSize(( #content * ( #content < 25 and 7 or 6 ) ) + 10, height)
+  local content = (self.text --[[@as FontString]]):GetText()
+
+  self:SetSize((#content * (#content < 25 and 7 or 6)) + 10, height)
+end
+
+---@param self Button
+_G.BackboneButtonWithTooltipTemplate_OnLoad = function(self)
+  print 'BackboneButtonWithTooltipTemplate_OnLoad: not implemented.'
 end
