@@ -22,7 +22,7 @@
                  parentKey="activeEffect" />
       </Layer>
     </Layers>
-    <ButtonText parentKey="text"
+    <ButtonText parentKey="textLabel"
                 inherits="BackboneButtonText" />
     <Scripts>
       <OnLoad>
@@ -50,11 +50,11 @@
         BackboneButtonTemplate_UpdateWidth(self)
       </OnLoad>
       <OnEnter>
-        BackboneTooltipTemplate_ToggleState(self.tooltipFrame)
+        Backbone_ToggleState(self.tooltipFrame)
         BackboneButtonTemplate_ToggleActiveEffect(self)
       </OnEnter>
       <OnLeave>
-        BackboneTooltipTemplate_ToggleState(self.tooltipFrame)
+        Backbone_ToggleState(self.tooltipFrame)
         BackboneButtonTemplate_ToggleActiveEffect(self)
       </OnLeave>
     </Scripts>

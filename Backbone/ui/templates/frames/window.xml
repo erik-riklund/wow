@@ -59,7 +59,9 @@
           <Anchor point="TOPRIGHT" />
         </Anchors>
         <Scripts>
-          <OnClick>(self:GetParent()):Hide()</OnClick>
+          <OnClick>
+            Backbone_HideParent(self)
+          </OnClick>
         </Scripts>
       </Button>
     </Frames>

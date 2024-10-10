@@ -1,4 +1,4 @@
---[[~ Widget: Tooltip ~
+--[[~ Widget: Tooltips ~
   
   Author(s): Erik Riklund (Gopher)
   Version: 1.0.0 | Updated: ?
@@ -7,14 +7,13 @@
 
 ]]
 
----@param parent Frame
-_G.BackboneTooltipTemplate_OnLoad = function(parent)
-  local self = parent.tooltipFrame --[[@as Frame]]
-
-  DevTools_Dump(self)
-end
-
+---
+--- ?
+---
 ---@param self Frame
-_G.BackboneTooltipTemplate_ToggleState = function(self)
-  self:SetShown(not self:IsShown()) --
+---@param content string
+---
+_G.BackboneTooltipTemplate_OnLoad = function(self, content)
+  -- update the size of the tooltip based on the provided `content`.
+  print 'BackboneTooltipTemplate_OnLoad: not implemented.'
 end

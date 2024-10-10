@@ -9,13 +9,11 @@
            b="0.02"
            a="0.75" />
   </Texture>
-  <!-- TEMPLATE: TOOLTIP -->
+  <!-- TEMPLATE: TOOLTIP frame -->
   <Frame virtual="true"
          name="BackboneTooltipTemplate"
          inherits="BackboneBorderedFrameTemplate"
          hidden="true">
-    <Size x="100"
-          y="25" />
     <Anchors>
       <Anchor point="TOP"
               relativePoint="BOTTOM"
@@ -70,7 +68,11 @@
       <Layer level="OVERLAY">
         <FontString parentKey="label"
                     name="$parentTooltipText"
-                    inherits="BackboneTooltipText" />
+                    inherits="BackboneTooltipText">
+          <Anchors>
+            <Anchor point="CENTER" />
+          </Anchors>
+        </FontString>
       </Layer>
     </Layers>
   </Frame>

@@ -16,7 +16,7 @@ local addon, repository = ...
 _G.backbone = { version = '1.0.0' }
 
 ---
---- ?
+--- A collection of utility functions provided by Backbone.
 ---
 _G.utilities = {}
 
