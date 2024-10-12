@@ -13,7 +13,7 @@
           <Color r="0.07"
                  g="0.09"
                  b="0.09"
-                 a="0.85" />
+                 a="0.9" />
         </Texture>
       </Layer>
       <Layer level="BACKGROUND"

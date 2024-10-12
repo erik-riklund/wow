@@ -1,6 +1,6 @@
 <Ui>
-  <Frame name="BackboneLogo"
-         parent="BackboneHeader">
+  <Frame name="BackboneLogoFrame"
+         parent="BackboneHeaderFrame">
     <Size x="300" />
     <Anchors>
       <Anchor point="TOPLEFT"

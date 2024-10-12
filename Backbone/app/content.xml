@@ -1,0 +1,44 @@
+<Ui>
+  <Frame name="BackboneContentFrame"
+         parent="BackboneFrame"
+         enableMouse="true">
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              relativeTo="BackboneHeaderFrame"
+              relativePoint="BOTTOMLEFT"
+              x="1"
+              y="-1" />
+      <Anchor point="BOTTOMRIGHT"
+              x="-2"
+              y="2" />
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="0.12"
+                 g="0.12"
+                 b="0.12"
+                 a="0.99" />
+        </Texture>
+      </Layer>
+      <Layer level="BORDER">
+        <Texture>
+          <Size y="1" />
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeTo="BackboneHeaderFrame"
+                    relativePoint="BOTTOMLEFT"
+                    y="-1" />
+            <Anchor point="TOPRIGHT"
+                    relativeTo="BackboneHeaderFrame"
+                    relativePoint="BOTTOMRIGHT" />
+          </Anchors>
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.05" />
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

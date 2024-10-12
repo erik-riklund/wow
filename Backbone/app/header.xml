@@ -1,5 +1,5 @@
 <Ui>
-  <Frame name="BackboneHeader"
+  <Frame name="BackboneHeaderFrame"
          parent="BackboneFrame">
     <Size y="100" />
     <Anchors>
@@ -18,6 +18,18 @@
                  g="0.05"
                  b="0.05"
                  a="0.3" />
+        </Texture>
+        <Texture>
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.014" />
+          <Anchors>
+            <Anchor point="TOP"
+                    relativePoint="CENTER" />
+            <Anchor point="BOTTOMLEFT" />
+            <Anchor point="BOTTOMRIGHT" />
+          </Anchors>
         </Texture>
         <Texture>
           <Size y="1" />

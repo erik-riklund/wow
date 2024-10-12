@@ -1,6 +1,8 @@
 <Ui>
   <Include file="app/window.xml" />
+  <Include file="app/shortcut.xml" />
   <Include file="app/header.xml" />
   <Include file="app/logo.xml" />
-  <Include file="app/shortcut.xml" />
+  <Include file="app/menu.xml" />
+  <Include file="app/content.xml" />
 </Ui>

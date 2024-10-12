@@ -1,0 +1,21 @@
+<Ui>
+  <Frame name="BackboneMenuFrame"
+         parent="BackboneHeaderFrame"
+         enableMouse="true">
+    <Size y="24" />
+    <Anchors>
+      <Anchor point="BOTTOMLEFT" />
+      <Anchor point="BOTTOMRIGHT" />
+    </Anchors>
+    <!-- <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.05" />
+        </Texture>
+      </Layer>
+    </Layers> -->
+  </Frame>
+</Ui>
