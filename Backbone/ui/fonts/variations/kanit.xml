@@ -1,0 +1,14 @@
+<Ui>
+  <!-- SMALL -->
+  <FontString virtual="true"
+              name="BackboneFontKanitSmall"
+              font="interface\addons\backbone\media\fonts\kanit.ttf">
+    <FontHeight val="12" />
+  </FontString>
+  <!-- NORMAL -->
+  <FontString virtual="true"
+              name="BackboneFontKanit"
+              font="interface\addons\backbone\media\fonts\kanit.ttf">
+    <FontHeight val="13" />
+  </FontString>
+</Ui>

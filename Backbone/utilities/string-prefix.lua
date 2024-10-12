@@ -14,7 +14,7 @@
 ---@param target string
 ---@param prefix string|string[]
 ---
-utilities.stringHasPrefix = function(target, prefix)
+backbone.utilities.stringHasPrefix = function(target, prefix)
   local targetLength = target:len()
   if type(prefix) ~= 'table' then prefix = { prefix } end
 

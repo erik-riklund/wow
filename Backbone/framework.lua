@@ -13,12 +13,7 @@ local addon, repository = ...
 ---
 --- The core API for the Backbone framework.
 ---
-_G.backbone = { version = '1.0.0' }
-
----
---- A collection of utility functions provided by Backbone.
----
-_G.utilities = {}
+_G.backbone = { version = '1.0.0', utilities = {} }
 
 ---
 --- The frame used internally to handle invocation of event listeners

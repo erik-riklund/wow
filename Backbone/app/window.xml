@@ -2,28 +2,17 @@
   <Frame name="BackboneFrame"
          parent="UIParent"
          inherits="BackboneWindowTemplate">
+    <Size x="960"
+          y="640" />
     <Anchors>
-      <Anchor point="TOPLEFT"
-              relativeTo="$parent"
-              x="250"
-              y="-50" />
-      <Anchor point="BOTTOMLEFT"
-              relativeTo="$parent"
-              x="200"
-              y="150" />
-      <Anchor point="TOPRIGHT"
-              relativeTo="$parent"
-              x="-250"
-              y="-500" />
-      <Anchor point="BOTTOMRIGHT"
-              relativeTo="$parent"
-              x="-200"
-              y="150" />
+      <Anchor point="CENTER" />
+      <Anchor point="TOP"
+              y="-100" />
     </Anchors>
     <Frames>
       <Button parentKey="minimizeButton"
               inherits="BackboneButtonWithTooltipTemplate"
-              text="Collapse[Show the shortcut panel at the top of the screen]">
+              text="backbone:APP_MINIMIZE_BUTTON_LABEL">
         <Size y="25" />
         <Anchors>
           <Anchor point="TOPRIGHT"
@@ -31,6 +20,12 @@
                   relativePoint="TOPLEFT"
                   x="-1" />
         </Anchors>
+        <Scripts>
+          <OnClick>
+            Backbone_HideParent(self)
+            Backbone_ToggleState(BackboneShortcutFrame)
+          </OnClick>
+        </Scripts>
       </Button>
     </Frames>
   </Frame>

@@ -16,7 +16,7 @@
 ---@param source table
 ---@param overwrite? boolean
 ---
-utilities.integrateTable = function(base, source, overwrite)
+backbone.utilities.integrateTable = function(base, source, overwrite)
   if type(overwrite) ~= 'boolean' then overwrite = false end
 
   for key, value in pairs(source) do

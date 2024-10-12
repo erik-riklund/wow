@@ -85,5 +85,5 @@ local listenable = {
 ---@return Listenable
 ---
 backbone.createListenableComponent = function()
-  return utilities.inheritParent({ listeners = {} }, listenable)
+  return backbone.utilities.inheritParent({ listeners = {} }, listenable)
 end

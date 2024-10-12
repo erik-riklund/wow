@@ -1,7 +1,7 @@
 <Ui>
   <!-- BEHAVIOR -->
   <Script file="buttons.lua" />
-  <!-- TEMPLATE: BASIC Button -->
+  <!-- TEMPLATE: BASIC button -->
   <Button virtual="true"
           name="BackboneButtonTemplate"
           inherits="BackboneBorderedFrameTemplate">
@@ -17,26 +17,33 @@
       </Layer>
       <Layer level="OVERLAY"
              textureSubLevel="5">
-        <Texture name="$parentActiveEffect"
-                 inherits="BackboneActiveEffect"
-                 parentKey="activeEffect" />
+        <Texture parentKey="activeEffect"
+                 inherits="BackboneActiveEffect" />
       </Layer>
     </Layers>
     <ButtonText parentKey="textLabel"
-                inherits="BackboneButtonText" />
+                inherits="BackboneButtonText">
+      <Anchors>
+        <Anchor point="CENTER" />
+      </Anchors>
+    </ButtonText>
     <Scripts>
-      <OnLoad>
+      <OnLoad>        
+        BackboneButtonTemplate_OnLoad(self)
+        BackboneButtonTemplate_SetStaticColor(self)
         BackboneButtonTemplate_UpdateWidth(self)
       </OnLoad>
-      <OnEnter>
+      <OnEnter>        
         BackboneButtonTemplate_ToggleActiveEffect(self)
+        BackboneButtonTemplate_SetActiveColor(self)
       </OnEnter>
-      <OnLeave>
+      <OnLeave>        
+        BackboneButtonTemplate_SetStaticColor(self)
         BackboneButtonTemplate_ToggleActiveEffect(self)
       </OnLeave>
     </Scripts>
   </Button>
-  <!-- TEMPLATE: BASIC Button with a TOOLTIP -->
+  <!-- TEMPLATE: BASIC button with a TOOLTIP -->
   <Button virtual="true"
           name="BackboneButtonWithTooltipTemplate"
           inherits="BackboneButtonTemplate">
@@ -45,16 +52,20 @@
              inherits="BackboneTooltipTemplate" />
     </Frames>
     <Scripts>
-      <OnLoad>
+      <OnLoad>        
+        BackboneButtonTemplate_OnLoad(self)
         BackboneButtonWithTooltipTemplate_OnLoad(self)
+        BackboneButtonTemplate_SetStaticColor(self)
         BackboneButtonTemplate_UpdateWidth(self)
       </OnLoad>
-      <OnEnter>
+      <OnEnter>        
         Backbone_ToggleState(self.tooltipFrame)
         BackboneButtonTemplate_ToggleActiveEffect(self)
+        BackboneButtonTemplate_SetActiveColor(self)
       </OnEnter>
-      <OnLeave>
+      <OnLeave>        
         Backbone_ToggleState(self.tooltipFrame)
+        BackboneButtonTemplate_SetStaticColor(self)
         BackboneButtonTemplate_ToggleActiveEffect(self)
       </OnLeave>
     </Scripts>

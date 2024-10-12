@@ -34,12 +34,15 @@ backbone.processMarkup = function(target, variables)
   -- Replace opening and closing color tags. If the specified
   -- color doesn't exist, `white` is used as fallback.
 
-  target = target:gsub(
-    '<color=([a-z][a-z-]*[a-z]*)>',
-    function(color) return '|cFF' .. (palette[color] or 'FFFFFF') end
-  )
+  target = target:gsub('<color=([a-z][a-z-]*[a-z]*)>', function(color)
+    return '|cFF' .. (palette[color] or 'FFFFFF') --
+  end)
 
   target = target:gsub('</color>', '|r')
+
+  -- ?
+
+  target = target:gsub('<br>', '\n')
 
   -- Replace variable placeholders with their actual values. If a variable
   -- doesn't exist, the placeholder is left intact in the resulting string.

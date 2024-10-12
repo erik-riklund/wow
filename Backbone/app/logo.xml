@@ -1,5 +1,5 @@
 <Ui>
-  <!-- <Frame name="BackboneLogo"
+  <Frame name="BackboneLogo"
          parent="BackboneHeader">
     <Size x="300" />
     <Anchors>
@@ -13,18 +13,20 @@
       <Layer level="OVERLAY">
         <FontString text="Backbone"
                     name="$parentText"
-                    inherits="BackboneTextHuge">
+                    inherits="BackboneFontDosisHuge">
           <Anchors>
             <Anchor point="CENTER" />
             <Anchor point="LEFT"
                     relativeTo="$parent" />
           </Anchors>
-        </FontString>
-        <FontString inherits="BackboneTextTiny">
           <Color r="0.64"
                  g="0.58"
-                 b="0.47"
-                 a="1" />
+                 b="0.47" />
+        </FontString>
+        <FontString inherits="BackboneFontKanitSmall">
+          <Color r="0.64"
+                 g="0.58"
+                 b="0.47" />
           <Anchors>
             <Anchor x="-4"
                     y="-12"
@@ -37,7 +39,7 @@
           </Scripts>
         </FontString>
         <FontString text="Providing the 'fun' in functional addons since 2024."
-                    inherits="BackboneTextTiny">
+                    inherits="BackboneFontKanitSmall">
           <Color r="0.66"
                  g="0.71"
                  b="0.4"
@@ -64,5 +66,5 @@
         </Texture>
       </Layer>
     </Layers>
-  </Frame> -->
+  </Frame>
 </Ui>

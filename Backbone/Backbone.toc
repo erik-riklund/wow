@@ -21,6 +21,7 @@ components/listenable.lua
 modules/tasks.lua
 modules/network.lua
 modules/events.lua
+modules/locales.lua
 modules/plugins.lua
 modules/app.lua
 
@@ -30,4 +31,6 @@ ui/behavior.lua
 ui/_fonts.xml
 ui/_templates.xml
 
+plugin.lua
+locales/enUS.lua
 app.xml

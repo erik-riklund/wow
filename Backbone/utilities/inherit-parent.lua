@@ -15,6 +15,6 @@
 ---@param child table
 ---@param parent table
 ---
-utilities.inheritParent = function(child, parent)
+backbone.utilities.inheritParent = function(child, parent)
   return setmetatable(child, { __index = parent })
 end

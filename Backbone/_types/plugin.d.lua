@@ -10,7 +10,7 @@
 ]]
 
 ---
----@class Plugin : EventsApi, NetworkApi
+---@class Plugin : EventsApi, LocalesApi, NetworkApi
 ---
 ---@field identifier string
 ---@field name string

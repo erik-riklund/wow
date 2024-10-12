@@ -136,8 +136,9 @@ registerListener(
   'PLUGIN_ADDED',
   'NETWORK_API_INTEGRATION',
   ---@param plugin Plugin
-  function(plugin) utilities.integrateTable(plugin, api) end
+  function(plugin) backbone.utilities.integrateTable(plugin, api) end
 )
 
 -- Expose the invocation method internally, allowing other modules to utilize it.
 repository.invokeChannelListeners = invokeListeners
+repository.registerListener = registerListener

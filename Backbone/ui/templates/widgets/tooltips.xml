@@ -26,7 +26,7 @@
           <Color r="0.15"
                  g="0.15"
                  b="0.15"
-                 a="0.8" />
+                 a="0.85" />
         </Texture>
         <Texture inherits="BackboneTooltipArrowColor">
           <Size x="8"
@@ -65,15 +65,13 @@
           </Anchors>
         </Texture>
       </Layer>
-      <Layer level="OVERLAY">
-        <FontString parentKey="label"
-                    name="$parentTooltipText"
-                    inherits="BackboneTooltipText">
-          <Anchors>
-            <Anchor point="CENTER" />
-          </Anchors>
-        </FontString>
-      </Layer>
     </Layers>
+    <Frames>
+      <Frame parentKey="contentFrame">
+        <Anchors>
+          <Anchor point="CENTER" y="-1" />
+        </Anchors>
+      </Frame>
+    </Frames>
   </Frame>
 </Ui>

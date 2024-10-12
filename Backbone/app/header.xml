@@ -1,12 +1,12 @@
 <Ui>
-  <!-- <Frame name="BackboneHeader"
+  <Frame name="BackboneHeader"
          parent="BackboneFrame">
     <Size y="100" />
     <Anchors>
       <Anchor point="TOPLEFT"
               relativeTo="$parent"
               x="1"
-              y="-26" />
+              y="-27" />
       <Anchor point="TOPRIGHT"
               relativeTo="$parent"
               x="-1" />
@@ -36,5 +36,5 @@
         </Texture>
       </Layer>
     </Layers>
-  </Frame> -->
+  </Frame>
 </Ui>

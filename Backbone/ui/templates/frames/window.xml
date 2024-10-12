@@ -3,6 +3,7 @@
          name="BackboneWindowTemplate"
          inherits="BackboneBorderedFrameTemplate"
          frameStrata="HIGH"
+         clampedToScreen="true"
          enableMouse="true"
          movable="true">
     <Layers>
@@ -53,17 +54,28 @@
       <Button parentKey="closeButton"
               name="$parentCloseButton"
               inherits="BackboneButtonTemplate"
-              text="Close">
+              text="backbone:WINDOW_CLOSE_BUTTON_LABEL">
         <Size y="25" />
         <Anchors>
           <Anchor point="TOPRIGHT" />
         </Anchors>
         <Scripts>
-          <OnClick>
+          <OnClick>            
             Backbone_HideParent(self)
           </OnClick>
         </Scripts>
       </Button>
     </Frames>
+    <Scripts>
+      <OnLoad>        
+        self:RegisterForDrag('LeftButton')
+      </OnLoad>
+      <OnDragStart>        
+        self:StartMoving()
+      </OnDragStart>
+      <OnDragStop>        
+        self:StopMovingOrSizing()
+      </OnDragStop>
+    </Scripts>
   </Frame>
 </Ui>

@@ -8,6 +8,7 @@
 ]]
 
 local testkit = backbone.getTestkit()
+local stringHasPrefix = backbone.utilities.stringHasPrefix
 
 testkit.createGroup('Utilities: String-related functions', {
   --
@@ -16,7 +17,7 @@ testkit.createGroup('Utilities: String-related functions', {
   testkit.createSuite('stringHasPrefix', {
     testkit.createTest(
       'a string without the specified prefix return false',
-      function() testkit.assertFalse(utilities.stringHasPrefix('Hello world', '123')) end
+      function() testkit.assertFalse(stringHasPrefix('Hello world', '123')) end
     ),
   }),
 })
