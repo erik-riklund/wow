@@ -15,9 +15,8 @@
 ---
 ---@field frame Frame
 ---@field plugin Plugin
+---@field app ApplicationController
 ---
 ---@field invokeChannelListeners fun(channel: string, arguments?: unknown[])
 ---@field registerListener fun(channel: string, identifier: string, callback: function, options?: { persistent?: boolean })
----@field registerPage fun(identifier: string, page: Page)
----@field setActivePage fun(identifier: string)
 ---

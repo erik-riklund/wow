@@ -1,7 +1,7 @@
 <Ui>
   <Frame name="BackboneHeaderFrame"
          parent="BackboneFrame">
-    <Size y="100" />
+    <Size y="110" />
     <Anchors>
       <Anchor point="TOPLEFT"
               relativeTo="$parent"

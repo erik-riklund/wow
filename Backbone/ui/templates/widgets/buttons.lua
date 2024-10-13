@@ -1,15 +1,11 @@
----@type string, Repository
-local addon, repository = ...
-
 --[[~ Widget: Buttons ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: ?
-
-  ?
+  Version: 1.0.0 | Updated: 2024/10/13
 
 ]]
 
+---@param self Button
 _G.BackboneButtonTemplate_OnLoad = function(self)
   local label = self.textLabel --[[@as FontString]]
   local plugin, localeKey = string.split(':', label:GetText())
@@ -17,38 +13,22 @@ _G.BackboneButtonTemplate_OnLoad = function(self)
   label:SetText(backbone.getLocalizedString(plugin, localeKey))
 end
 
----
---- ?
----
 ---@param self Button
----
 _G.BackboneButtonTemplate_ToggleActiveEffect = function(self)
   Backbone_ToggleState(self.activeEffect --[[@as Texture]])
 end
 
----
---- ?
----
 ---@param self Button
----
 _G.BackboneButtonTemplate_SetStaticColor = function(self)
-  (self.textLabel --[[@as FontString]]):SetTextColor(0.78, 0.78, 0.78)
-end
-
----
---- ?
----
----@param self Button
----
-_G.BackboneButtonTemplate_SetActiveColor = function(self)
   (self.textLabel --[[@as FontString]]):SetTextColor(0.96, 0.87, 0.7)
 end
 
----
---- ?
----
 ---@param self Button
----
+_G.BackboneButtonTemplate_SetActiveColor = function(self)
+  (self.textLabel --[[@as FontString]]):SetTextColor(1, 0.82, 0)
+end
+
+---@param self Button
 _G.BackboneButtonTemplate_UpdateWidth = function(self)
   local _, height = self:GetSize()
   local width = (self.textLabel --[[@as FontString]]):GetWidth()
@@ -56,11 +36,7 @@ _G.BackboneButtonTemplate_UpdateWidth = function(self)
   self:SetSize(width + 16, height)
 end
 
----
---- ?
----
 ---@param self Button
----
 _G.BackboneButtonWithTooltipTemplate_OnLoad = function(self)
   local textLabel = self.textLabel --[[@as FontString]]
 

@@ -1,18 +1,12 @@
 --[[~ Widget: Tooltips ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: ?
-
-  ?
+  Version: 1.0.0 | Updated: 2024/10/13
 
 ]]
 
----
---- ?
----
 ---@param self Frame
 ---@param lines string[]
----
 _G.BackboneTooltipTemplate_OnLoad = function(self, lines)
   local contentFrame = self.contentFrame --[[@as Frame]]
 
@@ -33,12 +27,8 @@ _G.BackboneTooltipTemplate_OnLoad = function(self, lines)
   BackboneTooltipTemplate_UpdateSize(self)
 end
 
----
---- ?
----
 ---@param self Frame
----
 _G.BackboneTooltipTemplate_UpdateSize = function(self)
   local contentFrame = self.contentFrame --[[@as Frame]]
-  self:SetSize(contentFrame:GetWidth() + 24, contentFrame:GetHeight() + 16)
+  self:SetSize(contentFrame:GetWidth() + 25, contentFrame:GetHeight() + 18)
 end

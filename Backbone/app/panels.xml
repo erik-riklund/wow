@@ -1,0 +1,37 @@
+<Ui>
+  <!-- LEFT content panel -->
+  <Frame name="BackboneContentFrameSidePanel"
+         parent="BackboneContentFrame">
+    <Size x="230" />
+    <Anchors>
+      <Anchor point="TOPLEFT" />
+      <Anchor point="BOTTOMLEFT" />
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true">
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.02" />
+        </Texture>
+      </Layer>
+      <Layer level="BORDER">
+        <Texture inherits="BackboneRightBorder" />
+        <Texture inherits="BackboneRightBorderShader" />
+      </Layer>
+    </Layers>
+  </Frame>
+  <!-- MAIN content panel -->
+  <Frame name="BackboneContentFrameMainPanel"
+         parent="BackboneContentFrame">
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              relativeTo="BackboneContentFrameSidePanel"
+              relativePoint="TOPRIGHT"
+              x="2"
+              y="-1" />
+      <Anchor point="BOTTOMRIGHT" />
+    </Anchors>
+  </Frame>
+</Ui>

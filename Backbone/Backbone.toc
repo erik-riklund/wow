@@ -33,4 +33,6 @@ ui/_templates.xml
 
 plugin.lua
 locales/enUS.lua
+
 app.xml
+app.lua

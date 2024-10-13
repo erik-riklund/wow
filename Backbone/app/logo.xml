@@ -23,23 +23,8 @@
                  g="0.58"
                  b="0.47" />
         </FontString>
-        <FontString inherits="BackboneFontKanitSmall">
-          <Color r="0.64"
-                 g="0.58"
-                 b="0.47" />
-          <Anchors>
-            <Anchor x="-4"
-                    y="-12"
-                    point="BOTTOMRIGHT"
-                    relativeTo="$parentText"
-                    relativePoint="TOPRIGHT" />
-          </Anchors>
-          <Scripts>
-            <OnLoad>self:SetText('v'.. _G.backbone.version)</OnLoad>
-          </Scripts>
-        </FontString>
         <FontString text="Providing the 'fun' in functional addons since 2024."
-                    inherits="BackboneFontKanitSmall">
+                    inherits="BackboneFontTitilliumWebSmall">
           <Color r="0.66"
                  g="0.71"
                  b="0.4"

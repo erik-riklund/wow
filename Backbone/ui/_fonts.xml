@@ -1,6 +1,7 @@
 <Ui>
   <Include file="fonts/variations/dosis.xml" />
   <Include file="fonts/variations/kanit.xml" />
+  <Include file="fonts/variations/titillium-web.xml" />
   <Include file="fonts/buttons.xml" />
   <Include file="fonts/tooltips.xml" />
 </Ui>
