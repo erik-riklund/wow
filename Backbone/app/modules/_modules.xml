@@ -1,4 +1,0 @@
-<Ui>
-  <!-- STARTPAGE -->
-  <Script file="startpage/register.lua" />
-</Ui>

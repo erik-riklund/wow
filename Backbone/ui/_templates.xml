@@ -1,8 +1,0 @@
-<Ui>
-  <Include file="templates/effects/active.xml" />
-  <Include file="templates/textures/borders.xml" />
-  <Include file="templates/frames/bordered-frame.xml" />
-  <Include file="templates/widgets/tooltips.xml" />
-  <Include file="templates/widgets/buttons.xml" />
-  <Include file="templates/frames/window.xml" />
-</Ui>

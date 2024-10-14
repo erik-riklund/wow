@@ -1,8 +1,0 @@
-<Ui>
-  <!-- NORMAL size with NO OUTLINE -->
-  <FontString virtual="true"
-              name="BackboneButtonText"
-              font="interface\addons\backbone\media\fonts\kanit.ttf">
-    <FontHeight val="12" />
-  </FontString>
-</Ui>

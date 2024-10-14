@@ -1,38 +1,3 @@
 ## Version: 1.0
 ## Interface: 110002
 ## Title: Backbone (framework)
-
-framework.lua
-environment.lua
-
-utilities/inherit-parent.lua
-utilities/integrate-table.lua
-utilities/string-prefix.lua
-utilities/substring-after.lua
-
-modules/console.lua
-modules/markup.lua
-modules/types.lua
-modules/errors.lua
-modules/testing.lua
-
-components/listenable.lua
-
-modules/tasks.lua
-modules/network.lua
-modules/events.lua
-modules/locales.lua
-modules/plugins.lua
-modules/app.lua
-
-lock-api.lua
-
-ui/behavior.lua
-ui/_fonts.xml
-ui/_templates.xml
-
-plugin.lua
-locales/enUS.lua
-
-app.xml
-app.lua

@@ -1,7 +1,0 @@
-<Ui>
-  <FontString virtual="true"
-              name="BackboneFontDosisHuge"
-              font="interface\addons\backbone\media\fonts\dosis.ttf">
-    <FontHeight val="48" />
-  </FontString>
-</Ui>
