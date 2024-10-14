@@ -82,6 +82,7 @@ end
 ---@
 backbone.updateThemeableWidgets = function()
   for _, widget in ipairs(widgets) do
+    -- TODO: use background task execution when that module is implemented!
     widget.object[widget.method](widget.object, backbone.getColor(widget.colorKey))
   end
 end

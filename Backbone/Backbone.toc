@@ -8,6 +8,7 @@ core/environment.lua
 
 # Modules:
 modules/errors.lua
+modules/callbacks.lua
 modules/themes.lua
 modules/locales.lua
 
