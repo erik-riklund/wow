@@ -1,32 +1,15 @@
 <Ui>
-  <Frame name="BackboneFrame"
-         parent="UIParent"
-         inherits="BackboneWindowTemplate">
-    <Size x="960"
-          y="640" />
+  <Frame parent="UIParent"
+         name="BackboneApp"
+         inherits="BackboneWindowTemplate"
+         frameStrata="FULLSCREEN_DIALOG"
+         enableMouse="true">
+    <Size x="1024"
+          y="768" />
     <Anchors>
-      <Anchor point="CENTER" />
       <Anchor point="TOP"
-              y="-100" />
+              y="-50" />
+      <Anchor point="CENTER" />
     </Anchors>
-    <Frames>
-      <Button parentKey="minimizeButton"
-              inherits="BackboneButtonWithTooltipTemplate"
-              text="backbone:APP_MINIMIZE_BUTTON_LABEL">
-        <Size y="25" />
-        <Anchors>
-          <Anchor point="TOPRIGHT"
-                  relativeTo="$parentCloseButton"
-                  relativePoint="TOPLEFT"
-                  x="-1" />
-        </Anchors>
-        <Scripts>
-          <OnClick>
-            Backbone_HideParent(self)
-            Backbone_ToggleState(BackboneShortcutFrame)
-          </OnClick>
-        </Scripts>
-      </Button>
-    </Frames>
   </Frame>
 </Ui>

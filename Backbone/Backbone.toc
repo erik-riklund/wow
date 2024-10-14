@@ -2,37 +2,27 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
-framework.lua
-environment.lua
+# Core modules:
+core/framework.lua
+core/environment.lua
 
-utilities/inherit-parent.lua
-utilities/integrate-table.lua
-utilities/string-prefix.lua
-utilities/substring-after.lua
-
-modules/console.lua
-modules/markup.lua
-modules/types.lua
+# Modules:
 modules/errors.lua
-modules/testing.lua
-
-components/listenable.lua
-
-modules/tasks.lua
-modules/network.lua
-modules/events.lua
+modules/themes.lua
 modules/locales.lua
-modules/plugins.lua
-modules/app.lua
 
-lock-api.lua
+# Color themes:
+themes/default.lua
+themes/testing.lua
 
-ui/behavior.lua
-ui/_fonts.xml
-ui/_templates.xml
+# Templates:
+templates/_include.xml
 
-plugin.lua
-locales/enUS.lua
+# Application:
+app/window.xml
 
-app.xml
-app.lua
+# Temporary:
+# _temp/theme-test.xml
+
+# Initialization:
+core/startup.lua

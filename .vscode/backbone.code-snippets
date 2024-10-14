@@ -1,24 +1,4 @@
 {
-  "header":
-  {
-    "prefix": "!header",
-    "body": [
-      "--[[~ Project: Backbone (framework) ~",
-      "",
-      "  [Module|Script|Utility]: ?",
-      "  Version: 1.0.0",
-      "",
-      "  Author(s): Erik Riklund",
-      "  Created: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE | Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE",
-      "",
-      "  ?",
-      "",
-      "]]",
-      "",
-      ""
-    ]
-  },
-
   "module":
   {
     "prefix": "!module",
@@ -26,9 +6,7 @@
       "--[[~ Module: ? ~",
       "  ",
       "  Author(s): Erik Riklund (Gopher)",
-      "  Version: 1.0.0 | Updated: ?",
-      "",
-      "  ?",
+      "  Version: 1.0 | Updated: ?",
       "",
       "]]",
       "",
@@ -36,26 +14,13 @@
     ]
   },
 
-  "context":
-  {
-    "prefix": "!context",
+  "type": {
+    "prefix": "!type",
     "body": [
-      "---@type string, Repository",
-      "local addon, repository = ..."
-    ]
-  },
-
-  "comment-section": {
-    "prefix": "!comment-section",
-    "body": "-- [explain this section]"
-  },
-
-  "test": {
-    "prefix": "!test",
-    "body": [
-      "['${1}'] = function()",
-      "",
-      "end,"
+      "---",
+      "--- ?",
+      "---",
+      "---@${1}"
     ]
   },
 

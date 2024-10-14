@@ -1,23 +1,15 @@
---[[~ Module: Errors ~
+--[[~ Module: Error Handler ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: 2024/10/03
-
-  Provides a utility to handle errors, throwing detailed Lua errors in 
-  development mode and displaying a generic error message in production mode.
+  Version: 1.0 | Updated: 2024/10/14
 
 ]]
 
 ---
---- Generates a detailed error message to assist in debugging.
+--- Throws a formatted exception with the provided message and optional arguments.
 ---
 ---@param message string
----@param ... string|number
----
-backbone.throwError = function(message, ...)
-  if backbone.getEnvironment() == 'development' then
-    error((... and message:format(...)) or message, 3)
-  end
-
-  backbone.displayMessage('error', '?') -- trigger a generic error message in production mode.
+---@param ... string | number
+backbone.throwException = function(message, ...)
+  error((... and string.format(message, ...)) or message, 3)
 end

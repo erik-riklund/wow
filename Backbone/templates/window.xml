@@ -1,0 +1,16 @@
+<Ui>
+  <Frame virtual="true"
+         name="BackboneWindowTemplate"
+         inherits="BackboneBorderedFrameTemplate">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true"
+                 parentKey="backgroundColor" />
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad>backbone.templates.window(self)</OnLoad>
+    </Scripts>
+  </Frame>
+  <Script file="window.lua" />
+</Ui>

@@ -1,0 +1,86 @@
+<Ui>
+  <!-- TOP BORDER -->
+  <Texture virtual="true"
+            name="BackboneTopBorderTemplate">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              y="1" />
+      <Anchor point="TOPRIGHT" />
+    </Anchors>
+  </Texture>
+  <!-- TOP SHADER -->
+  <Texture virtual="true"
+            name="BackboneTopBorderShaderTemplate">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              x="1" />
+      <Anchor point="TOPRIGHT"
+              x="-1" />
+    </Anchors>
+  </Texture>
+  <!-- RIGHT BORDER -->
+  <Texture virtual="true"
+            name="BackboneRightBorderTemplate">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPRIGHT"
+              x="1" />
+      <Anchor point="BOTTOMRIGHT" />
+    </Anchors>
+  </Texture>
+  <!-- RIGHT SHADER -->
+  <Texture virtual="true"
+            name="BackboneRightBorderShaderTemplate">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPRIGHT"
+              y="-1" />
+      <Anchor point="BOTTOMRIGHT"
+              y="1" />
+    </Anchors>
+  </Texture>
+  <!-- BOTTOM BORDER -->
+  <Texture virtual="true"
+            name="BackboneBottomBorderTemplate">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              y="-1" />
+      <Anchor point="BOTTOMRIGHT" />
+    </Anchors>
+  </Texture>
+  <!-- BOTTOM SHADER -->
+  <Texture virtual="true"
+            name="BackboneBottomBorderShaderTemplate">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              x="1" />
+      <Anchor point="BOTTOMRIGHT"
+              x="-1" />
+    </Anchors>
+  </Texture>
+  <!-- LEFT BORDER -->
+  <Texture virtual="true"
+            name="BackboneLeftBorderTemplate">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              x="-1" />
+      <Anchor point="BOTTOMLEFT" />
+    </Anchors>
+  </Texture>
+  <!-- LEFT SHADER -->
+  <Texture virtual="true"
+            name="BackboneLeftBorderShaderTemplate">
+    <Size x="1" />
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              y="-1" />
+      <Anchor point="BOTTOMLEFT"
+              y="1" />
+    </Anchors>
+  </Texture>
+</Ui>
