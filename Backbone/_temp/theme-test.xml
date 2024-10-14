@@ -1,0 +1,37 @@
+<Ui>
+  <Frame parent="UIParent"
+         inherits="BackboneBorderedFrameTemplate">
+    <Size x="300"
+          y="250" />
+    <Anchors>
+      <Anchor point="CENTER" />
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true"
+                 parentKey="backgroundColor">
+          <Scripts>
+            <OnLoad>              
+              backbone.registerThemeableTextures {
+              { object = self, colorKey = 'frameBackgroundColor' }
+              }
+            </OnLoad>
+          </Scripts>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button text="?"
+              inherits="UIPanelButtonTemplate">
+        <Size x="30"
+              y="24" />
+        <Anchors>
+          <Anchor point="CENTER" />
+        </Anchors>
+        <Scripts>
+          <OnClick>backbone.setActiveColorTheme('Testing')</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

@@ -12,6 +12,10 @@ _G.backbone = {
   version = '1.0.0',
 
   --
+  -- ?
+  templates = {},
+
+  --
   -- A collection of utility functions provided by the framework.
   utilities = {}
 }

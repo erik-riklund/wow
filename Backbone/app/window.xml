@@ -1,0 +1,15 @@
+<Ui>
+  <Frame parent="UIParent"
+         name="BackboneApp"
+         inherits="BackboneWindowTemplate"
+         frameStrata="FULLSCREEN_DIALOG"
+         enableMouse="true">
+    <Size x="1024"
+          y="768" />
+    <Anchors>
+      <Anchor point="TOP"
+              y="-50" />
+      <Anchor point="CENTER" />
+    </Anchors>
+  </Frame>
+</Ui>

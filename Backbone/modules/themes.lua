@@ -11,9 +11,14 @@ local themes = {}
 ---@type Theme
 local activeTheme = nil
 
+---@type ThemeableWidget[]
+local widgets = {}
+
+-- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
 ---
---- Retrieves the RGBA color associated with the given key from the active theme.
---- Returns `white` (1, 1, 1, 1) if the key is not found.
+--- Retrieves the RGBA color associated with the given key
+--- from the active theme, or `white` if not found.
 ---
 ---@param key string
 ---@return number, number, number, number?
@@ -22,7 +27,7 @@ backbone.getColor = function(key)
 end
 
 ---
---- ?
+--- Registers a new color theme with the specified name.
 ---
 ---@param name string
 ---@param theme Theme
@@ -33,15 +38,42 @@ backbone.registerColorTheme = function(name, theme)
   end
 
   themes[identifier] = theme
-  activeTheme = activeTheme or theme
+end
+
+---
+--- ?
+---
+---@param name string
+backbone.setActiveColorTheme = function(name)
+  local identifier = string.lower(name)
+  if themes[identifier] == nil then
+    backbone.throwException('Unknown theme "%s"', name)
+  end
+
+  activeTheme = themes[identifier]
+  backbone.updateThemeableWidgets()
 end
 
 ---
 --- ?
 ---
 ---@
-backbone.registerThemeableWidget = function()
-  print 'backbone.registerThemeableWidget: not implemented.'
+backbone.registerThemeableLabels = function()
+  print 'backbone.registerThemeableLabels: not implemented.'
+end
+
+---
+--- ?
+---
+---@param textures ThemeableTexture[]
+backbone.registerThemeableTextures = function(textures)
+  for _, texture in ipairs(textures) do
+    widgets[#widgets + 1] = {
+      object = texture.object,
+      method = 'SetColorTexture',
+      colorKey = texture.colorKey,
+    }
+  end
 end
 
 ---
@@ -49,5 +81,7 @@ end
 ---
 ---@
 backbone.updateThemeableWidgets = function()
-  print 'backbone.updateThemeableWidgets: not implemented.'
+  for _, widget in ipairs(widgets) do
+    widget.object[widget.method](widget.object, backbone.getColor(widget.colorKey))
+  end
 end

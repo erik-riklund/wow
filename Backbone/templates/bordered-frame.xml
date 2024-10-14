@@ -1,0 +1,32 @@
+<Ui>
+  <Frame virtual="true"
+         name="BackboneBorderedFrameTemplate">
+    <Layers>
+      <Layer level="BACKGROUND"
+             textureSubLevel="10">
+        <Texture parentKey="topBorderShader"
+                 inherits="BackboneTopBorderShaderTemplate" />
+        <Texture parentKey="rightBorderShader"
+                 inherits="BackboneRightBorderShaderTemplate" />
+        <Texture parentKey="bottomBorderShader"
+                 inherits="BackboneBottomBorderShaderTemplate" />
+        <Texture parentKey="leftBorderShader"
+                 inherits="BackboneLeftBorderShaderTemplate" />
+      </Layer>
+      <Layer level="BORDER">
+        <Texture parentKey="topBorderColor"
+                 inherits="BackboneTopBorderTemplate" />
+        <Texture parentKey="rightBorderColor"
+                 inherits="BackboneRightBorderTemplate" />
+        <Texture parentKey="bottomBorderColor"
+                 inherits="BackboneBottomBorderTemplate" />
+        <Texture parentKey="leftBorderColor"
+                 inherits="BackboneLeftBorderTemplate" />
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad>backbone.templates.borderedFrame(self)</OnLoad>
+    </Scripts>
+  </Frame>
+  <Script file="bordered-frame.lua" />
+</Ui>
