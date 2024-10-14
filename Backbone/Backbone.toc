@@ -1,3 +1,18 @@
 ## Version: 1.0
 ## Interface: 110002
 ## Title: Backbone (framework)
+
+# Core modules:
+core/framework.lua
+core/environment.lua
+
+# Modules:
+modules/errors.lua
+modules/themes.lua
+modules/locales.lua
+
+# Color themes:
+themes/default.lua
+
+# Application:
+app/overlay.xml
