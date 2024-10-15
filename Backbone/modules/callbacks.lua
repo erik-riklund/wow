@@ -13,7 +13,8 @@ local queuedTasks = {}
 ---
 ---@param task Task
 backbone.executeCallback = function(task)
-  print 'backbone.executeCallback: not implemented.' --
+  local success, exception = pcall(task.callback, unpack(task.arguments or {}))
+  if not success then backbone.displayErrorMessage(exception) end
 end
 
 ---

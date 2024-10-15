@@ -1,0 +1,4 @@
+<Ui>
+  <!-- enUS -->
+  <Include file="enUS/widgets.lua" />
+</Ui>

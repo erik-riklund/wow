@@ -25,7 +25,7 @@
       </Layer>
     </Layers>
     <Scripts>
-      <OnLoad>backbone.templates.borderedFrame(self)</OnLoad>
+      <OnLoad>backbone.widgetConstructors.borderedFrame(self)</OnLoad>
     </Scripts>
   </Frame>
   <Script file="bordered-frame.lua" />

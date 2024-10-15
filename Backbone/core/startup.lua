@@ -5,4 +5,5 @@
 
 ]]
 
-backbone.setActiveColorTheme('Backbone')
+backbone.setActiveColorTheme 'Backbone'
+backbone.updateLocalizedLabels()

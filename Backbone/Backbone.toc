@@ -6,24 +6,33 @@
 core/framework.lua
 core/environment.lua
 
+# Utilities:
+utilities/_include.xml
+
 # Modules:
 modules/errors.lua
 modules/callbacks.lua
-modules/themes.lua
-modules/locales.lua
+modules/themes/themes.lua
+modules/themes/widgets.lua
+modules/locales/locales.lua
+modules/locales/widgets.lua
 
 # Color themes:
 themes/default.lua
 themes/testing.lua
 
-# Templates:
+# Locales:
+locales/_include.xml
+
+# Templates and Fonts:
+media/fonts/dosis.xml
 templates/_include.xml
 
 # Application:
 app/window.xml
 
 # Temporary:
-# _temp/theme-test.xml
+#_temp/theme-test.xml
 
 # Initialization:
 core/startup.lua

@@ -5,16 +5,16 @@
 
 ]]
 
----
----@class Window : BorderedFrame
----@field backgroundColor Texture
----
+
 
 ---@param self Window
-backbone.templateConstructors.window = function(self)
-  backbone.templateConstructors.borderedFrame(self) -- parent constructor.
+backbone.widgetConstructors.window = function(self)
+  backbone.widgetConstructors.borderedFrame(self) -- parent constructor.
 
+  self:RegisterForDrag 'LeftButton'
   backbone.registerThemeableTextures {
     { object = self.backgroundColor, colorKey = 'frameBackgroundColor' },
   }
 end
+
+

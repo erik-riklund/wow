@@ -6,12 +6,15 @@
 ]]
 
 ---
---- Throws a formatted exception with the provided message and optional arguments.
+--- Throws a formatted exception in development mode,
+--- with the provided message and optional arguments.
 ---
 ---@param message string
 ---@param ... string | number
 backbone.throwException = function(message, ...)
-  error((... and string.format(message, ...)) or message, 3)
+  if backbone.getEnvironment() == 'development' then
+    error((... and string.format(message, ...)) or message, 3)
+  end
 end
 
 ---

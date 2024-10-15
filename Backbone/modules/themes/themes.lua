@@ -9,12 +9,10 @@
 local themes = {}
 
 ---@type Theme
-local activeTheme = nil
+local activeTheme
 
----@type ThemeableWidget[]
-local widgets = {}
-
--- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+---@type string
+local activeThemeName
 
 ---
 --- Retrieves the RGBA color associated with the given key
@@ -50,39 +48,13 @@ backbone.setActiveColorTheme = function(name)
     backbone.throwException('Unknown theme "%s"', name)
   end
 
+  activeThemeName = name
   activeTheme = themes[identifier]
+
   backbone.updateThemeableWidgets()
 end
 
 ---
---- ?
+--- Returns the name of the currently active theme.
 ---
----@
-backbone.registerThemeableLabels = function()
-  print 'backbone.registerThemeableLabels: not implemented.'
-end
-
----
---- ?
----
----@param textures ThemeableTexture[]
-backbone.registerThemeableTextures = function(textures)
-  for _, texture in ipairs(textures) do
-    widgets[#widgets + 1] = {
-      object = texture.object,
-      method = 'SetColorTexture',
-      colorKey = texture.colorKey,
-    }
-  end
-end
-
----
---- ?
----
----@
-backbone.updateThemeableWidgets = function()
-  for _, widget in ipairs(widgets) do
-    -- TODO: use background task execution when that module is implemented!
-    widget.object[widget.method](widget.object, backbone.getColor(widget.colorKey))
-  end
-end
+backbone.getActiveColorTheme = function() return activeThemeName end

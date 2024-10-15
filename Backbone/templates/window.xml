@@ -1,15 +1,33 @@
 <Ui>
   <Frame virtual="true"
          name="BackboneWindowTemplate"
-         inherits="BackboneBorderedFrameTemplate">
+         inherits="BackboneBorderedFrameTemplate"
+         enableMouse="true"
+         clampedToScreen="true"
+         movable="true">
     <Layers>
       <Layer level="BACKGROUND">
         <Texture setAllPoints="true"
                  parentKey="backgroundColor" />
       </Layer>
     </Layers>
+    <Frames>
+      <Button parentKey="closeButton"
+              text="backbone:WINDOW_CLOSE_BUTTON"
+              inherits="BackboneButtonTemplate">
+        <Size y="24" />
+        <Anchors>
+          <Anchor point="TOPRIGHT" />
+        </Anchors>
+        <Scripts>
+          <OnClick>(self:GetParent()):SetShown(false)</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
     <Scripts>
-      <OnLoad>backbone.templates.window(self)</OnLoad>
+      <OnDragStart>self:StartMoving()</OnDragStart>
+      <OnDragStop>self:StopMovingOrSizing()</OnDragStop>
+      <OnLoad>backbone.widgetConstructors.window(self)</OnLoad>
     </Scripts>
   </Frame>
   <Script file="window.lua" />

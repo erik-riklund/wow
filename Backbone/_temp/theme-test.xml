@@ -13,7 +13,7 @@
           <Scripts>
             <OnLoad>              
               backbone.registerThemeableTextures {
-              { object = self, colorKey = 'frameBackgroundColor' }
+                { object = self, colorKey = 'frameBackgroundColor' }
               }
             </OnLoad>
           </Scripts>
@@ -29,7 +29,11 @@
           <Anchor point="CENTER" />
         </Anchors>
         <Scripts>
-          <OnClick>backbone.setActiveColorTheme('Testing')</OnClick>
+          <OnClick>
+            backbone.setActiveColorTheme(
+              (backbone.getActiveColorTheme() == 'Testing' and 'Backbone') or 'Testing'
+            )
+          </OnClick>
         </Scripts>
       </Button>
     </Frames>

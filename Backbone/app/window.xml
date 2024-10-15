@@ -2,8 +2,7 @@
   <Frame parent="UIParent"
          name="BackboneApp"
          inherits="BackboneWindowTemplate"
-         frameStrata="FULLSCREEN_DIALOG"
-         enableMouse="true">
+         frameStrata="FULLSCREEN_DIALOG">
     <Size x="1024"
           y="768" />
     <Anchors>

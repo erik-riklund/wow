@@ -17,7 +17,11 @@ _G.backbone = {
 
   --
   -- ?
-  templateConstructors = {},
+  widgetConstructors = {},
+
+  --
+  -- ?
+  widgetControllers = {},
 
   --
   -- A collection of utility functions provided by the framework.

@@ -6,19 +6,10 @@
 ]]
 
 ---
----@class BorderedFrame : Frame
----@field topBorderColor Texture
----@field topBorderShader Texture
----@field rightBorderColor Texture
----@field rightBorderShader Texture
----@field bottomBorderColor Texture
----@field bottomBorderShader Texture
----@field leftBorderColor Texture
----@field leftBorderShader Texture
+--- ?
 ---
-
 ---@param self BorderedFrame
-backbone.templateConstructors.borderedFrame = function(self)
+backbone.widgetConstructors.borderedFrame = function(self)
   backbone.registerThemeableTextures {
     { object = self.topBorderColor, colorKey = 'frameBorderColor' },
     { object = self.topBorderShader, colorKey = 'frameBorderShaderColor' },
