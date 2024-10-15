@@ -24,6 +24,19 @@
     ]
   },
 
+  "function": {
+    "prefix": "!function",
+    "body": [
+      "---",
+      "--- ?",
+      "---",
+      "---@",
+      "backbone.${1} = function()",
+      "print 'backbone.${1}: not implemented.' --",
+      "end"
+    ]
+  },
+
   "media": {
     "prefix": "!media",
     "body": "interface\\addons\\backbone\\media\\"

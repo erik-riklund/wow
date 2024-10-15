@@ -13,3 +13,11 @@
 backbone.throwException = function(message, ...)
   error((... and string.format(message, ...)) or message, 3)
 end
+
+---
+--- ?
+---
+---@
+backbone.displayErrorMessage = function(message, ...)
+  print 'backbone.displayErrorMessage: not implemented.' --
+end

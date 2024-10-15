@@ -18,7 +18,7 @@
 ---
 
 ---@param self BorderedFrame
-backbone.templates.borderedFrame = function(self)
+backbone.templateConstructors.borderedFrame = function(self)
   backbone.registerThemeableTextures {
     { object = self.topBorderColor, colorKey = 'frameBorderColor' },
     { object = self.topBorderShader, colorKey = 'frameBorderShaderColor' },

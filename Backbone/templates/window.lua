@@ -1,7 +1,7 @@
 --[[~ Template: Window ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/14
 
 ]]
 
@@ -11,8 +11,8 @@
 ---
 
 ---@param self Window
-backbone.templates.window = function(self)
-  backbone.templates.borderedFrame(self) -- parent constructor.
+backbone.templateConstructors.window = function(self)
+  backbone.templateConstructors.borderedFrame(self) -- parent constructor.
 
   backbone.registerThemeableTextures {
     { object = self.backgroundColor, colorKey = 'frameBackgroundColor' },

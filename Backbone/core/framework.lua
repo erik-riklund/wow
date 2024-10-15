@@ -13,7 +13,11 @@ _G.backbone = {
 
   --
   -- ?
-  templates = {},
+  sharedFrame = CreateFrame('Frame', 'BackboneSharedFrame') --[[@as Frame]],
+
+  --
+  -- ?
+  templateConstructors = {},
 
   --
   -- A collection of utility functions provided by the framework.
