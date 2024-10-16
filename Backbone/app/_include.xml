@@ -1,0 +1,4 @@
+<Ui>
+  <Include file="app.xml"></Include>
+  <Include file="error-frame.xml"></Include>
+</Ui>

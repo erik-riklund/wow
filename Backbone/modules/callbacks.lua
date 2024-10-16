@@ -9,7 +9,8 @@
 local queuedTasks = {}
 
 ---
---- ?
+--- Executes the provided task by invoking its callback with the provided arguments.
+--- Displays an error message if the callback fails.
 ---
 ---@param task Task
 backbone.executeCallback = function(task)
@@ -18,15 +19,15 @@ backbone.executeCallback = function(task)
 end
 
 ---
---- ?
+--- Queues the provided task for asynchronous execution.
 ---
 ---@param task Task
-backbone.executeCallbackAsync = function(task)
-  queuedTasks[#queuedTasks + 1] = task --
-end
+backbone.executeCallbackAsync = function(task) queuedTasks[#queuedTasks + 1] = task end
 
 ---
---- ?
+--- The coroutine that processes queued tasks within the frame time limit, ensuring 
+--- smooth performance at 60 fps by executing tasks within the allotted time.
+---
 local process = coroutine.create(function()
   local frameLimit = 0.01667 -- 60 fps
 
@@ -44,7 +45,9 @@ local process = coroutine.create(function()
 end)
 
 ---
---- ?
+--- Hooks into the `OnUpdate` event to resume the task processing
+--- coroutine if there are tasks queued for execution.
+---
 backbone.sharedFrame:HookScript('OnUpdate', function()
   if #queuedTasks > 0 and coroutine.status(process) == 'suspended' then
     coroutine.resume(process)

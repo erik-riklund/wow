@@ -6,5 +6,6 @@
 ]]
 
 backbone.registerLocalizedStrings('backbone', 'enUS', {
+  NOTIFICATION_FRAME_DISMISS_LABEL = 'Right-click to dismiss',
   WINDOW_CLOSE_BUTTON = 'Close'
 })

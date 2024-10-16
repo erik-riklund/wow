@@ -1,0 +1,39 @@
+<Ui>
+  <!-- BEHAVIOR -->
+  <Script file="notification-frame.lua" />
+  <!-- TEMPLATE -->
+  <Frame virtual="true"
+         name="BackboneNotificationFrameTemplate"
+         inherits="BackboneBorderedFrameTemplate"
+         hidden="true">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true"
+                 parentKey="backgroundColor" />
+      </Layer>
+      <Layer level="OVERLAY">
+        <FontString parentKey="contentLabel"
+                    inherits="BackboneFontDosisSmall"
+                    justifyH="LEFT">
+          <Anchors>
+            <Anchor point="CENTER" />
+            <Anchor point="TOP" y="-12"></Anchor>
+          </Anchors>
+        </FontString>
+        <FontString parentKey="dismissLabel"
+                    inherits="BackboneFontTitilliumWebSmall"
+                    text="backbone:NOTIFICATION_FRAME_DISMISS_LABEL">
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT"
+                    x="-5"
+                    y="2" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <!-- ? -->
+    <Scripts>
+      <OnLoad>backbone.widgetConstructors.notificationFrame(self)</OnLoad>
+    </Scripts>
+  </Frame>
+</Ui>

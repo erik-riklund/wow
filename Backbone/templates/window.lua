@@ -7,7 +7,7 @@
 
 
 
----@param self Window
+---@param self WindowTemplate
 backbone.widgetConstructors.window = function(self)
   backbone.widgetConstructors.borderedFrame(self) -- parent constructor.
 

@@ -9,7 +9,7 @@
 local localizedLabels = {}
 
 ---
---- ?
+--- Registers a list of localized labels to be updated when the locale changes.
 ---
 ---@param labels LocalizedLabel[]
 backbone.registerLocalizedLabels = function(labels)
@@ -19,7 +19,8 @@ backbone.registerLocalizedLabels = function(labels)
 end
 
 ---
---- ?
+--- Updates all registered localized labels by setting their text based on the
+--- current locale and forces re-rendering to apply width adjustments.
 ---
 backbone.updateLocalizedLabels = function()
   for index, label in ipairs(localizedLabels) do
@@ -43,7 +44,7 @@ backbone.updateLocalizedLabels = function()
         label.object:SetShown(true)
 
         local parent = label.object:GetParent()
-        if parent ~= nil then
+        if parent ~= nil and parent:IsShown() then
           parent:SetShown(false)
           parent:SetShown(true)
         end

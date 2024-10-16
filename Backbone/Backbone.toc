@@ -26,10 +26,11 @@ locales/_include.xml
 
 # Templates and Fonts:
 media/fonts/dosis.xml
+media/fonts/titillium-web.xml
 templates/_include.xml
 
 # Application:
-app/window.xml
+app/_include.xml
 
 # Temporary:
 #_temp/theme-test.xml
