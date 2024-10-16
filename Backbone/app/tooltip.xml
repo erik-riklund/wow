@@ -1,0 +1,52 @@
+<Ui>
+  <!-- BEHAVIOR -->
+  <Script file="tooltip.lua" />
+  <!-- ANCHOR POINT DEFINITION -->
+  <FontString virtual="true"
+              parentKey="tooltipAnchorPoint"
+              name="BackboneTooltipAnchorPoint"
+              inherits="BackboneFontDosis"
+              hidden="true" />
+  <!-- TEMPLATE -->
+  <Frame name="BackboneTooltipFrame"
+         inherits="BackboneBorderedFrameTemplate"
+         hidden="true">
+    <Anchors>
+      <Anchor point="CENTER" />
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture setAllPoints="true"
+                 parentKey="backgroundColor" />
+      </Layer>
+      <Layer level="BORDER">
+        <Texture parentKey="arrowBase">
+          <Anchors>
+            <Anchor point="CENTER" />
+          </Anchors>
+        </Texture>
+        <Texture parentKey="arrowCenter">
+          <Anchors>
+            <Anchor point="CENTER" />
+          </Anchors>
+        </Texture>
+        <Texture parentKey="arrowTip">
+          <Anchors>
+            <Anchor point="CENTER" />
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY">
+        <FontString parentKey="textLabel"
+                    inherits="BackboneFontDosisSmall">
+          <Anchors>
+            <Anchor point="CENTER" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad>backbone.widgetConstructors.tooltip(self)</OnLoad>
+    </Scripts>
+  </Frame>
+</Ui>

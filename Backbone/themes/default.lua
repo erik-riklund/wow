@@ -18,4 +18,8 @@ backbone.registerColorTheme('Backbone', {
   frameBorderColor = { 0.06, 0.07, 0.09 }, -- onyx
   frameBorderShaderColor = { 1.0, 1.0, 1.0, 0.10 }, -- white (10 %)
   frameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
+  --
+  tooltipFrameBorderColor = { 0.06, 0.07, 0.09 }, -- onyx
+  tooltipFrameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
+  tooltipFrameArrowColor = { 1.0, 0.78, 0 }, -- supernova
 })

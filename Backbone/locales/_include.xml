@@ -1,5 +1,5 @@
 <Ui>
   <!-- enUS -->
+  <Include file="enUS/app.lua" />
   <Include file="enUS/errors.lua" />
-  <Include file="enUS/widgets.lua" />
 </Ui>

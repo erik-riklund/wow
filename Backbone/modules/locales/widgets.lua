@@ -25,7 +25,7 @@ end
 backbone.updateLocalizedLabels = function()
   for index, label in ipairs(localizedLabels) do
     local namespace, key = string.split(':', label.labelKey)
-
+    
     if label.variables then
       print 'backbone.updateLocalizedLabels: variable replacement not implemented.'
     end

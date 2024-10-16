@@ -6,6 +6,7 @@
 ]]
 
 backbone.registerLocalizedStrings('backbone', 'enUS', {
+  APP_MINIMIZE_BUTTON = 'Minimize[Hide this frame and enable the shortcut panel.]',
   NOTIFICATION_FRAME_DISMISS_LABEL = 'Right-click to dismiss',
   WINDOW_CLOSE_BUTTON = 'Close'
 })

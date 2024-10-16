@@ -1,0 +1,31 @@
+<Ui>
+  <!-- BEHAVIOR -->
+  <Script file="button.lua" />
+  <!-- BUTTON -->
+  <Button virtual="true"
+          name="BackboneButtonTemplate">
+    <ButtonText parentKey="textLabel"
+                inherits="BackboneFontDosis" />
+    <Scripts>
+      <OnLoad>backbone.widgetConstructors.button(self)</OnLoad>
+      <OnShow>backbone.widgetControllers.updateButtonWidth(self)</OnShow>
+      <OnEnter>backbone.widgetControllers.setButtonLabelActiveColor(self)</OnEnter>
+      <OnLeave>backbone.widgetControllers.setButtonLabelColor(self)</OnLeave>
+    </Scripts>
+  </Button>
+  <!-- BUTTON with TOOLTIP -->
+  <Button virtual="true"
+          name="BackboneButtonWithTooltipTemplate"
+          inherits="BackboneButtonTemplate">
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString hidden="true"
+                    parentKey="tooltipContent"
+                    inherits="BackboneFontDosis" />
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad>backbone.widgetConstructors.buttonWithTooltip(self)</OnLoad>
+    </Scripts>
+  </Button>
+</Ui>

@@ -3,7 +3,7 @@
          name="BackboneApp"
          inherits="BackboneWindowTemplate"
          frameStrata="FULLSCREEN_DIALOG"
-         hidden="true">
+         hidden="false">
     <Size x="1024"
           y="768" />
     <Anchors>
@@ -11,5 +11,25 @@
               y="-50" />
       <Anchor point="CENTER" />
     </Anchors>
+    <Frames>
+      <Button parentKey="minimizeButton"
+              inherits="BackboneButtonWithTooltipTemplate"
+              text="backbone:APP_MINIMIZE_BUTTON">
+        <Anchors>
+          <Anchor point="TOPRIGHT"
+                  relativeKey="$parent.closeButton"
+                  relativePoint="TOPLEFT" />
+          <Anchor point="BOTTOMRIGHT"
+                  relativeKey="$parent.closeButton"
+                  relativePoint="BOTTOMLEFT" />
+        </Anchors>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString inherits="BackboneTooltipAnchorPoint"
+                        text="DOWN" />
+          </Layer>
+        </Layers>
+      </Button>
+    </Frames>
   </Frame>
 </Ui>

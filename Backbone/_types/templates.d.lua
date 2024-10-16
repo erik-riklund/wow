@@ -10,6 +10,9 @@
 ---@field leftBorderColor     Texture
 ---@field leftBorderShader    Texture
 
+---@class BorderedFrameWithBackground : BorderedFrame
+---@field backgroundColor Texture
+
 ---@class BorderedFrameColorKeys
 ---@field topBorder?           string
 ---@field topBorderShader?     string
@@ -20,14 +23,20 @@
 ---@field leftBorder?          string
 ---@field leftBorderShader?    string
 
----@class ButtonTemplate : Button, { textLabel: FontString }
+---@class ButtonTemplate : Button
+---@field textLabel FontString
 
----@class NotificationFrameTemplate : BorderedFrame
----@field backgroundColor  Texture
----@field contentLabel     FontString
----@field dismissLabel     FontString
----@field isHovering       boolean
----@field lastHovered      number
+---@class ButtonTemplateOptions
+---@field labelColorKey? string
+---@field variables? string[]
+
+---@class ButtonWithTooltipTemplate : ButtonTemplate, WidgetWithTooltip
+
+---@class NotificationFrameTemplate : BorderedFrameWithBackground
+---@field contentLabel  FontString
+---@field dismissLabel  FontString
+---@field isHovering    boolean
+---@field lastHovered   number
 
 ---@class NotificationFrameTemplateOptions
 ---@field colorKeys? NotificationFrameTemplateColorKeys
@@ -38,4 +47,8 @@
 ---@field textColor?         string
 ---@field dismissLabelColor? string
 
----@class WindowTemplate : BorderedFrame, { backgroundColor: Texture }
+---@class WidgetWithTooltip : Frame
+---@field tooltipAnchorPoint  FontString
+---@field tooltipContent      FontString
+
+---@class WindowTemplate : BorderedFrameWithBackground

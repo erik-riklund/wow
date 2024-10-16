@@ -15,9 +15,9 @@
       <Button parentKey="closeButton"
               text="backbone:WINDOW_CLOSE_BUTTON"
               inherits="BackboneButtonTemplate">
-        <Size y="24" />
+        <Size y="28" />
         <Anchors>
-          <Anchor point="TOPRIGHT" />
+          <Anchor point="TOPRIGHT" x="-5" y="-2" />
         </Anchors>
         <Scripts>
           <OnClick>(self:GetParent()):SetShown(false)</OnClick>
