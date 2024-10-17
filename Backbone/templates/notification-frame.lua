@@ -1,12 +1,13 @@
 --[[~ Template: Notification Frame ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/17
 
 ]]
 
 ---
---- ?
+--- Initializes a notification frame with themeable and localized labels,
+--- handling various events such as hovering and auto-dismissal.
 ---
 ---@param self NotificationFrameTemplate
 ---@param options? NotificationFrameTemplateOptions
@@ -58,7 +59,7 @@ backbone.widgetConstructors.notificationFrame = function(self, options)
 end
 
 ---
---- ?
+--- Sets the content of the notification frame using the provided lines of text.
 ---
 ---@param self NotificationFrameTemplate
 ---@param lines string[]
@@ -67,7 +68,7 @@ backbone.widgetControllers.setNotificationFrameContent = function(self, lines)
 end
 
 ---
---- ?
+--- Updates the size of the notification frame based on the dimensions of its content and dismiss label.
 ---
 ---@param self NotificationFrameTemplate
 backbone.widgetControllers.updateNotificationFrameDimensions = function(self)

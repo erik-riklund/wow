@@ -1,12 +1,13 @@
 --[[~ Module: ? ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/17
 
 ]]
 
 ---
---- ?
+--- Adjusts a number to the nearest even number.
+--- Rounds upwards by default unless specified otherwise.
 ---
 ---@param number number
 ---@param upwards? boolean

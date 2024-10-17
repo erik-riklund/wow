@@ -123,7 +123,7 @@ local arrowOptions = {
 }
 
 ---
---- ?
+--- Initializes the tooltip frame, registering border colors and themeable textures.
 ---
 ---@param self TooltipFrame
 backbone.widgetConstructors.tooltip = function(self)
@@ -137,15 +137,28 @@ backbone.widgetConstructors.tooltip = function(self)
   }) -- parent constructor.
 
   backbone.registerThemeableTextures {
-    { object = self.backgroundColor, colorKey = 'tooltipFrameBackgroundColor' },
-    { object = self.arrowBase, colorKey = 'tooltipFrameArrowColor' },
-    { object = self.arrowCenter, colorKey = 'tooltipFrameArrowColor' },
-    { object = self.arrowTip, colorKey = 'tooltipFrameArrowColor' },
+    {
+      object = self.backgroundColor,
+      colorKey = 'tooltipFrameBackgroundColor',
+    },
+    {
+      object = self.arrowBase,
+      colorKey = 'tooltipFrameArrowColor',
+    },
+    {
+      object = self.arrowCenter,
+      colorKey = 'tooltipFrameArrowColor',
+    },
+    {
+      object = self.arrowTip,
+      colorKey = 'tooltipFrameArrowColor',
+    },
   }
 end
 
 ---
---- ?
+--- Renders the tooltip for the given widget by setting its content,
+--- anchor point, and size, and then displaying it.
 ---
 ---@param parent WidgetWithTooltip
 backbone.widgetControllers.renderTooltip = function(parent)
@@ -160,7 +173,7 @@ backbone.widgetControllers.renderTooltip = function(parent)
 end
 
 ---
---- ?
+--- Positions and sizes the tooltip's arrow based on the parent widget's tooltip anchor point.
 ---
 ---@param parent WidgetWithTooltip
 backbone.widgetControllers.renderTooltipArrow = function(parent)
@@ -183,7 +196,7 @@ backbone.widgetControllers.renderTooltipArrow = function(parent)
 end
 
 ---
---- ?
+--- Sets the anchor point of the tooltip based on the parent widget's tooltip anchor.
 ---
 ---@param parent WidgetWithTooltip
 backbone.widgetControllers.setTooltipAnchorPoint = function(parent)
@@ -192,9 +205,8 @@ backbone.widgetControllers.setTooltipAnchorPoint = function(parent)
 end
 
 ---
---- ?
+--- Updates the size of the tooltip frame based on its content dimensions.
 ---
----@
 backbone.widgetControllers.updateTooltipSize = function()
   local contentWidth = makeNumberEven(math.ceil(tooltipFrame.textLabel:GetStringWidth()))
   local contentHeight = makeNumberEven(math.ceil(tooltipFrame.textLabel:GetStringHeight()))
@@ -203,6 +215,6 @@ backbone.widgetControllers.updateTooltipSize = function()
 end
 
 ---
---- ?
+--- Hides the tooltip frame.
 ---
 backbone.widgetControllers.hideTooltip = function() tooltipFrame:SetShown(false) end

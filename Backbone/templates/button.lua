@@ -1,12 +1,13 @@
 --[[~ Widget: Buttons ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/17
 
 ]]
 
 ---
---- ?
+--- Initializes a button with localized and themeable text labels,
+--- optionally using provided label variables and text color.
 ---
 ---@param self ButtonTemplate
 ---@param options? ButtonTemplateOptions
@@ -29,7 +30,8 @@ backbone.widgetConstructors.button = function(self, options)
 end
 
 ---
---- ?
+--- Initializes a button with tooltip functionality,
+--- applying localized text and handling tooltip display on hover.
 ---
 ---@param self ButtonWithTooltipTemplate
 ---@param options? ButtonTemplateOptions
@@ -50,7 +52,7 @@ backbone.widgetConstructors.buttonWithTooltip = function(self, options)
 end
 
 ---
---- ?
+--- Sets the text of the button and updates its width based on the new text content.
 ---
 ---@param button ButtonTemplate
 ---@param text string
@@ -60,7 +62,7 @@ backbone.widgetControllers.setButtonText = function(button, text)
 end
 
 ---
---- ?
+--- Updates the button width to fit the current text label.
 ---
 ---@param button ButtonTemplate
 backbone.widgetControllers.updateButtonWidth = function(button)
@@ -69,7 +71,8 @@ backbone.widgetControllers.updateButtonWidth = function(button)
 end
 
 ---
---- ?
+--- Sets the button's text label color based on the provided
+--- color key or default button label color.
 ---
 ---@param button ButtonTemplate
 ---@param colorKey? string
@@ -78,7 +81,8 @@ backbone.widgetControllers.setButtonLabelColor = function(button, colorKey)
 end
 
 ---
---- ?
+--- Sets the button's text label to the active state color based
+--- on the provided color key or default active label color.
 ---
 ---@param button ButtonTemplate
 ---@param colorKey? string
