@@ -5,7 +5,7 @@
   <Frame parent="UIParent"
          name="BackboneApp"
          inherits="BackboneWindowTemplate"
-         frameStrata="FULLSCREEN_DIALOG"
+         frameStrata="HIGH"
          hidden="false">
     <Size x="1024"
           y="768" />
@@ -45,13 +45,13 @@
           <Anchors>
             <Anchor point="TOPLEFT"
                     x="28"
-                    y="-16" />
+                    y="-24" />
           </Anchors>
-          <Size x="64"
-                y="64" />
+          <Size x="56"
+                y="56" />
         </Texture>
-        <FontString text="Backbone"
-                    parentKey="logoName"
+        <FontString parentKey="logoName"
+                    text="Backbone"
                     font="interface\addons\backbone\media\fonts\kablammo.ttf">
           <Anchors>
             <Anchor point="CENTER"
@@ -74,6 +74,20 @@
                     y="-3" />
           </Anchors>
         </FontString>
+        <Texture>
+          <Anchors>
+            <Anchor point="TOPLEFT" />
+            <Anchor point="TOPRIGHT" />
+            <Anchor point="BOTTOM"
+                    relativeKey="$parent.menuBaseLineShader"
+                    relativePoint="TOP"
+                    y="55" />
+          </Anchors>
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.01" />
+        </Texture>
       </Layer>
     </Layers>
     <Frames>
@@ -94,7 +108,38 @@
                         text="UP" />
           </Layer>
         </Layers>
+        <Scripts>
+          <OnClick>            
+            (self:GetParent()):SetShown(false)
+            backbone.widgetControllers.activateShortcutFrame()
+          </OnClick>
+        </Scripts>
       </Button>
+      <!-- CONTENT ANCHORS -->
+      <Frame name="BackboneSidePanel">
+        <Size x="250" />
+        <Anchors>
+          <Anchor point="TOPLEFT"
+                  relativeKey="$parent.menuBaseLineShader"
+                  relativePoint="BOTTOMLEFT"
+                  y="-5" />
+          <Anchor point="BOTTOM"
+                  y="8" />
+        </Anchors>
+      </Frame>
+      <Frame name="BackboneContentPanel">
+        <Anchors>
+          <Anchor point="TOPLEFT"
+                  relativeTo="BackboneSidePanel"
+                  relativePoint="TOPRIGHT"
+                  x="5" />
+          <Anchor point="TOPRIGHT"
+                  relativeKey="$parent.menuBaseLineShader"
+                  relativePoint="BOTTOMRIGHT" />
+          <Anchor point="BOTTOM"
+                  relativeTo="BackboneSidePanel" />
+        </Anchors>
+      </Frame>
     </Frames>
     <Scripts>
       <OnLoad>backbone.widgetConstructors.app(self)</OnLoad>

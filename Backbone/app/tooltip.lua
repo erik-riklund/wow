@@ -220,4 +220,11 @@ end
 ---
 --- Hides the tooltip frame.
 ---
-backbone.widgetControllers.hideTooltip = function() tooltipFrame:SetShown(false) end
+backbone.widgetControllers.hideTooltip = function()
+  tooltipFrame:SetShown(false)
+  
+  tooltipFrame:ClearAllPoints()
+  tooltipFrame.arrowBase:ClearAllPoints()
+  tooltipFrame.arrowCenter:ClearAllPoints()
+  tooltipFrame.arrowTip:ClearAllPoints()
+end

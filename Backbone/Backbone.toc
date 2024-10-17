@@ -16,6 +16,7 @@ modules/themes/themes.lua
 modules/themes/widgets.lua
 modules/locales/locales.lua
 modules/locales/widgets.lua
+modules/app.lua
 
 # Color themes:
 themes/default.lua

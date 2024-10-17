@@ -1,5 +1,7 @@
 <Ui>
-  <Include file="tooltip.xml"></Include>
-  <Include file="app.xml"></Include>
-  <Include file="error-frame.xml"></Include>
+  <Include file="tooltip.xml" />
+  <Include file="app.xml" />
+  <Include file="shortcut.xml" />
+  <Include file="error-frame.xml" />
+  <Include file="menu.xml" />
 </Ui>

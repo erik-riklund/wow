@@ -33,3 +33,5 @@
 ---@field height  number
 ---@field offsetX number
 ---@field offsetY number
+
+---@class ShortcutFrame : TooltipFrame

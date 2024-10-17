@@ -1,0 +1,85 @@
+<Ui>
+  <!-- TEMPLATE -->
+  <Button virtual="true"
+          parent="BackboneApp"
+          name="BackboneMenuButton"
+          inherits="BackboneButtonWithTooltipTemplate">
+    <Size y="32" />
+    <HitRectInsets left="-8"
+                   right="-8" />
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture>
+          <Anchors>
+            <Anchor point="TOP"
+                    relativePoint="CENTER" />
+            <Anchor point="LEFT" />
+            <Anchor point="BOTTOMRIGHT" />
+          </Anchors>
+          <Color r="1"
+                 g="1"
+                 b="1"
+                 a="0.025" />
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY">
+        <FontString inherits="BackboneTooltipAnchorPoint"
+                    text="UP" />
+      </Layer>
+    </Layers>
+  </Button>
+  <!-- UNIT TESTS -->
+  <Button parentKey="unitTestsButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_TESTS">
+    <Anchors>
+      <Anchor point="BOTTOMRIGHT"
+              relativeKey="$parent.menuBaseLine"
+              relativePoint="TOPRIGHT"
+              x="-16" />
+    </Anchors>
+  </Button>
+  <!-- CONSOLE -->
+  <Button parentKey="consoleButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_CONSOLE">
+    <Anchors>
+      <Anchor point="BOTTOMRIGHT"
+              relativeKey="$parent.unitTestsButton"
+              relativePoint="BOTTOMLEFT"
+              x="-16" />
+    </Anchors>
+  </Button>
+  <!-- PLUGINS -->
+  <Button parentKey="pluginsButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_PLUGINS">
+    <Anchors>
+      <Anchor point="BOTTOMRIGHT"
+              relativeKey="$parent.consoleButton"
+              relativePoint="BOTTOMLEFT"
+              x="-16" />
+    </Anchors>
+  </Button>
+  <!-- SETTINGS -->
+  <Button parentKey="settingsButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_SETTINGS">
+    <Anchors>
+      <Anchor point="BOTTOMRIGHT"
+              relativeKey="$parent.pluginsButton"
+              relativePoint="BOTTOMLEFT"
+              x="-16" />
+    </Anchors>
+  </Button>
+  <!-- STARTPAGE -->
+  <Button inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_STARTPAGE">
+    <Anchors>
+      <Anchor point="BOTTOMRIGHT"
+              relativeKey="$parent.settingsButton"
+              relativePoint="BOTTOMLEFT"
+              x="-16" />
+    </Anchors>
+  </Button>
+</Ui>

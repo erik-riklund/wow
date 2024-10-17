@@ -10,8 +10,7 @@
          hidden="true">
     <Layers>
       <Layer level="BACKGROUND">
-        <Texture setAllPoints="true"
-                 parentKey="backgroundColor" />
+        <Texture parentKey="backgroundColor" />
       </Layer>
       <Layer level="OVERLAY">
         <FontString parentKey="contentLabel"

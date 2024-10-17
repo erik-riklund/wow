@@ -27,6 +27,6 @@ backbone.registerColorTheme('Backbone', {
   --
   tooltipFrameArrowColor = { 1.0, 0.78, 0 }, -- supernova
   tooltipFrameBorderColor = { 0.06, 0.07, 0.09 }, -- onyx
-  tooltipFrameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
+  tooltipFrameBackgroundColor = { 0.17, 0.17, 0.17 }, -- oil
   tooltipFrameContentColor = { 0.96, 0.87, 0.70 }, -- peach yellow
 })
