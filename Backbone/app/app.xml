@@ -1,4 +1,7 @@
 <Ui>
+  <!-- BEHAVIOR -->
+  <Script file="app.lua" />
+  <!-- WIDGET -->
   <Frame parent="UIParent"
          name="BackboneApp"
          inherits="BackboneWindowTemplate"
@@ -11,6 +14,68 @@
               y="-50" />
       <Anchor point="CENTER" />
     </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND"
+             textureSubLevel="5">
+        <Texture parentKey="menuBaseLine">
+          <Size y="1" />
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    x="8"
+                    y="-100" />
+            <Anchor point="TOPRIGHT"
+                    x="-8" />
+          </Anchors>
+        </Texture>
+        <Texture parentKey="menuBaseLineShader">
+          <Size y="1" />
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeKey="$parent.menuBaseLine"
+                    relativePoint="BOTTOMLEFT" />
+            <Anchor point="TOPRIGHT"
+                    relativeKey="$parent.menuBaseLine"
+                    relativePoint="BOTTOMRIGHT" />
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="OVERLAY">
+        <Texture parentKey="logoIcon"
+                 file="interface\addons\backbone\media\icons\skeleton">
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    x="28"
+                    y="-16" />
+          </Anchors>
+          <Size x="64"
+                y="64" />
+        </Texture>
+        <FontString text="Backbone"
+                    parentKey="logoName"
+                    font="interface\addons\backbone\media\fonts\kablammo.ttf">
+          <Anchors>
+            <Anchor point="CENTER"
+                    relativeKey="$parent.logoIcon" />
+            <Anchor point="LEFT"
+                    relativeKey="$parent.logoIcon"
+                    relativePoint="RIGHT"
+                    x="24"
+                    y="8" />
+          </Anchors>
+          <FontHeight val="42" />
+        </FontString>
+        <FontString parentKey="logoSlogan"
+                    text="backbone:LOGO_SLOGAN"
+                    inherits="BackboneFontDosis">
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativeKey="$parent.logoName"
+                    relativePoint="BOTTOMLEFT"
+                    y="-3" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
     <Frames>
       <Button parentKey="minimizeButton"
               inherits="BackboneButtonWithTooltipTemplate"
@@ -26,10 +91,13 @@
         <Layers>
           <Layer level="OVERLAY">
             <FontString inherits="BackboneTooltipAnchorPoint"
-                        text="DOWN" />
+                        text="UP" />
           </Layer>
         </Layers>
       </Button>
     </Frames>
+    <Scripts>
+      <OnLoad>backbone.widgetConstructors.app(self)</OnLoad>
+    </Scripts>
   </Frame>
 </Ui>

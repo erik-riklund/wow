@@ -19,7 +19,14 @@ backbone.registerColorTheme('Backbone', {
   frameBorderShaderColor = { 1.0, 1.0, 1.0, 0.10 }, -- white (10 %)
   frameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
   --
+  logoNameColor = { 0.51, 0.27, 0.64, 0.9 }, -- ?
+  logoSloganColor = { 0.96, 0.87, 0.70 }, -- peach yellow
+  --
+  menuBaseLineColor = { 0.06, 0.07, 0.09 }, -- onyx
+  menuBaseLineShaderColor = { 1.0, 1.0, 1.0, 0.05 }, -- white (10 %)
+  --
+  tooltipFrameArrowColor = { 1.0, 0.78, 0 }, -- supernova
   tooltipFrameBorderColor = { 0.06, 0.07, 0.09 }, -- onyx
   tooltipFrameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
-  tooltipFrameArrowColor = { 1.0, 0.78, 0 }, -- supernova
+  tooltipFrameContentColor = { 0.96, 0.87, 0.70 }, -- peach yellow
 })

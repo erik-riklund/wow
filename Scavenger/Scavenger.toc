@@ -2,7 +2,5 @@
 ## Interface: 110002
 ## Dependencies: Backbone
 ## Title: Scavenger (Backbone plugin)
-## SavedVariables: ScavengerAccount
-## SavedVariablesPerCharacter: ScavengerCharacter
 
 plugin.lua

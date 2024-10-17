@@ -9,7 +9,6 @@
 --- Initializes a movable window frame with themeable background and border colors.
 ---
 ---@param self WindowTemplate
----
 backbone.widgetConstructors.window = function(self)
   backbone.widgetConstructors.borderedFrame(self) -- parent constructor.
 

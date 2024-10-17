@@ -8,12 +8,11 @@
               inherits="BackboneFontDosis"
               hidden="true" />
   <!-- TEMPLATE -->
-  <Frame name="BackboneTooltipFrame"
+  <Frame parent="UIParent"
+         name="BackboneTooltipFrame"
+         frameStrata="TOOLTIP"
          inherits="BackboneBorderedFrameTemplate"
          hidden="true">
-    <Anchors>
-      <Anchor point="CENTER" />
-    </Anchors>
     <Layers>
       <Layer level="BACKGROUND">
         <Texture setAllPoints="true"

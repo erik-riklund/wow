@@ -7,6 +7,7 @@
 
 backbone.registerLocalizedStrings('backbone', 'enUS', {
   APP_MINIMIZE_BUTTON = 'Minimize[Hide this frame and enable the shortcut panel.]',
+  LOGO_SLOGAN = "Providing the 'fun' in functional addons since 2024.",
   NOTIFICATION_FRAME_DISMISS_LABEL = 'Right-click to dismiss',
-  WINDOW_CLOSE_BUTTON = 'Close'
+  WINDOW_CLOSE_BUTTON = 'Close',
 })

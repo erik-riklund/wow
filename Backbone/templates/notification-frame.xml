@@ -5,6 +5,8 @@
   <Frame virtual="true"
          name="BackboneNotificationFrameTemplate"
          inherits="BackboneBorderedFrameTemplate"
+         frameStrata="TOOLTIP"
+         frameLevel="5"
          hidden="true">
     <Layers>
       <Layer level="BACKGROUND">

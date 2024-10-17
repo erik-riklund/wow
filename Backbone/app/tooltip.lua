@@ -138,10 +138,6 @@ backbone.widgetConstructors.tooltip = function(self)
 
   backbone.registerThemeableTextures {
     {
-      object = self.backgroundColor,
-      colorKey = 'tooltipFrameBackgroundColor',
-    },
-    {
       object = self.arrowBase,
       colorKey = 'tooltipFrameArrowColor',
     },
@@ -153,6 +149,13 @@ backbone.widgetConstructors.tooltip = function(self)
       object = self.arrowTip,
       colorKey = 'tooltipFrameArrowColor',
     },
+    {
+      object = self.backgroundColor,
+      colorKey = 'tooltipFrameBackgroundColor',
+    },
+  }
+  backbone.registerThemeableLabels {
+    { object = self.textLabel, colorKey = 'tooltipFrameContentColor' },
   }
 end
 
@@ -162,8 +165,6 @@ end
 ---
 ---@param parent WidgetWithTooltip
 backbone.widgetControllers.renderTooltip = function(parent)
-  tooltipFrame:SetParent(parent)
-
   tooltipFrame.textLabel:SetText(parent.tooltipContent:GetText())
   backbone.widgetControllers.setTooltipAnchorPoint(parent)
   backbone.widgetControllers.renderTooltipArrow(parent)
@@ -200,6 +201,8 @@ end
 ---
 ---@param parent WidgetWithTooltip
 backbone.widgetControllers.setTooltipAnchorPoint = function(parent)
+  tooltipFrame:SetPoint('CENTER', parent)
+
   local anchor = anchorPoints[string.upper(parent.tooltipAnchorPoint:GetText())]
   tooltipFrame:SetPoint(anchor.point, parent, anchor.relativePoint, anchor.offsetX, anchor.offsetY)
 end
