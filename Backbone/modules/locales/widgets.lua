@@ -1,7 +1,7 @@
 --[[~ Module: Localized Widgets Controller ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0.0 | Updated: ?
+  Version: 1.0.0 | Updated: 2024/10/18
 
 ]]
 
@@ -23,7 +23,7 @@ end
 --- current locale and forces re-rendering to apply width adjustments.
 ---
 backbone.updateLocalizedLabels = function()
-  for index, label in ipairs(localizedLabels) do
+  for _, label in ipairs(localizedLabels) do
     local namespace, key = string.split(':', label.labelKey)
     
     if label.variables then

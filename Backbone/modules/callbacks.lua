@@ -1,7 +1,7 @@
 --[[~ Module: Callback Handler ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/18
 
 ]]
 
@@ -15,7 +15,11 @@ local queuedTasks = {}
 ---@param task Task
 backbone.executeCallback = function(task)
   local success, exception = pcall(task.callback, unpack(task.arguments or {}))
-  if not success then backbone.displayErrorMessage(exception) end
+
+  if not success then
+    local errorMessage = 'Execution of the callback "%s" failed:\n\n%s'
+    backbone.displayErrorMessage(errorMessage, task.identifier, exception)
+  end
 end
 
 ---
@@ -25,7 +29,7 @@ end
 backbone.executeCallbackAsync = function(task) queuedTasks[#queuedTasks + 1] = task end
 
 ---
---- The coroutine that processes queued tasks within the frame time limit, ensuring 
+--- The coroutine that processes queued tasks within the frame time limit, ensuring
 --- smooth performance at 60 fps by executing tasks within the allotted time.
 ---
 local process = coroutine.create(function()

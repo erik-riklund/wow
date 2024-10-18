@@ -6,7 +6,7 @@
 ]]
 
 ---
---- Initializes a movable window frame with themeable background and border colors.
+--- Initializes a movable window frame.
 ---
 ---@param self WindowTemplate
 backbone.widgetConstructors.window = function(self)

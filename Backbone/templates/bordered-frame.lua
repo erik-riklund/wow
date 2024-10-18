@@ -1,12 +1,12 @@
 --[[~ Template: Bordered Frame ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: 2024/10/17
+  Version: 1.0 | Updated: 2024/10/18
 
 ]]
 
 ---
---- Initializes a bordered frame by registering its border colors.
+--- Initializes a bordered frame, optionally registering custom border colors.
 ---
 ---@param self BorderedFrame
 ---@param colorKeys? BorderedFrameColorKeys

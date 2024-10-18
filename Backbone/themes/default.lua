@@ -1,7 +1,7 @@
 --[[~ Theme: Backbone (default) ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/18
 
 ]]
 
@@ -19,7 +19,7 @@ backbone.registerColorTheme('Backbone', {
   frameBorderShaderColor = { 1.0, 1.0, 1.0, 0.10 }, -- white (10 %)
   frameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
   --
-  logoNameColor = { 0.51, 0.27, 0.64, 0.9 }, -- ?
+  logoNameColor = { 0.51, 0.27, 0.64, 0.9 }, -- ? (90 %)
   logoSloganColor = { 0.96, 0.87, 0.70 }, -- peach yellow
   --
   menuBaseLineColor = { 0.06, 0.07, 0.09 }, -- onyx

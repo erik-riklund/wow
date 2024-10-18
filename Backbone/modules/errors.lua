@@ -1,7 +1,7 @@
 --[[~ Module: Error Handler ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: 2024/10/14
+  Version: 1.0 | Updated: 2024/10/18
 
 ]]
 
@@ -20,7 +20,8 @@ backbone.throwException = function(message, ...)
 end
 
 ---
---- ?
+--- Displays the error frame with the specified message in development mode,
+--- or a generic error message in production mode.
 ---
 ---@param message string
 ---@param ... string | number
@@ -28,23 +29,12 @@ backbone.displayErrorMessage = function(message, ...)
   local frame = _G['BackboneErrorFrame'] --[[@as ErrorFrame]]
 
   if not frame:IsShown() then
-    if backbone.getEnvironment() == 'development' then
-      -- TODO: add markup processing.
-      backbone.widgetControllers.setErrorFrameContent(
-        (... and string.format(message, ...)) or message
-      )
-    else
-      if not frame.isInitialized then
-        frame.isInitialized = true
-
-        backbone.registerLocalizedLabels {
-          { object = frame.contentLabel, labelKey = 'backbone:GENERIC_INTERNAL_ERROR' },
-        }
-        backbone.widgetControllers.setErrorFrameContent(
-          backbone.getLocalizedString('backbone', 'GENERIC_INTERNAL_ERROR')
-        )
-      end
-    end
+    backbone.widgetControllers.setErrorFrameContent(
+      (
+        backbone.getEnvironment() == 'development'
+        and ((... and string.format(message, ...)) or message)
+      ) or backbone.getLocalizedString('backbone', 'GENERIC_INTERNAL_ERROR')
+    )
 
     frame:SetShown(true)
   end

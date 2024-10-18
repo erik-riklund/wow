@@ -27,7 +27,7 @@ backbone.widgetConstructors.errorFrame = function(self)
     ---
     --- ?
     ---
-    ---@
+    ---@param content string
     backbone.widgetControllers.setErrorFrameContent = function(content)
       self.contentLabel:SetText(content)
     end
