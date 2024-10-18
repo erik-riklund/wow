@@ -1,6 +1,4 @@
 <Ui>
-  <!-- BEHAVIOR -->
-  <Script file="app.lua" />
   <!-- WIDGET -->
   <Frame parent="UIParent"
          name="BackboneApp"
@@ -141,8 +139,10 @@
         </Anchors>
       </Frame>
     </Frames>
-    <Scripts>
+    <!-- <Scripts>
       <OnLoad>backbone.widgetConstructors.app(self)</OnLoad>
-    </Scripts>
+    </Scripts> -->
   </Frame>
+  <!-- BEHAVIOR -->
+  <Script file="app.lua" />
 </Ui>

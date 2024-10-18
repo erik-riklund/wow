@@ -8,9 +8,6 @@
                 inherits="BackboneFontDosis" />
     <Scripts>
       <OnLoad>backbone.widgetConstructors.button(self)</OnLoad>
-      <OnShow>backbone.widgetControllers.updateButtonWidth(self)</OnShow>
-      <OnEnter>backbone.widgetControllers.setButtonLabelActiveColor(self)</OnEnter>
-      <OnLeave>backbone.widgetControllers.setButtonLabelColor(self)</OnLeave>
     </Scripts>
   </Button>
   <!-- BUTTON with TOOLTIP -->

@@ -1,35 +1,29 @@
 --[[~ Widget: Error Frame ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/18
 
 ]]
 
----
---- ?
----
----@param self ErrorFrame
-backbone.widgetConstructors.errorFrame = function(self)
-  backbone.widgetConstructors.notificationFrame(self, {
-    colorKeys = {
-      topBorder = 'errorFrameBorderColor',
-      rightBorder = 'errorFrameBorderColor',
-      bottomBorder = 'errorFrameBorderColor',
-      leftBorder = 'errorFrameBorderColor',
+local self = _G.BackboneErrorFrame --[[@as ErrorFrame]]
 
-      backgroundColor = 'errorFrameBackgroundColor',
-      dismissLabelColor = 'errorFrameDismissLabelColor',
-      textColor = 'errorFrameContentColor',
-    },
-  })
+backbone.widgetConstructors.notificationFrame(self, {
+  colorKeys = {
+    topBorder = 'errorFrameBorderColor',
+    rightBorder = 'errorFrameBorderColor',
+    bottomBorder = 'errorFrameBorderColor',
+    leftBorder = 'errorFrameBorderColor',
 
-  if not backbone.widgetControllers.setErrorFrameContent then
-    ---
-    --- ?
-    ---
-    ---@param content string
-    backbone.widgetControllers.setErrorFrameContent = function(content)
-      self.contentLabel:SetText(content)
-    end
-  end
+    backgroundColor = 'errorFrameBackgroundColor',
+    dismissLabelColor = 'errorFrameDismissLabelColor',
+    textColor = 'errorFrameContentColor',
+  },
+})
+
+---
+--- Sets the text content for the error frame.
+---
+---@param content string
+backbone.widgetControllers.setErrorFrameContent = function(content)
+  self.contentLabel:SetText(content)
 end

@@ -1,60 +1,55 @@
 --[[~ Widget: Shortcut Frame ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/18
 
 ]]
 
----@type ShortcutFrame
-local shortcutFrame
+local appFrame = _G.BackboneApp --[[@as AppFrame]]
+local self = _G.BackboneShortcutFrame --[[@as ShortcutFrame]]
 
 ---
---- ?
+--- Sets the initial position for the shortcut frame.
 ---
----@param self ShortcutFrame
-backbone.widgetConstructors.shortcutFrame = function(self)
-  shortcutFrame = self -- store the reference for easy access.
-  backbone.widgetConstructors.borderedFrame(self) -- parent constructor.
-
-  backbone.registerThemeableTextures {
-    { object = self.backgroundColor, colorKey = 'frameBackgroundColor' },
-    { object = self.arrowBase, colorKey = 'tooltipFrameArrowColor' },
-    { object = self.arrowCenter, colorKey = 'tooltipFrameArrowColor' },
-    { object = self.arrowTip, colorKey = 'tooltipFrameArrowColor' },
-  }
-  backbone.registerThemeableLabels {
-    { object = self.textLabel, colorKey = 'logoNameColor' },
-  }
-
-  self:SetScript('OnEnter', backbone.widgetControllers.setShortcutFrameActivePosition)
-  self:SetScript('OnLeave', backbone.widgetControllers.setShortcutFrameInitialPosition)
-
-  self:SetScript('OnClick', function()
-    shortcutFrame:SetShown(false)
-    _G['BackboneApp']:SetShown(true)
-  end)
+local setShortcutFrameInitialPosition = function()
+  self:SetPoint('BOTTOM', UIParent, 'TOP', 0, -3) --
 end
 
 ---
---- ?
+--- Activates the shortcut frame by settings its initial position and making it visible.
 ---
 backbone.widgetControllers.activateShortcutFrame = function()
-  backbone.widgetControllers.setShortcutFrameInitialPosition()
-  shortcutFrame:SetShown(true)
+  setShortcutFrameInitialPosition()
+  self:SetShown(true)
 end
 
 ---
---- ?
+--- Sets the active position for the shortcut frame.
 ---
----@
-backbone.widgetControllers.setShortcutFrameInitialPosition = function()
-  shortcutFrame:SetPoint('BOTTOM', UIParent, 'TOP', 0, -3)
+local setShortcutFrameActivePosition = function()
+  self:SetPoint('BOTTOM', UIParent, 'TOP', 0, -(self:GetHeight() - 2))
 end
 
 ---
---- ?
+--- Initializes the shortcut frame.
 ---
----@
-backbone.widgetControllers.setShortcutFrameActivePosition = function()
-  shortcutFrame:SetPoint('BOTTOM', UIParent, 'TOP', 0, -(shortcutFrame:GetHeight() - 2))
-end
+
+backbone.widgetConstructors.borderedFrame(self) -- parent constructor.
+
+backbone.registerThemeableTextures {
+  { object = self.backgroundColor, colorKey = 'frameBackgroundColor' },
+  { object = self.arrowBase, colorKey = 'tooltipFrameArrowColor' },
+  { object = self.arrowCenter, colorKey = 'tooltipFrameArrowColor' },
+  { object = self.arrowTip, colorKey = 'tooltipFrameArrowColor' },
+}
+backbone.registerThemeableLabels {
+  { object = self.textLabel, colorKey = 'logoNameColor' },
+}
+
+self:SetScript('OnEnter', setShortcutFrameActivePosition)
+self:SetScript('OnLeave', setShortcutFrameInitialPosition)
+
+self:SetScript('OnClick', function()
+  self:SetShown(false)
+  appFrame:SetShown(true)
+end)

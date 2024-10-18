@@ -1,12 +1,11 @@
 --[[~ Widget: Tooltip Frame ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: ?
+  Version: 1.0 | Updated: 2024/10/17
 
 ]]
 
----@type TooltipFrame
-local tooltipFrame
+local self = _G.BackboneTooltipFrame --[[@as TooltipFrame]]
 local makeNumberEven = backbone.utilities.makeNumberEven
 
 ---@type { [string]: TooltipFrameAnchorPoint }
@@ -125,73 +124,48 @@ local arrowOptions = {
 ---
 --- Initializes the tooltip frame, registering border colors and themeable textures.
 ---
----@param self TooltipFrame
-backbone.widgetConstructors.tooltip = function(self)
-  tooltipFrame = self -- store the reference locally for easy access.
 
-  backbone.widgetConstructors.borderedFrame(self, {
-    topBorder = 'tooltipFrameBorderColor',
-    rightBorder = 'tooltipFrameBorderColor',
-    bottomBorder = 'tooltipFrameBorderColor',
-    leftBorder = 'tooltipFrameBorderColor',
-  }) -- parent constructor.
+backbone.widgetConstructors.borderedFrame(self, {
+  topBorder = 'tooltipFrameBorderColor',
+  rightBorder = 'tooltipFrameBorderColor',
+  bottomBorder = 'tooltipFrameBorderColor',
+  leftBorder = 'tooltipFrameBorderColor',
+}) -- parent constructor.
 
-  backbone.registerThemeableTextures {
-    {
-      object = self.arrowBase,
-      colorKey = 'tooltipFrameArrowColor',
-    },
-    {
-      object = self.arrowCenter,
-      colorKey = 'tooltipFrameArrowColor',
-    },
-    {
-      object = self.arrowTip,
-      colorKey = 'tooltipFrameArrowColor',
-    },
-    {
-      object = self.backgroundColor,
-      colorKey = 'tooltipFrameBackgroundColor',
-    },
-  }
-  backbone.registerThemeableLabels {
-    { object = self.textLabel, colorKey = 'tooltipFrameContentColor' },
-  }
-end
-
----
---- Renders the tooltip for the given widget by setting its content,
---- anchor point, and size, and then displaying it.
----
----@param parent WidgetWithTooltip
-backbone.widgetControllers.renderTooltip = function(parent)
-  tooltipFrame.textLabel:SetText(parent.tooltipContent:GetText())
-  backbone.widgetControllers.setTooltipAnchorPoint(parent)
-  backbone.widgetControllers.renderTooltipArrow(parent)
-  backbone.widgetControllers.updateTooltipSize()
-
-  tooltipFrame:SetShown(true)
-end
+backbone.registerThemeableTextures {
+  {
+    object = self.arrowBase,
+    colorKey = 'tooltipFrameArrowColor',
+  },
+  {
+    object = self.arrowCenter,
+    colorKey = 'tooltipFrameArrowColor',
+  },
+  {
+    object = self.arrowTip,
+    colorKey = 'tooltipFrameArrowColor',
+  },
+  {
+    object = self.backgroundColor,
+    colorKey = 'tooltipFrameBackgroundColor',
+  },
+}
+backbone.registerThemeableLabels {
+  { object = self.textLabel, colorKey = 'tooltipFrameContentColor' },
+}
 
 ---
 --- Positions and sizes the tooltip's arrow based on the parent widget's tooltip anchor point.
 ---
 ---@param parent WidgetWithTooltip
-backbone.widgetControllers.renderTooltipArrow = function(parent)
+local renderTooltipArrow = function(parent)
   local arrow = arrowOptions[string.upper(parent.tooltipAnchorPoint:GetText())]
 
   for _, key in ipairs { 'arrowBase', 'arrowCenter', 'arrowTip' } do
-    local texture = tooltipFrame[key] --[[@as Texture]]
+    local texture = self[key] --[[@as Texture]]
     local segment = arrow[key] --[[@as TooltipFrameArrowSegment]]
 
-    texture:SetPoint(
-      arrow.point,
-      tooltipFrame,
-      arrow.relativePoint,
-      segment.offsetX,
-      segment.offsetY
-    )
-
+    texture:SetPoint(arrow.point, self, arrow.relativePoint, segment.offsetX, segment.offsetY)
     texture:SetSize(segment.width, segment.height)
   end
 end
@@ -200,31 +174,46 @@ end
 --- Sets the anchor point of the tooltip based on the parent widget's tooltip anchor.
 ---
 ---@param parent WidgetWithTooltip
-backbone.widgetControllers.setTooltipAnchorPoint = function(parent)
-  tooltipFrame:SetPoint('CENTER', parent)
+local setTooltipAnchorPoint = function(parent)
+  self:SetPoint('CENTER', parent)
 
   local anchor = anchorPoints[string.upper(parent.tooltipAnchorPoint:GetText())]
-  tooltipFrame:SetPoint(anchor.point, parent, anchor.relativePoint, anchor.offsetX, anchor.offsetY)
+  self:SetPoint(anchor.point, parent, anchor.relativePoint, anchor.offsetX, anchor.offsetY)
 end
 
 ---
 --- Updates the size of the tooltip frame based on its content dimensions.
 ---
-backbone.widgetControllers.updateTooltipSize = function()
-  local contentWidth = makeNumberEven(math.ceil(tooltipFrame.textLabel:GetStringWidth()))
-  local contentHeight = makeNumberEven(math.ceil(tooltipFrame.textLabel:GetStringHeight()))
+local updateTooltipSize = function()
+  local contentWidth = makeNumberEven(math.ceil(self.textLabel:GetStringWidth()))
+  local contentHeight = makeNumberEven(math.ceil(self.textLabel:GetStringHeight()))
 
-  tooltipFrame:SetSize(contentWidth + 24, contentHeight + 16)
+  self:SetSize(contentWidth + 24, contentHeight + 16)
+end
+
+---
+--- Renders the tooltip for the given widget by setting its content,
+--- anchor point, and size, and then displaying it.
+---
+---@param parent WidgetWithTooltip
+backbone.widgetControllers.renderTooltip = function(parent)
+  self.textLabel:SetText(parent.tooltipContent:GetText())
+
+  setTooltipAnchorPoint(parent)
+  renderTooltipArrow(parent)
+  updateTooltipSize()
+
+  self:SetShown(true)
 end
 
 ---
 --- Hides the tooltip frame.
 ---
 backbone.widgetControllers.hideTooltip = function()
-  tooltipFrame:SetShown(false)
-  
-  tooltipFrame:ClearAllPoints()
-  tooltipFrame.arrowBase:ClearAllPoints()
-  tooltipFrame.arrowCenter:ClearAllPoints()
-  tooltipFrame.arrowTip:ClearAllPoints()
+  self:SetShown(false)
+  self:ClearAllPoints()
+
+  self.arrowBase:ClearAllPoints()
+  self.arrowCenter:ClearAllPoints()
+  self.arrowTip:ClearAllPoints()
 end

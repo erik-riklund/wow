@@ -1,6 +1,4 @@
 <Ui>
-  <!-- BEHAVIOR -->
-  <Script file="tooltip.lua" />
   <!-- ANCHOR POINT DEFINITION -->
   <FontString virtual="true"
               parentKey="tooltipAnchorPoint"
@@ -43,8 +41,10 @@
         </FontString>
       </Layer>
     </Layers>
-    <Scripts>
+    <!-- <Scripts>
       <OnLoad>backbone.widgetConstructors.tooltip(self)</OnLoad>
-    </Scripts>
+    </Scripts> -->
   </Frame>
+  <!-- BEHAVIOR -->
+  <Script file="tooltip.lua" />
 </Ui>

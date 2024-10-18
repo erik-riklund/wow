@@ -1,7 +1,4 @@
 <Ui>
-  <!-- BEHAVIOR -->
-  <Script file="error-frame.lua" />
-  <!-- TEMPLATE -->
   <Frame parent="UIParent"
          name="BackboneErrorFrame"
          inherits="BackboneNotificationFrameTemplate">
@@ -9,8 +6,10 @@
       <Anchor point="TOP"
               y="-20" />
     </Anchors>
-    <Scripts>
+    <!-- <Scripts>
       <OnLoad>backbone.widgetConstructors.errorFrame(self)</OnLoad>
-    </Scripts>
+    </Scripts> -->
   </Frame>
+  <!-- BEHAVIOR -->
+  <Script file="error-frame.lua" />
 </Ui>

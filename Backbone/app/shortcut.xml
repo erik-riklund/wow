@@ -1,8 +1,6 @@
 <Ui>
-  <Script file="shortcut.lua" />
-  <!-- WIDGET -->
   <Button parent="UIParent"
-          name="BackboneShortcutButton"
+          name="BackboneShortcutFrame"
           inherits="BackboneBorderedFrameTemplate"
           frameStrata="TOOLTIP"
           frameLevel="6"
@@ -68,8 +66,10 @@
         </Texture>
       </Layer>
     </Layers>
-    <Scripts>
+    <!-- <Scripts>
       <OnLoad>backbone.widgetConstructors.shortcutFrame(self)</OnLoad>
-    </Scripts>
+    </Scripts> -->
   </Button>
+  <!-- BEHAVIOR -->
+  <Script file="shortcut.lua" />
 </Ui>

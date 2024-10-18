@@ -6,6 +6,26 @@
 ]]
 
 ---
+--- Updates the size of the notification frame based on the dimensions of its content and dismiss label.
+---
+---@param self NotificationFrameTemplate
+local updateNotificationFrameDimensions = function(self)
+  local makeNumberEven = backbone.utilities.makeNumberEven
+
+  local horizontalPadding = 48
+  local verticalPadding = makeNumberEven(math.ceil(self.dismissLabel:GetStringHeight())) + 24
+
+  local minimumWidth = makeNumberEven(math.ceil(self.dismissLabel:GetStringWidth()))
+  local contentWidth = makeNumberEven(math.ceil(self.contentLabel:GetStringWidth()))
+  local contentHeight = makeNumberEven(math.ceil(self.contentLabel:GetStringHeight()))
+
+  self:SetSize(
+    ((contentWidth > minimumWidth and contentWidth) or minimumWidth) + horizontalPadding,
+    contentHeight + verticalPadding
+  )
+end
+
+---
 --- Initializes a notification frame with themeable and localized labels,
 --- handling various events such as hovering and auto-dismissal.
 ---
@@ -34,7 +54,7 @@ backbone.widgetConstructors.notificationFrame = function(self, options)
 
   self:HookScript('OnShow', function()
     self.lastHovered = GetTime()
-    backbone.widgetControllers.updateNotificationFrameDimensions(self)
+    updateNotificationFrameDimensions(self)
   end)
 
   self:HookScript('OnEnter', function() self.isHovering = true end)
@@ -65,24 +85,4 @@ end
 ---@param lines string[]
 backbone.widgetControllers.setNotificationFrameContent = function(self, lines)
   self.contentLabel:SetText(table.concat(lines, '\n'))
-end
-
----
---- Updates the size of the notification frame based on the dimensions of its content and dismiss label.
----
----@param self NotificationFrameTemplate
-backbone.widgetControllers.updateNotificationFrameDimensions = function(self)
-  local makeNumberEven = backbone.utilities.makeNumberEven
-
-  local horizontalPadding = 48
-  local verticalPadding = makeNumberEven(math.ceil(self.dismissLabel:GetStringHeight())) + 24
-
-  local minimumWidth = makeNumberEven(math.ceil(self.dismissLabel:GetStringWidth()))
-  local contentWidth = makeNumberEven(math.ceil(self.contentLabel:GetStringWidth()))
-  local contentHeight = makeNumberEven(math.ceil(self.contentLabel:GetStringHeight()))
-
-  self:SetSize(
-    ((contentWidth > minimumWidth and contentWidth) or minimumWidth) + horizontalPadding,
-    contentHeight + verticalPadding
-  )
 end
