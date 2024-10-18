@@ -114,7 +114,7 @@
         </Scripts>
       </Button>
       <!-- CONTENT ANCHORS -->
-      <Frame name="BackboneSidePanel">
+      <Frame name="$parentSidePanel">
         <Size x="250" />
         <Anchors>
           <Anchor point="TOPLEFT"
@@ -125,23 +125,20 @@
                   y="8" />
         </Anchors>
       </Frame>
-      <Frame name="BackboneContentPanel">
+      <Frame name="$parentContentPanel">
         <Anchors>
           <Anchor point="TOPLEFT"
-                  relativeTo="BackboneSidePanel"
                   relativePoint="TOPRIGHT"
+                  relativeTo="$parentSidePanel"
                   x="5" />
           <Anchor point="TOPRIGHT"
-                  relativeKey="$parent.menuBaseLineShader"
-                  relativePoint="BOTTOMRIGHT" />
+                  relativePoint="BOTTOMRIGHT"
+                  relativeKey="$parent.menuBaseLineShader" />
           <Anchor point="BOTTOM"
-                  relativeTo="BackboneSidePanel" />
+                  relativeTo="$parentSidePanel" />
         </Anchors>
       </Frame>
     </Frames>
-    <!-- <Scripts>
-      <OnLoad>backbone.widgetConstructors.app(self)</OnLoad>
-    </Scripts> -->
   </Frame>
   <!-- BEHAVIOR -->
   <Script file="app.lua" />

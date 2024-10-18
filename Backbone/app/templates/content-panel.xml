@@ -1,0 +1,19 @@
+<Ui>
+  <Frame virtual="true"
+         parent="BackboneApp"
+         name="BackboneAppContentPanelTemplate"
+         hidden="true">
+    <Anchors>
+      <Anchor point="TOPLEFT"
+              relativeTo="$parentContentPanel" />
+      <Anchor point="BOTTOMRIGHT"
+              relativeTo="$parentContentPanel" />
+    </Anchors>
+  </Frame>
+  <!-- SCROLLABLE PANEL -->
+  <ScrollFrame virtual="true"
+         name="BackboneAppScrollableContentPanelTemplate"
+         inherits="BackboneAppContentPanelTemplate">
+    <!-- ? -->
+  </ScrollFrame>
+</Ui>

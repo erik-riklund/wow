@@ -1,7 +1,13 @@
 <Ui>
+  <!-- APPLICATION -->
   <Include file="tooltip.xml" />
   <Include file="app.xml" />
   <Include file="shortcut.xml" />
   <Include file="error-frame.xml" />
   <Include file="menu.xml" />
+  <!-- PANEL TEMPLATES -->
+  <Include file="templates/side-panel.xml" />
+  <Include file="templates/content-panel.xml" />
+  <!-- MODULE: General -->
+   <Include file="modules/general/panels.lua" />
 </Ui>

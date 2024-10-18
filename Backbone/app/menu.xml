@@ -72,9 +72,9 @@
               x="-16" />
     </Anchors>
   </Button>
-  <!-- STARTPAGE -->
+  <!-- OVERVIEW -->
   <Button inherits="BackboneMenuButton"
-          text="backbone:MENU_BUTTON_STARTPAGE">
+          text="backbone:MENU_BUTTON_OVERVIEW">
     <Anchors>
       <Anchor point="BOTTOMRIGHT"
               relativeKey="$parent.settingsButton"
