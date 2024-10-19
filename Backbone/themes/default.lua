@@ -7,6 +7,11 @@
 
 backbone.registerColorTheme('Backbone', {
   --
+  appLogoNameColor = { 0.51, 0.27, 0.64, 0.9 }, -- ? (90 %)
+  appLogoSloganColor = { 0.96, 0.87, 0.70 }, -- peach yellow
+  appContentPanelBackgroundColor = { 1, 1, 1, 0.005 }, -- white (2.5 %)
+  appSidePanelBackgroundColor = { 1, 1, 1, 0.01 }, -- white (1 %)
+  --
   buttonLabelColor = { 0.96, 0.87, 0.70 }, -- peach yellow
   buttonLabelActiveColor = { 1.0, 0.78, 0 }, -- supernova
   --
@@ -18,9 +23,6 @@ backbone.registerColorTheme('Backbone', {
   frameBorderColor = { 0.06, 0.07, 0.09 }, -- onyx
   frameBorderShaderColor = { 1.0, 1.0, 1.0, 0.10 }, -- white (10 %)
   frameBackgroundColor = { 0.12, 0.12, 0.12 }, -- oil
-  --
-  logoNameColor = { 0.51, 0.27, 0.64, 0.9 }, -- ? (90 %)
-  logoSloganColor = { 0.96, 0.87, 0.70 }, -- peach yellow
   --
   menuBaseLineColor = { 0.06, 0.07, 0.09 }, -- onyx
   menuBaseLineShaderColor = { 1.0, 1.0, 1.0, 0.05 }, -- white (10 %)

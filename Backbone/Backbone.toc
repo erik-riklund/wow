@@ -20,7 +20,6 @@ modules/app.lua
 
 # Color themes:
 themes/default.lua
-themes/testing.lua
 
 # Locales:
 locales/_include.xml

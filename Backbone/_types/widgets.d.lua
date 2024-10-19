@@ -1,10 +1,18 @@
 ---@meta
 
 ---@class AppFrame : WindowTemplate
----@field menuBaseLine       Texture
----@field menuBaseLineShader Texture
+---@field contentPanel       AppFrameContentPanel
 ---@field logoName           FontString
 ---@field logoSlogan         FontString
+---@field menuBaseLine       Texture
+---@field menuBaseLineShader Texture
+---@field sidePanel          AppFrameSidePanel
+
+---@class AppFrameContentPanel
+---@field backgroundColor Texture
+
+---@class AppFrameSidePanel
+---@field backgroundColor Texture
 
 ---@class ErrorFrame : NotificationFrameTemplate
 ---@field isInitialized boolean

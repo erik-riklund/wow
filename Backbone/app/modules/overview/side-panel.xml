@@ -1,0 +1,7 @@
+<Ui>
+  <Frame name="$parentOverviewSidePanel"
+         inherits="BackboneAppSidePanelTemplate">
+    <!-- ? -->
+  </Frame>
+  <Script file="side-panel.lua" />
+</Ui>

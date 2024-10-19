@@ -43,7 +43,7 @@ backbone.registerThemeableTextures {
   { object = self.arrowTip, colorKey = 'tooltipFrameArrowColor' },
 }
 backbone.registerThemeableLabels {
-  { object = self.textLabel, colorKey = 'logoNameColor' },
+  { object = self.textLabel, colorKey = 'appLogoNameColor' },
 }
 
 self:SetScript('OnEnter', setShortcutFrameActivePosition)

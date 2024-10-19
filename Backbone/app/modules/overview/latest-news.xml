@@ -1,0 +1,7 @@
+<Ui>
+  <ScrollFrame name="$parentOverviewLatestNews"
+               inherits="BackboneAppScrollableContentPanelTemplate">
+    <!-- ? -->
+  </ScrollFrame>
+  <Script file="latest-news.lua" />
+</Ui>

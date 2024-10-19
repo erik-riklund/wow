@@ -1,7 +1,7 @@
 --[[~ Widget: Tooltip Frame ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: 2024/10/17
+  Version: 1.0 | Updated: 2024/10/19
 
 ]]
 
@@ -22,102 +22,36 @@ local arrowOptions = {
     point = 'TOP',
     relativePoint = 'BOTTOM',
 
-    arrowBase = {
-      width = 6,
-      height = 1,
-      offsetX = 0,
-      offsetY = -1,
-    },
-    arrowCenter = {
-      width = 4,
-      height = 1,
-      offsetX = 0,
-      offsetY = -2,
-    },
-    arrowTip = {
-      width = 2,
-      height = 1,
-      offsetX = 0,
-      offsetY = -3,
-    },
+    arrowBase = { width = 6, height = 1, offsetX = 0, offsetY = -1 },
+    arrowCenter = { width = 4, height = 1, offsetX = 0, offsetY = -2 },
+    arrowTip = { width = 2, height = 1, offsetX = 0, offsetY = -3 },
   },
 
   DOWN = {
     point = 'BOTTOM',
     relativePoint = 'TOP',
 
-    arrowBase = {
-      width = 6,
-      height = 1,
-      offsetX = 0,
-      offsetY = 1,
-    },
-
-    arrowCenter = {
-      width = 4,
-      height = 1,
-      offsetX = 0,
-      offsetY = 2,
-    },
-
-    arrowTip = {
-      width = 2,
-      height = 1,
-      offsetX = 0,
-      offsetY = 3,
-    },
+    arrowBase = { width = 6, height = 1, offsetX = 0, offsetY = 1 },
+    arrowCenter = { width = 4, height = 1, offsetX = 0, offsetY = 2 },
+    arrowTip = { width = 2, height = 1, offsetX = 0, offsetY = 3 },
   },
 
   RIGHT = {
     point = 'RIGHT',
     relativePoint = 'LEFT',
 
-    arrowBase = {
-      width = 1,
-      height = 6,
-      offsetX = -1,
-      offsetY = 0,
-    },
-
-    arrowCenter = {
-      width = 1,
-      height = 4,
-      offsetX = -2,
-      offsetY = 0,
-    },
-
-    arrowTip = {
-      width = 0,
-      height = 2,
-      offsetX = -3,
-      offsetY = 0,
-    },
+    arrowBase = { width = 1, height = 6, offsetX = -1, offsetY = 0 },
+    arrowCenter = { width = 1, height = 4, offsetX = -2, offsetY = 0 },
+    arrowTip = { width = 0, height = 2, offsetX = -3, offsetY = 0 },
   },
 
   LEFT = {
     point = 'LEFT',
     relativePoint = 'RIGHT',
 
-    arrowBase = {
-      width = 1,
-      height = 6,
-      offsetX = 1,
-      offsetY = 0,
-    },
-
-    arrowCenter = {
-      width = 1,
-      height = 4,
-      offsetX = 2,
-      offsetY = 0,
-    },
-
-    arrowTip = {
-      width = 0,
-      height = 2,
-      offsetX = 3,
-      offsetY = 0,
-    },
+    arrowBase = { width = 1, height = 6, offsetX = 1, offsetY = 0 },
+    arrowCenter = { width = 1, height = 4, offsetX = 2, offsetY = 0 },
+    arrowTip = { width = 0, height = 2, offsetX = 3, offsetY = 0 },
   },
 }
 
@@ -133,22 +67,10 @@ backbone.widgetConstructors.borderedFrame(self, {
 }) -- parent constructor.
 
 backbone.registerThemeableTextures {
-  {
-    object = self.arrowBase,
-    colorKey = 'tooltipFrameArrowColor',
-  },
-  {
-    object = self.arrowCenter,
-    colorKey = 'tooltipFrameArrowColor',
-  },
-  {
-    object = self.arrowTip,
-    colorKey = 'tooltipFrameArrowColor',
-  },
-  {
-    object = self.backgroundColor,
-    colorKey = 'tooltipFrameBackgroundColor',
-  },
+  { object = self.arrowBase, colorKey = 'tooltipFrameArrowColor' },
+  { object = self.arrowCenter, colorKey = 'tooltipFrameArrowColor' },
+  { object = self.arrowTip, colorKey = 'tooltipFrameArrowColor' },
+  { object = self.backgroundColor, colorKey = 'tooltipFrameBackgroundColor' },
 }
 backbone.registerThemeableLabels {
   { object = self.textLabel, colorKey = 'tooltipFrameContentColor' },

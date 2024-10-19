@@ -8,6 +8,8 @@
   <!-- PANEL TEMPLATES -->
   <Include file="templates/side-panel.xml" />
   <Include file="templates/content-panel.xml" />
-  <!-- MODULE: General -->
-   <Include file="modules/general/panels.lua" />
+  <!-- MODULE: Overview -->
+  <Include file="modules/overview/side-panel.xml" />
+  <Include file="modules/overview/latest-news.xml" />
+  <Include file="modules/overview/panel-sets.lua" /> 
 </Ui>

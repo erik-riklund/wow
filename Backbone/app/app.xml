@@ -114,7 +114,8 @@
         </Scripts>
       </Button>
       <!-- CONTENT ANCHORS -->
-      <Frame name="$parentSidePanel">
+      <Frame parentKey="sidePanel"
+             name="$parentSidePanel">
         <Size x="250" />
         <Anchors>
           <Anchor point="TOPLEFT"
@@ -124,8 +125,14 @@
           <Anchor point="BOTTOM"
                   y="8" />
         </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="backgroundColor" />
+          </Layer>
+        </Layers>
       </Frame>
-      <Frame name="$parentContentPanel">
+      <Frame parentKey="contentPanel"
+             name="$parentContentPanel">
         <Anchors>
           <Anchor point="TOPLEFT"
                   relativePoint="TOPRIGHT"
@@ -137,6 +144,11 @@
           <Anchor point="BOTTOM"
                   relativeTo="$parentSidePanel" />
         </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="backgroundColor" />
+          </Layer>
+        </Layers>
       </Frame>
     </Frames>
   </Frame>

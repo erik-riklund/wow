@@ -28,37 +28,18 @@
       </Layer>
     </Layers>
   </Button>
-  <!-- UNIT TESTS -->
-  <Button parentKey="unitTestsButton"
+  <!-- OVERVIEW -->
+  <Button parentKey="overviewButton"
           inherits="BackboneMenuButton"
-          text="backbone:MENU_BUTTON_TESTS">
+          text="backbone:MENU_BUTTON_OVERVIEW">
     <Anchors>
-      <Anchor point="BOTTOMRIGHT"
-              relativeKey="$parent.menuBaseLine"
-              relativePoint="TOPRIGHT"
-              x="-16" />
-    </Anchors>
-  </Button>
-  <!-- CONSOLE -->
-  <Button parentKey="consoleButton"
-          inherits="BackboneMenuButton"
-          text="backbone:MENU_BUTTON_CONSOLE">
-    <Anchors>
-      <Anchor point="BOTTOMRIGHT"
-              relativeKey="$parent.unitTestsButton"
-              relativePoint="BOTTOMLEFT"
-              x="-16" />
-    </Anchors>
-  </Button>
-  <!-- PLUGINS -->
-  <Button parentKey="pluginsButton"
-          inherits="BackboneMenuButton"
-          text="backbone:MENU_BUTTON_PLUGINS">
-    <Anchors>
-      <Anchor point="BOTTOMRIGHT"
-              relativeKey="$parent.consoleButton"
-              relativePoint="BOTTOMLEFT"
-              x="-16" />
+      <Anchor point="LEFT"
+              relativeKey="$parent.logoSlogan"
+              relativePoint="RIGHT"
+              x="80" />
+      <Anchor point="BOTTOM"
+              relativePoint="TOP"
+              relativeKey="$parent.menuBaseLine" />
     </Anchors>
   </Button>
   <!-- SETTINGS -->
@@ -66,20 +47,56 @@
           inherits="BackboneMenuButton"
           text="backbone:MENU_BUTTON_SETTINGS">
     <Anchors>
-      <Anchor point="BOTTOMRIGHT"
-              relativeKey="$parent.pluginsButton"
-              relativePoint="BOTTOMLEFT"
-              x="-16" />
+      <Anchor point="BOTTOMLEFT"
+              relativePoint="BOTTOMRIGHT"
+              relativeKey="$parent.overviewButton"
+              x="16" />
     </Anchors>
   </Button>
-  <!-- OVERVIEW -->
-  <Button inherits="BackboneMenuButton"
-          text="backbone:MENU_BUTTON_OVERVIEW">
+  <!-- PLUGINS -->
+  <Button parentKey="pluginsButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_PLUGINS">
     <Anchors>
-      <Anchor point="BOTTOMRIGHT"
+      <Anchor point="BOTTOMLEFT"
+              relativePoint="BOTTOMRIGHT"
               relativeKey="$parent.settingsButton"
-              relativePoint="BOTTOMLEFT"
-              x="-16" />
+              x="16" />
     </Anchors>
   </Button>
+  <!-- THEMES -->
+  <Button parentKey="themesButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_THEMES">
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              relativePoint="BOTTOMRIGHT"
+              relativeKey="$parent.pluginsButton"
+              x="16" />
+    </Anchors>
+  </Button>
+  <!-- CONSOLE -->
+  <Button parentKey="consoleButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_CONSOLE">
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              relativePoint="BOTTOMRIGHT"
+              relativeKey="$parent.themesButton"
+              x="16" />
+    </Anchors>
+  </Button>
+  <!-- UNIT TESTS -->
+  <Button parentKey="unitTestsButton"
+          inherits="BackboneMenuButton"
+          text="backbone:MENU_BUTTON_TESTS">
+    <Anchors>
+      <Anchor point="BOTTOMLEFT"
+              relativePoint="BOTTOMRIGHT"
+              relativeKey="$parent.consoleButton"
+              x="16" />
+    </Anchors>
+  </Button>
+  <!-- BEHAVIOR -->
+  <Script file="menu.lua" />
 </Ui>

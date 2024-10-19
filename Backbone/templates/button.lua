@@ -1,7 +1,7 @@
 --[[~ Widget: Buttons ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: 2024/10/17
+  Version: 1.0 | Updated: 2024/10/19
 
 ]]
 
@@ -30,7 +30,7 @@ end
 ---
 ---@param button ButtonTemplate
 ---@param colorKey? string
-local setButtonLabelColor = function(button, colorKey)
+backbone.widgetControllers.setButtonLabelColor = function(button, colorKey)
   button.textLabel:SetTextColor(backbone.getColor(colorKey or 'buttonLabelColor'))
 end
 
@@ -40,7 +40,7 @@ end
 ---
 ---@param button ButtonTemplate
 ---@param colorKey? string
-local setButtonLabelActiveColor = function(button, colorKey)
+backbone.widgetControllers.setButtonLabelActiveColor = function(button, colorKey)
   button.textLabel:SetTextColor(backbone.getColor(colorKey or 'buttonLabelActiveColor'))
 end
 
@@ -54,22 +54,15 @@ backbone.widgetConstructors.button = function(self, options)
   options = options or {}
 
   backbone.registerLocalizedLabels {
-    {
-      object = self.textLabel,
-      labelKey = self.textLabel:GetText(),
-      variables = options.variables,
-    },
+    { object = self.textLabel, labelKey = self.textLabel:GetText(), variables = options.variables },
   }
   backbone.registerThemeableLabels {
-    {
-      object = self.textLabel,
-      colorKey = options.labelColorKey or 'buttonLabelColor',
-    },
+    { object = self.textLabel, colorKey = options.labelColorKey or 'buttonLabelColor' },
   }
 
-  self:HookScript('OnShow', updateButtonWidth)
-  self:HookScript('OnEnter', setButtonLabelActiveColor)
-  self:HookScript('OnLeave', setButtonLabelColor)
+  self:HookScript('OnEnter', function() backbone.widgetControllers.setButtonLabelActiveColor(self) end)
+  self:HookScript('OnLeave', function() backbone.widgetControllers.setButtonLabelColor(self) end)
+  self:HookScript('OnShow', function() updateButtonWidth(self) end)
 end
 
 ---
