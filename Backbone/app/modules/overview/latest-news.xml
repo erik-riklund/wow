@@ -1,5 +1,8 @@
 <Ui>
-  <ScrollFrame name="$parentOverviewLatestNews"
+  <!-- NEWS ENTRY -->
+   
+   <!-- CONTENT PANEL -->
+  <ScrollFrame name="$parentOverviewLatestNewsFrame"
                inherits="BackboneAppScrollableContentPanelTemplate">
     <!-- ? -->
   </ScrollFrame>

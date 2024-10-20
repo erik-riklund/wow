@@ -41,9 +41,9 @@ unitTestsButton:HookScript('OnShow', setUnitTestsButtonState)
 --
 -- ?
 --
-overviewButton:HookScript('OnClick', function() print 'Hello world' end)
+overviewButton:HookScript('OnClick', function() activatePanelSet('overview', 'startpage') end)
 settingsButton:HookScript('OnClick', function() print 'Hello world' end)
 pluginsButton:HookScript('OnClick', function() print 'Hello world' end)
 themesButton:HookScript('OnClick', function() print 'Hello world' end)
-consoleButton:HookScript('OnClick', function() activatePanelSet('console', 'overview') end)
+consoleButton:HookScript('OnClick', function() activatePanelSet('console', 'channels') end)
 unitTestsButton:HookScript('OnClick', function() print 'Hello world' end)

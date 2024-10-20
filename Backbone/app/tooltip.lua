@@ -8,7 +8,7 @@
 local self = _G.BackboneTooltipFrame --[[@as TooltipFrame]]
 local makeNumberEven = backbone.utilities.makeNumberEven
 
----@type { [string]: TooltipFrameAnchorPoint }
+---@type { [string]: TooltipFrame.AnchorPoint }
 local anchorPoints = {
   UP = { point = 'BOTTOM', relativePoint = 'TOP', offsetX = 0, offsetY = 5 },
   DOWN = { point = 'TOP', relativePoint = 'BOTTOM', offsetX = 0, offsetY = -5 },
@@ -16,7 +16,7 @@ local anchorPoints = {
   LEFT = { point = 'RIGHT', relativePoint = 'LEFT', offsetX = -5, offsetY = 0 },
 }
 
----@type { [string]: TooltipFrameArrowTextures }
+---@type { [string]: TooltipFrame.ArrowTextures }
 local arrowOptions = {
   UP = {
     point = 'TOP',
@@ -85,7 +85,7 @@ local renderTooltipArrow = function(parent)
 
   for _, key in ipairs { 'arrowBase', 'arrowCenter', 'arrowTip' } do
     local texture = self[key] --[[@as Texture]]
-    local segment = arrow[key] --[[@as TooltipFrameArrowSegment]]
+    local segment = arrow[key] --[[@as TooltipFrame.ArrowSegment]]
 
     texture:SetPoint(arrow.point, self, arrow.relativePoint, segment.offsetX, segment.offsetY)
     texture:SetSize(segment.width, segment.height)

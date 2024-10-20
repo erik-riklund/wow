@@ -7,10 +7,13 @@
 
 backbone.registerColorTheme('Backbone', {
   --
+  appContentPanelHeadlineColor = { 1.0, 0.78, 0, 0.9 }, -- supernova (90 %)
   appLogoNameColor = { 0.51, 0.27, 0.64, 0.9 }, -- ? (90 %)
   appLogoSloganColor = { 0.96, 0.87, 0.70 }, -- peach yellow
-  appContentPanelBackgroundColor = { 1, 1, 1, 0.005 }, -- white (2.5 %)
-  appSidePanelBackgroundColor = { 1, 1, 1, 0.01 }, -- white (1 %)
+  appSidePanelBackgroundColor = { 0, 0, 0, 0.025 }, -- black (2.5 %)
+  appSidePanelSeparatorColor = { 0.06, 0.07, 0.09 }, -- onyx
+  appSidePanelSeparatorShaderColor = { 1, 1, 1, 0.05 }, -- white (5 %)
+  appContentPanelBackgroundColor = { 1, 1, 1, 0 }, -- white (0 %)
   --
   buttonLabelColor = { 0.96, 0.87, 0.70 }, -- peach yellow
   buttonLabelActiveColor = { 1.0, 0.78, 0 }, -- supernova

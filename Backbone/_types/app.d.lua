@@ -51,3 +51,17 @@
 ---@class app.PanelSet
 ---@field contentPanel string
 ---@field sidePanel string
+
+---
+--- ?
+---
+---@class app.BlockContainer
+---@field contentAnchor ScriptRegion
+---@field blocks ScriptRegionResizing[]
+
+---
+--- ?
+---
+---@class app.ContentPanel
+---@field headline FontString
+---@

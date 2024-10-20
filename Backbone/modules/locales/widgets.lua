@@ -15,43 +15,22 @@ local localizedLabels = {}
 backbone.registerLocalizedLabels = function(labels)
   for _, label in ipairs(labels) do
     localizedLabels[#localizedLabels + 1] = label
+
+    label.object:HookScript('OnShow', function()
+      local namespace, key = string.split(':', label.labelKey)
+      label.object:SetText(backbone.getLocalizedString(namespace, key))
+
+      local parent = label.object:GetParent()
+      if parent ~= nil and parent:IsShown() then
+        backbone.widgetControllers.forceRender(parent)
+      end
+    end)
+
+    backbone.widgetControllers.forceRender(label.object)
   end
 end
 
 ---
---- Updates all registered localized labels by setting their text based on the
---- current locale and forces re-rendering to apply width adjustments.
+--- ?
 ---
-backbone.updateLocalizedLabels = function()
-  for _, label in ipairs(localizedLabels) do
-    local namespace, key = string.split(':', label.labelKey)
-    
-    if label.variables then
-      print 'backbone.updateLocalizedLabels: variable replacement not implemented.'
-    end
-
-    if not label.variables then
-      backbone.executeCallbackAsync {
-        callback = label.object.SetText,
-        identifier = 'updateLocalizedLabels:' .. (label.object:GetName() or 'ANONYMOUS_LABEL'),
-        arguments = { label.object, backbone.getLocalizedString(namespace, key) },
-      }
-    end
-
-    backbone.executeCallbackAsync {
-      callback = function()
-        label.object:SetShown(false)
-        label.object:SetShown(true)
-
-        local parent = label.object:GetParent()
-        if parent ~= nil and parent:IsShown() then
-          parent:SetShown(false)
-          parent:SetShown(true)
-        end
-      end,
-
-      identifier = 'updateLocalizedLabels.forceRender:'
-        .. (label.object:GetName() or 'ANONYMOUS_LABEL'),
-    }
-  end
-end
+--- TODO: add listener to update the labels when the locale changes.

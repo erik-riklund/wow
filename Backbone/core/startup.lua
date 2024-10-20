@@ -18,7 +18,7 @@ backbone.setActiveColorTheme 'Backbone'
 --
 -- Updates all localized labels with the current locale settings.
 --
-backbone.updateLocalizedLabels()
+-- backbone.updateLocalizedLabels()
 
 --
 -- Activates the initial panel set for the "overview" module.

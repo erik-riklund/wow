@@ -128,3 +128,24 @@ context.activatePanelSet = function(module, identifier)
   context.activatePanel(module, 'SIDE', panelSet.sidePanel)
   context.activatePanel(module, 'CONTENT', panelSet.contentPanel)
 end
+
+---
+--- ?
+---
+---@param object ScriptRegion
+backbone.widgetControllers.forceRender = function(object)
+  if object:IsShown() then
+    object:SetShown(false)
+    object:SetShown(true)
+  end
+end
+
+---
+--- ?
+---
+---@param container app.BlockContainer
+---@param anchor ScriptRegion
+---@param reverseOrder? boolean
+backbone.widgetControllers.setBlockAnchors = function(container, anchor, reverseOrder)
+  print 'backbone.widgetControllers.setBlockAnchors: not implemented.' --
+end

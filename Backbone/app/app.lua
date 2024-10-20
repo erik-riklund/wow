@@ -20,20 +20,6 @@ backbone.registerThemeableTextures {
   { object = self.menuBaseLineShader, colorKey = 'menuBaseLineShaderColor' },
   { object = self.contentPanel.backgroundColor, colorKey = 'appContentPanelBackgroundColor' },
   { object = self.sidePanel.backgroundColor, colorKey = 'appSidePanelBackgroundColor' },
+  { object = self.sidePanel.separatorColor, colorKey = 'appSidePanelSeparatorColor' },
+  { object = self.sidePanel.separatorShader, colorKey = 'appSidePanelSeparatorShaderColor' },
 }
-
--- backbone.widgetConstructors.app = function(self)
---   backbone.widgetConstructors.window(self) -- parent constructor.
-
---   backbone.registerThemeableLabels {
---     { object = self.logoName, colorKey = 'logoNameColor' },
---     { object = self.logoSlogan, colorKey = 'logoSloganColor' },
---   }
---   backbone.registerLocalizedLabels {
---     { object = self.logoSlogan, labelKey = self.logoSlogan:GetText() },
---   }
---   backbone.registerThemeableTextures {
---     { object = self.menuBaseLine, colorKey = 'menuBaseLineColor' },
---     { object = self.menuBaseLineShader, colorKey = 'menuBaseLineShaderColor' },
---   }
--- end
