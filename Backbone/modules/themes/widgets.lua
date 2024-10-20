@@ -42,12 +42,14 @@ end
 --- Updates all registered themeable widgets by applying the appropriate
 --- theme colors  based on the current theme settings.
 ---
-backbone.updateThemeableWidgets = function()
-  for _, widget in ipairs(themeableWidgets) do
-    backbone.executeCallbackAsync {
-      callback = widget.object[widget.method],
-      identifier = 'updateThemeableWidget:' .. (widget.object:GetName() or 'ANONYMOUS_WIDGET'),
-      arguments = { widget.object, backbone.getColor(widget.colorKey) },
-    }
-  end
-end
+--- TODO: implement listener for the internal `COLOR_SCHEME_CHANGED` event.
+
+-- backbone.updateThemeableWidgets = function()
+--   for _, widget in ipairs(themeableWidgets) do
+--     backbone.executeCallbackAsync {
+--       callback = widget.object[widget.method],
+--       identifier = 'updateThemeableWidget:' .. (widget.object:GetName() or 'ANONYMOUS_WIDGET'),
+--       arguments = { widget.object, backbone.getColor(widget.colorKey) },
+--     }
+--   end
+-- end

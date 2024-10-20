@@ -9,9 +9,13 @@ core/environment.lua
 # Utilities:
 utilities/_include.xml
 
+# Components:
+components/listenable.lua
+
 # Modules:
 modules/errors.lua
 modules/callbacks.lua
+modules/network.lua
 modules/themes/themes.lua
 modules/themes/widgets.lua
 modules/locales/locales.lua

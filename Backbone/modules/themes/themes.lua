@@ -51,7 +51,9 @@ backbone.setActiveColorTheme = function(name)
   activeThemeName = name
   activeTheme = themes[identifier]
 
-  backbone.updateThemeableWidgets()
+  -- TODO: trigger the internal `COLOR_SCHEME_CHANGED` event.
+
+  -- backbone.updateThemeableWidgets()
 end
 
 ---

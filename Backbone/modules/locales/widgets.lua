@@ -9,28 +9,32 @@
 local localizedLabels = {}
 
 ---
+--- ?
+---
+---@param label LocalizedLabel
+local updateLocalizedLabel = function(label)
+  local namespace, key = string.split(':', label.labelKey)
+  label.object:SetText(backbone.getLocalizedString(namespace, key))
+
+  local parent = label.object:GetParent()
+  if parent ~= nil and parent:IsShown() then
+    -- triggers width adjustments for buttons.
+    backbone.widgetControllers.forceRender(parent)
+  end
+end
+
+---
 --- Registers a list of localized labels to be updated when the locale changes.
 ---
 ---@param labels LocalizedLabel[]
 backbone.registerLocalizedLabels = function(labels)
   for _, label in ipairs(labels) do
     localizedLabels[#localizedLabels + 1] = label
-
-    label.object:HookScript('OnShow', function()
-      local namespace, key = string.split(':', label.labelKey)
-      label.object:SetText(backbone.getLocalizedString(namespace, key))
-
-      local parent = label.object:GetParent()
-      if parent ~= nil and parent:IsShown() then
-        backbone.widgetControllers.forceRender(parent)
-      end
-    end)
-
-    backbone.widgetControllers.forceRender(label.object)
+    updateLocalizedLabel(label)
   end
 end
 
 ---
 --- ?
 ---
---- TODO: add listener to update the labels when the locale changes.
+--- TODO: add listener to update labels when the locale changes.
