@@ -1,7 +1,5 @@
 --[[~ Module: Themes ~
-  
-  Author(s): Erik Riklund (Gopher)
-  Updated: 2024/10/21
+  Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type table<string, Theme>

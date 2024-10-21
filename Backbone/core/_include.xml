@@ -1,4 +1,5 @@
 <Ui>
   <Include file="api.lua" />
+  <Include file="resources.lua" />
   <Include file="environment.lua" />
 </Ui>

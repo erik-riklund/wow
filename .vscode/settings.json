@@ -1,6 +1,20 @@
 {
   "files.exclude": {
-    "**/**.zip": true
+    "**/**.zip": true,
+    "!KalielsTracker/**": true,
+    "Auctionator/**": true,
+    "Details*/**": true,
+    "EasyDelete/**": true,
+    "ElvUI*/**": true,
+    "GatherMate2/**": true,
+    "Immersion/**": true,
+    "ls_Toasts/**": true,
+    "Masque*/**": true,
+    "MoveAny/**": true,
+    "NameplateSCT/**": true,
+    "Plater/**": true,
+    "Pretty*/**": true,
+    "TooltipCleaner/**": true,
   },
   "Lua.diagnostics.disable": [
     "trailing-space",
@@ -39,6 +53,9 @@
     "BACK",
     "NO",
     "class",
-    "SHORT"
+    "SHORT",
+    "TooltipDataProcessor",
+    "SetTooltipMoney",
+    "SELL_PRICE"
   ]
 }

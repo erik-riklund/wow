@@ -4,9 +4,7 @@
     "prefix": "!module",
     "body": [
       "--[[~ Module: ? ~",
-      "  ",
-      "  Author(s): Erik Riklund (Gopher)",
-      "  Updated: ?",
+      "  Updated: ? | Author(s): Erik Riklund (Gopher)",
       "]]",
       "",
       ""

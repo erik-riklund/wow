@@ -1,11 +1,10 @@
 --[[~ Module: Locales ~
-  
-  Author(s): Erik Riklund (Gopher)
-  Updated: 2024/10/21
+  Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type table<string, Locale>
 local locales = {}
+
 local currentLocale = GetLocale() -- TODO: implement custom locale settings.
 
 ---
@@ -14,6 +13,7 @@ local currentLocale = GetLocale() -- TODO: implement custom locale settings.
 ---@param namespace string
 ---@param locale string
 ---@param localizedStrings LocalizedStrings
+---
 backbone.registerLocalizedStrings = function(namespace, locale, localizedStrings)
   locales[namespace] = locales[namespace] or {}
   locales[namespace][locale] = locales[namespace][locale] or {}
@@ -27,6 +27,7 @@ end
 ---
 ---@param namespace string
 ---@param key string
+---
 backbone.getLocalizedString = function(namespace, key)
   if not locales[namespace] then
     return string.format('No strings registered for namespace "%s".', namespace)
