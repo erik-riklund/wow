@@ -2,4 +2,5 @@
   <Include file="adjust-even.lua" />
   <Include file="inherit-parent.lua" />
   <Include file="integrate-table.lua" />
+  <Include file="protected-proxy.lua" />
 </Ui>
