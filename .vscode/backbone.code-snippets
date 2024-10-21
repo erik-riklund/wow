@@ -6,8 +6,7 @@
       "--[[~ Module: ? ~",
       "  ",
       "  Author(s): Erik Riklund (Gopher)",
-      "  Version: 1.0 | Updated: ?",
-      "",
+      "  Updated: ?",
       "]]",
       "",
       ""
@@ -31,6 +30,7 @@
       "--- ?",
       "---",
       "---@",
+      "---",
       "backbone.${1} = function()",
       "print 'backbone.${1}: not implemented.' --",
       "end"

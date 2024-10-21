@@ -1,8 +1,7 @@
 --[[~ Utility: Table Integration ~
   
   Author(s): Erik Riklund (Gopher)
-  Version: 1.0 | Updated: 2024/10/15
-
+  Updated: 2024/10/21
 ]]
 
 ---
@@ -12,6 +11,7 @@
 ---@param baseTable table
 ---@param sourceTable table
 ---@param allowOverwriting? boolean
+---
 backbone.utilities.integrateTable = function(baseTable, sourceTable, allowOverwriting)
   for sourceKey, sourceValue in pairs(sourceTable) do
     if baseTable[sourceKey] ~= nil and allowOverwriting ~= true then

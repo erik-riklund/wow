@@ -2,42 +2,8 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
-# Core modules:
-core/framework.lua
-core/environment.lua
-
-# Utilities:
+core/_include.xml
+media/_include.xml
 utilities/_include.xml
-
-# Components:
-components/listenable.lua
-
-# Modules:
-modules/errors.lua
-modules/callbacks.lua
-modules/network.lua
-modules/themes/themes.lua
-modules/themes/widgets.lua
-modules/locales/locales.lua
-modules/locales/widgets.lua
-modules/app.lua
-
-# Color themes:
-themes/default.lua
-
-# Locales:
-locales/_include.xml
-
-# Templates and Fonts:
-media/fonts/dosis.xml
-media/fonts/titillium-web.xml
-templates/_include.xml
-
-# Application:
-app/_include.xml
-
-# Temporary:
-#_temp/theme-test.xml
-
-# Initialization:
-core/startup.lua
+components/_include.xml
+modules/_include.xml

@@ -1,7 +1,0 @@
-<Ui>
-  <Include file="border.xml" />
-  <Include file="bordered-frame.xml" />
-  <Include file="notification-frame.xml" />
-  <Include file="button.xml" />
-  <Include file="window.xml" />
-</Ui>

@@ -1,4 +1,5 @@
 <Ui>
+  <Include file="inherit-parent.lua" />
   <Include file="integrate-table.lua" />
   <Include file="make-number-even.lua" />
 </Ui>
