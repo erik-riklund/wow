@@ -53,9 +53,6 @@
     "BACK",
     "NO",
     "class",
-    "SHORT",
-    "TooltipDataProcessor",
-    "SetTooltipMoney",
-    "SELL_PRICE"
+    "SHORT"
   ]
 }

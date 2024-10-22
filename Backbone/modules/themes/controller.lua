@@ -2,6 +2,8 @@
   Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
 
+local _, context = ...
+
 ---@type table<string, Theme>
 local themes = {}
 
@@ -10,6 +12,11 @@ local activeTheme
 
 ---@type string
 local activeThemeName
+
+---
+--- ?
+---
+backbone.createChannel(context.plugin, 'COLOR_SCHEME_CHANGED')
 
 ---
 --- Retrieves the RGBA color associated with the given key
@@ -30,9 +37,7 @@ end
 ---
 backbone.registerColorTheme = function(name, theme)
   local identifier = string.lower(name)
-  if themes[identifier] ~= nil then
-    backbone.throwException('Non-unique identifier for theme "%s"', name)
-  end
+  if themes[identifier] ~= nil then backbone.throwException('Non-unique identifier for theme "%s"', name) end
 
   themes[identifier] = theme
 end
@@ -44,14 +49,12 @@ end
 ---
 backbone.setActiveColorTheme = function(name)
   local identifier = string.lower(name)
-  if themes[identifier] == nil then
-    backbone.throwException('Unknown theme "%s"', name)
-  end
+  if themes[identifier] == nil then backbone.throwException('Unknown theme "%s"', name) end
 
   activeThemeName = name
   activeTheme = themes[identifier]
 
-  -- TODO: trigger the internal `COLOR_SCHEME_CHANGED` event.
+  backbone.invokeChannelListeners(context.plugin, 'COLOR_SCHEME_CHANGED')
 end
 
 ---

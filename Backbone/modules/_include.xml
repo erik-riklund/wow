@@ -2,6 +2,7 @@
   <Include file="exceptions/display.lua" />
   <Include file="exceptions/throw.lua" />
   <Include file="tasks/manager.lua" />
+  <Include file="events/handler.lua" />
   <Include file="network/handler.lua" />
   <Include file="plugins/manager.lua" />
   <Include file="locales/manager.lua" />

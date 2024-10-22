@@ -4,8 +4,7 @@
 
 ---@type table<string, Locale>
 local locales = {}
-
-local currentLocale = GetLocale() -- TODO: implement custom locale settings.
+local currentLocale = GetLocale()
 
 ---
 --- Registers a set of localized strings for the specified namespace and locale.
