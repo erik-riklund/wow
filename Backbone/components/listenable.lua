@@ -1,7 +1,5 @@
 --[[~ Component: Listenable ~
-  
-  Author(s): Erik Riklund (Gopher)
-  Updated: 2024/10/21
+  Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type Listenable
@@ -28,7 +26,7 @@ listenable.removeListener = function(self, identifier)
 end
 
 ---
---- Invokes all registered listeners, with options to pass arguments and to choose 
+--- Invokes all registered listeners, with options to pass arguments and to choose
 --- between synchronous or asynchronous execution.
 ---
 listenable.invokeListeners = function(self, options)

@@ -28,11 +28,16 @@ backbone.createPlugin = function(name, options)
   local identifier = string.lower(name)
 
   if plugins[identifier] ~= nil then
-    backbone.throwException('The plugin "%s" already exists.', name) --
+    backbone.throwException('The plugin "%s" already exists.', name)
   end
 
   plugins[identifier] = { identifier = identifier, name = name }
-  backbone.invokeChannelListeners(context.plugin, 'PLUGIN_ADDED', { plugins[identifier], options })
+
+  backbone.invokeChannelListeners(
+    context.plugin,
+    'PLUGIN_ADDED',
+    { plugins[identifier], options }
+  )
 
   return backbone.utilities.createProtectedProxy(plugins[identifier])
 end

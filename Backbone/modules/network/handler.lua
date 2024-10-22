@@ -25,7 +25,7 @@ end
 ---
 backbone.createChannel = function(owner, name, options)
   if channels[name] ~= nil then
-    backbone.throwException('The channel "%s" already exists.', name) --
+    backbone.throwException('The channel "%s" already exists.', name)
   end
 
   channels[name] = createChannelObject(options or {})
@@ -41,16 +41,24 @@ end
 ---
 backbone.invokeChannelListeners = function(caller, channelName, arguments)
   if channels[channelName] == nil then
-    backbone.throwException('The channel "%s" does not exist.', channelName) --
+    backbone.throwException('The channel "%s" does not exist.', channelName)
   end
 
   local channel = channels[channelName]
-  if channel.isInternal == true and channel.owner ~= caller then
-    backbone.throwException('Cannot invoke protected channel "%s" (%s).', channelName, caller.identifier)
+
+  if channel.owner ~= caller then
+    backbone.throwException(
+      'Cannot invoke channel "%s" from context "%s".',
+      channelName,
+      caller.identifier
+    )
     return -- stops execution in production mode.
   end
 
-  channel:invokeListeners { arguments = arguments, executeSync = (channel.invokeAsync == false) }
+  channel:invokeListeners {
+    arguments = arguments,
+    executeSync = (channel.invokeAsync == false),
+  }
 end
 
 ---
@@ -62,16 +70,21 @@ end
 ---
 backbone.registerChannelListener = function(reciever, channelName, listener)
   if channels[channelName] == nil then
-    backbone.throwException('The channel "%s" does not exist.', channelName) --
+    backbone.throwException('The channel "%s" does not exist.', channelName)
   end
 
   local channel = channels[channelName]
   if channel.isInternal == true and channel.owner ~= reciever then
-    backbone.throwException('Cannot listen to protected channel "%s" (%s).', channelName, reciever.identifier)
+    backbone.throwException(
+      'Cannot listen to protected channel "%s" (%s).',
+      channelName,
+      reciever.identifier
+    )
     return -- stops execution in production mode.
   end
 
-  listener.identifier = string.format('%s:%s', reciever.identifier, listener.identifier)
+  listener.identifier =
+    string.format('%s:%s', reciever.identifier, listener.identifier)
   channel:registerListener(listener)
 end
 
@@ -84,7 +97,7 @@ end
 ---
 backbone.removeChannelListener = function(caller, channelName, identifier)
   if channels[channelName] == nil then
-    backbone.throwException('The channel "%s" does not exist.', channelName) --
+    backbone.throwException('The channel "%s" does not exist.', channelName)
   end
 
   local channel = channels[channelName]

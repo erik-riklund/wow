@@ -11,13 +11,13 @@ local currentLocale = GetLocale()
 ---
 ---@param namespace string
 ---@param locale string
----@param localizedStrings LocalizedStrings
+---@param strings LocalizedStrings
 ---
-backbone.registerLocalizedStrings = function(namespace, locale, localizedStrings)
+backbone.registerLocalizedStrings = function(namespace, locale, strings)
   locales[namespace] = locales[namespace] or {}
   locales[namespace][locale] = locales[namespace][locale] or {}
 
-  backbone.utilities.integrateTable(locales[namespace][locale], localizedStrings)
+  backbone.utilities.integrateTable(locales[namespace][locale], strings)
 end
 
 ---
@@ -33,7 +33,7 @@ backbone.getLocalizedString = function(namespace, key)
   end
 
   ---@type LocalizedStrings?
-  local localizedStrings = locales[namespace][currentLocale] or locales[namespace].enUS
-  return (type(localizedStrings) == 'table' and localizedStrings[key])
+  local strings = locales[namespace][currentLocale] or locales[namespace].enUS
+  return (type(strings) == 'table' and strings[key])
     or string.format('Missing localized string "%s" in namespace "%s".', key, namespace)
 end

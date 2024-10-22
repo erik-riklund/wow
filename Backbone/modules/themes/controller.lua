@@ -1,5 +1,5 @@
 --[[~ Module: Themes ~
-  Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
 local _, context = ...
@@ -14,7 +14,7 @@ local activeTheme
 local activeThemeName
 
 ---
---- ?
+--- Establishes the network channel used to broadcast when the theme changes.
 ---
 backbone.createChannel(context.plugin, 'COLOR_SCHEME_CHANGED')
 
@@ -37,7 +37,9 @@ end
 ---
 backbone.registerColorTheme = function(name, theme)
   local identifier = string.lower(name)
-  if themes[identifier] ~= nil then backbone.throwException('Non-unique identifier for theme "%s"', name) end
+  if themes[identifier] ~= nil then
+    backbone.throwException('Non-unique identifier for theme "%s"', name)
+  end
 
   themes[identifier] = theme
 end
@@ -49,7 +51,9 @@ end
 ---
 backbone.setActiveColorTheme = function(name)
   local identifier = string.lower(name)
-  if themes[identifier] == nil then backbone.throwException('Unknown theme "%s"', name) end
+  if themes[identifier] == nil then
+    backbone.throwException('Unknown theme "%s"', name)
+  end
 
   activeThemeName = name
   activeTheme = themes[identifier]

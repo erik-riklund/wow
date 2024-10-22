@@ -5,6 +5,6 @@
 --- with an identifier, a callback function, and optional arguments.
 ---
 ---@class Task
----@field identifier string
 ---@field callback function
+---@field identifier? string
 ---@field arguments? unknown[]

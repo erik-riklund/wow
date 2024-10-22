@@ -1,11 +1,11 @@
 --[[~ Module: Resources ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
 local _, context = ...
 
 ---
---- ?
+--- Used as the owner for protected framework channels.
 ---
 context.plugin = { identifier = 'backbone' }
 

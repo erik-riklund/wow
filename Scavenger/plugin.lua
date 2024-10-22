@@ -3,3 +3,4 @@
 ]]
 
 local plugin = backbone.createPlugin 'Scavenger'
+plugin:onLoad(function() print 'Hello world' end)

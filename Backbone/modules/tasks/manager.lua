@@ -1,5 +1,5 @@
 --[[~ Module: Tasks ~
-  Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type Task[]
@@ -15,6 +15,13 @@ backbone.executeCallback = function(task)
 
   if not success then
     local errorMessage = 'Execution of the callback "%s" failed:\n\n%s'
+    print(
+      string.format(
+        errorMessage,
+        task.identifier or 'ANONYMOUS_CALLBACK',
+        exception
+      )
+    )
     -- backbone.displayErrorMessage(errorMessage, task.identifier, exception)
   end
 end

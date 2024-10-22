@@ -19,10 +19,10 @@
 ---@field executeSync? boolean
 
 ---
---- Represents an individual listener with a unique identifier,
---- a callback function, and optional persistence.
+--- Represents an individual listener with a callback function.
+--- Each listener may also have a unique identifier and a persistence flag.
 ---
 ---@class Listener
----@field identifier string
 ---@field callback function
+---@field identifier? string
 ---@field persistent? boolean

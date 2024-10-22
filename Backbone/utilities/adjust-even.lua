@@ -10,5 +10,6 @@
 ---@param upwards? boolean
 ---
 backbone.utilities.adjustToEven = function(number, upwards)
-  return (number % 2 == 0 and number) or (number + ((upwards ~= false and 1) or -1))
+  return (number % 2 == 0 and number)
+    or (number + ((upwards ~= false and 1) or -1))
 end

@@ -33,6 +33,8 @@ backbone.registerChannelListener(
   {
     identifier = 'networkApiIntegration',
     ---@param plugin Plugin
-    callback = function(plugin) backbone.utilities.integrateTable(plugin, api) end,
+    callback = function(plugin)
+      backbone.utilities.integrateTable(plugin, api) --
+    end,
   }
 )

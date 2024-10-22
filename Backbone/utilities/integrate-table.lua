@@ -10,7 +10,11 @@
 ---@param sourceTable table
 ---@param allowOverwriting? boolean
 ---
-backbone.utilities.integrateTable = function(baseTable, sourceTable, allowOverwriting)
+backbone.utilities.integrateTable = function(
+  baseTable,
+  sourceTable,
+  allowOverwriting
+)
   for sourceKey, sourceValue in pairs(sourceTable) do
     if baseTable[sourceKey] ~= nil and allowOverwriting ~= true then
       backbone.throwException(
