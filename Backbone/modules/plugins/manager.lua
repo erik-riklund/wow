@@ -9,12 +9,9 @@ local plugins = {}
 
 ---
 --- ?
----
-backbone.createChannel(
-  context.plugin,
-  'PLUGIN_ADDED', --
-  { isInternal = true, invokeAsync = false }
-)
+
+local channelOptions = { isInternal = true, invokeAsync = false }
+backbone.createChannel(context.plugin, 'PLUGIN_ADDED', channelOptions)
 
 ---
 --- ?
@@ -33,11 +30,8 @@ backbone.createPlugin = function(name, options)
 
   plugins[identifier] = { identifier = identifier, name = name }
 
-  backbone.invokeChannelListeners(
-    context.plugin,
-    'PLUGIN_ADDED',
-    { plugins[identifier], options }
-  )
+  local arguments = { plugins[identifier], options }
+  backbone.invokeChannelListeners(context.plugin, 'PLUGIN_ADDED', arguments)
 
   return backbone.utilities.createProtectedProxy(plugins[identifier])
 end

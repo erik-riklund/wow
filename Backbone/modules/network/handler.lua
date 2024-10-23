@@ -1,5 +1,5 @@
 --[[~ Module: Network ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type table<string, Channel>
@@ -47,11 +47,9 @@ backbone.invokeChannelListeners = function(caller, channelName, arguments)
   local channel = channels[channelName]
 
   if channel.owner ~= caller then
-    backbone.throwException(
-      'Cannot invoke channel "%s" from context "%s".',
-      channelName,
-      caller.identifier
-    )
+    local exception = 'Cannot invoke channel "%s" from context "%s".'
+    backbone.throwException(exception, channelName, caller.identifier)
+
     return -- stops execution in production mode.
   end
 
@@ -75,16 +73,17 @@ backbone.registerChannelListener = function(reciever, channelName, listener)
 
   local channel = channels[channelName]
   if channel.isInternal == true and channel.owner ~= reciever then
-    backbone.throwException(
-      'Cannot listen to protected channel "%s" (%s).',
-      channelName,
-      reciever.identifier
-    )
+    local exception = 'Cannot listen to protected channel "%s" (%s).'
+    backbone.throwException(exception, channelName, reciever.identifier)
+
     return -- stops execution in production mode.
   end
 
-  listener.identifier =
-    string.format('%s:%s', reciever.identifier, listener.identifier)
+  if listener.identifier then
+    listener.identifier =
+      string.format('%s:%s', reciever.identifier, listener.identifier)
+  end
+
   channel:registerListener(listener)
 end
 

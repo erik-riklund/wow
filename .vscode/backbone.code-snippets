@@ -3,7 +3,7 @@
   {
     "prefix": "!module",
     "body": [
-      "--[[~ ${1:Module}: ? ~",
+      "--[[~ ${1:Module}: ${2:?} ~",
       "  Updated: ? | Author(s): Erik Riklund (Gopher)",
       "]]",
       "",

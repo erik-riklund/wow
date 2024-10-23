@@ -42,10 +42,8 @@ end
 ---
 backbone.removeEventListener = function(owner, eventName, identifier)
   if events[eventName] == nil then
-    backbone.throwException(
-      'The event "%s" does not have any registered listeners.',
-      eventName
-    )
+    local exception = 'The event "%s" does not have any registered listeners.'
+    backbone.throwException(exception, eventName)
   end
 
   events[eventName]:removeListener(owner.identifier .. ':' .. identifier)

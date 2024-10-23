@@ -8,11 +8,7 @@ local _, context = ...
 local api = {
   --
   onLoad = function(self, callback)
-    backbone.registerEventListener(
-      self,
-      'ADDON_LOADED',
-      { callback = callback }
-    )
+    backbone.registerEventListener(self, 'ADDON_LOADED', { callback = callback })
   end,
   --
   registerEventListener = function(self, event, listener)
@@ -27,12 +23,8 @@ local api = {
 ---
 --- Integrate the events API into new plugins.
 ---
-backbone.registerChannelListener(
-  context.plugin, --
-  'PLUGIN_ADDED',
-  {
-    identifier = 'eventsApiIntegration',
-    ---@param plugin Plugin
-    callback = function(plugin) backbone.utilities.integrateTable(plugin, api) end,
-  }
-)
+backbone.registerChannelListener(context.plugin, 'PLUGIN_ADDED', {
+  identifier = 'eventsApiIntegration',
+  ---@param plugin Plugin
+  callback = function(plugin) backbone.utilities.integrateTable(plugin, api) end,
+})

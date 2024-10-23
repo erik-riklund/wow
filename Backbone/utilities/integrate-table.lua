@@ -8,19 +8,13 @@
 ---
 ---@param baseTable table
 ---@param sourceTable table
----@param allowOverwriting? boolean
+---@param overwrite? boolean
 ---
-backbone.utilities.integrateTable = function(
-  baseTable,
-  sourceTable,
-  allowOverwriting
-)
+backbone.utilities.integrateTable = function(baseTable, sourceTable, overwrite)
   for sourceKey, sourceValue in pairs(sourceTable) do
-    if baseTable[sourceKey] ~= nil and allowOverwriting ~= true then
-      backbone.throwException(
-        'Table integration failed. The key "%s" already exists in the base table.',
-        sourceKey
-      )
+    if baseTable[sourceKey] ~= nil and overwrite ~= true then
+      local exception = 'Table integration failed; the key "%s" already exists.'
+      backbone.throwException(exception, sourceKey)
     end
 
     baseTable[sourceKey] = sourceValue

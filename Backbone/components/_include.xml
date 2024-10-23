@@ -1,3 +1,4 @@
 <Ui>
   <Include file="listenable.lua" />
+  <Include file="storage-unit.lua" />
 </Ui>
