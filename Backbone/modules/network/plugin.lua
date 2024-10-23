@@ -2,7 +2,8 @@
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
-local _, context = ...
+---@class Backbone
+local context = select(2, ...)
 
 ---@type NetworkApi
 local api = {

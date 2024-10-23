@@ -3,6 +3,7 @@
     "**/**.zip": true,
     "!KalielsTracker/**": true,
     "Auctionator/**": true,
+    "Blizz*/**": true,
     "Details*/**": true,
     "EasyDelete/**": true,
     "ElvUI*/**": true,
@@ -49,10 +50,7 @@
     "~\\.vscode\\extensions\\ketho.wow-api-0.17.6\\Annotations"
   ],
   "Lua.diagnostics.globals": [
-    "message",
-    "BACK",
-    "NO",
-    "class",
-    "SHORT"
+    "GetTime",
+    "GetLocale"
   ]
 }

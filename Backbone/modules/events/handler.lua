@@ -2,15 +2,16 @@
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
+local sharedFrame = backbone.getSharedFrame()
+
 ---@type table<string, Event>
 local events = {}
-local sharedFrame = backbone.getSharedFrame()
 
 ---
 --- Registers a listener for the specified event.
 ---
 ---@param reciever Plugin
----@param eventName string
+---@param eventName WowEvent
 ---@param listener Listener
 ---
 backbone.registerEventListener = function(reciever, eventName, listener)

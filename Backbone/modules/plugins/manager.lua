@@ -2,13 +2,14 @@
   Updated: ? | Author(s): Erik Riklund (Gopher)
 ]]
 
-local _, context = ...
+---@class Backbone
+local context = select(2, ...)
 
 ---@type table<string, Plugin>
 local plugins = {}
 
 ---
---- ?
+--- Create the network channel used to broadcast when plugins are added.
 
 local channelOptions = { isInternal = true, invokeAsync = false }
 backbone.createChannel(context.plugin, 'PLUGIN_ADDED', channelOptions)

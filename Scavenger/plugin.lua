@@ -2,4 +2,4 @@
   Updated: ? | Author(s): Erik Riklund (Gopher)
 ]]
 
-local plugin = backbone.createPlugin 'Scavenger'
+local plugin = backbone.createPlugin('Scavenger', { storage = { account = 'test' }})

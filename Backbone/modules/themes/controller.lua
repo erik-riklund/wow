@@ -1,8 +1,9 @@
+---@class Backbone
+local context = select(2, ...)
+
 --[[~ Module: Themes ~
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
-
-local _, context = ...
 
 ---@type table<string, Theme>
 local themes = {}

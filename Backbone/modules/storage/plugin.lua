@@ -2,12 +2,10 @@
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 
-local _, context = ...
+---@class Backbone
+local context = select(2, ...)
 
----@type StorageUnit.getStorageUnit
 local getStorageUnit = context.getStorageUnit
-
----@type StorageUnit.setupStorageUnit
 local setupStorageUnit = context.setupStorageUnit
 
 ---@type StorageApi

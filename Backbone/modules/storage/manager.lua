@@ -2,13 +2,19 @@
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 
-local _, context = ...
+---@class Backbone
+local context = select(2, ...)
 
 ---@type table<Plugin, StorageUnits>
 local storageUnits = {}
 
 ---
----@type StorageUnit.getStorageUnit
+--- Retrieves a storage unit for a given plugin and specified scope.
+---
+---@param plugin Plugin
+---@param scope StorageScope
+---
+---@return StorageUnit
 ---
 context.getStorageUnit = function(plugin, scope)
   if storageUnits[plugin.identifier] == nil then
@@ -24,7 +30,11 @@ context.getStorageUnit = function(plugin, scope)
 end
 
 ---
----@type StorageUnit.setupStorageUnit
+--- Initializes a storage unit for a plugin with a specified scope and source data.
+---
+---@param plugin Plugin
+---@param scope StorageScope
+---@param variable string
 ---
 context.setupStorageUnit = function(plugin, scope, variable)
   _G[variable] = _G[variable] or {}

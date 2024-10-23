@@ -11,7 +11,16 @@
     ]
   },
 
-  "type": {
+  "context": {
+    "prefix": "!context",
+    "body": [
+      "---@class ${1}",
+      "local context = select(2, ...)"
+    ]
+  },
+
+  "type":
+  {
     "prefix": "!type",
     "body": [
       "---",
@@ -21,7 +30,8 @@
     ]
   },
 
-  "function": {
+  "function":
+  {
     "prefix": "!function",
     "body": [
       "---",
