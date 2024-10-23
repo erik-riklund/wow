@@ -3,4 +3,5 @@
   <Include file="inherit-parent.lua" />
   <Include file="integrate-table.lua" />
   <Include file="protected-proxy.lua" />
+  <Include file="traverse-table.lua" />
 </Ui>

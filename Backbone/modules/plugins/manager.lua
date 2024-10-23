@@ -20,7 +20,7 @@ backbone.createChannel(
 --- ?
 ---
 ---@param name string
----@param options any
+---@param options? PluginOptions
 ---
 ---@return Plugin
 ---
