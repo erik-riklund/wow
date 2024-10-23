@@ -1,12 +1,21 @@
+local traverseTable = backbone.utilities.traverseTable
+
 --[[~ Component: Storage Unit ~
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 
-local traverseTable = backbone.utilities.traverseTable
-
----@type StorageUnit
----@diagnostic disable-next-line: missing-fields
+---
+--- Represents a storage unit that manages a collection of data, allowing for 
+--- retrieval, modification, and deletion of entries based on a specified path.
+---
+---@class StorageUnit
+---
 local storageUnit = {}
+
+---
+--- The data structure used by the storage unit.
+---
+storageUnit.data = {}
 
 ---
 --- Resolves a given path string into an array of steps and a final variable name.
@@ -24,8 +33,10 @@ end
 
 ---
 --- Retrieves the value stored at the specified path in the storage unit.
---- If the path points to a valid entry, it returns the corresponding value.
-
+--- 
+---@param path string
+---@return unknown?
+--- 
 storageUnit.getEntry = function(self, path)
   local steps, variable = resolvePath(path)
   local source = traverseTable(self.data, steps)
@@ -36,7 +47,10 @@ end
 ---
 --- Sets a value at the specified path in the storage unit,
 --- creating any necessary intermediary tables along the way.
-
+---
+---@param path string
+---@param value unknown
+---
 storageUnit.setEntry = function(self, path, value)
   local steps, variable = resolvePath(path)
   local target = traverseTable(self.data, steps, { mode = 'build' }) --[[@as table]]
@@ -45,9 +59,10 @@ storageUnit.setEntry = function(self, path, value)
 end
 
 ---
---- Removes the entry at the specified path from the storage unit,
---- setting it to nil if the path is valid.
-
+--- Removes the entry at the specified path from the storage unit.
+---
+---@param path string
+---
 storageUnit.dropEntry = function(self, path)
   local steps, variable = resolvePath(path)
   local source = traverseTable(self.data, steps)
@@ -59,6 +74,7 @@ end
 --- Creates a new storage unit instance using the provided source as its data structure.
 ---
 ---@param source table
+---@return StorageUnit
 ---
 backbone.components.createStorageUnit = function(source)
   return backbone.utilities.inheritParent({ data = source }, storageUnit)

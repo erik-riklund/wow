@@ -2,12 +2,25 @@
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 
----@type Listenable
----@diagnostic disable-next-line: missing-fields
+---
+--- Represents an object that manages a list of listeners,
+--- allowing them to be invoked, registered, or removed.
+---
+---@class Listenable
+---
 local listenable = {}
 
 ---
+--- A list of registered listeners.
+---
+---@type Listener[]
+---
+listenable.listeners = {}
+
+---
 --- Registers a new listener by adding it to the list of listeners.
+--- 
+---@param listener Listener
 ---
 listenable.registerListener = function(self, listener)
   self.listeners[#self.listeners + 1] = listener --
@@ -15,6 +28,8 @@ end
 
 ---
 --- Removes the listener with the specified identifier from the list.
+--- 
+---@param identifier string
 ---
 listenable.removeListener = function(self, identifier)
   for index, listener in ipairs(self.listeners) do
@@ -28,6 +43,8 @@ end
 ---
 --- Invokes all registered listeners, with options to pass arguments and to choose
 --- between synchronous or asynchronous execution.
+--- 
+---@param options Listenable.invokeListeners.options
 ---
 listenable.invokeListeners = function(self, options)
   local method = backbone.executeCallbackAsync

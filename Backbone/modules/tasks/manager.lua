@@ -1,3 +1,6 @@
+--- the detection of global functions is not working.
+---@diagnostic disable: undefined-global
+
 --[[~ Module: Tasks ~
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]

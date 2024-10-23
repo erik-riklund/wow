@@ -9,7 +9,7 @@
   <Include file="themes/controller.lua" />
   <Include file="storage/manager.lua" />
   <!-- PLUGIN API INTEGRATION -->
-  <Include file="events/plugin.lua" />
-  <Include file="network/plugin.lua" />
-  <Include file="storage/plugin.lua" />
+  <Include file="events/api.lua" />
+  <Include file="network/api.lua" />
+  <Include file="storage/api.lua" />
 </Ui>

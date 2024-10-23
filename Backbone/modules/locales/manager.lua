@@ -4,6 +4,8 @@
 
 ---@type table<string, Locale>
 local locales = {}
+
+---@diagnostic disable-next-line: undefined-global
 local currentLocale = GetLocale()
 
 ---
