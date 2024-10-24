@@ -1,11 +1,11 @@
+---@class Backbone
+local context = select(2, ...)
+
 --[[~ Module: Storage ~
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 
----@class Backbone
-local context = select(2, ...)
-
----@type table<Plugin, StorageUnits>
+---@type table<string, StorageUnits>
 local storageUnits = {}
 
 ---

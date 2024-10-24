@@ -1,9 +1,9 @@
---[[~ Module: Plugins ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
-]]
-
 ---@class Backbone
 local context = select(2, ...)
+
+--[[~ Module: Plugins ~
+  Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
+]]
 
 ---@type table<string, Plugin>
 local plugins = {}
@@ -15,7 +15,7 @@ local channelOptions = { isInternal = true, invokeAsync = false }
 backbone.createChannel(context.plugin, 'PLUGIN_ADDED', channelOptions)
 
 ---
---- ?
+--- Creates a new plugin with the specified name and optional configuration options.
 ---
 ---@param name string
 ---@param options? PluginOptions

@@ -14,6 +14,8 @@ local storageUnit = {}
 
 ---
 --- The data structure used by the storage unit.
+--- 
+---@protected
 ---
 storageUnit.data = {}
 

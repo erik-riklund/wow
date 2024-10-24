@@ -56,6 +56,6 @@ end)
 ---
 backbone.getSharedFrame():HookScript('OnUpdate', function()
   if #queuedTasks > 0 and coroutine.status(process) == 'suspended' then
-    coroutine.resume(process) --
+    coroutine.resume(process)
   end
 end)
