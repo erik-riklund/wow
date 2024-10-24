@@ -1,16 +1,7 @@
 ---@meta
 
----@alias StorageScope 'account'|'character'
-
 ---
---- Defines options for initializing storage units, with account and character variable identifiers.
+--- Defines options for initializing the storage unit for a plugin.
 ---
 ---@class StorageOptions
----@field storage? { account?: string, character?: string }
-
----
---- Represents a collection of storage units for a plugin.
----
----@class StorageUnits
----@field account? StorageUnit
----@field character? StorageUnit
+---@field storage? string
