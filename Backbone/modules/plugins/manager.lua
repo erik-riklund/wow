@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Module: Plugins ~
-  Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/25 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type table<string, Plugin>
@@ -36,3 +36,10 @@ backbone.createPlugin = function(name, options)
 
   return backbone.utilities.createProtectedProxy(plugins[identifier])
 end
+
+---
+--- Checks if a plugin with the specified name is registered within the system. 
+---
+---@param name string
+---
+backbone.hasPlugin = function(name) return (plugins[string.lower(name)] ~= nil) end

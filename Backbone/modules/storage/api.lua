@@ -13,25 +13,47 @@ local context = select(2, ...)
 local api = {}
 
 ---
---- Retrieves the value for the given `path` from the persistent storage.
+--- Retrieves the value for the given `path` from the persistent account storage.
 ---
 ---@param self Plugin
 ---@param path string
 ---@return unknown
 ---
-api.getStorageVariable = function(self, path)
-  return context.getStorageUnit(self):getEntry(path)
+api.getAccountVariable = function(self, path)
+  return context.getStorageUnit(self, 'account'):getEntry(path)
 end
 
 ---
---- Sets the value for the given `path` in the persistent storage.
+--- Sets the value for the given `path` in the persistent account storage.
 ---
 ---@param self Plugin
 ---@param path string
 ---@param value unknown
 ---
-api.setStorageVariable = function(self, path, value)
-  context.getStorageUnit(self):setEntry(path, value)
+api.setAccountVariable = function(self, path, value)
+  context.getStorageUnit(self, 'account'):setEntry(path, value)
+end
+
+---
+--- Retrieves the value for the given `path` from the persistent character storage.
+---
+---@param self Plugin
+---@param path string
+---@return unknown
+---
+api.getCharacterVariable = function(self, path)
+  return context.getStorageUnit(self, 'character'):getEntry(path)
+end
+
+---
+--- Sets the value for the given `path` in the persistent character storage.
+---
+---@param self Plugin
+---@param path string
+---@param value unknown
+---
+api.setCharacterVariable = function(self, path, value)
+  context.getStorageUnit(self, 'character'):setEntry(path, value)
 end
 
 ---
@@ -42,8 +64,14 @@ backbone.registerChannelListener(context.plugin, 'PLUGIN_ADDED', {
   ---@param plugin Plugin
   ---@param options PluginOptions
   callback = function(plugin, options)
-    if type(options) == 'table' and type(options.storage) == 'string' then
-      plugin:onLoad(function() context.setupStorageUnit(plugin, options.storage) end)
+    if options and options.storage then
+      plugin:onLoad(function()
+        for _, scope in ipairs { 'account', 'character' } do
+          if options.storage[scope] == true then
+            context.setupStorageUnit(plugin, scope)
+          end
+        end
+      end)
     end
 
     backbone.utilities.integrateTable(plugin, api)

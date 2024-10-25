@@ -6,4 +6,11 @@ local context = select(2, ...)
 ]]
 
 local plugin = backbone.createPlugin 'Scavenger'
-context.config = backbone.useConfigManager(plugin, {})
+
+plugin:onLoad(
+  function()
+    context.config = backbone.useConfigManager(plugin, {
+      quest = { lootAll = false },
+    })
+  end
+)

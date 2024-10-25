@@ -38,18 +38,14 @@ end
 ---@param key unknown
 ---@param value unknown
 ---
-map.setValue = function(self, key, value)
-  self.content[key] = value --
-end
+map.setValue = function(self, key, value) self.content[key] = value end
 
 ---
 --- Checks if the specified key exists in the map.
 ---
 ---@param key unknown
 ---
-map.containsKey = function(self, key)
-  return (self.content[key] ~= nil) --
-end
+map.containsKey = function(self, key) return (self.content[key] ~= nil) end
 
 ---
 --- Returns an iterator for the map, allowing traversal of all key-value pairs.

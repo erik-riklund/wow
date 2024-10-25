@@ -13,22 +13,28 @@ local listenable = {}
 ---
 --- A list of registered listeners.
 ---
+---@protected
 ---@type Listener[]
 ---
 listenable.listeners = {}
 
 ---
+--- ?
+---
+listenable.getListenerCount = function(self) return #self.listeners end
+
+---
 --- Registers a new listener by adding it to the list of listeners.
---- 
+---
 ---@param listener Listener
 ---
 listenable.registerListener = function(self, listener)
-  self.listeners[#self.listeners + 1] = listener --
+  self.listeners[#self.listeners + 1] = listener
 end
 
 ---
 --- Removes the listener with the specified identifier from the list.
---- 
+---
 ---@param identifier string
 ---
 listenable.removeListener = function(self, identifier)
@@ -43,7 +49,7 @@ end
 ---
 --- Invokes all registered listeners, with options to pass arguments and to choose
 --- between synchronous or asynchronous execution.
---- 
+---
 ---@param options Listenable.invokeListeners.options
 ---
 listenable.invokeListeners = function(self, options)

@@ -75,7 +75,7 @@ sharedFrame:HookScript(
       end
     else
       if events[eventName] ~= nil then
-        if #events[eventName].listeners > 0 then
+        if events[eventName]:getListenerCount() > 0 then
           events[eventName]:invokeListeners { arguments = { ... } }
         else
           sharedFrame:UnregisterEvent(eventName)

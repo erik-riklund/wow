@@ -55,6 +55,7 @@
     "GameTimeFrame",
     "AddonCompartmentFrame",
     "MinimapZoneText",
-    "ExpansionLandingPageMinimapButton"
+    "ExpansionLandingPageMinimapButton",
+    "LOOT"
   ]
 }

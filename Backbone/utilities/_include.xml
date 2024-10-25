@@ -1,5 +1,6 @@
 <Ui>
   <Include file="adjust-even.lua" />
+  <Include file="capitalize-string.lua" />
   <Include file="inherit-parent.lua" />
   <Include file="integrate-table.lua" />
   <Include file="protected-proxy.lua" />

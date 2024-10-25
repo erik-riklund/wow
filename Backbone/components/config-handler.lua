@@ -43,7 +43,7 @@ configHandler.defaults = nil
 configHandler.setStorage = function(self, storage) self.storage = storage end
 
 ---
---- Retrieves the value of a specified configuration option from the storage and 
+--- Retrieves the value of a specified configuration option from the storage and
 --- default units. Throws an exception if the option is not found.
 ---
 ---@param path string
@@ -59,16 +59,24 @@ configHandler.getValue = function(self, path)
 end
 
 ---
---- Sets the value of a specified configuration option in the storage unit, ensuring 
+--- Sets the value of a specified configuration option in the storage unit, ensuring
 --- that the option exists in the defaults. Throws an exception if it does not.
 ---
 ---@param path string
 ---@param value unknown
 ---
 configHandler.setValue = function(self, path, value)
-  if self.defaults:getEntry(path) == nil then
+  local defaultValue = self.defaults:getEntry(path)
+
+  if defaultValue == nil then
     local exception = 'Unknown configuration option "%s" (%s)'
     backbone.throwException(exception, path, self.plugin.name)
+  end
+
+  if type(defaultValue) ~= type(value) then
+    local exception =
+      'Type mismatch for default configuration option "%s", expected %s (%s)'
+    backbone.throwException(exception, path, type(defaultValue), self.plugin.name)
   end
 
   self.storage:setEntry(prefix .. path, value)

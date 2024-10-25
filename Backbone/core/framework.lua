@@ -18,6 +18,11 @@ _G.backbone = {}
 backbone.components = {}
 
 ---
+--- ?
+---
+backbone.enums = {}
+
+---
 --- A collection of utility functions provided by the framework.
 ---
 backbone.utilities = {}
