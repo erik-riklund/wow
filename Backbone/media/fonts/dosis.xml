@@ -1,13 +1,13 @@
 <Ui>
-  <!-- SMALL -->
+  <!-- 12pt -->
   <FontString virtual="true"
-              name="BackboneFontDosisSmall"
+              name="BackboneFontDosis12pt"
               font="interface\addons\backbone\media\fonts\dosis.ttf">
     <FontHeight val="12" />
   </FontString>
-  <!-- NORMAL -->
+  <!-- 13pt -->
   <FontString virtual="true"
-              name="BackboneFontDosis"
+              name="BackboneFontDosis13pt"
               font="interface\addons\backbone\media\fonts\dosis.ttf">
     <FontHeight val="13" />
   </FontString>

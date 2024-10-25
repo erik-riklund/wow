@@ -56,6 +56,9 @@
     "AddonCompartmentFrame",
     "MinimapZoneText",
     "ExpansionLandingPageMinimapButton",
-    "LOOT"
+    "LOOT",
+    "OTHER",
+    "INSCRIPTION",
+    "OPTIONAL"
   ]
 }
