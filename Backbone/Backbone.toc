@@ -4,6 +4,7 @@
 
 core/_include.xml
 media/_include.xml
+enums/_include.xml
 utilities/_include.xml
 components/_include.xml
 modules/_include.xml
