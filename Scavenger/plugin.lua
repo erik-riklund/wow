@@ -10,7 +10,8 @@ local plugin = backbone.createPlugin 'Scavenger'
 plugin:onLoad(
   function()
     context.config = backbone.useConfigManager(plugin, {
-      quest = { lootAll = false },
+      QUEST = { LOOT_ALL = false },
+      TRADESKILL = {  }
     })
   end
 )

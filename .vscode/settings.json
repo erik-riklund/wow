@@ -59,6 +59,8 @@
     "LOOT",
     "OTHER",
     "INSCRIPTION",
-    "OPTIONAL"
+    "OPTIONAL",
+    "TRADE",
+    "Item"
   ]
 }
