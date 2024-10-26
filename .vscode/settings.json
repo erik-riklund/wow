@@ -9,12 +9,15 @@
     "ElvUI*/**": true,
     "GatherMate2/**": true,
     "Immersion/**": true,
-    "ls_Toasts/**": true,
+    "Leatrix_Plus/**": true,
+    "ls_*/**": true,
     "Masque*/**": true,
+    "Mouseover*/**": true,
     "MoveAny/**": true,
     "NameplateSCT/**": true,
     "Plater/**": true,
     "Pretty*/**": true,
+    "Quartz": true,
     "TooltipCleaner/**": true,
   },
   "Lua.diagnostics.disable": [
@@ -61,6 +64,12 @@
     "INSCRIPTION",
     "OPTIONAL",
     "TRADE",
-    "Item"
+    "Item",
+    "QUALITY",
+    "CURRENCY",
+    "ENABLE",
+    "CUSTOM",
+    "IGNORE",
+    "GO"
   ]
 }

@@ -25,7 +25,7 @@ backbone.createChannel(context.plugin, 'PLUGIN_ADDED', channelOptions)
 backbone.createPlugin = function(name, options)
   local identifier = string.lower(name)
 
-  if plugins[identifier] ~= nil then
+  if identifier ~= 'backbone' and plugins[identifier] ~= nil then
     backbone.throwException('The plugin "%s" already exists.', name)
   end
 
@@ -38,7 +38,7 @@ backbone.createPlugin = function(name, options)
 end
 
 ---
---- Checks if a plugin with the specified name is registered within the system. 
+--- Checks if a plugin with the specified name is registered within the system.
 ---
 ---@param name string
 ---

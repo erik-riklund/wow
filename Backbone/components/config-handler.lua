@@ -49,9 +49,19 @@ configHandler.setStorage = function(self, storage) self.storage = storage end
 ---@param path string
 ---
 configHandler.getValue = function(self, path)
-  for index, storage in ipairs { self.storage, self.defaults } do
-    local value = storage:getEntry(((index == 1 and prefix) or '') .. path)
-    if value ~= nil then return value end
+  -- for index, storage in ipairs { self.storage, self.defaults } do
+  --   local value = storage:getEntry(((index == 1 and prefix) or '') .. path)
+  --   if value ~= nil then return value end -- returns the located value.
+  -- end
+
+  local value = self.storage:getEntry(prefix .. path)
+  if value ~= nil then return value end -- return the stored value.
+
+  local defaultValue = self.defaults:getEntry(path)
+
+  if defaultValue ~= nil then
+    return type(defaultValue) == 'table' and backbone.utilities.copyTable(value)
+      or defaultValue
   end
 
   local exception = 'Failed to retrieve configuration option "%s" (%s)'
@@ -73,10 +83,11 @@ configHandler.setValue = function(self, path, value)
     backbone.throwException(exception, path, self.plugin.name)
   end
 
-  if type(defaultValue) ~= type(value) then
-    local exception =
-      'Type mismatch for default configuration option "%s", expected %s (%s)'
-    backbone.throwException(exception, path, type(defaultValue), self.plugin.name)
+  local defaultValueType = type(defaultValue)
+
+  if defaultValueType ~= type(value) then
+    local exception = 'Type mismatch for configuration option "%s", expected %s (%s)'
+    backbone.throwException(exception, path, defaultValueType, self.plugin.name)
   end
 
   self.storage:setEntry(prefix .. path, value)

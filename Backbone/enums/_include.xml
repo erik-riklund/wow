@@ -1,3 +1,4 @@
 <Ui>
+  <Include file="items.lua" />
   <Include file="tradeskills.lua" />
 </Ui>

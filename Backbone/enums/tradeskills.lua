@@ -1,9 +1,11 @@
 --[[~ Enum: Tradeskills ~
-  Updated: 2024/10/25 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/26 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
 --- Defines the available tradeskill subtypes.
+--- 
+---@enum TRADESKILL_SUBTYPE
 ---
 backbone.enums.TRADESKILL_SUBTYPE = {
   PARTS = 1,

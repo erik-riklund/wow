@@ -68,16 +68,17 @@ end
 ---
 backbone.useConfigManager = function(plugin, defaults)
   defaults.useAccountVariables = true
+  local defaultsStorageUnit = backbone.components.createStorageUnit(defaults)
 
   local account = backbone.components.createConfigHandler(
     plugin,
     context.getStorageUnit(plugin, 'account'),
-    defaults
+    defaultsStorageUnit
   )
   local character = backbone.components.createConfigHandler(
     plugin,
     context.getStorageUnit(plugin, 'character'),
-    defaults
+    defaultsStorageUnit
   )
 
   local manager = {
