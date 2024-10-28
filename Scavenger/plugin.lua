@@ -37,7 +37,9 @@ context.plugin:onLoad(function()
       SUBTYPES = {
         [backbone.enums.TradeskillSubType.Cloth] = true,
         [backbone.enums.TradeskillSubType.Cooking] = true,
+        [backbone.enums.TradeskillSubType.Enchanting] = true,
         [backbone.enums.TradeskillSubType.Herb] = true,
+        [backbone.enums.TradeskillSubType.Inscription] = true,
         [backbone.enums.TradeskillSubType.Leather] = true,
         [backbone.enums.TradeskillSubType.MetalAndStone] = true,
       },
@@ -113,12 +115,12 @@ context.plugin:onLoad(function()
       --
       -- List of items to loot based on custom criteria.
       --
-      LOOT = {},
+      LOOT = context.loot,
 
       --
       -- List of items to ignore based on custom criteria.
       --
-      IGNORE = {},
+      IGNORE = context.ignore,
     },
   })
 end)

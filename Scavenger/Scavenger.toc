@@ -7,4 +7,7 @@
 # SavedVariablesPerCharacter: ScavengerCharacterStorage
 
 plugin.lua
+filters/ignore.lua
+filters/loot.lua
 looter.lua
+commands.lua

@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Module: Configuration Manager ~
-  Updated: 2024/10/25 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/28 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
@@ -23,7 +23,7 @@ local configManager = {}
 configManager.scope = nil
 
 ---
---- A collection of configuration handlers for both account and character scopes, 
+--- A collection of configuration handlers for both account and character scopes,
 --- facilitating access to their respective settings.
 ---
 ---@protected
@@ -44,7 +44,7 @@ configManager.setScope = function(self, scope) self.scope = scope end
 ---@param path string
 ---
 configManager.getVariable = function(self, path)
-  return self.handlers[self.scope]:getValue(path)
+  return self.handlers[self.scope]:getValue(path) --
 end
 
 ---
@@ -54,11 +54,11 @@ end
 ---@param value unknown
 ---
 configManager.setVariable = function(self, path, value)
-  self.handlers[self.scope]:setValue(path, value)
+  self.handlers[self.scope]:setValue(path, value) --
 end
 
 ---
---- Creates and initializes a new configuration manager instance for a plugin, 
+--- Creates and initializes a new configuration manager instance for a plugin,
 --- setting up handlers for account and character configurations.
 ---
 ---@param plugin Plugin
@@ -70,22 +70,20 @@ backbone.useConfigManager = function(plugin, defaults)
   defaults.useAccountVariables = true
   local defaultsStorageUnit = backbone.components.createStorageUnit(defaults)
 
-  local account = backbone.components.createConfigHandler(
+  local account = backbone.components.createConfigHandler( --
     plugin,
     context.getStorageUnit(plugin, 'account'),
     defaultsStorageUnit
   )
-  local character = backbone.components.createConfigHandler(
+  local character = backbone.components.createConfigHandler( --
     plugin,
     context.getStorageUnit(plugin, 'character'),
     defaultsStorageUnit
   )
 
   local manager = {
-    scope = (
-      (account:getValue 'useAccountVariables' == true and 'account') or 'character'
-    ),
     handlers = { account = account, character = character },
+    scope = ((account:getValue 'useAccountVariables' == true and 'account') or 'character'),
   }
 
   return backbone.utilities.inheritParent(manager, configManager)
