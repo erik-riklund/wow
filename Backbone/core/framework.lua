@@ -27,6 +27,16 @@ backbone.components = {}
 backbone.enums = {}
 
 ---
+--- ?
+---
+backbone.system = {
+  ---
+  --- ?
+  ---
+  expansion = GetExpansionLevel()
+}
+
+---
 --- An extendable collection of utility functions that assist with common
 --- tasks and operations within the framework, promoting code reusability.
 ---

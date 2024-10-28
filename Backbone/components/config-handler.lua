@@ -47,25 +47,25 @@ configHandler.setStorage = function(self, storage) self.storage = storage end
 --- default units. Throws an exception if the option is not found.
 ---
 ---@param path string
+---@return unknown
 ---
 configHandler.getValue = function(self, path)
-  -- for index, storage in ipairs { self.storage, self.defaults } do
-  --   local value = storage:getEntry(((index == 1 and prefix) or '') .. path)
-  --   if value ~= nil then return value end -- returns the located value.
-  -- end
-
   local value = self.storage:getEntry(prefix .. path)
   if value ~= nil then return value end -- return the stored value.
 
   local defaultValue = self.defaults:getEntry(path)
 
-  if defaultValue ~= nil then
-    return type(defaultValue) == 'table' and backbone.utilities.copyTable(value)
-      or defaultValue
+  if defaultValue == nil then
+    local exception = 'Failed to retrieve configuration option "%s" (%s)'
+    backbone.throwException(exception, path, self.plugin.name)
   end
 
-  local exception = 'Failed to retrieve configuration option "%s" (%s)'
-  backbone.throwException(exception, path, self.plugin.name)
+  self.storage:setEntry(
+    prefix .. path, --
+    (type(defaultValue) == 'table' and backbone.utilities.copyTable(defaultValue)) or defaultValue
+  )
+
+  return self.storage:getEntry(prefix .. path)
 end
 
 ---

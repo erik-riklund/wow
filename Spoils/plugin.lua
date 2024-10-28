@@ -5,6 +5,11 @@ local context = select(2, ...)
   Updated: ? | Author(s): Erik Riklund (Gopher)
 ]]
 
-local plugin = backbone.createPlugin('Spoils', {
+context.plugin = backbone.createPlugin('Spoils', {
   storage = { account = true, character = true },
 })
+
+-- context.plugin:registerChannelListener(
+--   'LOOT_PROCESSED',
+--   { callback = function(slots) DevTools_Dump(slots) end }
+-- )

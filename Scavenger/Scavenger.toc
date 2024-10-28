@@ -3,7 +3,8 @@
 ## Dependencies: Backbone
 ## Title: Scavenger (Backbone plugin)
 
-## SavedVariables: ScavengerAccountStorage
-## SavedVariablesPerCharacter: ScavengerCharacterStorage
+# SavedVariables: ScavengerAccountStorage
+# SavedVariablesPerCharacter: ScavengerCharacterStorage
 
 plugin.lua
+looter.lua

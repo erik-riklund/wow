@@ -9,6 +9,8 @@
   <Include file="themes/controller.lua" />
   <Include file="storage/manager.lua" />
   <Include file="config/manager.lua" />
+  <Include file="game/items.lua" />
+  <Include file="game/loot.lua" />
   <!-- PLUGIN API INTEGRATION -->
   <Include file="events/api.lua" />
   <Include file="network/api.lua" />
