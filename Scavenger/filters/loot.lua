@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Module: Loot Filters ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/28 | Author(s): Erik Riklund (Gopher)
 ]]
 
 context.loot = {
@@ -16,6 +16,7 @@ context.loot = {
   [6358]  = true, -- Oily Blackmouth
   [13422] = true, -- Stonescale Eel
 
+  --
   -- The Burning Crusade
 
   [22572] = true, -- Mote of Air
@@ -26,6 +27,7 @@ context.loot = {
   [22577] = true, -- Mote of Shadow
   [22578] = true, -- Mote of Water
 
+  --
   -- Wrath of the Lich King
 
   [52027] = true, -- Conqueror's Mark of Sanctification
@@ -41,6 +43,7 @@ context.loot = {
   [52025] = true, -- Vanquisher's Mark of Sanctification
   [52028] = true, -- Vanquisher's Mark of Sanctification (heroic)
 
+  --
   -- Cataclysm
 
   [52328] = true, -- Volatile Air
@@ -49,10 +52,12 @@ context.loot = {
   [52329] = true, -- Volatile Life
   [52326] = true, -- Volatile Water
 
+  --
   -- Warlords of Draenor
 
   [120945] = true, -- Primal Spirit
 
+  --
   -- Legion
 
   [137677] = true, -- Fel Blood (quest item)
@@ -61,6 +66,7 @@ context.loot = {
   [124439] = true, -- Unbroken Tooth
   [129888] = true, -- Undivided Hide (quest item)
 
+  --
   -- Shadowlands
 
   [189864] = true, -- Anima Gossamer
@@ -96,10 +102,12 @@ context.loot = {
   [186202] = true, -- Wafting Koricone
   [181643] = true, -- Weeping Corpseshroom
 
+  --
   -- Dragonflight
 
   [197754] = true, -- Salt Deposit
 
+  --
   -- The War Within
 
   [223512] = true, -- Basically Beef
