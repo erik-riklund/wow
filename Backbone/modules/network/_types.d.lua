@@ -5,7 +5,6 @@
 --- it is internal and if listeners should be invoked asynchronously.
 ---
 ---@class ChannelOptions
----@field isInternal? boolean
 ---@field invokeAsync? boolean
 
 ---

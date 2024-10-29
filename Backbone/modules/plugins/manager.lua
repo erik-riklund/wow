@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Module: Plugins ~
-  Updated: 2024/10/25 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/29 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type table<string, Plugin>
@@ -11,8 +11,8 @@ local plugins = {}
 ---
 --- Create the network channel used to broadcast when plugins are added.
 
-local channelOptions = { isInternal = true, invokeAsync = false }
-backbone.createChannel(context.plugin, 'PLUGIN_ADDED', channelOptions)
+local channelOptions = { invokeAsync = false }
+backbone.createChannel('PLUGIN_ADDED', channelOptions)
 
 ---
 --- Creates a new plugin with the specified name and optional configuration options.
@@ -25,14 +25,16 @@ backbone.createChannel(context.plugin, 'PLUGIN_ADDED', channelOptions)
 backbone.createPlugin = function(name, options)
   local identifier = string.lower(name)
 
-  if plugins[identifier] ~= nil then backbone.throwException('The plugin "%s" already exists.', name) end
+  if plugins[identifier] ~= nil then
+    backbone.throwException('The plugin "%s" already exists.', name) --
+  end
 
   plugins[identifier] = { identifier = identifier, name = name }
 
   local arguments = { plugins[identifier], options }
-  backbone.invokeChannelListeners(context.plugin, 'PLUGIN_ADDED', arguments)
+  backbone.invokeChannelListeners('PLUGIN_ADDED', arguments)
 
-  return backbone.utilities.createProtectedProxy(plugins[identifier])
+  return plugins[identifier]
 end
 
 ---
@@ -40,4 +42,6 @@ end
 ---
 ---@param name string
 ---
-backbone.hasPlugin = function(name) return (plugins[string.lower(name)] ~= nil) end
+backbone.hasPlugin = function(name)
+  return (plugins[string.lower(name)] ~= nil) --
+end

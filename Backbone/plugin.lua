@@ -16,4 +16,6 @@ context.plugin = backbone.createPlugin('Backbone', {
 ---
 --- ?
 ---
-context.config = backbone.useConfigManager(context.plugin, {})
+context.plugin:onLoad(function()
+  context.config = backbone.useConfigManager(context.plugin, {}) --
+end)

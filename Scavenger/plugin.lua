@@ -71,7 +71,7 @@ context.plugin:onLoad(function()
       --
       -- The minimum value (in copper) of poor quality items to loot.
       --
-      MIN_VALUE = 1, -- (1c)
+      MIN_VALUE = 1999, -- (1c)
 
       --
       -- The maximum value (in copper) of poor quality items to loot.

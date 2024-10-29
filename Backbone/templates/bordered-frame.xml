@@ -1,0 +1,30 @@
+<Ui>
+  <!-- BackboneBorderedFrame -->
+  <Frame virtual="true"
+         name="BackboneBorderedFrame">
+    <Layers>
+      <Layer level="BORDER">
+        <!-- topBorder -->
+        <Texture parentKey="topBorder"
+                 inherits="BackboneTopBorder" />
+        <Texture parentKey="topBorderShader"
+                 inherits="BackboneTopBorderShader" />
+        <!-- bottomBorder -->
+        <Texture parentKey="bottomBorder"
+                 inherits="BackboneBottomBorder" />
+        <Texture parentKey="bottomBorderShader"
+                 inherits="BackboneBottomBorderShader" />
+        <!-- leftBorder -->
+        <Texture parentKey="leftBorder"
+                 inherits="BackboneLeftBorder" />
+        <Texture parentKey="leftBorderShader"
+                 inherits="BackboneLeftBorderShader" />
+        <!-- rightBorder -->
+        <Texture parentKey="rightBorder"
+                 inherits="BackboneRightBorder" />
+        <Texture parentKey="rightBorderShader"
+                 inherits="BackboneRightBorderShader" />
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

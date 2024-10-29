@@ -1,7 +1,0 @@
-<Ui>
-  <!-- BackboneBorderedFrame -->
-  <Frame virtual="true"
-         name="BackboneBorderedFrame">
-    <!-- ? -->
-  </Frame>
-</Ui>

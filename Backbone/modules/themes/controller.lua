@@ -17,7 +17,7 @@ local activeThemeName
 ---
 --- Establishes the network channel used to broadcast when the theme changes.
 ---
-backbone.createChannel(context.plugin, 'COLOR_SCHEME_CHANGED')
+backbone.createChannel 'COLOR_SCHEME_CHANGED'
 
 ---
 --- Retrieves the RGBA color associated with the given key
@@ -39,7 +39,7 @@ end
 backbone.registerColorTheme = function(name, theme)
   local identifier = string.lower(name)
   if themes[identifier] ~= nil then
-    backbone.throwException('Non-unique identifier for theme "%s"', name)
+    backbone.throwException('Non-unique identifier for theme "%s"', name) --
   end
 
   themes[identifier] = theme
@@ -53,13 +53,13 @@ end
 backbone.setActiveColorTheme = function(name)
   local identifier = string.lower(name)
   if themes[identifier] == nil then
-    backbone.throwException('Unknown theme "%s"', name)
+    backbone.throwException('Unknown theme "%s"', name) --
   end
 
   activeThemeName = name
   activeTheme = themes[identifier]
 
-  backbone.invokeChannelListeners(context.plugin, 'COLOR_SCHEME_CHANGED')
+  backbone.invokeChannelListeners 'COLOR_SCHEME_CHANGED'
 end
 
 ---

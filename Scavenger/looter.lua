@@ -13,6 +13,9 @@ local context = select(2, ...)
 local handlers = {
   ---@type LootHandler
   [Enum.LootSlotType.Item] = function(slotInfo)
+    --
+    -- ?
+
     ---@type CustomLootFilters
     local filters = context.config:getVariable 'FILTERS'
     local itemInfo = backbone.getItemInfo(slotInfo.link)
@@ -23,10 +26,17 @@ local handlers = {
       end
 
       if slotInfo.isQuestItem then
-        DevTools_Dump(slotInfo)
-        print 'quest item handler: not implemented.' --
+        --
+        --
+
+        ---@type QuestLootOptions
+        local options = context.config:getVariable 'QUEST'
+        return (options.LOOT_ALL or GetNumLootItems() == 1)
       else
         if itemInfo.quality == Enum.ItemQuality.Poor then
+          --
+          -- ?
+
           ---@type JunkLootOptions
           local options = context.config:getVariable 'JUNK'
 
@@ -36,6 +46,9 @@ local handlers = {
           )
         else
           if itemInfo.itemTypeId == Enum.ItemClass.Tradegoods then
+            --
+            -- ?
+
             ---@type TradeskillLootOptions
             local options = context.config:getVariable 'TRADESKILL'
 
@@ -48,6 +61,9 @@ local handlers = {
             itemInfo.itemTypeId == Enum.ItemClass.Armor --
             or itemInfo.itemTypeId == Enum.ItemClass.Weapon
           then
+            --
+            -- ?
+
             if itemInfo.bindType == Enum.ItemBind.OnAcquire then
               ---@type GearLootOptions
               local options = context.config:getVariable 'GEAR'
@@ -69,20 +85,24 @@ local handlers = {
 
   ---@type LootHandler
   [Enum.LootSlotType.Money] = function(slotInfo)
+    --
+    -- ?
+
     ---@type CurrencyLootOptions
     local options = context.config:getVariable 'CURRENCY'
-    
+
     local cash = string.split('\n', slotInfo.name)
     local amount, value = string.split(' ', cash)
-    
     return (value ~= 'Gold' or tonumber(amount) < options.GOLD_MAX)
   end,
 
   ---@type LootHandler
   [Enum.LootSlotType.Currency] = function(slotInfo)
+    --
+    -- ?
+
     ---@type CustomLootFilters
     local filters = context.config:getVariable 'FILTERS'
-    
     return not filters.IGNORE[slotInfo.currencyId]
   end,
 }
@@ -90,28 +110,35 @@ local handlers = {
 ---
 --- ?
 ---
-context.plugin:createChannel 'LOOT_PROCESSED'
+backbone.createChannel 'LOOT_PROCESSED'
 
 ---
 --- ?
 ---
-context.plugin:registerEventListener('LOOT_READY', {
+context.plugin:registerEventListener('LOOT_OPENED', {
   identifier = 'lootProcessor',
   ---@param isAutoloot boolean
   callback = function(isAutoloot)
+    local remainingSlots = {}
     local lootCount = GetNumLootItems()
 
-    local remainingSlots = {}
     for index = 1, lootCount do
       local slotInfo = backbone.getLootSlotInfo(index)
-      if not slotInfo.isLocked and slotInfo.slotType ~= Enum.LootSlotType.None then
+
+      if
+        not slotInfo.isLocked --
+        and slotInfo.slotType ~= Enum.LootSlotType.None
+      then
         if not isAutoloot then
           local shouldBeLooted = handlers[slotInfo.slotType](slotInfo)
 
           if shouldBeLooted then
-            LootSlot(index) -- the item should be looted.
+            LootSlot(index) -- the handler determined that the item should be looted.
           else
-            table.insert(remainingSlots, index)
+            ---@class LootableSlot
+            local slot = { index = index, info = slotInfo }
+
+            table.insert(remainingSlots, slot)
           end
         else
           LootSlot(index) -- when using standard autoloot.
@@ -119,6 +146,6 @@ context.plugin:registerEventListener('LOOT_READY', {
       end
     end
 
-    context.plugin:invokeChannelListeners('LOOT_PROCESSED', { remainingSlots })
+    backbone.invokeChannelListeners('LOOT_PROCESSED', { remainingSlots })
   end,
 })
