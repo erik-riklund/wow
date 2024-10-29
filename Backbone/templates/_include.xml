@@ -1,3 +1,4 @@
 <Ui>
   <Include file="borders.xml" />
+  <Include file="frames.xml" />
 </Ui>

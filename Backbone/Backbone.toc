@@ -2,6 +2,9 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
+# SavedVariables: BackboneAccountStorage
+# SavedVariablesPerCharacter: BackboneCharacterStorage
+
 core/_include.xml
 media/_include.xml
 enums/_include.xml
@@ -10,4 +13,5 @@ components/_include.xml
 modules/_include.xml
 templates/_include.xml
 
+plugin.lua
 garbage.lua

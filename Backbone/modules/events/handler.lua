@@ -4,7 +4,7 @@
 
 local sharedFrame = backbone.getSharedFrame()
 
----@type table<string, Event>
+---@type table<string, Listenable>
 local events = {}
 
 ---
@@ -27,7 +27,7 @@ backbone.registerEventListener = function(reciever, eventName, listener)
       -- a second nil check is required to avoid overwriting
       -- existing `ADDON_LOADED` listeners for the reciever.
 
-      events[eventName] = backbone.components.createListenable() --[[@as Event]]
+      events[eventName] = backbone.components.createListenable()
     end
   end
 
