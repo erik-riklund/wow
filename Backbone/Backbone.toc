@@ -8,5 +8,6 @@ enums/_include.xml
 utilities/_include.xml
 components/_include.xml
 modules/_include.xml
+templates/_include.xml
 
 garbage.lua
