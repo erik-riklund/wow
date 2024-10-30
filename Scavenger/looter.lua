@@ -17,11 +17,11 @@ local handlers = {
     -- ?
 
     ---@type CustomLootFilters
-    local filters = context.config:getVariable 'FILTERS'
+    local filters = context.config:getVariable 'filters'
     local itemInfo = backbone.getItemInfo(slotInfo.link)
 
-    if not filters.IGNORE[itemInfo.id] then
-      if filters.LOOT[itemInfo.id] then
+    if not filters.ignore[itemInfo.id] then
+      if filters.loot[itemInfo.id] then
         return true -- exists in the custom loot list.
       end
 
@@ -30,19 +30,19 @@ local handlers = {
         --
 
         ---@type QuestLootOptions
-        local options = context.config:getVariable 'QUEST'
-        return (options.LOOT_ALL or GetNumLootItems() == 1)
+        local options = context.config:getVariable 'quest'
+        return (options.lootAll or GetNumLootItems() == 1)
       else
         if itemInfo.quality == Enum.ItemQuality.Poor then
           --
           -- ?
 
           ---@type JunkLootOptions
-          local options = context.config:getVariable 'JUNK'
+          local options = context.config:getVariable 'junk'
 
           return (
-            itemInfo.sellPrice >= options.MIN_VALUE --
-            and itemInfo.sellPrice <= options.MAX_VALUE
+            (IsFishingLoot() or itemInfo.sellPrice >= options.minimumValue) --
+            and itemInfo.sellPrice <= options.maximumValue
           )
         else
           if itemInfo.itemTypeId == Enum.ItemClass.Tradegoods then
@@ -50,11 +50,11 @@ local handlers = {
             -- ?
 
             ---@type TradeskillLootOptions
-            local options = context.config:getVariable 'TRADESKILL'
+            local options = context.config:getVariable 'tradeskill'
 
             return (
-              options.SUBTYPES[itemInfo.itemSubTypeId] --
-              and itemInfo.quality < options.QUALITY_CAP
+              options.lootableSubtypes[itemInfo.itemSubTypeId] --
+              and itemInfo.quality < options.qualityCap
             )
           --
           elseif
@@ -66,12 +66,15 @@ local handlers = {
 
             if itemInfo.bindType == Enum.ItemBind.OnAcquire then
               ---@type GearLootOptions
-              local options = context.config:getVariable 'GEAR'
+              local options = context.config:getVariable 'gear'
 
-              if options.ENABLED and UnitLevel 'player' >= options.PLAYER_LEVEL then
+              if options.isEnabled and UnitLevel 'player' >= options.requiredPlayerLevel then
                 if
-                  options.CURRENT_EXPANSION --
-                  or (not options.CURRENT_EXPANSION and itemInfo.expansionId < backbone.system.expansion)
+                  options.lootGearFromCurrentExpansion --
+                  or (
+                    not options.lootGearFromCurrentExpansion --
+                    and itemInfo.expansionId < backbone.system.expansion
+                  )
                 then
                   return C_TransmogCollection.PlayerHasTransmogByItemInfo(itemInfo.link)
                 end
@@ -89,11 +92,11 @@ local handlers = {
     -- ?
 
     ---@type CurrencyLootOptions
-    local options = context.config:getVariable 'CURRENCY'
+    local options = context.config:getVariable 'currency'
 
     local cash = string.split('\n', slotInfo.name)
     local amount, value = string.split(' ', cash)
-    return (value ~= 'Gold' or tonumber(amount) < options.GOLD_MAX)
+    return (value ~= 'Gold' or tonumber(amount) < options.lootableGoldThreshold)
   end,
 
   ---@type LootHandler
@@ -102,8 +105,8 @@ local handlers = {
     -- ?
 
     ---@type CustomLootFilters
-    local filters = context.config:getVariable 'FILTERS'
-    return not filters.IGNORE[slotInfo.currencyId]
+    local filters = context.config:getVariable 'filters'
+    return not filters.ignore[slotInfo.currencyId]
   end,
 }
 

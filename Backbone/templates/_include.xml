@@ -1,4 +1,6 @@
 <Ui>
   <Include file="borders.xml" />
   <Include file="bordered-frame.xml" />
+  <Include file="buttons.xml" />
+  <Include file="dismissable-frame.xml" />
 </Ui>

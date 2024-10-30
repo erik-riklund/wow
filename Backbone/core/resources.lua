@@ -9,7 +9,7 @@ local context = select(2, ...)
 --- Used as the owner for protected framework channels, prior to creating
 --- the actual core plugin once the framework is initialized.
 ---
-context.plugin = { identifier = 'backbone', name = 'Backbone' }
+-- context.plugin = { identifier = 'backbone', name = 'Backbone' }
 
 ---
 --- A shared frame that can be used to hook scripts (OnEvent, OnUpdate, ...).

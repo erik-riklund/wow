@@ -48,6 +48,11 @@ context.ignore = {
   ['173204'] = true, -- Lightless Silk
 
   --
+  -- Dragonflight
+
+  ['193258'] = true, -- Fire-Infused Hide
+
+  --
   -- The War Within
 
   ['218338'] = true, -- Bottled Storm
@@ -60,4 +65,4 @@ context.ignore = {
   ['220141'] = true, -- Specular Rainbowfish
 }
 
--- [''] = true, --
+-- [''] = true, -- 

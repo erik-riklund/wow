@@ -9,12 +9,6 @@ local context = select(2, ...)
 local plugins = {}
 
 ---
---- Create the network channel used to broadcast when plugins are added.
-
-local channelOptions = { invokeAsync = false }
-backbone.createChannel('PLUGIN_ADDED', channelOptions)
-
----
 --- Creates a new plugin with the specified name and optional configuration options.
 ---
 ---@param name string
@@ -24,15 +18,15 @@ backbone.createChannel('PLUGIN_ADDED', channelOptions)
 ---
 backbone.createPlugin = function(name, options)
   local identifier = string.lower(name)
-
   if plugins[identifier] ~= nil then
     backbone.throwException('The plugin "%s" already exists.', name) --
   end
 
   plugins[identifier] = { identifier = identifier, name = name }
-
-  local arguments = { plugins[identifier], options }
-  backbone.invokeChannelListeners('PLUGIN_ADDED', arguments)
+  
+  for _, callback in ipairs(context.apis) do
+    callback(plugins[identifier], options)
+  end
 
   return plugins[identifier]
 end

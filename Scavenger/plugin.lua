@@ -16,13 +16,13 @@ context.plugin:onLoad(function()
     --- 
     ---@class QuestLootOptions
     ---
-    QUEST = {
+    quest = {
       --
       -- Autoloot all quest items?
       -- If disabled, quest items will only be looted when they drop alone
       -- (e.g. from gathering objects) or if specified in the custom loot list.
       --
-      LOOT_ALL = false,
+      lootAll = false,
     },
 
     ---
@@ -30,11 +30,11 @@ context.plugin:onLoad(function()
     ---
     ---@class TradeskillLootOptions
     ---
-    TRADESKILL = {
+    tradeskill = {
       --
       -- Determines the tradeskill item subtypes that should be looted.
       --
-      SUBTYPES = {
+      lootableSubtypes = {
         [backbone.enums.TradeskillSubType.Cloth] = true,
         [backbone.enums.TradeskillSubType.Cooking] = true,
         [backbone.enums.TradeskillSubType.Enchanting] = true,
@@ -47,7 +47,7 @@ context.plugin:onLoad(function()
       --
       -- Determines the quality cap for tradeskill items that should be looted.
       --
-      QUALITY_CAP = Enum.ItemQuality.Rare,
+      qualityCap = Enum.ItemQuality.Rare,
     },
 
     ---
@@ -55,11 +55,11 @@ context.plugin:onLoad(function()
     --- 
     ---@class CurrencyLootOptions
     ---
-    CURRENCY = {
+    currency = {
       --
       -- Sets the maximum amount of gold to loot.
       --
-      GOLD_MAX = 50,
+      lootableGoldThreshold = 50,
     },
 
     ---
@@ -67,16 +67,16 @@ context.plugin:onLoad(function()
     ---
     ---@class JunkLootOptions
     ---
-    JUNK = {
+    junk = {
       --
       -- The minimum value (in copper) of poor quality items to loot.
       --
-      MIN_VALUE = 1999, -- (1c)
+      minimumValue = 1999, -- (1c)
 
       --
       -- The maximum value (in copper) of poor quality items to loot.
       --
-      MAX_VALUE = 99999, -- (9g 99s)
+      maximumValue = 99999, -- (9g 99s)
     },
 
     ---
@@ -84,26 +84,26 @@ context.plugin:onLoad(function()
     ---
     ---@class GearLootOptions
     ---
-    GEAR = {
+    gear = {
       --
       -- Loot soulbound weapons and armor?
       --
-      ENABLED = true,
+      isEnabled = true,
 
       --
       -- The character's required minimum level for this to be active.
       --
-      PLAYER_LEVEL = 60,
+      requiredPlayerLevel = 60,
 
       --
       -- If enabled, only items with known appearances will be looted.
       --
-      ONLY_KNOWN = true,
+      lootOnlyKnownApperances = true,
 
       --
       -- If enabled, items from the current expansion will be looted.
       --
-      CURRENT_EXPANSION = false,
+      lootGearFromCurrentExpansion = false,
     },
 
     ---
@@ -111,16 +111,16 @@ context.plugin:onLoad(function()
     --- 
     ---@class CustomLootFilters
     ---
-    FILTERS = {
+    filters = {
       --
       -- List of items to loot based on custom criteria.
       --
-      LOOT = context.loot,
+      loot = context.loot,
 
       --
       -- List of items to ignore based on custom criteria.
       --
-      IGNORE = context.ignore,
+      ignore = context.ignore,
     },
   })
 end)

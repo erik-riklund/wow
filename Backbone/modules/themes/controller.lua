@@ -46,6 +46,21 @@ backbone.registerColorTheme = function(name, theme)
 end
 
 ---
+--- Extends an existing color theme with the provided color variables.
+---
+---@param name string
+---@param colors Theme
+---
+backbone.extendColorTheme = function(name, colors)
+  local identifier = string.lower(name)
+  if themes[identifier] == nil then
+    backbone.throwException('Theme extension failed, unknown theme "%s"', name) --
+  end
+
+  backbone.utilities.integrateTable(themes[identifier], colors, false)
+end
+
+---
 --- Activates the specified theme and updates all themeable widgets.
 ---
 ---@param name string
@@ -66,3 +81,15 @@ end
 --- Returns the name of the currently active theme.
 ---
 backbone.getActiveColorTheme = function() return activeThemeName end
+
+---
+--- ?
+---
+---@param color Color
+---@param alpha number
+---
+---@return number[]
+---
+backbone.setColorAlpha = function(color, alpha)
+  return { color[1], color[2], color[3], alpha } --
+end

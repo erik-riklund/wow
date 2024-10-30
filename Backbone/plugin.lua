@@ -6,7 +6,7 @@ local context = select(2, ...)
 ]]
 
 ---
---- Create the core plugin for the framework, which is used to manage
+--- The core plugin for the framework, which is used to manage
 --- configuration variables used globally within the ecosystem.
 ---
 context.plugin = backbone.createPlugin('Backbone', {
@@ -17,5 +17,10 @@ context.plugin = backbone.createPlugin('Backbone', {
 --- ?
 ---
 context.plugin:onLoad(function()
-  context.config = backbone.useConfigManager(context.plugin, {}) --
+  context.config = backbone.useConfigManager(context.plugin, {
+    ---
+    --- The name of the default color theme.
+    ---
+    colorTheme = 'Backbone',
+  })
 end)

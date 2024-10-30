@@ -26,5 +26,8 @@
                  inherits="BackboneRightBorderShader" />
       </Layer>
     </Layers>
+    <Scripts>
+      <OnShow></OnShow>
+    </Scripts>
   </Frame>
 </Ui>

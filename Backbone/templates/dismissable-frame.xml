@@ -1,0 +1,7 @@
+<Ui>
+  <Frame virtual="true"
+         name="BackboneDismissableFrame"
+         inherits="BackboneBorderedFrame">
+    <!-- ? -->
+  </Frame>
+</Ui>

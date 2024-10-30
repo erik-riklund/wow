@@ -15,6 +15,7 @@ context.loot = {
   ['13757'] = true, -- Lightning Eel
   ['6358']  = true, -- Oily Blackmouth
   ['13422'] = true, -- Stonescale Eel
+  ['58899'] = true, -- Violet Perch (quest item)
 
   --
   -- The Burning Crusade
@@ -105,7 +106,10 @@ context.loot = {
   --
   -- Dragonflight
 
+  ['200553'] = true, -- Panthis Nectar
   ['197754'] = true, -- Salt Deposit
+  ['199206'] = true, -- Shattered Adamant Scales
+  ['200222'] = true, -- White Bell Pigment
 
   --
   -- The War Within

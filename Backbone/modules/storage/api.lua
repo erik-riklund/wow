@@ -20,7 +20,7 @@ local api = {}
 ---@return unknown
 ---
 api.getAccountVariable = function(self, path)
-  return context.getStorageUnit(self, 'account'):getEntry(path)
+  return context.getStorageUnit(self, 'account'):getEntry(path) --
 end
 
 ---
@@ -31,7 +31,7 @@ end
 ---@param value unknown
 ---
 api.setAccountVariable = function(self, path, value)
-  context.getStorageUnit(self, 'account'):setEntry(path, value)
+  context.getStorageUnit(self, 'account'):setEntry(path, value) --
 end
 
 ---
@@ -42,7 +42,7 @@ end
 ---@return unknown
 ---
 api.getCharacterVariable = function(self, path)
-  return context.getStorageUnit(self, 'character'):getEntry(path)
+  return context.getStorageUnit(self, 'character'):getEntry(path) --
 end
 
 ---
@@ -53,27 +53,21 @@ end
 ---@param value unknown
 ---
 api.setCharacterVariable = function(self, path, value)
-  context.getStorageUnit(self, 'character'):setEntry(path, value)
+  context.getStorageUnit(self, 'character'):setEntry(path, value) --
 end
 
 ---
---- Integrate the storage API into new plugins, and initialize
---- the storage units once the plugin have been loaded.
+--- Integrates the storage API into new plugins, and schedules the initialization
+--- of the storage units to be executed once the plugin have been loaded.
 ---
-backbone.registerChannelListener(context.plugin, 'PLUGIN_ADDED', {
-  ---@param plugin Plugin
-  ---@param options PluginOptions
-  callback = function(plugin, options)
-    if options and options.storage then
-      plugin:onLoad(function()
-        for _, scope in ipairs { 'account', 'character' } do
-          if options.storage[scope] == true then
-            context.setupStorageUnit(plugin, scope)
-          end
-        end
-      end)
-    end
+context.apis[#context.apis + 1] = function(plugin, options)
+  if options and options.storage then
+    plugin:onLoad(function()
+      for _, scope in ipairs { 'account', 'character' } do
+        if options.storage[scope] then context.setupStorageUnit(plugin, scope) end
+      end
+    end)
+  end
 
-    backbone.utilities.integrateTable(plugin, api)
-  end,
-})
+  backbone.utilities.integrateTable(plugin, api)
+end

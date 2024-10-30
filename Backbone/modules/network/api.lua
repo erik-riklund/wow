@@ -36,10 +36,8 @@ local api = {
 }
 
 ---
---- Integrate the network API into new plugins.
+--- Integrates the network API into new plugins.
 ---
-backbone.registerChannelListener(context.plugin, 'PLUGIN_ADDED', {
-  identifier = 'networkApiIntegration',
-  ---@param plugin Plugin
-  callback = function(plugin) backbone.utilities.integrateTable(plugin, api) end,
-})
+context.apis[#context.apis + 1] = function(plugin)
+  backbone.utilities.integrateTable(plugin, api) --
+end

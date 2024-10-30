@@ -18,7 +18,7 @@ local api = {
   ---@param callback function
   ---
   onLoad = function(self, callback)
-    backbone.registerEventListener(self, 'ADDON_LOADED', { callback = callback })
+    backbone.registerEventListener(self, 'ADDON_LOADED', { callback = callback }) --
   end,
 
   ---
@@ -29,7 +29,7 @@ local api = {
   ---@param listener Listener
   ---
   registerEventListener = function(self, eventName, listener)
-    backbone.registerEventListener(self, eventName, listener)
+    backbone.registerEventListener(self, eventName, listener) --
   end,
 
   ---
@@ -40,15 +40,13 @@ local api = {
   ---@param identifier string
   ---
   removeEventListener = function(self, eventName, identifier)
-    backbone.removeEventListener(self, eventName, identifier)
+    backbone.removeEventListener(self, eventName, identifier) --
   end,
 }
 
 ---
---- Integrate the events API into new plugins.
+--- Integrates the events API into new plugins.
 ---
-backbone.registerChannelListener(context.plugin, 'PLUGIN_ADDED', {
-  identifier = 'eventsApiIntegration',
-  ---@param plugin Plugin
-  callback = function(plugin) backbone.utilities.integrateTable(plugin, api) end,
-})
+context.apis[#context.apis + 1] = function(plugin)
+  backbone.utilities.integrateTable(plugin, api) --
+end

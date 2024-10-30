@@ -13,6 +13,8 @@ components/_include.xml
 modules/_include.xml
 templates/_include.xml
 widgets/_include.xml
+themes/_include.xml
 
 plugin.lua
+initialize.lua
 garbage.lua

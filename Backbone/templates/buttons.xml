@@ -1,0 +1,8 @@
+<Ui>
+  <!-- BackboneButton -->
+  <Button virtual="true"
+          name="BackboneButton"
+          inherits="BackboneBorderedFrame">
+    <!-- ? -->
+  </Button>
+</Ui>

@@ -21,3 +21,11 @@
 ---@field rightBorder Texture
 ---@field rightBorderShader Texture
 ---
+
+---
+--- ?
+---
+---@class BorderedFrame.Colors
+---
+---@
+---

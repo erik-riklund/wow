@@ -1,6 +1,16 @@
+---@class Backbone
+local context = select(2, ...)
+
 --[[~ Module: Framework ~
   Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
+
+---
+--- ?
+--- 
+---@type array<fun(plugin: Plugin, options?: PluginOptions)>
+---
+context.apis = {}
 
 ---
 --- A string representing the current version of the framework,
