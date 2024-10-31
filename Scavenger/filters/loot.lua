@@ -106,10 +106,15 @@ context.loot = {
   --
   -- Dragonflight
 
+  ['192615'] = true, -- Fluorescent Fluid
+  ['200704'] = true, -- Gratona Seed
+  ['192658'] = true, -- High-Fiber Leaf
   ['200553'] = true, -- Panthis Nectar
   ['197754'] = true, -- Salt Deposit
   ['199206'] = true, -- Shattered Adamant Scales
+  ['200703'] = true, -- Vine Flower Fibers
   ['200222'] = true, -- White Bell Pigment
+  ['192636'] = true, -- Woolly Mountain Pelt
 
   --
   -- The War Within

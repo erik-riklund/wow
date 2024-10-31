@@ -1,14 +1,12 @@
----@diagnostic disable: missing-return
-
 ---@class Scavenger
 local context = select(2, ...)
 
 --[[~ Module: Looter ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/10/31 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- The handler functions responsible for processing specific slot types.
 ---
 local handlers = {
   ---@type LootHandler
@@ -27,7 +25,7 @@ local handlers = {
 
       if slotInfo.isQuestItem then
         --
-        --
+        -- Quest items are looted if `lootAll` is enabled, or if it's the only item that dropped.
 
         ---@type QuestLootOptions
         local options = context.config:getVariable 'quest'
@@ -35,7 +33,8 @@ local handlers = {
       else
         if itemInfo.quality == Enum.ItemQuality.Poor then
           --
-          -- ?
+          -- Poor quality items are looted if they are within the specified minimum and maximum value range.
+          -- If the loot comes from fishing, only the maximum value is taken into account.
 
           ---@type JunkLootOptions
           local options = context.config:getVariable 'junk'
@@ -47,7 +46,8 @@ local handlers = {
         else
           if itemInfo.itemTypeId == Enum.ItemClass.Tradegoods then
             --
-            -- ?
+            -- Tradeskill items are looted if their subtype is listed as lootable,
+            -- and the item quality is below the set quality cap.
 
             ---@type TradeskillLootOptions
             local options = context.config:getVariable 'tradeskill'
@@ -61,10 +61,14 @@ local handlers = {
             itemInfo.itemTypeId == Enum.ItemClass.Armor --
             or itemInfo.itemTypeId == Enum.ItemClass.Weapon
           then
-            --
-            -- ?
-
             if itemInfo.bindType == Enum.ItemBind.OnAcquire then
+              --
+              -- Soulbound armor and weapons are looted based on a number of variables.
+              --
+              -- * The player's level must be at or above the specified required level.
+              -- * Gear from the current expansion is only looted if explicitly enabled (default: disabled).
+              -- * If `lootOnlyKnownApperances` is enabled, the item's appearance must be known.
+
               ---@type GearLootOptions
               local options = context.config:getVariable 'gear'
 
@@ -76,7 +80,10 @@ local handlers = {
                     and itemInfo.expansionId < backbone.system.expansion
                   )
                 then
-                  return C_TransmogCollection.PlayerHasTransmogByItemInfo(itemInfo.link)
+                  return (
+                    not options.lootOnlyKnownApperances --
+                    or C_TransmogCollection.PlayerHasTransmogByItemInfo(itemInfo.link)
+                  )
                 end
               end
             end
@@ -84,25 +91,35 @@ local handlers = {
         end
       end
     end
+
+    return false -- the item did not match any of the required criteria and should not be looted.
   end,
 
   ---@type LootHandler
   [Enum.LootSlotType.Money] = function(slotInfo)
     --
-    -- ?
+    -- If enabled, coins are looted when the value is below the set threshold.
 
     ---@type CurrencyLootOptions
     local options = context.config:getVariable 'currency'
 
+    if not options.lootCoins then return false end
+
     local cash = string.split('\n', slotInfo.name)
     local amount, value = string.split(' ', cash)
+
     return (value ~= 'Gold' or tonumber(amount) < options.lootableGoldThreshold)
   end,
 
   ---@type LootHandler
   [Enum.LootSlotType.Currency] = function(slotInfo)
     --
-    -- ?
+    -- Currencies are looted if enabled and not listed in the ignore list.
+
+    ---@type CurrencyLootOptions
+    local options = context.config:getVariable 'currency'
+
+    if not options.lootCurrencies then return false end
 
     ---@type CustomLootFilters
     local filters = context.config:getVariable 'filters'
@@ -111,12 +128,12 @@ local handlers = {
 }
 
 ---
---- ?
+--- The channel used to broadcast the slots remaining after the loot has been processed.
 ---
 backbone.createChannel 'LOOT_PROCESSED'
 
 ---
---- ?
+--- The event handler responsible for the actual loot process.
 ---
 context.plugin:registerEventListener('LOOT_OPENED', {
   identifier = 'lootProcessor',
@@ -133,9 +150,7 @@ context.plugin:registerEventListener('LOOT_OPENED', {
         and slotInfo.slotType ~= Enum.LootSlotType.None
       then
         if not isAutoloot then
-          local shouldBeLooted = handlers[slotInfo.slotType](slotInfo)
-
-          if shouldBeLooted then
+          if handlers[slotInfo.slotType](slotInfo) then
             LootSlot(index) -- the handler determined that the item should be looted.
           else
             ---@class LootableSlot

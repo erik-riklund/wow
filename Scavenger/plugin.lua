@@ -13,7 +13,7 @@ context.plugin:onLoad(function()
   context.config = backbone.useConfigManager(context.plugin, {
     ---
     --- Configuration options for managing quest item looting behavior.
-    --- 
+    ---
     ---@class QuestLootOptions
     ---
     quest = {
@@ -52,14 +52,24 @@ context.plugin:onLoad(function()
 
     ---
     --- Configuration options for managing currency looting behavior.
-    --- 
+    ---
     ---@class CurrencyLootOptions
     ---
     currency = {
       --
+      -- If enabled, money will be looted.
+      --
+      lootCoins = true,
+
+      --
       -- Sets the maximum amount of gold to loot.
       --
       lootableGoldThreshold = 50,
+
+      --
+      -- ?
+      --
+      lootCurrencies = true,
     },
 
     ---
@@ -108,7 +118,7 @@ context.plugin:onLoad(function()
 
     ---
     --- Configuration options for managing custom loot behavior.
-    --- 
+    ---
     ---@class CustomLootFilters
     ---
     filters = {
