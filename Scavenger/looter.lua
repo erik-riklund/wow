@@ -2,8 +2,19 @@
 local context = select(2, ...)
 
 --[[~ Module: Looter ~
-  Updated: 2024/10/31 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/01 | Author(s): Erik Riklund (Gopher)
 ]]
+
+---
+--- Create the channel used to broadcast which slots that remain after
+--- the autoloot process is finished.
+---
+backbone.createChannel 'LOOT_PROCESSED'
+
+---
+--- Create the channel used to broadcast information about the slot that was just looted.
+---
+backbone.createChannel 'SLOT_LOOTED'
 
 ---
 --- The handler functions responsible for processing specific slot types.
@@ -12,7 +23,8 @@ local handlers = {
   ---@type LootHandler
   [Enum.LootSlotType.Item] = function(slotInfo)
     --
-    -- ?
+    -- Items are looted if not included on the ignore list, if included
+    -- in the custom loot list, or based on the specific rules below.
 
     ---@type CustomLootFilters
     local filters = context.config:getVariable 'filters'
@@ -67,7 +79,7 @@ local handlers = {
               --
               -- * The player's level must be at or above the specified required level.
               -- * Gear from the current expansion is only looted if explicitly enabled (default: disabled).
-              -- * If `lootOnlyKnownApperances` is enabled, the item's appearance must be known.
+              -- * When `lootOnlyKnownApperances` is enabled, the item's appearance must be known.
 
               ---@type GearLootOptions
               local options = context.config:getVariable 'gear'
@@ -75,10 +87,7 @@ local handlers = {
               if options.isEnabled and UnitLevel 'player' >= options.requiredPlayerLevel then
                 if
                   options.lootGearFromCurrentExpansion --
-                  or (
-                    not options.lootGearFromCurrentExpansion --
-                    and itemInfo.expansionId < backbone.system.expansion
-                  )
+                  or itemInfo.expansionId < backbone.system.expansion
                 then
                   return (
                     not options.lootOnlyKnownApperances --
@@ -128,20 +137,16 @@ local handlers = {
 }
 
 ---
---- The channel used to broadcast the slots remaining after the loot has been processed.
----
-backbone.createChannel 'LOOT_PROCESSED'
-
----
 --- The event handler responsible for the actual loot process.
 ---
 context.plugin:registerEventListener('LOOT_OPENED', {
   identifier = 'lootProcessor',
   ---@param isAutoloot boolean
   callback = function(isAutoloot)
+    ---@type LootableSlot[]
     local remainingSlots = {}
-    local lootCount = GetNumLootItems()
 
+    local lootCount = GetNumLootItems()
     for index = 1, lootCount do
       local slotInfo = backbone.getLootSlotInfo(index)
 
@@ -149,21 +154,28 @@ context.plugin:registerEventListener('LOOT_OPENED', {
         not slotInfo.isLocked --
         and slotInfo.slotType ~= Enum.LootSlotType.None
       then
+        local itemLooted = false
+
         if not isAutoloot then
           if handlers[slotInfo.slotType](slotInfo) then
             LootSlot(index) -- the handler determined that the item should be looted.
+            itemLooted = true
           else
             ---@class LootableSlot
             local slot = { index = index, info = slotInfo }
-
-            table.insert(remainingSlots, slot)
+            remainingSlots[#remainingSlots + 1] = slot
           end
         else
           LootSlot(index) -- when using standard autoloot.
+          itemLooted = true
+        end
+
+        if itemLooted then
+          backbone.invokeChannelListeners('SLOT_LOOTED', index, slotInfo) --
         end
       end
     end
 
-    backbone.invokeChannelListeners('LOOT_PROCESSED', { remainingSlots })
+    backbone.invokeChannelListeners('LOOT_PROCESSED', remainingSlots)
   end,
 })

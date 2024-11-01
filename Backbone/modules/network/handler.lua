@@ -34,9 +34,9 @@ end
 --- ?
 ---
 ---@param channelName string
----@param arguments? unknown[]
+---@param ... unknown
 ---
-backbone.invokeChannelListeners = function(channelName, arguments)
+backbone.invokeChannelListeners = function(channelName, ...)
   if channels[channelName] == nil then
     backbone.throwException('The channel "%s" does not exist.', channelName) --
   end
@@ -44,7 +44,7 @@ backbone.invokeChannelListeners = function(channelName, arguments)
   local channel = channels[channelName]
 
   channel:invokeListeners {
-    arguments = arguments,
+    arguments = { ... },
     executeSync = (channel.invokeAsync == false),
   }
 end
