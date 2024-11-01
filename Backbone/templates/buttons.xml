@@ -3,6 +3,33 @@
   <Button virtual="true"
           name="BackboneButton"
           inherits="BackboneBorderedFrame">
-    <!-- ? -->
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString parentKey="label"
+                    inherits="BackboneFontDosis12pt">
+          <Anchors>
+            <Anchor point="CENTER" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad></OnLoad>
+    </Scripts>
+  </Button>
+  <!-- BackboneButtonWithTooltip -->
+  <Button virtual="true"
+          name="BackboneButtonWithTooltip"
+          inherits="BackboneButton">
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString hidden="true"
+                    parentKey="tooltip"
+                    inherits="BackboneFontDosis12pt" />
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad></OnLoad>
+    </Scripts>
   </Button>
 </Ui>

@@ -3,6 +3,9 @@
   <Frame virtual="true"
          name="BackboneBorderedFrame">
     <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="background" />
+      </Layer>
       <Layer level="BORDER">
         <!-- topBorder -->
         <Texture parentKey="topBorder"
@@ -26,8 +29,5 @@
                  inherits="BackboneRightBorderShader" />
       </Layer>
     </Layers>
-    <Scripts>
-      <OnShow></OnShow>
-    </Scripts>
   </Frame>
 </Ui>

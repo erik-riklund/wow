@@ -93,3 +93,18 @@ backbone.getActiveColorTheme = function() return activeThemeName end
 backbone.setColorAlpha = function(color, alpha)
   return { color[1], color[2], color[3], alpha } --
 end
+
+---
+--- ?
+---
+---@param callback function
+---
+backbone.registerThemeableWidget = function(callback) --
+  backbone.registerChannelListener( --
+    context.plugin,
+    'COLOR_SCHEME_CHANGED',
+    { callback = callback }
+  )
+
+  callback()
+end
