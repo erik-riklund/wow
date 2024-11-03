@@ -14,4 +14,6 @@ backbone.widgets.onThemeChange = function(callback)
   backbone.registerChannelListener(
     context.plugin, 'COLOR_THEME_CHANGED', { callback = callback }
   )
+
+  callback() -- execute the callback to initialize the widget.
 end

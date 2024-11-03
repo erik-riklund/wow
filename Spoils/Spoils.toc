@@ -1,6 +1,6 @@
 ## Version: 1.0
 ## Interface: 110002
-## Dependencies: Backbone
+## Dependencies: Backbone, BackboneTemplates
 ## OptionalDeps: Scavenger
 ## Title: Spoils (Backbone plugin)
 
@@ -8,5 +8,3 @@
 # SavedVariablesPerCharacter: SpoilsCharacterStorage
 
 plugin.lua
-ui/frame.xml
-handler.lua

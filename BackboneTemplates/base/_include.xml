@@ -1,0 +1,4 @@
+<Ui>
+  <Include file="borders/layout.xml" />
+  <Include file="borders/shaders.xml" />
+</Ui>

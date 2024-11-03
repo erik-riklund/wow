@@ -1,0 +1,8 @@
+## Version: 1.0
+## Interface: 110002
+## Dependencies: Backbone
+## Title: Backbone (templates)
+
+utilities/_include.xml
+base/_include.xml
+widgets/_include.xml

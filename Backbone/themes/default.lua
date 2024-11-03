@@ -25,7 +25,7 @@ backbone.registerColorTheme('backbone', {
   
   borderColor = palette['shadow-onyx'],
   borderShaderColor = backbone.setColorAlpha(palette['pure-white'], 0.1),
-  backgroundColor = palette['deep-oil'],
+  backgroundColor = backbone.setColorAlpha(palette['deep-oil'], 0.975),
 
   ---
   --- The normal and highlight colors for button labels.
