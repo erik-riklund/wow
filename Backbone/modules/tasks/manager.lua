@@ -1,6 +1,3 @@
---- the detection of global functions is not working.
----@diagnostic disable: undefined-global
-
 --[[~ Module: Tasks ~
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
@@ -55,7 +52,5 @@ end)
 --- Hooks into the `OnUpdate` event to resume the task processing coroutine.
 ---
 backbone.getSharedFrame():HookScript('OnUpdate', function()
-  if #queuedTasks > 0 and coroutine.status(process) == 'suspended' then
-    coroutine.resume(process)
-  end
+  if #queuedTasks > 0 and coroutine.status(process) == 'suspended' then coroutine.resume(process) end
 end)

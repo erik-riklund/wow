@@ -15,7 +15,7 @@ local storage = {}
 ---@param scope 'account'|'character'
 ---
 context.getStorageUnit = function(plugin, scope)
-  if not storage[plugin.identifier] or storage[plugin.identifier][scope] == nil  then
+  if not storage[plugin.identifier] or storage[plugin.identifier][scope] == nil then
     local exception = 'The %s storage unit is not initialized for plugin %s'
     backbone.throwException(exception, scope, plugin.name)
   end
@@ -37,15 +37,8 @@ context.setupStorageUnit = function(plugin, scope)
     backbone.throwException(exception, scope, plugin.name)
   end
 
-  local variable = string.format(
-    '%s%sStorage',
-    plugin.name,
-    backbone.utilities.capitalizeString(scope)
-  )
+  local variable = string.format('%s%sStorage', plugin.name, backbone.utilities.capitalizeString(scope))
+  _G[variable] = _G[variable] or {} -- initialize the saved variable if it's the first time the plugin is loaded.
 
-  _G[variable] = _G[variable] or {} -- initialize the saved variable if it's
-  --                                   the first time the plugin is loaded.
-
-  storage[plugin.identifier][scope] =
-    backbone.components.createStorageUnit(_G[variable])
+  storage[plugin.identifier][scope] = backbone.components.createStorageUnit(_G[variable])
 end

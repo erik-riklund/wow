@@ -21,6 +21,6 @@ context.plugin:onLoad(function()
     ---
     --- The name of the default color theme.
     ---
-    colorTheme = 'Backbone',
+    colorTheme = 'backbone',
   })
 end)

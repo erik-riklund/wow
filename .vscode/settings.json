@@ -3,6 +3,7 @@
     "**/**.zip": true,
     "!KalielsTracker/**": true,
     "Auctionator/**": true,
+    "Baganator/**": true,
     "Blizz*/**": true,
     "Details*/**": true,
     "EasyDelete/**": true,
@@ -17,7 +18,8 @@
     "NameplateSCT/**": true,
     "Plater/**": true,
     "Pretty*/**": true,
-    "Quartz": true,
+    "Quartz/**": true,
+    "Syndicator/**": true,
     "TooltipCleaner/**": true,
   },
   "Lua.diagnostics.disable": [

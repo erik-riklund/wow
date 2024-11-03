@@ -106,12 +106,17 @@ context.loot = {
   --
   -- Dragonflight
 
+  ['202071'] = true, -- Elemental Mote
   ['192615'] = true, -- Fluorescent Fluid
   ['200704'] = true, -- Gratona Seed
   ['192658'] = true, -- High-Fiber Leaf
+  ['200699'] = true, -- Milkweed Fibers
   ['200553'] = true, -- Panthis Nectar
+  ['192545'] = true, -- Primal Flame Fragment (quest item)
   ['197754'] = true, -- Salt Deposit
   ['199206'] = true, -- Shattered Adamant Scales
+  ['200705'] = true, -- Thaldraszus Root
+  ['199204'] = true, -- Torn Resilient Leather Scraps
   ['200703'] = true, -- Vine Flower Fibers
   ['200222'] = true, -- White Bell Pigment
   ['192636'] = true, -- Woolly Mountain Pelt
@@ -119,7 +124,6 @@ context.loot = {
   --
   -- The War Within
 
-  ['223512'] = true, -- Basically Beef
   ['232047'] = true, -- Chunk of Companion Experience (common)
   ['220737'] = true, -- Storm Spirit (quest item)
 }

@@ -4,9 +4,7 @@
 
 ---@type table<string, Locale>
 local locales = {}
-
----@diagnostic disable-next-line: undefined-global
-local currentLocale = GetLocale()
+local currentLocale = backbone.system.locale
 
 ---
 --- Registers a set of localized strings for the specified namespace and locale.

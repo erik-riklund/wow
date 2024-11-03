@@ -11,13 +11,10 @@ local themes = {}
 ---@type Theme
 local activeTheme
 
----@type string
-local activeThemeName
-
 ---
---- Establishes the network channel used to broadcast when the theme changes.
+--- Create the channel used to broadcast when the active color theme changes.
 ---
-backbone.createChannel 'COLOR_SCHEME_CHANGED'
+backbone.createChannel 'COLOR_THEME_CHANGED'
 
 ---
 --- Retrieves the RGBA color associated with the given key
@@ -27,7 +24,7 @@ backbone.createChannel 'COLOR_SCHEME_CHANGED'
 ---@return number, number, number, number?
 ---
 backbone.getColor = function(key)
-  return unpack(activeTheme[key] or { 1, 1, 1, 1 }) --
+  return unpack((activeTheme and activeTheme[key]) or { 1, 1, 1, 1 }) --
 end
 
 ---
@@ -71,16 +68,9 @@ backbone.setActiveColorTheme = function(name)
     backbone.throwException('Unknown theme "%s"', name) --
   end
 
-  activeThemeName = name
   activeTheme = themes[identifier]
-
-  backbone.invokeChannelListeners 'COLOR_SCHEME_CHANGED'
+  backbone.invokeChannelListeners 'COLOR_THEME_CHANGED'
 end
-
----
---- Returns the name of the currently active theme.
----
-backbone.getActiveColorTheme = function() return activeThemeName end
 
 ---
 --- ?
@@ -92,19 +82,4 @@ backbone.getActiveColorTheme = function() return activeThemeName end
 ---
 backbone.setColorAlpha = function(color, alpha)
   return { color[1], color[2], color[3], alpha } --
-end
-
----
---- ?
----
----@param callback function
----
-backbone.registerThemeableWidget = function(callback) --
-  backbone.registerChannelListener( --
-    context.plugin,
-    'COLOR_SCHEME_CHANGED',
-    { callback = callback }
-  )
-
-  callback()
 end

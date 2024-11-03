@@ -18,10 +18,11 @@ local palette = {
 ---
 --- ?
 ---
-backbone.registerColorTheme('Backbone', {
+backbone.registerColorTheme('backbone', {
   ---
   --- Standard border and background colors used for frames, buttons and tooltips.
   ---
+  
   borderColor = palette['shadow-onyx'],
   borderShaderColor = backbone.setColorAlpha(palette['pure-white'], 0.1),
   backgroundColor = palette['deep-oil'],
@@ -29,12 +30,24 @@ backbone.registerColorTheme('Backbone', {
   ---
   --- The normal and highlight colors for button labels.
   ---
+  
   buttonLabelColor = palette['parchment'],
   buttonLabelActiveColor = palette['sunburst'],
 
   ---
   --- ?
   ---
+
+  poorQualityColor = palette['pure-white'],
+  commonQualityColor = palette['pure-white'],
+  uncommonQualityColor = palette['pure-white'],
+  rareQualityColor = palette['pure-white'],
+  epicQualityColor = palette['pure-white'],
+
+  ---
+  --- ?
+  ---
+  
   tooltipArrowColor = palette['sunburst'],
   tooltipBackgroundColor = palette['charred-coal']
 })

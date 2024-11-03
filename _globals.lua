@@ -5,8 +5,20 @@ DevTools_Dump = function(data) end
 ---@type fun(): expansionLevel: number
 GetExpansionLevel = function() end
 
+---@type fun(): locale: string
+GetLocale = function() end
+
+---@type fun(): time: number
+GetTime = function() end
+
 ---@type fun(unit: string): number
 UnitLevel = function(unit) end
+
+---@type Frame
+LootFrame = nil
+
+---@type Frame
+UIParent = nil
 
 ---
 ---@class C_Item

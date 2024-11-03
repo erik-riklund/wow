@@ -43,7 +43,12 @@ backbone.system = {
   ---
   --- ?
   ---
-  expansion = GetExpansionLevel()
+  expansion = GetExpansionLevel(),
+
+  ---
+  --- ?
+  ---
+  locale = GetLocale()
 }
 
 ---
@@ -52,6 +57,11 @@ backbone.system = {
 ---
 ---
 backbone.utilities = {}
+
+---
+--- ?
+---
+backbone.widgets = {}
 
 ---
 --- Returns the current version of the framework.

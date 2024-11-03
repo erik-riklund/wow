@@ -51,6 +51,7 @@ context.ignore = {
   -- Dragonflight
 
   ['193258'] = true, -- Fire-Infused Hide
+  ['193255'] = true, -- Pristine Vorquin Horn
 
   --
   -- The War Within
