@@ -6,15 +6,13 @@
 --- ?
 ---
 ---@param self BackboneWindowTemplate
----@param colors? BackboneWindowTemplateColors
+---@param colors? BackboneFrameColors
 ---
 BackboneWindowTemplate_OnLoad = function(self, colors)
-  backbone.widgets.makeMovable(self)
+  BackboneFrameTemplate_OnLoad(self, colors) -- parent constructor.
 
-  backbone.widgets.onThemeChange(function()
-    backbone.widgets.setBorderColors(self, colors)
-    self.background:SetColorTexture(
-      backbone.getColor((colors and colors.background) or 'backgroundColor') --
-    )
+  backbone.widgets.makeMovable(self)
+  self.closeButton:HookScript('OnClick', function()
+    (self.closeButton:GetParent()):SetShown(false) --
   end)
 end

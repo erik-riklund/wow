@@ -3,32 +3,23 @@
   <!-- BackboneWindowTemplate -->
   <Frame parent="UIParent"
          name="BackboneWindowTemplate"
+         inherits="BackboneFrameTemplate"
          enableMouse="true"
          clampedToScreen="true"
          movable="true">
     <Size x="600" y="400" />
-    <Layers>
-      <Layer level="BACKGROUND" textureSubLevel="1">
-        <Texture parentKey="background" />
-      </Layer>
-      <Layer level="BACKGROUND" textureSubLevel="2">
-        <Texture inherits="BackboneTopBorderShaderTemplate" />
-        <Texture inherits="BackboneBottomBorderShaderTemplate" />
-        <Texture inherits="BackboneLeftBorderShaderTemplate" />
-        <Texture inherits="BackboneRightBorderShaderTemplate" />
-      </Layer>
-      <Layer level="BORDER">
-        <Texture inherits="BackboneTopBorderTemplate" />
-        <Texture inherits="BackboneBottomBorderTemplate" />
-        <Texture inherits="BackboneLeftBorderTemplate" />
-        <Texture inherits="BackboneRightBorderTemplate" />
-      </Layer>
-    </Layers>
-    <Anchors>
-      <Anchor point="CENTER" />
-    </Anchors>
     <Scripts>
       <OnLoad function="BackboneWindowTemplate_OnLoad" />
     </Scripts>
+    <Frames>
+      <Button parentKey="closeButton"
+              inherits="BackboneButtonTemplate"
+              text="backbone:closeButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" />
+        </Anchors>
+        <Size y="26" />
+      </Button>
+    </Frames>
   </Frame>
 </Ui>

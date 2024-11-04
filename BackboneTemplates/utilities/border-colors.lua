@@ -22,8 +22,6 @@ backbone.widgets.setBorderColors = function(object, colors)
     for _, side in ipairs(borders) do
       local border = side .. suffix
 
-      print (border)
-
       if object[border] then
         (object[border] --[[@as Texture]]):SetColorTexture( --
           backbone.getColor(colors['border' .. suffix] or ('border' .. suffix .. 'Color'))

@@ -1,4 +1,5 @@
 <Ui>
   <Include file="border-colors.lua" />
   <Include file="make-movable.lua" />
+  <Include file="set-color.lua" />
 </Ui>

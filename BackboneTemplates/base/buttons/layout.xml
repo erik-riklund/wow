@@ -1,0 +1,12 @@
+<Ui>
+  <Script file="behavior.lua" />
+  <!-- BackboneButtonTemplate -->
+  <Button virtual="true"
+          name="BackboneButtonTemplate"
+          inherits="BackboneFrameTemplate">
+    <Scripts>
+      <OnLoad function="BackboneButtonTemplate_OnLoad" />
+    </Scripts>
+    <ButtonText parentKey="textLabel" inherits="BackboneFontDosis13pt" />
+  </Button>
+</Ui>

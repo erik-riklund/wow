@@ -12,6 +12,7 @@ utilities/_include.xml
 components/_include.xml
 modules/_include.xml
 themes/_include.xml
+locales/_include.xml
 
 plugin.lua
 initialize.lua

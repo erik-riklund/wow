@@ -31,8 +31,9 @@ backbone.registerColorTheme('backbone', {
   --- The normal and highlight colors for button labels.
   ---
   
-  buttonLabelColor = palette['parchment'],
-  buttonLabelActiveColor = palette['sunburst'],
+  buttonTextColor = palette['parchment'],
+  buttonTextHighlightColor = palette['sunburst'],
+  buttonBackgroundColor = palette['charred-coal'],
 
   ---
   --- ?

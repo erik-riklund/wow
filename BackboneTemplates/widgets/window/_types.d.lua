@@ -3,13 +3,6 @@
 ---
 --- ?
 ---
----@class BackboneWindowTemplate : Frame, BackboneBorders
----@field background Texture
----
-
----
---- ?
----
----@class BackboneWindowTemplateColors : BackboneBorderColors
----@field background? string
+---@class BackboneWindowTemplate : BackboneFrame
+---@field closeButton BackboneButtonTemplate
 ---
