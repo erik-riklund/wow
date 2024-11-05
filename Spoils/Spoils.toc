@@ -8,3 +8,4 @@
 # SavedVariablesPerCharacter: SpoilsCharacterStorage
 
 plugin.lua
+ui/_include.xml

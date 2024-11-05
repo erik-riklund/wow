@@ -1,0 +1,12 @@
+<Ui>
+  <Frame name="SpoilsLootFrame"
+         inherits="BackboneWindowTemplate"
+         frameStrata="HIGH"
+         toplevel="true">
+    <Size x="400" y="300" />
+    <Anchors>
+      <Anchor point="LEFT" x="24" />
+      <Anchor point="CENTER" />
+    </Anchors>
+  </Frame>
+</Ui>

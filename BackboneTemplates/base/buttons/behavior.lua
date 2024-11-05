@@ -53,7 +53,9 @@ end
 ---@param padding? number
 ---
 backbone.widgets.setButtonWidth = function(object, width, padding)
+  padding = padding or (math.floor(object.textLabel:GetStringHeight() - 3))
+
   object:SetWidth(backbone.utilities.adjustToEven( --
-    (width or object.textLabel:GetStringWidth()) + ((padding or 10) * 2)
+    (width or object.textLabel:GetStringWidth()) + (backbone.utilities.adjustToEven(padding) * 2)
   ))
 end

@@ -10,12 +10,12 @@
          movable="true">
     <Frames>
       <Button parentKey="closeButton"
-              inherits="BackboneButtonTemplate"
+              inherits="BackboneSmallButtonTemplate"
               text="backbone:closeButton">
         <Anchors>
           <Anchor point="TOPRIGHT" />
         </Anchors>
-        <Size y="26" />
+        <Size y="24" />
       </Button>
     </Frames>
     <Scripts>

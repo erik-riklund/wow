@@ -1,4 +1,10 @@
 <Ui>
+  <!-- 11pt -->
+  <FontString virtual="true"
+              name="BackboneFontDosis11pt"
+              font="interface\addons\backbone\media\fonts\dosis.ttf">
+    <FontHeight val="11" />
+  </FontString>
   <!-- 12pt -->
   <FontString virtual="true"
               name="BackboneFontDosis12pt"

@@ -1,16 +1,14 @@
 --[[~ Module: ? ~
-  Updated: 2024/10/27 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- Returns the item ID from the provided item link.
 ---
 ---@param itemLink string
 ---@return number
 ---
-backbone.getItemId = function(itemLink)
-  return itemLink:match 'item:(%d+)' --
-end
+backbone.getItemId = function(itemLink) return itemLink:match 'item:(%d+)' end
 
 ---
 --- Retrieves detailed information about an item specified by its ID or link.
