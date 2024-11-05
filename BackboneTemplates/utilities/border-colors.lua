@@ -1,5 +1,5 @@
---[[~ Module: Utilities ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Module: Widgets / Utilities ~
+  Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 
 local borders = {
@@ -10,7 +10,7 @@ local borders = {
 }
 
 ---
---- ?
+--- Sets the specified border and border shader colors for the provided `object`.
 ---
 ---@param object BackboneBorders
 ---@param colors? BackboneBorderColors

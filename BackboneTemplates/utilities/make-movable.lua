@@ -1,9 +1,9 @@
---[[~ Module: Utilities ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Module: Widgets / Utilities ~
+  Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- Enables movability for the provided frame object.
 ---
 ---@param object Frame
 ---

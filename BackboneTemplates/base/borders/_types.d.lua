@@ -1,7 +1,7 @@
 ---@meta
 
 ---
---- ?
+--- Represents a generic object with borders.
 ---
 ---@class BackboneBorders
 ---
@@ -17,7 +17,7 @@
 ---
 
 ---
---- ?
+--- Specifies the colors to use for a generic object.
 ---
 ---@class BackboneBorderColors
 ---

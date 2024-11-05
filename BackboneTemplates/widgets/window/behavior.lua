@@ -1,9 +1,10 @@
 --[[~ Template: Window (dismissable frame) ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- The constructor for the window frame template. Enables movability of the frame,
+--- and hooks the script required for the close button to be usable.
 ---
 ---@param self BackboneWindowTemplate
 ---@param colors? BackboneFrameColors

@@ -1,9 +1,9 @@
---[[~ Module: ? ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Module: Template / Buttons ~
+  Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- The constructor for the generic button template.
 ---
 ---@param object BackboneButtonTemplate
 ---@param colors? BackboneButtonColors
@@ -11,34 +11,28 @@
 BackboneButtonTemplate_OnLoad = function(object, colors)
   colors = colors or {}
   colors.background = colors.background or 'buttonBackgroundColor'
-  
-  BackboneFrameTemplate_OnLoad(object, colors)
+
   backbone.widgets.setLocalizedButtonText(object)
+  BackboneFrameTemplate_OnLoad(object, colors) -- parent constructor.
 
   backbone.widgets.onThemeChange(function()
-    backbone.widgets.setFontColor( --
-      object.textLabel,
-      colors.staticTextColor or 'buttonTextColor'
-    )
+    local color = colors.staticTextColor or 'buttonTextColor'
+    backbone.widgets.setFontColor(object.textLabel, color)
   end)
 
   object:HookScript('OnEnter', function()
-    backbone.widgets.setFontColor( --
-      object.textLabel,
-      colors.highlightTextColor or 'buttonTextHighlightColor'
-    )
+    local color = colors.highlightTextColor or 'buttonTextHighlightColor'
+    backbone.widgets.setFontColor(object.textLabel, color)
   end)
 
   object:HookScript('OnLeave', function()
-    backbone.widgets.setFontColor( --
-      object.textLabel,
-      colors.staticTextColor or 'buttonTextColor'
-    )
+    local color = colors.staticTextColor or 'buttonTextColor'
+    backbone.widgets.setFontColor(object.textLabel, color)
   end)
 end
 
 ---
---- ?
+--- Sets the text of the provided button object based on the specified localized string key.
 ---
 ---@param object BackboneButtonTemplate
 ---@param textKey? string
@@ -51,7 +45,8 @@ backbone.widgets.setLocalizedButtonText = function(object, textKey)
 end
 
 ---
---- ?
+--- Sets the width of the provided button object based on its current
+--- text label (if the width is not explicitly specified).
 ---
 ---@param object BackboneButtonTemplate
 ---@param width? number

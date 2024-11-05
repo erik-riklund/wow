@@ -1,16 +1,13 @@
 <Ui>
   <Script file="behavior.lua" />
   <!-- BackboneWindowTemplate -->
-  <Frame parent="UIParent"
+  <Frame virtual="true"
+         parent="UIParent"
          name="BackboneWindowTemplate"
          inherits="BackboneFrameTemplate"
          enableMouse="true"
          clampedToScreen="true"
          movable="true">
-    <Size x="600" y="400" />
-    <Scripts>
-      <OnLoad function="BackboneWindowTemplate_OnLoad" />
-    </Scripts>
     <Frames>
       <Button parentKey="closeButton"
               inherits="BackboneButtonTemplate"
@@ -21,5 +18,8 @@
         <Size y="26" />
       </Button>
     </Frames>
+    <Scripts>
+      <OnLoad function="BackboneWindowTemplate_OnLoad" />
+    </Scripts>
   </Frame>
 </Ui>
