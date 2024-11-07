@@ -3,8 +3,8 @@
 ]]
 
 ---
---- The constructor for the window frame template. Enables movability of the frame,
---- and hooks the script required for the close button to be usable.
+--- The constructor for the window frame template. Enables movability of the
+--- frame and hooks the script required for the close button to be usable.
 ---
 ---@param self BackboneWindowTemplate
 ---@param colors? BackboneFrameColors

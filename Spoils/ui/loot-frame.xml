@@ -2,7 +2,8 @@
   <Frame name="SpoilsLootFrame"
          inherits="BackboneWindowTemplate"
          frameStrata="HIGH"
-         toplevel="true">
+         toplevel="true"
+         hidden="true">
     <Size x="400" y="300" />
     <Anchors>
       <Anchor point="LEFT" x="24" />

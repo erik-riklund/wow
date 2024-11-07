@@ -107,14 +107,19 @@ context.loot = {
   -- Dragonflight
 
   ['202071'] = true, -- Elemental Mote
+  ['202070'] = true, -- Exceptional Pelt
+  ['200695'] = true, -- Fangtooth Petals
   ['192615'] = true, -- Fluorescent Fluid
+  ['191100'] = true, -- Fresh Game Meat (quest item)
   ['200704'] = true, -- Gratona Seed
   ['192658'] = true, -- High-Fiber Leaf
   ['200699'] = true, -- Milkweed Fibers
   ['200553'] = true, -- Panthis Nectar
   ['192545'] = true, -- Primal Flame Fragment (quest item)
+  ['200694'] = true, -- River Bell Bulbs
   ['197754'] = true, -- Salt Deposit
   ['199206'] = true, -- Shattered Adamant Scales
+  ['191541'] = true, -- Shikaar Supplies (quest item)
   ['200705'] = true, -- Thaldraszus Root
   ['199204'] = true, -- Torn Resilient Leather Scraps
   ['200703'] = true, -- Vine Flower Fibers

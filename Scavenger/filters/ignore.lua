@@ -51,7 +51,11 @@ context.ignore = {
   -- Dragonflight
 
   ['193258'] = true, -- Fire-Infused Hide
+  ['201406'] = true, -- Glowing Titan Orb
   ['193255'] = true, -- Pristine Vorquin Horn
+  ['193254'] = true, -- Rockfang Leather
+  ['193252'] = true, -- Salamanther Scales
+  ['193922'] = true, -- Wildercloth
 
   --
   -- The War Within
