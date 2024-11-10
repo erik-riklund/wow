@@ -26,16 +26,4 @@
       <OnLoad function="BackboneButtonTemplate_OnLoad" />
     </Scripts>
   </Button>
-  <!-- BackboneButtonTemplate -->
-  <Button virtual="true"
-          name="BackboneButtonTemplate"
-          inherits="BackboneButtonBaseTemplate">
-    <ButtonText parentKey="label" inherits="BackboneFontDosis12pt" />
-  </Button>
-  <!-- BackboneLargeButtonTemplate -->
-  <Button virtual="true"
-          name="BackboneLargeButtonTemplate"
-          inherits="BackboneButtonBaseTemplate">
-    <ButtonText parentKey="label" inherits="BackboneFontDosis13pt" />
-  </Button>
 </Ui>

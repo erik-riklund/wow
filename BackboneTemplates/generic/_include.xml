@@ -1,12 +1,15 @@
 <Ui>
   <!-- BORDERS -->
+  <Include file="borders/scripts.lua" />
   <Include file="borders/top-border.xml" />
   <Include file="borders/bottom-border.xml" />
   <Include file="borders/left-border.xml" />
   <Include file="borders/right-border.xml" />
-  <Include file="borders/scripts.lua" />
   <!-- FRAME -->
   <Include file="frame/template.xml" />
   <!-- BUTTON -->
-   <Include file="buttons/templates.xml" />
+  <Include file="buttons/scripts.lua" />
+  <Include file="buttons/base.xml" />
+  <Include file="buttons/normal.xml" />
+  <Include file="buttons/large.xml" />
 </Ui>
