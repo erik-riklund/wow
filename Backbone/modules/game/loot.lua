@@ -22,6 +22,7 @@ backbone.getLootSlotInfo = function(slot)
 
   ---@class LootSlotInfo
   local lootSlotInfo = {
+    icon = lootIcon,
     name = lootName,
     link = GetLootSlotLink(slot),
     quantity = lootQuantity,

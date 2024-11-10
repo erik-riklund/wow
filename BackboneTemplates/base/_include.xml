@@ -1,6 +1,3 @@
 <Ui>
-  <Include file="borders/layout.xml" />
-  <Include file="borders/shaders.xml" />
-  <Include file="frame/layout.xml" />
-  <Include file="buttons/layout.xml" />
+  <!-- ? -->
 </Ui>

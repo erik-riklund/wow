@@ -3,5 +3,5 @@
 ]]
 
 backbone.registerLocalizedStrings('backbone','enUS', {
-  ['closeButton'] = 'Close'
+  closeButton = 'close'
 })

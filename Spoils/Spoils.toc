@@ -7,8 +7,4 @@
 # SavedVariables: SpoilsAccountStorage
 # SavedVariablesPerCharacter: SpoilsCharacterStorage
 
-ui/_include.xml
-
 plugin.lua
-events.lua
-handler.lua

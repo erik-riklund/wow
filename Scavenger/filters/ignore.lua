@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Module: Loot Filters ~
-  Updated: 2024/10/28 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/07 | Author(s): Erik Riklund (Gopher)
 ]]
 
 context.ignore = {
@@ -55,6 +55,7 @@ context.ignore = {
   ['193255'] = true, -- Pristine Vorquin Horn
   ['193254'] = true, -- Rockfang Leather
   ['193252'] = true, -- Salamanther Scales
+  ['201405'] = true, -- Tuft of Primal Wool
   ['193922'] = true, -- Wildercloth
 
   --

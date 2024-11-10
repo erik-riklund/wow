@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Module: Loot Filters ~
-  Updated: 2024/10/28 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/07 | Author(s): Erik Riklund (Gopher)
 ]]
 
 context.loot = {

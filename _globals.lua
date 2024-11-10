@@ -8,6 +8,9 @@ GetExpansionLevel = function() end
 ---@type fun(): locale: string
 GetLocale = function() end
 
+---@type fun(quality: number): red: number, green: number, blue: number, hex: string
+GetItemQualityColor = function() end
+
 ---@type fun(): time: number
 GetTime = function() end
 
