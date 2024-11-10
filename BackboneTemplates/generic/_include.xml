@@ -7,4 +7,6 @@
   <Include file="borders/scripts.lua" />
   <!-- FRAME -->
   <Include file="frame/template.xml" />
+  <!-- BUTTON -->
+   <Include file="buttons/templates.xml" />
 </Ui>

@@ -1,9 +1,7 @@
 <Ui>
   <Script file="scripts.lua" />
-  <!-- BackboneFrameTemplate -->
-  <Frame virtual="true"
-         name="BackboneFrameTemplate"
-         enableMouse="true">
+  <!-- BackboneButtonBaseTemplate -->
+  <Button virtual="true" name="BackboneButtonBaseTemplate">
     <Layers>
       <Layer level="BACKGROUND">
         <Texture parentKey="background" />
@@ -14,6 +12,9 @@
         <Texture inherits="BackboneLeftBorderShaderTemplate" />
         <Texture inherits="BackboneRightBorderShaderTemplate" />
       </Layer>
+      <Layer level="BACKGROUND" textureSubLevel="2">
+        <Texture parentKey="highlight" hidden="true" />
+      </Layer>
       <Layer level="BORDER">
         <Texture inherits="BackboneTopBorderTemplate" />
         <Texture inherits="BackboneBottomBorderTemplate" />
@@ -22,7 +23,19 @@
       </Layer>
     </Layers>
     <Scripts>
-      <OnLoad function="BackboneFrameTemplate_OnLoad" />
+      <OnLoad function="BackboneButtonTemplate_OnLoad" />
     </Scripts>
-  </Frame>
+  </Button>
+  <!-- BackboneButtonTemplate -->
+  <Button virtual="true"
+          name="BackboneButtonTemplate"
+          inherits="BackboneButtonBaseTemplate">
+    <ButtonText parentKey="label" inherits="BackboneFontDosis12pt" />
+  </Button>
+  <!-- BackboneLargeButtonTemplate -->
+  <Button virtual="true"
+          name="BackboneLargeButtonTemplate"
+          inherits="BackboneButtonBaseTemplate">
+    <ButtonText parentKey="label" inherits="BackboneFontDosis13pt" />
+  </Button>
 </Ui>

@@ -1,0 +1,59 @@
+<Ui>
+  <Script file="scripts.lua" />
+  <!-- BackboneCloseablePanelTemplate -->
+  <Frame virtual="true"
+         name="BackboneCloseablePanelTemplate"
+         inherits="BackboneFrameTemplate"
+         clampedToScreen="true"
+         movable="true">
+    <Frames>
+      <Button parentKey="closeButton"
+              text="backbone:closeButton"
+              inherits="BackboneButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" />
+        </Anchors>
+      </Button>
+    </Frames>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString parentKey="title"
+                    inherits="BackboneFontSourGummy13pt"
+                    text="No title specified">
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    x="10"
+                    y="-10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+      <Layer level="ARTWORK">
+        <Texture parentKey="titleShader">
+          <Size y="1" />
+          <Anchors>
+            <Anchor point="TOP"
+                    relativePoint="BOTTOM"
+                    relativeKey="$parent.title"
+                    y="-10" />
+            <Anchor point="LEFT" x="5" />
+            <Anchor point="RIGHT" x="-5" />
+          </Anchors>
+        </Texture>
+        <Texture parentKey="titleBorder">
+          <Size y="1" />
+          <Anchors>
+            <Anchor point="TOPLEFT"
+                    relativePoint="BOTTOMLEFT"
+                    relativeKey="$parent.titleShader" />
+            <Anchor point="TOPRIGHT"
+                    relativePoint="BOTTOMRIGHT"
+                    relativeKey="$parent.titleShader" />
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad function="BackboneCloseablePanelTemplate_OnLoad" />
+    </Scripts>
+  </Frame>
+</Ui>

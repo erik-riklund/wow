@@ -1,0 +1,13 @@
+---@meta
+
+---
+--- ?
+---
+---@class BackboneCloseablePanelTemplate : BackboneFrameTemplate
+---
+---@field title FontString
+---@field titleBorder Texture
+---@field titleShader Texture
+---
+---@field closeButton BackboneButtonTemplate
+---

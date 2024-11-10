@@ -1,13 +1,13 @@
 <Ui>
-  <!-- SMALL -->
+  <!-- 11pt -->
   <FontString virtual="true"
-              name="BackboneFontTitilliumWebSmall"
+              name="BackboneFontTitilliumWeb11pt"
               font="interface\addons\backbone\media\fonts\titillium-web.ttf">
     <FontHeight val="11" />
   </FontString>
-  <!-- NORMAL -->
+  <!-- 12pt -->
   <FontString virtual="true"
-              name="BackboneFontTitilliumWeb"
+              name="BackboneFontTitilliumWeb12pt"
               font="interface\addons\backbone\media\fonts\titillium-web.ttf">
     <FontHeight val="12" />
   </FontString>
