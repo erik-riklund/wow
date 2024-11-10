@@ -1,0 +1,24 @@
+<Ui>
+  <!-- BackboneBottomBorderTemplate -->
+  <Texture virtual="true"
+           name="BackboneBottomBorderTemplate"
+           parentKey="bottomBorder">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="LEFT" />
+      <Anchor point="RIGHT" />
+      <Anchor point="TOP" relativePoint="BOTTOM" />
+    </Anchors>
+  </Texture>
+  <!-- BackboneBottomBorderShaderTemplate -->
+  <Texture virtual="true"
+           name="BackboneBottomBorderShaderTemplate"
+           parentKey="bottomBorderShader">
+    <Size y="1" />
+    <Anchors>
+      <Anchor point="BOTTOM" />
+      <Anchor point="LEFT" x="1" />
+      <Anchor point="RIGHT" x="-1" />
+    </Anchors>
+  </Texture>
+</Ui>

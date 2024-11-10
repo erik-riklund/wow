@@ -1,0 +1,6 @@
+<Ui>
+  <Include file="borders/top-border.xml" />
+  <Include file="borders/bottom-border.xml" />
+  <Include file="borders/left-border.xml" />
+  <Include file="borders/right-border.xml" />
+</Ui>

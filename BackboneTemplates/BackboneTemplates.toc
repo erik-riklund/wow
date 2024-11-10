@@ -4,5 +4,5 @@
 ## Title: Backbone (templates)
 
 utilities/_include.xml
-base/_include.xml
+generic/_include.xml
 widgets/_include.xml
