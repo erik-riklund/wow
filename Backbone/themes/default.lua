@@ -1,5 +1,5 @@
 --[[~ Module: Theme / Backbone ~
-  Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/10 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
@@ -20,5 +20,7 @@ local palette = {
 --- ?
 ---
 backbone.registerColorTheme('Backbone', {
-  -- ?
+  borderColor = palette.BLACK,
+  borderShaderColor = backbone.setColorAlpha(palette.WHITE, 0.05),
+  backgroundColor = palette.NIGHT_FOG
 })

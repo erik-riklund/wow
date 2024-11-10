@@ -1,6 +1,10 @@
 <Ui>
+  <!-- BORDERS -->
   <Include file="borders/top-border.xml" />
   <Include file="borders/bottom-border.xml" />
   <Include file="borders/left-border.xml" />
   <Include file="borders/right-border.xml" />
+  <Include file="borders/scripts.lua" />
+  <!-- FRAME -->
+  <Include file="frame/template.xml" />
 </Ui>
