@@ -3,7 +3,7 @@
 ---
 --- ?
 ---
----@class Plugin : EventsApi, NetworkApi, StorageApi
+---@class Plugin : EventsApi, NetworkApi, PrinterApi, StorageApi
 ---
 ---@field identifier string
 ---@field name string

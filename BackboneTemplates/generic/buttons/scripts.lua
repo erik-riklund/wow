@@ -1,9 +1,9 @@
 --[[~ Scripts: Generic Buttons ~
-  Updated: 2024/11/10 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/11 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- Initializes the button and applies localized text, theme updates, and hover behavior.
 ---
 ---@param self BackboneButtonTemplate
 ---
@@ -31,7 +31,7 @@ BackboneButtonTemplate_OnLoad = function(self)
 end
 
 ---
---- ?
+--- Sets the localized text for the button label based on the provided key path.
 ---
 ---@param self BackboneButtonTemplate
 ---@param keyPath string
@@ -45,7 +45,7 @@ BackboneButtonTemplate_SetLocalizedText = function(self, keyPath)
 end
 
 ---
---- ?
+--- Adjusts the button size to fit its content (with optional padding).
 ---
 ---@param self BackboneButtonTemplate
 ---@param paddingX? number
@@ -53,9 +53,13 @@ end
 ---
 BackboneButtonTemplate_AdjustSize = function(self, paddingX, paddingY)
   local defaultPaddingX, defaultPaddingY = 9, 5
-  local contentWidth = backbone.utilities.adjustToEven(self.label:GetStringWidth())
-  local contentHeight = backbone.utilities.adjustToEven(self.label:GetStringHeight())
+  local contentWidth = self.label:GetStringWidth()
+  local contentHeight = self.label:GetStringHeight()
 
-  self:SetWidth(backbone.utilities.adjustToEven(contentWidth + ((paddingX or defaultPaddingX) * 2)))
-  self:SetHeight(backbone.utilities.adjustToEven(contentHeight + ((paddingY or defaultPaddingY) * 2)))
+  self:SetWidth(backbone.utilities.adjustToEven( --
+    contentWidth + ((paddingX or defaultPaddingX) * 2)
+  ))
+  self:SetHeight(backbone.utilities.adjustToEven( --
+    contentHeight + ((paddingY or defaultPaddingY) * 2)
+  ))
 end

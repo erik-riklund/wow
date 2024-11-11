@@ -3,5 +3,6 @@
 ]]
 
 backbone.registerLocalizedStrings('backbone','enUS', {
-  ['closeButton'] = 'X',
+  ['button/close'] = 'X',
+  ['framework/name'] = 'Backbone'
 })

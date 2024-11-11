@@ -49,4 +49,7 @@ backbone.registerColorTheme('Backbone', {
   ---
   textColor = palette.ALBESCENT_WHITE,
   titleTextColor = palette.VANILLA,
+  infoTextColor = palette.WHITE,
+  warningTextColor = palette.WHITE,
+  errorTextColor = palette.WHITE,
 })

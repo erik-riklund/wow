@@ -13,8 +13,11 @@
   <Include file="commands/handler.lua" />
   <Include file="game/items.lua" />
   <Include file="game/loot.lua" />
+  <Include file="markup/handler.lua" />
+  <Include file="printer/handler.lua" />
   <!-- PLUGIN API INTEGRATION -->
   <Include file="events/api.lua" />
   <Include file="network/api.lua" />
+  <Include file="printer/api.lua" />
   <Include file="storage/api.lua" />
 </Ui>
