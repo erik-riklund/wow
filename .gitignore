@@ -5,6 +5,7 @@
 !.vscode/
 
 !Backbone/
-!Backbone*/
-!Spoils/
+!BackboneApp/
+!BackboneTemplates/
 !Scavenger/
+!Spoils/
