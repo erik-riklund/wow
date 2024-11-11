@@ -16,4 +16,5 @@ locales/_include.xml
 
 plugin.lua
 initialize.lua
+commands.lua
 garbage.lua

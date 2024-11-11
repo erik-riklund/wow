@@ -17,15 +17,16 @@ local api = {
   ---@param self Plugin
   ---@param type BroadcastType
   ---@param message string
+  ---
   ---@param ... string|number
   ---
-  broadcast = function (self, type, message, ...)
-    -- ?
-  end
+  broadcast = function(self, type, message, ...)
+    backbone.broadcast(type, self.name, message, ...) --
+  end,
 }
 
 ---
---- Integrates the events API into new plugins.
+--- Integrates the printer API into new plugins.
 ---
 context.apis[#context.apis + 1] = function(plugin)
   backbone.utilities.integrateTable(plugin, api) --

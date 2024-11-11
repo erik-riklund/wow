@@ -1,6 +1,3 @@
----@class Backbone
-local context = select(2, ...)
-
 --[[~ Command: Environment Toggle ~
   Updated: 2024/11/11 | Author(s): Erik Riklund (Gopher)
 ]]
@@ -11,14 +8,8 @@ backbone.registerCommandHandler {
   --
   callback = function()
     local environment = backbone.getEnvironment()
-    backbone.setEnvironment( --
-      (environment == 'development' and 'production') or 'development'
-    )
-
-    backbone.broadcast(
-      'INFO', --
-      'The %s environment is now active.',
-      string.upper(backbone.getEnvironment())
-    )
+    
+    backbone.setEnvironment((environment == 'development' and 'production') or 'development')
+    backbone.broadcast('INFO', 'Backbone', 'The environment is now running in %s mode.', backbone.getEnvironment())
   end,
 }
