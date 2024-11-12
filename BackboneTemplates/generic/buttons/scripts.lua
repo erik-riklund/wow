@@ -1,4 +1,4 @@
---[[~ Scripts: Generic Buttons ~
+--[[~ Generic Buttons ~
   Updated: 2024/11/11 | Author(s): Erik Riklund (Gopher)
 ]]
 

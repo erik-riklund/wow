@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Module: Plugins ~
+--[[~ Plugins ~
   Updated: 2024/10/29 | Author(s): Erik Riklund (Gopher)
 ]]
 

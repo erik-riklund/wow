@@ -1,4 +1,4 @@
---[[~ Utility: Number Adjustment ~
+--[[~ Number Adjustment ~
   Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
 

@@ -1,4 +1,4 @@
---[[~ Scripts: Border Templates ~
+--[[~ Border Templates ~
   Updated: 2024/11/10 | Author(s): Erik Riklund (Gopher)
 ]]
 

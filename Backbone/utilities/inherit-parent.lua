@@ -1,4 +1,4 @@
---[[~ Utility: Inherit Parent ~
+--[[~ Inherit Parent ~
   Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
 

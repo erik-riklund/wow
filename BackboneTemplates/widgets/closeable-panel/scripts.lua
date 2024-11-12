@@ -1,4 +1,4 @@
---[[~ Scripts: Closeable Panel ~
+--[[~ Closeable Panel ~
   Updated: ? | Author(s): Erik Riklund (Gopher)
 ]]
 

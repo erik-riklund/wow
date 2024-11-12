@@ -1,4 +1,4 @@
---[[~ Utility: String Manipulation ~
+--[[~ String Manipulation ~
   Updated: 2024/10/25 | Author(s): Erik Riklund (Gopher)
 ]]
 

@@ -1,12 +1,12 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Module: Framework ~
-  Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
+--[[~ Framework ~
+  Updated: 2024/11/12 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- An array of functions that integrate various APIs into new plugins.
 --- 
 ---@type array<fun(plugin: Plugin, options?: PluginOptions)>
 ---
@@ -37,16 +37,16 @@ backbone.components = {}
 backbone.enums = {}
 
 ---
---- ?
+--- Provides static system resources.
 ---
 backbone.system = {
   ---
-  --- ?
+  --- The ID for the current expansion.
   ---
   expansion = GetExpansionLevel(),
 
   ---
-  --- ?
+  --- The identifier for the currently active locale.
   ---
   locale = GetLocale()
 }
@@ -59,7 +59,8 @@ backbone.system = {
 backbone.utilities = {}
 
 ---
---- ?
+--- An extendable collection of utility functions that provides commonly used
+--- functionalities related to the behavior and visual appearance of UI widgets.
 ---
 backbone.widgets = {}
 

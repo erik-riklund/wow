@@ -1,4 +1,4 @@
---[[~ Utility: Table Manipulation ~
+--[[~ Table Manipulation ~
   Updated: 2024/10/26 | Author(s): Erik Riklund (Gopher)
 ]]
 

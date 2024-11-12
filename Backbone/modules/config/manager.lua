@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Module: Configuration Manager ~
+--[[~ Configuration Manager ~
   Updated: 2024/10/28 | Author(s): Erik Riklund (Gopher)
 ]]
 

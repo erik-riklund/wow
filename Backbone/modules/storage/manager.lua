@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Module: Storage ~
+--[[~ Storage ~
   Updated: 2024/10/24 | Author(s): Erik Riklund (Gopher)
 ]]
 

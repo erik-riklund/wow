@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Module: Themes ~
+--[[~ Themes ~
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 

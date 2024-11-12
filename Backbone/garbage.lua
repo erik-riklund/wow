@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Script: Garbage Collection ~
+--[[~ Garbage Collection ~
   Updated: 2024/10/29 | Author(s): Erik Riklund (Gopher)
 ]]
 

@@ -1,16 +1,17 @@
---[[~ Module: Markup Handler ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Markup Handler ~
+  Updated: 2024/11/12 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- A utility for handling markup in text based on tag type.
 ---
 ---@class MarkupHandler
 ---
 backbone.markup = {}
 
 ---
---- ?
+--- Colorizes specific tags (info|warning|error) in the
+--- target string, applying appropriate color codes.
 ---
 ---@param target string
 ---

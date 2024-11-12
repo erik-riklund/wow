@@ -1,4 +1,4 @@
---[[~ Module: Events ~
+--[[~ Events ~
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 

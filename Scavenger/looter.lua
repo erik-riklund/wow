@@ -1,7 +1,7 @@
 ---@class Scavenger
 local context = select(2, ...)
 
---[[~ Module: Looter ~
+--[[~ Looter ~
   Updated: 2024/11/01 | Author(s): Erik Riklund (Gopher)
 ]]
 

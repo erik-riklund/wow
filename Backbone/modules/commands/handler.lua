@@ -1,9 +1,10 @@
---[[~ Module: ? ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Command Registration ~
+  Updated: 2024/11/12 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- Registers a command handler, associating it with the
+--- specified commands and callback function.
 ---
 ---@param handler CommandHandler
 ---

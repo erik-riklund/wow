@@ -1,4 +1,4 @@
---[[~ Module: Console ~
+--[[~ Console ~
   Updated: ? | Author(s): Erik Riklund (Gopher)
 ]]
 

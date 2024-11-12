@@ -1,4 +1,4 @@
---[[~ Enum: Tradeskills ~
+--[[~ Tradeskills ~
   Updated: 2024/10/26 | Author(s): Erik Riklund (Gopher)
 ]]
 

@@ -1,4 +1,4 @@
---[[~ Utility: Protected Proxy ~
+--[[~ Protected Proxy ~
   Updated: 2024/10/22 | Author(s): Erik Riklund (Gopher)
 ]]
 

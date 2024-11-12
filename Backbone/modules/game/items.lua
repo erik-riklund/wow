@@ -1,4 +1,4 @@
---[[~ Module: ? ~
+--[[~ Item Information ~
   Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 

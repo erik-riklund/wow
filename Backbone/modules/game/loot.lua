@@ -1,9 +1,10 @@
---[[~ Module: ? ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Loot Slot Information ~
+  Updated: 2024/11/12 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
---- ?
+--- Retrieves detailed information about a specific loot slot,
+--- including item icon, name, quantity, quality, and type.
 ---
 ---@param slot number
 ---

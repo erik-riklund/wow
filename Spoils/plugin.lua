@@ -1,7 +1,7 @@
 ---@class Spoils
 local context = select(2, ...)
 
---[[~ Plugin: Spoils ~
+--[[~ Spoils ~
   Updated: 2024/11/05 | Author(s): Erik Riklund (Gopher)
 ]]
 

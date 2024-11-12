@@ -1,4 +1,4 @@
---[[~ Component: Configuration Handler ~
+--[[~ Configuration Handler ~
   Updated: 2024/10/24 | Author(s): Erik Riklund (Gopher)
 ]]
 

@@ -1,4 +1,4 @@
---[[~ Module: Tasks ~
+--[[~ Tasks ~
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 

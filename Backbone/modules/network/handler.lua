@@ -1,12 +1,13 @@
---[[~ Module: Network ~
-  Updated: 2024/10/29 | Author(s): Erik Riklund (Gopher)
+--[[~ Network ~
+  Updated: 2024/11/12 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---@type table<string, Channel>
 local channels = {}
 
 ---
---- ?
+--- Creates a new channel object with listenable capabilities,
+--- integrating it with the provided options.
 ---
 ---@param options ChannelOptions
 ---@return Channel
@@ -17,7 +18,8 @@ local createChannelObject = function(options)
 end
 
 ---
---- ?
+--- Creates a new channel with the specified name and options.
+--- Throws an exception if the channel already exists.
 ---
 ---@param name string
 ---@param options? ChannelOptions
@@ -31,7 +33,8 @@ backbone.createChannel = function(name, options)
 end
 
 ---
---- ?
+--- Invokes all listeners of the specified channel, passing any arguments provided.
+--- Throws an exception if the channel doesn't exist.
 ---
 ---@param channelName string
 ---@param ... unknown
@@ -50,7 +53,8 @@ backbone.invokeChannelListeners = function(channelName, ...)
 end
 
 ---
---- ?
+--- Registers a listener to a specified channel for the given receiver.
+--- Throws an exception if the channel doesn't exist.
 ---
 ---@param reciever Plugin
 ---@param channelName string
@@ -71,7 +75,8 @@ backbone.registerChannelListener = function(reciever, channelName, listener)
 end
 
 ---
---- ?
+--- Removes a listener from a specified channel by its identifier for a given caller.
+--- Throws an exception if the channel doesn't exist.
 ---
 ---@param caller Plugin
 ---@param channelName string

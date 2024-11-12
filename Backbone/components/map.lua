@@ -1,5 +1,5 @@
---[[~ Component: Map ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+--[[~ Map ~
+  Updated: 2024/11/12 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---

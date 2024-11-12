@@ -1,7 +1,7 @@
 ---@class Scavenger
 local context = select(2, ...)
 
---[[~ Plugin: Scavenger ~
+--[[~ Scavenger ~
   Updated: 2024/10/26 | Author(s): Erik Riklund (Gopher)
 ]]
 

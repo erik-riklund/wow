@@ -1,4 +1,4 @@
---[[~ Module: Printer ~
+--[[~ Printer ~
   Updated: 2024/11/11 | Author(s): Erik Riklund (Gopher)
 ]]
 

@@ -1,7 +1,7 @@
 ---@class Scavenger
 local context = select(2, ...)
 
---[[~ Module: Loot Filters ~
+--[[~ Loot Filter: Loot ~
   Updated: 2024/11/07 | Author(s): Erik Riklund (Gopher)
 ]]
 

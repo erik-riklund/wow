@@ -1,4 +1,4 @@
---[[~ Module: Widgets / Utilities ~
+--[[~ ? ~
   Updated: 2024/11/10 | Author(s): Erik Riklund (Gopher)
 ]]
 

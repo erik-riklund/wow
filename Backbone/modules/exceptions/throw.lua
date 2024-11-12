@@ -1,4 +1,4 @@
---[[~ Module: Exceptions ~
+--[[~ Exceptions ~
   Updated: 2024/10/21 | Author(s): Erik Riklund (Gopher)
 ]]
 
@@ -10,7 +10,7 @@
 ---@param ... string | number
 backbone.throwException = function(message, ...)
   if backbone.getEnvironment() == 'development' then
-    error((... and string.format(message, ...)) or message, 3)
+    error((... and string.format(message, ...)) or message, 3) --
   end
 
   backbone.displayErrorMessage '?' -- display a generic error message in production mode.

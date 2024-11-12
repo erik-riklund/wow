@@ -1,6 +1,6 @@
 local traverseTable = backbone.utilities.traverseTable
 
---[[~ Component: Storage Unit ~
+--[[~ Storage Unit ~
   Updated: 2024/10/23 | Author(s): Erik Riklund (Gopher)
 ]]
 
