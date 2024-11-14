@@ -57,6 +57,7 @@ context.ignore = {
   ['193252'] = true, -- Salamanther Scales
   ['201405'] = true, -- Tuft of Primal Wool
   ['193922'] = true, -- Wildercloth
+  ['193256'] = true, -- Windsong Plumage
 
   --
   -- The War Within
