@@ -1,8 +1,0 @@
-<Ui>
-  <!-- BackboneButtonTemplate -->
-  <Button virtual="true"
-          name="BackboneButtonTemplate"
-          inherits="BackboneButtonBaseTemplate">
-    <ButtonText parentKey="label" inherits="BackboneFontDosis12pt" />
-  </Button>
-</Ui>

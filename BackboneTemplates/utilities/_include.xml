@@ -1,5 +1,0 @@
-<Ui>
-  <Include file="make-movable.lua" />
-  <Include file="set-color.lua" />
-  <Include file="set-text.lua" />
-</Ui>

@@ -1,4 +1,0 @@
-<Ui>
-  <!-- CLOSEABLE PANEL -->
-  <Include file="closeable-panel/template.xml" />
-</Ui>

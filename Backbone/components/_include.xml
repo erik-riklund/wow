@@ -1,7 +1,0 @@
-<Ui>
-  <Include file="config-handler.lua" />
-  <Include file="list.lua" />
-  <Include file="listenable.lua" />
-  <Include file="map.lua" />
-  <Include file="storage-unit.lua" />
-</Ui>

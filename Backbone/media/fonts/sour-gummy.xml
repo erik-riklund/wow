@@ -1,8 +1,0 @@
-<Ui>
-  <!-- 13pt -->
-  <FontString virtual="true"
-              name="BackboneFontSourGummy13pt"
-              font="interface\addons\backbone\media\fonts\titillium-web.ttf">
-    <FontHeight val="13" />
-  </FontString>
-</Ui>

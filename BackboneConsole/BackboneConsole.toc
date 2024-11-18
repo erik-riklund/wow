@@ -1,7 +1,0 @@
-## Version: 1.0
-## Interface: 110002
-## Dependencies: Backbone, BackboneTemplates
-## Title: Backbone (console)
-## LoadOnDemand: 1
-
-plugin.lua
