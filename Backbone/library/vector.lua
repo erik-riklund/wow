@@ -39,7 +39,7 @@ vector.getElement = function(self, index) return self.values[index] end
 ---@param index? number
 ---
 vector.insertElement = function(self, element, index)
-  table.insert(self.values, index or #self.values, element)
+  table.insert(self.values, index or (#self.values + 1), element)
 end
 
 ---

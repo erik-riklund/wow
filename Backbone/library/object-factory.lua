@@ -6,7 +6,7 @@
 --- Creates a new instance of the specified object type by dynamically calling the
 --- global constructor function corresponding to the given `object_type`, passing along
 --- any additional arguments.
---- 
+---
 --- Throws an error if the constructor is not a globally accessible function.
 ---
 ---@generic T

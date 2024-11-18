@@ -3,7 +3,7 @@
 ---
 --- Creates a `Frame` object.
 ---
----@type fun(frameType: FrameType, name?: string, parent?: Frame, template?: string, id?: number): Frame
+---@type fun(frame_type: FrameType, name?: string, parent?: Frame, template?: string, id?: number): Frame
 ---
 CreateFrame = function() end
 

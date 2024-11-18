@@ -2,8 +2,13 @@
 ## Interface: 110002
 ## Title: Backbone (framework)
 
+core.lua
+
+utilities/throw.lua
+
 library/object-factory.lua
 library/dictionary.lua
 library/vector.lua
 
-
+modules/plugins.lua
+modules/events.lua
