@@ -1,9 +1,9 @@
 {
-  "module":
+  "header":
   {
-    "prefix": "!module",
+    "prefix": "!header",
     "body": [
-      "--[[~ ${1:?} ~",
+      "--[[~ ${1:?} (${2:?}) ~",
       "  Updated: ? | Author(s): Erik Riklund (Gopher)",
       "]]",
       "",
@@ -49,15 +49,5 @@
   "media": {
     "prefix": "!media",
     "body": "interface\\addons\\backbone\\media\\"
-  },
-
-  "return": {
-    "prefix": "!return",
-    "body": "return -- this will cancel execution in production mode."
-  },
-
-  "xml-color": {
-    "prefix": "!xml-color",
-    "body": "<Color r=\"1\" g=\"1\" b=\"1\" a=\"1\" />"
   }
 }
