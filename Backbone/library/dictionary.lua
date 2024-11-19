@@ -38,6 +38,13 @@ dictionary.getEntry = function(self, key) return self.content[key] end
 dictionary.setEntry = function(self, key, value) self.content[key] = value end
 
 ---
+--- ?
+---
+---@param key string|table
+---
+dictionary.dropEntry = function(self, key) self.content[key] = nil end
+
+---
 ---
 ---
 local prototype = { __index = dictionary }

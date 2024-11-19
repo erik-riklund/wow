@@ -64,6 +64,11 @@ end
 ---
 --- ?
 ---
+vector.unpackElements = function(self) return unpack(self.values) end
+
+---
+--- ?
+---
 local prototype = { __index = vector }
 
 ---

@@ -18,10 +18,15 @@ listenable.listeners = nil
 ---
 --- ?
 ---
+listenable.getListenerCount = function(self) return self.listeners:getSize() end
+
+---
+--- ?
+---
 ---@param listener Listener
 ---
 listenable.registerListener = function(self, listener)
-  print 'listenable.registerListener not implemented' --
+  self.listeners:insertElement(listener)
 end
 
 ---
@@ -30,21 +35,44 @@ end
 ---@param identifier string
 ---
 listenable.removeListener = function(self, identifier)
-  print 'listenable.removeListener not implemented' --
+  for index, listener in self.listeners:getIterator() do
+    ---@cast listener Listener
+    if listener.identifier == identifier then
+      self.listeners:removeElement(index)
+
+      return -- halt execution once the listener is removed.
+    end
+  end
 end
 
 ---
 --- ?
 ---
 ---@param arguments? Vector
+---@param async? boolean
 ---
-listenable.invokeListeners = function(self, arguments)
+listenable.invokeListeners = function(self, arguments, async)
+  local execute = backbone.executeTaskAsync
+  if async == false then execute = backbone.executeTask end
+
   local nonpersistent_listeners = new 'Vector'
-  self.listeners:forEach(function(index, element)
-    -- ?
+
+  self.listeners:forEach(function(index, listener)
+    ---@cast listener Listener
+    execute {
+      callback = listener.callback,
+      identifier = listener.identifier,
+      arguments = arguments,
+    }
+
+    if listener.persistent == false then
+      nonpersistent_listeners:insertElement(index)
+    end
   end)
 
-  print 'listenable.invokeListeners: not implemented.' --
+  for i = nonpersistent_listeners:getSize(), 1, -1 do
+    self.listeners:removeElement(nonpersistent_listeners:getElement(i))
+  end
 end
 
 ---
