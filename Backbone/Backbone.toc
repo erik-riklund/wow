@@ -10,5 +10,6 @@ library/object-factory.lua
 library/dictionary.lua
 library/vector.lua
 
+modules/tasks.lua
 modules/plugins.lua
 modules/events.lua

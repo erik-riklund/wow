@@ -2,13 +2,31 @@
 local context = select(2, ...)
 
 --[[~ Event handler (module) ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/19 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
 --- ?
 ---
 local active_events = new 'Dictionary'
+
+---
+--- ?
+---
+context.frame:RegisterEvent 'ADDON_LOADED'
+
+---
+--- ?
+---
+context.frame:HookScript(
+  'OnEvent',
+  ---@param event EventName
+  ---@param ... unknown
+  function(_, event, ...)
+    if event == 'ADDON_LOADED' then
+    end
+  end
+)
 
 ---
 ---@class Plugin
@@ -33,7 +51,9 @@ end
 ---@param event EventName
 ---@param listener Listener
 ---
-events_api.registerEventListener = function(self, event, listener) end
+events_api.registerEventListener = function(self, event, listener)
+  print 'events_api.registerEventListener not implemented'
+end
 
 ---
 --- ?
@@ -41,7 +61,9 @@ events_api.registerEventListener = function(self, event, listener) end
 ---@param event EventName
 ---@param identifier string
 ---
-events_api.removeEventListener = function(self, event, identifier) end
+events_api.removeEventListener = function(self, event, identifier)
+  print 'events_api.removeEventListener not implemented'
+end
 
 ---
 --- ?

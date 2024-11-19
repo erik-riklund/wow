@@ -1,9 +1,9 @@
 ---@meta
 
 ---
----@class Listener
+---@class Task
 ---
-local listener = {
+local task = {
   ---
   --- ?
   ---
@@ -21,7 +21,7 @@ local listener = {
   ---
   --- ?
   ---
-  ---@type boolean?
+  ---@type Vector?
   ---
-  persistent = nil
+  arguments = nil
 }
