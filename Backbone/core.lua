@@ -13,4 +13,9 @@ _G.backbone = {}
 ---
 --- ?
 ---
+backbone.currentExpansion = GetExpansionLevel()
+
+---
+--- ?
+---
 context.frame = CreateFrame('Frame')

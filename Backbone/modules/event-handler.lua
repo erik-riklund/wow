@@ -96,7 +96,8 @@ events_api.removeEventListener = function(self, event, identifier)
     new('Error', 'No registered listeners available for the event ' .. event)
   end
 
-  (active_events:getEntry(event) --[[@as Listenable]]):removeListener(identifier)
+  (active_events:getEntry(event) --[[@as Listenable]])
+    :removeListener(self.identifier .. '/' .. identifier)
 end
 
 ---
@@ -105,7 +106,8 @@ end
 context.registerPluginExtension(
   function(plugin)
     plugin.onLoad = events_api.onLoad
+    
     plugin.registerEventListener = events_api.registerEventListener
     plugin.removeEventListener = events_api.removeEventListener
-  end --
+  end
 )

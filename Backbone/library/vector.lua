@@ -47,7 +47,9 @@ end
 ---
 ---@param index? number
 ---
-vector.removeElement = function(self, index) return table.remove(self.values, index) end
+vector.removeElement = function(self, index)
+  return table.remove(self.values, index) --
+end
 
 ---
 --- ?

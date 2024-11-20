@@ -15,7 +15,7 @@ end
 ---@param source table
 ---
 Proxy = function(source)
-  local returnValue = function(key)
+  local returnValue = function(_, key)
     if type(source[key]) == 'table' then
       return new('Proxy', source[key]) --
     end

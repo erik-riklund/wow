@@ -1,5 +1,5 @@
 --[[~ Listenable (component) ~
-  Updated: 2024/11/19 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
@@ -19,7 +19,7 @@ listenable.listeners = nil
 --- ?
 ---
 listenable.getListenerCount = function(self)
-  return self.listeners:getSize() --
+  return self.listeners:getSize()
 end
 
 ---
@@ -54,23 +54,22 @@ end
 ---@param async? boolean
 ---
 listenable.invokeListeners = function(self, arguments, async)
-  local execute = backbone.executeTaskAsync
-  if async == false then execute = backbone.executeTask end
-
   local nonpersistent_listeners = new 'Vector'
+  local execute = (async == false and backbone.executeTask) or backbone.executeTaskAsync
 
-  self.listeners:forEach(function(index, listener)
-    ---@cast listener Listener
-    execute {
-      callback = listener.callback,
-      identifier = listener.identifier,
-      arguments = arguments,
-    }
+  self.listeners:forEach(
+    function(index, listener)
+      ---@cast listener Listener
+      
+      execute {
+        callback = listener.callback, identifier = listener.identifier, arguments = arguments
+      }
 
-    if listener.persistent == false then
-      nonpersistent_listeners:insertElement(index)
+      if listener.persistent == false then
+        nonpersistent_listeners:insertElement(index)
+      end
     end
-  end)
+  )
 
   for i = nonpersistent_listeners:getSize(), 1, -1 do
     self.listeners:removeElement(nonpersistent_listeners:getElement(i))
@@ -86,5 +85,5 @@ local prototype = { __index = listenable }
 --- ?
 ---
 Listenable = function()
-  return setmetatable({ listeners = new 'Vector' }, prototype) --
+  return setmetatable({ listeners = new 'Vector' }, prototype)
 end

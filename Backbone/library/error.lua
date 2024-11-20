@@ -9,5 +9,5 @@
 ---@param ... string|number
 ---
 Error = function(message, ...)
-  error(... and string.format(message, ...) or message, 3)
+  error(... and string.format(message, ...) or message, 3) --
 end

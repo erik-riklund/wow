@@ -5,4 +5,8 @@
 
 # SavedVariables: scavenger_storage_account
 
+filters/ignore.lua
+filters/loot.lua
+
 plugin.lua
+handler.lua

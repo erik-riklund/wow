@@ -10,8 +10,20 @@ library/dictionary.lua
 library/vector.lua
 library/proxy.lua
 
+enums/item-bind.lua
+enums/item-class.lua
+enums/item-quality.lua
+enums/loot-slot-type.lua
+enums/tradeskill-subtype.lua
+
+components/listenable.lua
+
 modules/task-handler.lua
 modules/plugin-manager.lua
 primitives/plugin.lua
 modules/event-handler.lua
 modules/storage-handler.lua
+modules/config-handler.lua
+
+utilities/item-info.lua
+utilities/loot-info.lua

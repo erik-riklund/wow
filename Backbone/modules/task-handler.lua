@@ -16,8 +16,9 @@ local queued_tasks = new 'Vector'
 ---@param task Task
 ---
 backbone.executeTask = function(task)
-  local success, result =
-    pcall(task.callback, (task.arguments and task.arguments:unpackElements()) or nil)
+  local success, result = pcall(
+    task.callback, (task.arguments and task.arguments:unpackElements()) or nil
+  )
 
   if not success then print(result) end -- TODO: implement better error handling!
 end
@@ -51,8 +52,6 @@ end)
 ---
 context.frame:HookScript('OnUpdate', function()
   if queued_tasks:getSize() > 0 then
-    if coroutine.status(task_process) == 'suspended' then
-      coroutine.resume(task_process)
-    end
+    if coroutine.status(task_process) == 'suspended' then coroutine.resume(task_process) end
   end
 end)
