@@ -12,5 +12,6 @@ library/proxy.lua
 
 modules/task-handler.lua
 modules/plugin-manager.lua
+primitives/plugin.lua
 modules/event-handler.lua
 modules/storage-handler.lua

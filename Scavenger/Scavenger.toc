@@ -3,4 +3,6 @@
 ## Dependencies: Backbone
 ## Title: Scavenger (Backbone plugin)
 
+# SavedVariables: scavenger_storage_account
+
 plugin.lua

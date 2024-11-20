@@ -3,6 +3,6 @@
 ---
 ---@class Plugin
 ---
----@field name string
----@field identifier string
+---@field protected name string
+---@field protected identifier string
 ---
