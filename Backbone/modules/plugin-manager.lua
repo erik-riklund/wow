@@ -40,7 +40,6 @@ backbone.createPlugin = function(name)
     function(_, extension) extension(plugin) end
   )
 
-  plugins:setEntry(identifier, true)
-
-  return plugin
+  plugins:setEntry(identifier, plugin)
+  return new('Proxy', plugin) --[[@as Plugin]]
 end

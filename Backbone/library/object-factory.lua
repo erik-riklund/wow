@@ -1,10 +1,10 @@
 --[[~ Object factory (utility) ~
-  Updated: 2024/11/18 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
 --- Creates a new instance of the specified object type by dynamically calling the constructor<br/>
---- function corresponding to the given `object_type`, passing along any additional arguments.
+--- for the given `object_type`, passing along any additional arguments.
 ---
 --- Throws an error if the constructor is not a globally accessible function.
 ---

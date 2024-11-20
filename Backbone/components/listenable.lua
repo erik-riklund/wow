@@ -18,7 +18,9 @@ listenable.listeners = nil
 ---
 --- ?
 ---
-listenable.getListenerCount = function(self) return self.listeners:getSize() end
+listenable.getListenerCount = function(self)
+  return self.listeners:getSize() --
+end
 
 ---
 --- ?

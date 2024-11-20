@@ -4,7 +4,7 @@
     "prefix": "!header",
     "body": [
       "--[[~ ${1:?} (${2:?}) ~",
-      "  Updated: ? | Author(s): Erik Riklund (Gopher)",
+      "  Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE | Author(s): Erik Riklund (Gopher)",
       "]]",
       "",
       ""
