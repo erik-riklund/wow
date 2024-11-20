@@ -93,7 +93,7 @@ end
 ---
 events_api.removeEventListener = function(self, event, identifier)
   if not active_events:hasEntry(event) then
-    throw('No registered listeners available for the event ' .. event)
+    new('Error', 'No registered listeners available for the event ' .. event)
   end
 
   (active_events:getEntry(event) --[[@as Listenable]]):removeListener(identifier)

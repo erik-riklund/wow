@@ -30,7 +30,7 @@ backbone.createPlugin = function(name)
   local identifier = string.lower(name)
 
   if plugins:hasEntry(identifier) then
-    throw('Failed to register plugin "%s" (non-unique identifier)', name)
+    new('Error', 'Failed to register plugin "%s" (non-unique identifier)', name)
   end
 
   local plugin = { identifier = identifier, name = name }

@@ -8,6 +8,6 @@
 ---@param message string
 ---@param ... string|number
 ---
-_G.throw = function(message, ...)
-  error(... and string.format(message, ...) or message, 3) --
+Error = function(message, ...)
+  error(... and string.format(message, ...) or message, 3)
 end

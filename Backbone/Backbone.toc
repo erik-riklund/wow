@@ -4,12 +4,13 @@
 
 core.lua
 
-utilities/throw.lua
-
 library/object-factory.lua
+library/error.lua
 library/dictionary.lua
 library/vector.lua
+library/proxy.lua
 
 modules/task-handler.lua
 modules/plugin-manager.lua
 modules/event-handler.lua
+modules/storage-handler.lua
