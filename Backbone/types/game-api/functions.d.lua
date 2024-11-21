@@ -78,6 +78,13 @@ LootSlot = function() end
 _G.strsplit = function() end
 
 ---
+--- Returns `true` if a friendly unit is AFK (away from keyboard).
+---
+---@type fun(unit: string): is_afk: boolean
+---
+UnitIsAFK = function(unit) end
+
+---
 --- Returns the level of the unit.
 ---
 ---@type fun(unit: string): level: number

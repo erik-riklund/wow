@@ -28,3 +28,5 @@ modules/config-handler.lua
 
 utilities/item-info.lua
 utilities/loot-info.lua
+
+plugins/garbage-collector.lua
