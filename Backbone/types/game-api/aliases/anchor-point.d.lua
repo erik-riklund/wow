@@ -1,0 +1,13 @@
+---@meta
+
+---
+---@alias AnchorPoint 'TOPLEFT'
+---                 | 'TOPRIGHT'
+---                 | 'BOTTOMLEFT'
+---                 | 'BOTTOMRIGHT'
+---                 | 'TOP'
+---                 | 'BOTTOM'
+---                 | 'LEFT'
+---                 | 'RIGHT'
+---                 | 'CENTER'
+---

@@ -9,4 +9,5 @@ filters/ignore.lua
 filters/loot.lua
 
 plugin.lua
+frame.lua
 handler.lua

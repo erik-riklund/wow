@@ -8,16 +8,13 @@ local ScriptObject = {}
 ---
 --- Sets the widget script handler. Removes any scripts that were previously hooked with HookScript.
 ---
----@param script ScriptType
----@param callback function|nil
+---@type fun(self: ScriptObject, script: ScriptType, callback: function|nil)
 ---
 ScriptObject.SetScript = function(self, script, callback) end
 
 ---
---- Securely post-hooks a widget script handler. 
+--- Securely post-hooks a widget script handler.
 ---
----@param script ScriptType
----@param callback function
----@param bindingType? number
+---@type fun(self: ScriptObject, script: ScriptType, callback: function, binding_type?: number)
 ---
-ScriptObject.HookScript = function(self, script, callback, bindingType) end
+ScriptObject.HookScript = function(self, script, callback, binding_type) end

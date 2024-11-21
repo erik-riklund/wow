@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ Loot handler (module) ~
-  Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/21 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
@@ -13,82 +13,68 @@ local context = select(2, ...)
 local handlers =
 {
   ---@type LootHandler
-  [E_LOOT_SLOT_TYPE.ITEM] = function(slotInfo)
-    --
-    -- Items are looted if not included on the ignore list, if included
-    -- in the custom loot list, or based on the specific rules below.
-
+  [E_LOOT_SLOT_TYPE.ITEM] = function(slot_info)
     ---@type LootFilters
     local filters = context.plugin:getSetting 'FILTERS'
-    local itemInfo = backbone.getItemInfo(slotInfo.link)
+    local item_info = backbone.getItemInfo(slot_info.link)
 
-    if not filters.IGNORE[itemInfo.id] then
-      if filters.LOOT[itemInfo.id] then return true end -- exists in the custom loot list.
+    -- Items listed in the ignore filter should not be looted.
 
-      if slotInfo.isQuestItem then
-        --
-        -- Quest items are looted if `lootAll` is enabled, or if it's the only item that dropped.
+    if filters.IGNORE[item_info.id] then return false end
 
-        ---@type QuestLootOptions
-        local options = context.plugin:getSetting 'QUEST'
-        return (options.LOOT_ALL or GetNumLootItems() == 1)
-      else
-        if itemInfo.quality == E_ITEM_QUALITY.POOR then
-          --
-          -- Poor quality items are looted if they are within the specified minimum and maximum value range.
-          -- If the loot comes from fishing, only the maximum value is taken into account.
+    -- Items listed in the custom loot filter will be looted.
 
-          ---@type JunkLootOptions
-          local options = context.plugin:getSetting 'JUNK'
+    if filters.LOOT[item_info.id] then return true end
 
-          return (
-            itemInfo.sellPrice >= options.MINIMUM_VALUE and
-              itemInfo.sellPrice <= options.MAXIMUM_VALUE
-          )
-        else
-          if itemInfo.itemTypeId == E_ITEM_CLASS.TRADEGOODS then
-            --
-            -- Tradeskill items are looted if their subtype is listed as lootable,
-            -- and the item quality is below the set quality cap.
+    -- Quest items are looted if `LOOT_ALL` is enabled, or if it's the only item that dropped.
 
-            ---@type TradeskillLootOptions
-            local options = context.plugin:getSetting 'TRADESKILL'
+    if slot_info.isQuestItem then
+      ---@type QuestLootOptions
+      local options = context.plugin:getSetting 'QUEST'
 
-            return (
-              options.LOOTABLE_SUBTYPES[itemInfo.itemSubTypeId] and
-                itemInfo.quality < options.QUALITY_CAP
-            )
-          --
-          elseif itemInfo.itemTypeId == E_ITEM_CLASS.ARMOR or
-              itemInfo.itemTypeId == E_ITEM_CLASS.WEAPON then
-            if itemInfo.bindType == E_ITEM_BIND.ON_ACQUIRE then
-              --
-              -- Soulbound armor and weapons are looted based on a number of variables.
-              --
-              -- * Gear from the current expansion is only looted if explicitly enabled (default: disabled).
-              -- * When `lootOnlyKnownApperances` is enabled, the item's appearance must be known.
+      return (options.LOOT_ALL or GetNumLootItems() == 1)
+    end
 
-              ---@type GearLootOptions
-              local options = context.plugin:getSetting 'GEAR'
+    -- Poor quality items are looted if they are within the specified minimum and maximum value range.
 
-              if options.ENABLED and UnitLevel 'player' >= options.PLAYER_LEVEL then
-                if options.CURRENT_EXPANSION or itemInfo.expansionId < backbone.currentExpansion then
-                  return (
-                    not options.ONLY_KNOWN or C_TransmogCollection.PlayerHasTransmogByItemInfo(itemInfo.link)
-                  )
-                end
-              end
-            end
-          end
-        end
+    if item_info.quality == E_ITEM_QUALITY.POOR then
+      ---@type JunkLootOptions
+      local options = context.plugin:getSetting 'JUNK'
+
+      return (item_info.sellPrice >= options.MINIMUM_VALUE and item_info.sellPrice <= options.MAXIMUM_VALUE)
+    end
+
+    -- Tradeskill items are looted if their subtype is listed as lootable
+    -- and the item quality is below the set quality cap.
+
+    if item_info.itemTypeId == E_ITEM_CLASS.TRADEGOODS then
+      ---@type TradeskillLootOptions
+      local options = context.plugin:getSetting 'TRADESKILL'
+
+      return (options.LOOTABLE_SUBTYPES[item_info.itemSubTypeId] and item_info.quality < options.QUALITY_CAP)
+    end
+
+    -- Soulbound armor and weapons are looted based on a number of variables.
+    --
+    -- * The player's level must be at or above the specified required level (default: 60).
+    -- * Gear from the current expansion is only looted if explicitly enabled (default: disabled).
+    -- * When `ONLY_KNOWN` is enabled, the item's appearance must be known (default: enabled).
+
+    if item_info.itemTypeId == E_ITEM_CLASS.ARMOR or item_info.itemTypeId == E_ITEM_CLASS.WEAPON then
+      ---@type GearLootOptions
+      local options = context.plugin:getSetting 'GEAR'
+
+      if options.ENABLED and UnitLevel 'player' >= options.PLAYER_LEVEL then
+        return (options.CURRENT_EXPANSION or item_info.expansionId < backbone.currentExpansion)
+            and (not options.ONLY_KNOWN or C_TransmogCollection.PlayerHasTransmogByItemInfo(item_info.link))
       end
     end
 
-    return false -- the item did not match any of the required criteria and should not be looted.
+    return false -- the item did not match any of the required criteria.
   end,
 
   ---@type LootHandler
-  [E_LOOT_SLOT_TYPE.MONEY] = function(slotInfo)
+  [E_LOOT_SLOT_TYPE.MONEY] = function(slot_info)
     --
     -- If enabled, coins are looted when the value is below the set threshold.
 
@@ -97,15 +83,14 @@ local handlers =
 
     if not options.LOOT_COINS then return false end
 
-    local cash = strsplit('\n', slotInfo.name)
+    local cash = strsplit('\n', slot_info.name)
     local amount, value = strsplit(' ', cash)
 
     return (value ~= 'Gold' or tonumber(amount) < options.GOLD_THRESHOLD)
   end,
 
   ---@type LootHandler
-  [E_LOOT_SLOT_TYPE.CURRENCY] = function(slotInfo)
-    --
+  [E_LOOT_SLOT_TYPE.CURRENCY] = function(slot_info)
     -- Currencies are looted if enabled and not listed in the ignore list.
 
     ---@type CurrencyLootOptions
@@ -115,7 +100,7 @@ local handlers =
 
     ---@type LootFilters
     local filters = context.plugin:getSetting 'FILTERS'
-    return not filters.IGNORE[slotInfo.currencyId]
+    return not filters.IGNORE[slot_info.currencyId]
   end
 }
 
@@ -133,33 +118,21 @@ context.plugin:registerEventListener(
 
       local item_count = GetNumLootItems()
       for index = 1, item_count do
-        local slotInfo = backbone.getLootSlotInfo(index)
+        local slot_info = backbone.getLootSlotInfo(index)
   
-        if not slotInfo.isLocked and slotInfo.slotType ~= E_LOOT_SLOT_TYPE.NONE then
-          local item_looted = false
-  
-          if not autoloot then
-            if handlers[slotInfo.slotType](slotInfo) then
-              LootSlot(index) -- the handler determined that the item should be looted.
-              
-              item_looted = true
-            else
-              ---@class LootableSlot
-              local slot = { index = index, info = slotInfo }
-              
-              remaining_slots[#remaining_slots + 1] = slot
-            end
+        if not slot_info.isLocked and slot_info.slotType ~= E_LOOT_SLOT_TYPE.NONE then
+          if autoloot or (not autoloot and handlers[slot_info.slotType](slot_info)) then
+            LootSlot(index) -- either autoloot or determined that the item should be looted.
           else
-            LootSlot(index) -- when using standard autoloot.
-            
-            item_looted = true
-          end
-  
-          if item_looted then
-            -- backbone.invokeChannelListeners('SLOT_LOOTED', index, slotInfo)
+            ---@class LootableSlot
+            local slot = { index = index, info = slot_info }
+              
+            remaining_slots[#remaining_slots + 1] = slot
           end
         end
       end
+
+      -- TODO: implement broadcast of remaining slots.
     end
   }
 )

@@ -6,3 +6,10 @@
 ---@type Frame
 ---
 UIParent = nil
+
+---
+--- ?
+---
+---@type Frame
+---
+LootFrame = nil
