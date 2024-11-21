@@ -19,7 +19,7 @@ context.plugin:registerEventListener(
   'LOOT_OPENED',
   {
     persistent = false,
-    identifier = 'HIDE_LOOT_FRAME',
+    identifier = 'LOOT_FRAME_POSITION',
     
     callback = function()
       frame_position = { LootFrame:GetPoint(E_ANCHOR_POINT.TOPLEFT) }
@@ -57,6 +57,7 @@ context.plugin:registerChannelListener(
       LootFrame:SetPoint(unpack(frame_position))
 
       print 'scavenger: updating the loot frame visually (not implemented)'
+      -- self:SetHeight(self:CalculateElementsHeight());
     end
   }
 )

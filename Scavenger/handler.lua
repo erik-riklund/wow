@@ -6,7 +6,7 @@ local context = select(2, ...)
 ]]
 
 ---
---- ?
+--- Handlers responsible for processing different types of loot slots.
 --- 
 ---@type table<LOOT_SLOT_TYPE, LootHandler>
 ---
