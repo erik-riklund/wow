@@ -10,6 +10,7 @@ library/dictionary.lua
 library/vector.lua
 library/proxy.lua
 
+enums/anchor-point.lua
 enums/item-bind.lua
 enums/item-class.lua
 enums/item-quality.lua
@@ -17,6 +18,7 @@ enums/loot-slot-type.lua
 enums/tradeskill-subtype.lua
 
 components/listenable.lua
+primitives/channel.lua
 
 modules/task-handler.lua
 modules/plugin-manager.lua

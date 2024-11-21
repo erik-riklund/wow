@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-field, undefined-global
+
 ---@class Scavenger
 local context = select(2, ...)
 
@@ -52,12 +54,14 @@ context.plugin:registerChannelListener(
   {
     identifier = 'SHOW_LOOT_FRAME',
 
-    ---@param remaining_slots Vector
-    callback = function(remaining_slots)
-      LootFrame:SetPoint(unpack(frame_position))
+    callback = function()
+      if backbone.hasPlugin 'Spoils' then
+        -- the following line should be enabled once Spoils is working properly.
+        -- return context.plugin:removeChannelListener('LOOT_PROCESSED', 'SHOW_LOOT_FRAME')
+      end
 
-      print 'scavenger: updating the loot frame visually (not implemented)'
-      -- self:SetHeight(self:CalculateElementsHeight());
+      LootFrame:ClearAllPoints()
+      LootFrame:SetPoint(unpack(frame_position))
     end
   }
 )

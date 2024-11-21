@@ -28,7 +28,22 @@ plugin:registerEventListener(
 
     ---@param unit string
     callback = function(unit)
-      print(unit) -- debug!
+      if unit == 'player' and UnitIsAFK 'player' then collectgarbage 'collect' end
+    end
+  }
+)
+
+---
+--- ?
+---
+plugin:registerEventListener(
+  'UNIT_ENTERED_VEHICLE',
+  {
+    identifier = 'UNIT_ENTERED_VEHICLE',
+
+    ---@param unit string
+    callback = function(unit)
+      if unit == 'player' and UnitOnTaxi 'player' then collectgarbage 'collect' end
     end
   }
 )

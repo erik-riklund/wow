@@ -6,6 +6,27 @@ local context = select(2, ...)
 ]]
 
 ---
+--- ?
+---
+---@type number
+---
+local item_count
+
+---
+--- ?
+---
+---@type number
+---
+local slots_cleared
+
+---
+--- ?
+---
+---@type Vector
+---
+local remaining_slots
+
+---
 --- Handlers responsible for processing different types of loot slots.
 --- 
 ---@type table<LOOT_SLOT_TYPE, LootHandler>
@@ -114,9 +135,11 @@ context.plugin:registerEventListener(
 
     ---@param autoloot boolean
     callback = function (autoloot)
-      local remaining_slots = new 'Vector'
+      slots_cleared = 0
+      item_count = GetNumLootItems()
 
-      local item_count = GetNumLootItems()
+      remaining_slots = new 'Vector'
+
       for index = 1, item_count do
         local slot_info = backbone.getLootSlotInfo(index)
   
@@ -132,7 +155,25 @@ context.plugin:registerEventListener(
         end
       end
 
-      if remaining_slots:getSize() > 0 then
+      if remaining_slots:getSize() == item_count then
+        context.plugin:invokeChannelListeners('LOOT_PROCESSED', remaining_slots)
+      end
+    end
+  }
+)
+
+---
+--- ?
+---
+context.plugin:registerEventListener(
+  'LOOT_SLOT_CLEARED',
+  {
+    identifier = 'LOOT_SLOT_CLEARED',
+    callback = function()
+      slots_cleared = slots_cleared + 1
+
+      local remaining_slots_count = remaining_slots:getSize()
+      if remaining_slots_count > 0 and item_count - slots_cleared == remaining_slots_count then
         context.plugin:invokeChannelListeners('LOOT_PROCESSED', remaining_slots)
       end
     end

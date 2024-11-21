@@ -90,3 +90,10 @@ UnitIsAFK = function(unit) end
 ---@type fun(unit: string): level: number
 ---
 UnitLevel = function(unit) end
+
+---
+--- Returns true if the unit is on a flight path.
+---
+---@type fun(unit: string): on_taxi: boolean
+---
+UnitOnTaxi = function(unit) end

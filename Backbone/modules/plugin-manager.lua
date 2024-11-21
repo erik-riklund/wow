@@ -43,3 +43,10 @@ backbone.createPlugin = function(name)
   plugins:setEntry(identifier, plugin)
   return new('Proxy', plugin) --[[@as Plugin]]
 end
+
+---
+--- ?
+---
+---@param name string
+---
+backbone.hasPlugin = function(name) return plugins:hasEntry(string.lower(name)) end
