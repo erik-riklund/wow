@@ -114,7 +114,7 @@ context.plugin:registerEventListener(
 
     ---@param autoloot boolean
     callback = function (autoloot)
-      local remaining_slots = {}
+      local remaining_slots = new 'Vector'
 
       local item_count = GetNumLootItems()
       for index = 1, item_count do
@@ -122,17 +122,19 @@ context.plugin:registerEventListener(
   
         if not slot_info.isLocked and slot_info.slotType ~= E_LOOT_SLOT_TYPE.NONE then
           if autoloot or (not autoloot and handlers[slot_info.slotType](slot_info)) then
-            LootSlot(index) -- either autoloot or determined that the item should be looted.
+            LootSlot(index) -- loot the current slot.
           else
             ---@class LootableSlot
             local slot = { index = index, info = slot_info }
               
-            remaining_slots[#remaining_slots + 1] = slot
+            remaining_slots:insertElement(slot)
           end
         end
       end
 
-      -- TODO: implement broadcast of remaining slots.
+      if remaining_slots:getSize() > 0 then
+        context.plugin:invokeChannelListeners('LOOT_PROCESSED', remaining_slots)
+      end
     end
   }
 )

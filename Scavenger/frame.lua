@@ -8,9 +8,24 @@ local context = select(2, ...)
 ---
 --- ?
 --- 
----@type table?
+---@type table
 ---
-local frame_position = nil
+local frame_position
+
+---
+--- ?
+---
+context.plugin:registerEventListener(
+  'LOOT_OPENED',
+  {
+    persistent = false,
+    identifier = 'HIDE_LOOT_FRAME',
+    
+    callback = function()
+      frame_position = { LootFrame:GetPoint(E_ANCHOR_POINT.TOPLEFT) }
+    end
+  }
+)
 
 ---
 --- ?
@@ -21,7 +36,10 @@ context.plugin:registerEventListener(
     identifier = 'HIDE_LOOT_FRAME',
 
     callback = function()
-      print 'scavenger: hiding the loot frame (not implemented)'
+      LootFrame:ClearAllPoints()
+      LootFrame:SetClampedToScreen(false)
+
+      LootFrame:SetPoint('TOPLEFT', UIParent, 'TOPRIGHT', 20, 0)
     end
   }
 )
@@ -29,4 +47,16 @@ context.plugin:registerEventListener(
 ---
 --- ?
 ---
+context.plugin:registerChannelListener(
+  'LOOT_PROCESSED',
+  {
+    identifier = 'SHOW_LOOT_FRAME',
 
+    ---@param remaining_slots Vector
+    callback = function(remaining_slots)
+      LootFrame:SetPoint(unpack(frame_position))
+
+      print 'scavenger: updating the loot frame visually (not implemented)'
+    end
+  }
+)

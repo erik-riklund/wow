@@ -13,6 +13,11 @@ context.plugin = backbone.createPlugin 'Scavenger'
 ---
 --- ?
 ---
+context.plugin:createChannel 'LOOT_PROCESSED'
+
+---
+--- ?
+---
 context.plugin:registerDefaultSettings(
   new('Dictionary',
   {
