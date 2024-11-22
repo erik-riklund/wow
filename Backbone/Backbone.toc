@@ -2,7 +2,7 @@
 ## Interface: 110002
 
 ## Title: Backbone (framework)
-## Notes: ?
+## Notes: A framework that simplifies addon development with an intuitive API for interacting with game systems.
 
 core.lua
 

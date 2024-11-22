@@ -3,7 +3,9 @@
 **Version 1.0**
 
 ## Preamble
-This license applies to the Backbone framework (the "Software"). By using, modifying, or distributing the Software, you agree to the terms and conditions outlined in this license. If you do not agree, you must not use, modify, or distribute the Software.
+This license applies to the Backbone framework (the "Software"). By using, modifying, or distributing the
+Software, you agree to the terms and conditions outlined in this license. If you do not agree, you must not
+use, modify, or distribute the Software.
 
 ---
 
@@ -16,6 +18,7 @@ Subject to the conditions of this license, you are granted the following rights:
    - You include this license in all copies or substantial portions of the Software.
    - You clearly indicate any changes you have made to the Software.
    - The distributed copies and modifications are also non-commercial.
+   - The redistributed Software, including any modifications, must remain open source.
 
 ---
 
@@ -29,7 +32,10 @@ You may **not**:
 ---
 
 ## 3. Warranty Disclaimer
-The Software is provided "as is," without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+The Software is provided "as is," without warranty of any kind, express or implied, including but not limited to the
+warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the authors or
+copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort,
+or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software.
 
 ---
 
