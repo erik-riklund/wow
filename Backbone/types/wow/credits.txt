@@ -1,0 +1,2 @@
+The type annotations are borrowed from Ketho's WoW API extension:
+https://github.com/Ketho/vscode-wow-api
