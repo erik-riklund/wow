@@ -1,3 +1,5 @@
+---@diagnostic disable: duplicate-doc-alias, duplicate-doc-field
+
 ---@meta _
 --- added: gcinfo
 --- edited: xpcall (lua 5.2), getfenv

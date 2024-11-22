@@ -20,7 +20,7 @@ context.frame:RegisterEvent 'ADDON_LOADED'
 ---
 context.frame:HookScript(
   'OnEvent',
-  ---@param event EventName
+  ---@param event WowEvent
   ---@param ... unknown
   function(_, event, ...)
     local arguments = new('Vector', { ... })
@@ -69,7 +69,7 @@ end
 ---
 --- ?
 ---
----@param event EventName
+---@param event WowEvent
 ---@param listener Listener
 ---
 events_api.registerEventListener = function(self, event, listener)
@@ -88,7 +88,7 @@ end
 ---
 --- ?
 ---
----@param event EventName
+---@param event WowEvent
 ---@param identifier string
 ---
 events_api.removeEventListener = function(self, event, identifier)

@@ -1,3 +1,5 @@
+---@diagnostic disable: duplicate-doc-field
+
 ---@meta math_wow
 --- added: fastrandom
 --- removed: math.randomseed, math.tointeger, math.type, math.ult
