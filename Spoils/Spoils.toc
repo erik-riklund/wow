@@ -1,7 +1,0 @@
-## Version: 1.0
-## Interface: 110002
-## Dependencies: Backbone, BackboneTemplates
-## OptionalDeps: Scavenger
-## Title: Spoils (Backbone plugin)
-
-plugin.lua

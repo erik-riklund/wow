@@ -20,24 +20,13 @@ local frame_position
 context.plugin:registerEventListener(
   'LOOT_OPENED',
   {
-    persistent = false,
-    identifier = 'LOOT_FRAME_POSITION',
-    
-    callback = function()
-      frame_position = { LootFrame:GetPoint(E_ANCHOR_POINT.TOPLEFT) }
-    end
-  }
-)
-
----
---- ?
----
-context.plugin:registerEventListener(
-  'LOOT_OPENED',
-  {
     identifier = 'HIDE_LOOT_FRAME',
 
     callback = function()
+      frame_position = {
+        LootFrame:GetPoint(E_ANCHOR_POINT.TOPLEFT)
+      }
+
       LootFrame:ClearAllPoints()
       LootFrame:SetClampedToScreen(false)
 
@@ -55,8 +44,8 @@ context.plugin:registerChannelListener(
     identifier = 'SHOW_LOOT_FRAME',
 
     callback = function()
-      if backbone.hasPlugin 'Spoils' then
-        -- the following line should be enabled once Spoils is working properly.
+      if backbone.hasPlugin 'Slate_LootFrame' then
+        -- the following line should be enabled once Slate_LootFrame is working properly.
         -- return context.plugin:removeChannelListener('LOOT_PROCESSED', 'SHOW_LOOT_FRAME')
       end
 

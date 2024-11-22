@@ -1,0 +1,7 @@
+## Version: 1.0
+## Interface: 110002
+## Dependencies: Backbone, Slate_Templates
+## OptionalDeps: Scavenger
+## Title: Loot frame (Slate component)
+
+plugin.lua
