@@ -8,4 +8,4 @@ local context = select(2, ...)
 ---
 --- ?
 ---
-context.plugin = backbone.createPlugin 'Slate_LootFrame'
+context.backend = backbone.createPlugin 'Slate_LootFrame'
