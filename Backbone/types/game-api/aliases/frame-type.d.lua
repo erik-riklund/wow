@@ -1,5 +1,0 @@
----@meta
-
----
----@alias FrameType 'Frame'
----

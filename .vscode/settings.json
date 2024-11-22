@@ -40,5 +40,21 @@
     },
   ],
   "Lua.runtime.version": "Lua 5.1",
-  "stylua.targetReleaseVersion": "latest"
+  "Lua.diagnostics.globals": [
+    "MainMenuBarBackpackButton",
+    "CharacterReagentBag0Slot",
+    "FrameUtil",
+    "UISpecialFrames",
+    "BankFrame",
+    "CallErrorHandler",
+    "ContainerFrameCombinedBags",
+    "CopyTable",
+    "TokenFramePopup",
+    "SetCVarBitfield",
+    "LE_FRAME_TUTORIAL_HUD_REVAMP_BAG_CHANGES",
+    "LE_FRAME_TUTORIAL_BAG_SLOTS_AUTHENTICATOR",
+    "LE_FRAME_TUTORIAL_MOUNT_EQUIPMENT_SLOT_FRAME",
+    "LE_FRAME_TUTORIAL_UPGRADEABLE_ITEM_IN_SLOT",
+    "BackpackTokenFrame"
+  ]
 }
