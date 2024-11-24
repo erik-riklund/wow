@@ -44,10 +44,7 @@ context.plugin:registerChannelListener(
     identifier = 'SHOW_LOOT_FRAME',
 
     callback = function()
-      if backbone.hasPlugin 'Slate_LootFrame' then
-        -- the following line should be enabled once Slate_LootFrame is working properly.
-        -- return context.plugin:removeChannelListener('LOOT_PROCESSED', 'SHOW_LOOT_FRAME')
-      end
+      -- Is it possible to modify the loot frame to hide looted slots?
 
       LootFrame:ClearAllPoints()
       LootFrame:SetPoint(unpack(frame_position))

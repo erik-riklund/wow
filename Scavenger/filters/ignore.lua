@@ -14,15 +14,11 @@ context.ignore = {
   ['7392']  = true, -- Green Whelp Scale
   ['12809'] = true, -- Guardian Stone
   ['4235']  = true, -- Heavy Hide
-  ['14227'] = true, -- Ironweb Spider Silk
   ['783']   = true, -- Light Hide
   ['4232']  = true, -- Medium Hide
   ['8171']  = true, -- Rugged Hide
-  ['10285'] = true, -- Shadow Silk
-  ['3182']  = true, -- Spider's Silk
   ['8169']  = true, -- Thick Hide
   ['5785']  = true, -- Thick Murloc Scale
-  ['4337']  = true, -- Thick Spider's Silk
   ['15419'] = true, -- Warbear Leather
 
   --
@@ -43,11 +39,6 @@ context.ignore = {
   ['124444'] = true, -- Infernal Brimstone
 
   --
-  -- Shadowlands
-
-  ['173204'] = true, -- Lightless Silk
-
-  --
   -- Dragonflight
 
   ['193258'] = true, -- Fire-Infused Hide
@@ -56,7 +47,6 @@ context.ignore = {
   ['193254'] = true, -- Rockfang Leather
   ['193252'] = true, -- Salamanther Scales
   ['201405'] = true, -- Tuft of Primal Wool
-  ['193922'] = true, -- Wildercloth
   ['193256'] = true, -- Windsong Plumage
 
   --

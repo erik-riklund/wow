@@ -36,9 +36,10 @@ context.plugin:registerDefaultSettings(
       QUALITY_CAP = E_ITEM_QUALITY.RARE,
 
       -- Determines the tradeskill item subtypes that should be looted.
-      LOOTABLE_SUBTYPES = {
-        [E_TRADESKILL_SUBTYPE.CLOTH]           = true,
-        [E_TRADESKILL_SUBTYPE.COOKING]         = true,
+      LOOTABLE_SUBTYPES =
+      {
+        -- [E_TRADESKILL_SUBTYPE.CLOTH]           = true,
+        -- [E_TRADESKILL_SUBTYPE.COOKING]         = true,
         [E_TRADESKILL_SUBTYPE.ENCHANTING]      = true,
         [E_TRADESKILL_SUBTYPE.HERB]            = true,
         [E_TRADESKILL_SUBTYPE.INSCRIPTION]     = true,

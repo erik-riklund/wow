@@ -8,8 +8,6 @@
 local listenable = {}
 
 ---
---- ?
----
 ---@protected
 ---@type Vector
 ---

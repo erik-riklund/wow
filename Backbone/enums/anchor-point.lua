@@ -9,13 +9,13 @@
 ---
 E_ANCHOR_POINT =
 {
-  TOPLEFT     = 1,
-  TOPRIGHT    = 2,
-  BOTTOMLEFT  = 3,
+      TOPLEFT = 1,
+     TOPRIGHT = 2,
+   BOTTOMLEFT = 3,
   BOTTOMRIGHT = 4,
-  TOP         = 5,
-  BOTTOM      = 6,
-  LEFT        = 7,
-  RIGHT       = 8,
-  CENTER      = 9
+          TOP = 5,
+       BOTTOM = 6,
+         LEFT = 7,
+        RIGHT = 8,
+       CENTER = 9
 }

@@ -9,12 +9,12 @@
 ---
 E_ITEM_BIND =
 {
-  NONE          = 0,
-  ON_ACQUIRE    = 1,
-  ON_EQUIP      = 2,
-  ON_USE        = 3,
-  QUEST         = 4,
-  ACCOUNT       = 7,
-  WARBAND       = 8,
-  WARBAND_EQUIP = 9
+              NONE = Enum.ItemBind.None,
+        ON_ACQUIRE = Enum.ItemBind.OnAcquire,
+          ON_EQUIP = Enum.ItemBind.OnEquip,
+            ON_USE = Enum.ItemBind.OnUse,
+             QUEST = Enum.ItemBind.Quest,
+           ACCOUNT = Enum.ItemBind.ToWoWAccount,
+           WARBAND = Enum.ItemBind.ToBnetAccount,
+  WARBAND_EQUIPPED = Enum.ItemBind.ToBnetAccountUntilEquipped
 }

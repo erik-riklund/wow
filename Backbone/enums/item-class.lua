@@ -9,17 +9,18 @@
 ---
 E_ITEM_CLASS = 
 {
-  CONSUMABLE = 0,
-  CONTAINER  = 1,
-  WEAPON     = 2,
-  ARMOR      = 4,
-  REAGENT    = 5,
-  PROJECTILE = 6,
-  TRADEGOODS = 7,
-  RECIPE     = 9,
-  QUIVER     = 11,
-  QUEST      = 12,
-  KEY        = 13,
-  MISC       = 15,
-  WOW_TOKEN  = 18
+  CONSUMABLE = Enum.ItemClass.Consumable,
+  CONTAINER  = Enum.ItemClass.Container,
+      WEAPON = Enum.ItemClass.Weapon,
+       ARMOR = Enum.ItemClass.Armor,
+     REAGENT = Enum.ItemClass.Reagent,
+  PROJECTILE = Enum.ItemClass.Projectile,
+  TRADEGOODS = Enum.ItemClass.Tradegoods,
+      RECIPE = Enum.ItemClass.Recipe,
+      QUIVER = Enum.ItemClass.Quiver,
+       QUEST = Enum.ItemClass.Questitem,
+         KEY = Enum.ItemClass.Key,
+        MISC = Enum.ItemClass.Miscellaneous,
+   BATTLEPET = Enum.ItemClass.Battlepet,
+   WOW_TOKEN = Enum.ItemClass.WoWToken
 }

@@ -1,9 +1,0 @@
-## Version: 1.0
-## Interface: 110002
-## Dependencies: Slate, Slate_Templates
-## OptionalDeps: Scavenger
-
-## Title: Loot frame (Slate component)
-## Notes: ?
-
-initialize.lua
