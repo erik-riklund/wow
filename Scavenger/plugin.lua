@@ -38,8 +38,8 @@ context.plugin:registerDefaultSettings(
       -- Determines the tradeskill item subtypes that should be looted.
       LOOTABLE_SUBTYPES =
       {
-        -- [E_TRADESKILL_SUBTYPE.CLOTH]           = true,
-        -- [E_TRADESKILL_SUBTYPE.COOKING]         = true,
+        --[E_TRADESKILL_SUBTYPE.CLOTH]           = true,
+        --[E_TRADESKILL_SUBTYPE.COOKING]         = true,
         [E_TRADESKILL_SUBTYPE.ENCHANTING]      = true,
         [E_TRADESKILL_SUBTYPE.HERB]            = true,
         [E_TRADESKILL_SUBTYPE.INSCRIPTION]     = true,

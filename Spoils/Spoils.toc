@@ -1,0 +1,7 @@
+## Version: 1.0
+## Interface: 110002
+## Dependencies: Backbone, Backbone_Templates
+## OptionalDeps: Scavenger
+
+## Title: Spoils (Backbone plugin)
+## Notes: ?
