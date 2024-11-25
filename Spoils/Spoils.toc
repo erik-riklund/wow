@@ -3,5 +3,8 @@
 ## RequiredDeps: Backbone, Backbone_Templates
 ## OptionalDeps: Scavenger
 
+## LoadOnDemand: 1
+## X-Load-OnEvent: LOOT_READY
+
 ## Title: Spoils (Backbone plugin)
 ## Notes: ?

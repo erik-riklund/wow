@@ -2,7 +2,7 @@
 local context = select(2, ...)
 
 --[[~ ? (?) ~
-  Updated: ? | Author(s): Erik Riklund (Gopher)
+  Updated: 2024/11/25 | Author(s): Erik Riklund (Gopher)
 ]]
 
 ---
@@ -13,9 +13,9 @@ _G.backbone = {}
 ---
 --- ?
 ---
-backbone.currentExpansion = GetExpansionLevel()
+context.frame = CreateFrame('Frame')
 
 ---
 --- ?
 ---
-context.frame = CreateFrame('Frame')
+backbone.currentExpansion = GetExpansionLevel()
