@@ -4,7 +4,7 @@
 ---
 --- ?
 ---
-local plugin = backbone.createPlugin 'BackboneGarbageCollector'
+local plugin = backbone.createPlugin 'Backbone_GarbageCollector'
 
 ---
 --- ?

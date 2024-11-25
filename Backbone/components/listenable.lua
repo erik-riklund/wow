@@ -15,7 +15,7 @@ listenable.listeners = nil
 ---
 --- ?
 ---
-listenable.getListenerCount = function(self)
+listenable.getListenerCount = function (self)
   return self.listeners:getSize()
 end
 
@@ -24,7 +24,7 @@ end
 ---
 ---@param listener Listener
 ---
-listenable.registerListener = function(self, listener)
+listenable.registerListener = function (self, listener)
   self.listeners:insertElement(listener)
 end
 
@@ -33,7 +33,7 @@ end
 ---
 ---@param identifier string
 ---
-listenable.removeListener = function(self, identifier)
+listenable.removeListener = function (self, identifier)
   for index, listener in self.listeners:getIterator() do
     ---@cast listener Listener
     if listener.identifier == identifier then
@@ -50,12 +50,12 @@ end
 ---@param arguments? Vector
 ---@param async? boolean
 ---
-listenable.invokeListeners = function(self, arguments, async)
+listenable.invokeListeners = function (self, arguments, async)
   local nonpersistent_listeners = new 'Vector'
   local execute = (async == false and backbone.executeTask) or backbone.executeTaskAsync
 
   self.listeners:forEach(
-    function(index, listener)
+    function (index, listener)
       ---@cast listener Listener
       
       execute {
@@ -81,6 +81,6 @@ local prototype = { __index = listenable }
 ---
 --- ?
 ---
-Listenable = function()
+Listenable = function ()
   return setmetatable({ listeners = new 'Vector' }, prototype)
 end
