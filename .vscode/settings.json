@@ -6,6 +6,7 @@
     "Baganator/**": true,
     "Blizz*/**": true,
     "Details*/**": true,
+    "DialogueUI/**": true,
     "EasyDelete/**": true,
     "ElvUI*/**": true,
     "GatherMate2/**": true,

@@ -1,5 +1,5 @@
 
---[[~ Updated: 2024/11/21 | Author(s): Erik Riklund (Gopher) ]]
+--[[~ Updated: 2024/11/21 | Author(s): Gopher ]]
 
 ---
 --- ?

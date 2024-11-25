@@ -1,5 +1,5 @@
 
---[[~ Updated: 2024/11/25 | Author(s): Erik Riklund (Gopher) ]]
+--[[~ Updated: 2024/11/25 | Author(s): Gopher ]]
 
 ---
 --- Throws a formatted error message.
