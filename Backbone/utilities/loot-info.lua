@@ -1,6 +1,5 @@
---[[~ ? (?) ~
-  Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher)
-]]
+
+--[[~ Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher) ]]
 
 ---
 --- Retrieves detailed information about a specific loot slot,

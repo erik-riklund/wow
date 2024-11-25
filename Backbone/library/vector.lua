@@ -1,6 +1,5 @@
---[[~ Vector (data structure) ~
-  Updated: 2024/11/18 | Author(s): Erik Riklund (Gopher)
-]]
+
+--[[~ Updated: 2024/11/18 | Author(s): Erik Riklund (Gopher) ]]
 
 ---
 ---@class Vector

@@ -3,9 +3,7 @@
 ---@class Scavenger
 local context = select(2, ...)
 
---[[~ Loot frame integration (module) ~
-  Updated: 2024/11/21 | Author(s): Erik Riklund (Gopher)
-]]
+--[[~ Updated: 2024/11/21 | Author(s): Erik Riklund (Gopher) ]]
 
 ---
 --- ?

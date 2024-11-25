@@ -2,13 +2,7 @@
   "header":
   {
     "prefix": "!header",
-    "body": [
-      "--[[~ ${1:?} (${2:?}) ~",
-      "  Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE | Author(s): Erik Riklund (Gopher)",
-      "]]",
-      "",
-      ""
-    ]
+    "body": "--[[~ Updated: $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE | Author(s): Erik Riklund (Gopher) ]]"
   },
 
   "context": {

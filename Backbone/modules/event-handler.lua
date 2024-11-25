@@ -1,9 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Event handler (module) ~
-  Updated: 2024/11/19 | Author(s): Erik Riklund (Gopher)
-]]
+--[[~ Updated: 2024/11/19 | Author(s): Erik Riklund (Gopher) ]]
 
 ---
 --- ?

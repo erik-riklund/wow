@@ -2,6 +2,9 @@
 ## Interface: 110002
 ## RequiredDeps: Backbone
 
+## LoadOnDemand: 1
+## X-Load-OnEvent: LOOT_READY
+
 ## Title: Scavenger (Backbone plugin)
 ## Notes: ?
 

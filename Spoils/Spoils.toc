@@ -4,7 +4,7 @@
 ## OptionalDeps: Scavenger
 
 ## LoadOnDemand: 1
-## X-Load-OnEvent: LOOT_READY
+## X-Load-OnEvent: LOOT_OPENED
 
 ## Title: Spoils (Backbone plugin)
 ## Notes: ?

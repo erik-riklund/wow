@@ -1,9 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Configuration handler (module) ~
-  Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher)
-]]
+--[[~ Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher) ]]
 
 local config_prefix = '__config/'
 

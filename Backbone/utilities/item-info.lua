@@ -1,6 +1,5 @@
---[[~ ? (utilities) ~
-  Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher)
-]]
+
+--[[~ Updated: 2024/11/20 | Author(s): Erik Riklund (Gopher) ]]
 
 ---
 --- Returns the item ID from the provided item link.
