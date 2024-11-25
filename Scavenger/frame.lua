@@ -44,7 +44,10 @@ context.plugin:registerChannelListener(
     identifier = 'SHOW_LOOT_FRAME',
 
     callback = function()
-      -- Is it possible to modify the loot frame to hide looted slots?
+      if backbone.hasPlugin 'Spoils' then
+        print 'Spoils is not completed, uncomment this section when it is.'
+        -- context.plugin:removeChannelListener('LOOT_PROCESSED', 'SHOW_LOOT_FRAME')
+      end
 
       LootFrame:ClearAllPoints()
       LootFrame:SetPoint(unpack(frame_position))

@@ -1,6 +1,6 @@
 ## Version: 1.0
 ## Interface: 110002
-## Dependencies: Backbone
+## RequiredDeps: Backbone
 
 ## Title: Scavenger (Backbone plugin)
 ## Notes: ?
