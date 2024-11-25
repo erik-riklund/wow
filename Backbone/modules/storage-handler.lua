@@ -111,7 +111,7 @@ context.registerPluginExtension(
         local plugin_storage = new 'Dictionary'
 
         for _, scope in ipairs { 'account', 'character' } do
-          local variable = string.format('%s_storage_%s', plugin:getIdentifier(), scope)
+          local variable = string.format('%s_%s_storage', plugin:getIdentifier(), scope)
 
           _G[variable] = (type(_G[variable]) == 'table' and _G[variable]) or {}
           plugin_storage:setEntry(scope, new('Dictionary', _G[variable]))

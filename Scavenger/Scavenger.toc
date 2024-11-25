@@ -8,7 +8,7 @@
 ## Title: Scavenger (Backbone plugin)
 ## Notes: ?
 
-# SavedVariables: scavenger_storage_account
+# SavedVariables: scavenger_account_storage
 
 filters/ignore.lua
 filters/loot.lua
