@@ -21,30 +21,39 @@ B_Item.getID = function (link) return link:match 'item:(%d+)' end
 ---
 B_Item.getInfo = function (item)
   ---@class ItemData
-  local itemInfo = {}
+  local info = {}
 
-  itemInfo.name,
-  itemInfo.link,
-  itemInfo.quality,
-  itemInfo.baseItemLevel,
-  itemInfo.requiredPlayerLevel,
-  itemInfo.itemType,
-  itemInfo.itemSubType,
-  itemInfo.stackCount,
-  itemInfo.equipLocation,
-  itemInfo.texture,
-  itemInfo.sellPrice,
-  itemInfo.itemTypeId,
-  itemInfo.itemSubTypeId,
-  itemInfo.bindType,
-  itemInfo.expansionId,
-  itemInfo.setId,
-  itemInfo.isCraftingReagent = C_Item.GetItemInfo (item)
+  info.name,
+  info.link,
+  info.quality,
+  info.base_ilevel,
+  info.required_player_level,
+  info.localized_type,
+  info.localized_subtype,
+  info.stack_count,
+  info.equip_location,
+  info.texture_id,
+  info.sell_price,
+  info.type_id,
+  info.subtype_id,
+  info.bind_type,
+  info.expansion_id,
+  info.set_id,
+  info.crafting_reagent = C_Item.GetItemInfo (item)
 
-  if itemInfo.link ~= nil then
-    itemInfo.id = B_Item.getID (itemInfo.link)
-    itemInfo.itemLevel = C_Item.GetDetailedItemLevelInfo (itemInfo.link)
+  if info.link ~= nil then
+    info.id = B_Item.getID (info.link)
+    info.ilevel = B_Item.getLevel (info.link)
   end
 
-  return itemInfo
+  return info
+end
+
+---
+--- ?
+---
+---@param info ItemInfo
+---
+B_Item.getLevel = function (info)
+  return C_Item.GetDetailedItemLevelInfo (info)
 end
