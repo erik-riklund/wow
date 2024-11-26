@@ -5,6 +5,8 @@ local context = select(2, ...)
 
 context.plugin:onLoad(
   function ()
-    print 'Hello world'
+    local addon_count = C_AddOns.GetNumAddOns ()
+
+    
   end
 )
