@@ -4,4 +4,11 @@
 ---
 --- ?
 ---
-_G.UnitHandler = {}
+_G.B_Unit = {}
+
+---
+--- ?
+---
+---@param unit UnitToken
+---
+B_Unit.isAFK = function (unit) return UnitIsAFK (unit) end

@@ -6,14 +6,11 @@ local context = select(2, ...)
 ---
 --- ?
 ---
-_G.backbone = {}
+---@type Frame
+---
+context.frame = B_Widget.createFrame ('Frame')
 
 ---
 --- ?
 ---
-context.frame = CreateFrame('Frame')
-
----
---- ?
----
-backbone.currentExpansion = GetExpansionLevel()
+backbone.currentExpansion = System.getExpansion ()

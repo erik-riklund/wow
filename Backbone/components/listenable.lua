@@ -16,7 +16,7 @@ listenable.listeners = nil
 --- ?
 ---
 listenable.getListenerCount = function (self)
-  return self.listeners:getSize()
+  return self.listeners:getSize ()
 end
 
 ---
@@ -25,7 +25,7 @@ end
 ---@param listener Listener
 ---
 listenable.registerListener = function (self, listener)
-  self.listeners:insertElement(listener)
+  self.listeners:insertElement (listener)
 end
 
 ---
@@ -34,10 +34,10 @@ end
 ---@param identifier string
 ---
 listenable.removeListener = function (self, identifier)
-  for index, listener in self.listeners:getIterator() do
+  for index, listener in self.listeners:getIterator () do
     ---@cast listener Listener
     if listener.identifier == identifier then
-      self.listeners:removeElement(index)
+      self.listeners:removeElement (index)
 
       return -- halt execution once the listener is removed.
     end
@@ -63,13 +63,13 @@ listenable.invokeListeners = function (self, arguments, async)
       }
 
       if listener.persistent == false then
-        nonpersistent_listeners:insertElement(index)
+        nonpersistent_listeners:insertElement (index)
       end
     end
   )
 
   for i = nonpersistent_listeners:getSize(), 1, -1 do
-    self.listeners:removeElement(nonpersistent_listeners:getElement(i))
+    self.listeners:removeElement (nonpersistent_listeners:getElement (i))
   end
 end
 
@@ -82,5 +82,5 @@ local prototype = { __index = listenable }
 --- ?
 ---
 Listenable = function ()
-  return setmetatable({ listeners = new 'Vector' }, prototype)
+  return setmetatable ({ listeners = new 'Vector' }, prototype)
 end

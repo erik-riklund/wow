@@ -9,10 +9,10 @@ local context = select(2, ...)
 local channels = new 'Dictionary'
 
 ---
----
+--- ?
 ---
 local getNormalizedChannelName =
-  function(name) return string.upper(name) end
+  function (name) return string.upper (name) end
 
 ---
 --- ?
@@ -21,14 +21,14 @@ local getNormalizedChannelName =
 ---@param plugin Plugin
 ---@return Channel
 ---
-local getChannel = function(name, plugin)
-  local normalized_name = getNormalizedChannelName(name)
+local getChannel = function (name, plugin)
+  local normalized_name = getNormalizedChannelName (name)
 
-  if not channels:hasEntry(normalized_name) then
-    new('Error', 'Unknown channel "%s" (%s)', normalized_name, plugin:getIdentifier())
+  if not channels:hasEntry (normalized_name) then
+    new ('Error', 'Unknown channel "%s" (%s)', normalized_name, plugin:getIdentifier ())
   end
 
-  return channels:getEntry(normalized_name)
+  return channels:getEntry (normalized_name)
 end
 
 ---
@@ -42,14 +42,15 @@ local network_api = {}
 ---@param name string
 ---@param options? ChannelOptions
 ---
-network_api.createChannel = function(self, name, options)
-  local normalized_name = getNormalizedChannelName(name)
+network_api.createChannel = function (self, name, options)
+  local normalized_name = getNormalizedChannelName (name)
   
-  if channels:hasEntry(normalized_name) then
-    new('Error', 'Channel creation failed, duplicate name "%s" (%s)', normalized_name, self:getIdentifier())
+  if channels:hasEntry (normalized_name) then
+    new ('Error', 'Channel creation failed, duplicate name "%s" (%s)',
+      normalized_name, self:getIdentifier ())
   end
 
-  channels:setEntry(normalized_name, new('Channel', self, normalized_name, options))
+  channels:setEntry (normalized_name, new ('Channel', self, normalized_name, options))
 end
 
 ---

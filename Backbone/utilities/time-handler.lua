@@ -4,9 +4,9 @@
 ---
 --- ?
 ---
-_G.TimeHandler = {}
+_G.B_Time = {}
 
 ---
 --- ?
 ---
-TimeHandler.getTime = function () return GetTime () end
+B_Time.now = function () return GetTime () end

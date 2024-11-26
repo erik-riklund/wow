@@ -13,12 +13,12 @@ local queued_tasks = new 'Vector'
 ---
 ---@param task Task
 ---
-backbone.executeTask = function(task)
+backbone.executeTask = function (task)
   local success, result = pcall(
-    task.callback, (task.arguments and task.arguments:unpackElements()) or nil
+    task.callback, (task.arguments and task.arguments:unpackElements ()) or nil
   )
 
-  if not success then print(result) end -- TODO: implement better error handling!
+  if not success then print (result) end -- TODO: implement better error handling!
 end
 
 ---
@@ -26,30 +26,38 @@ end
 ---
 ---@param task Task
 ---
-backbone.executeTaskAsync = function(task) queued_tasks:insertElement(task) end
+backbone.executeTaskAsync = function (task)
+  queued_tasks:insertElement (task)
+end
 
 ---
 --- ?
 ---
-local task_process = coroutine.create(function()
-  local time_limit = 0.01667 -- maintain 60 FPS
+local task_process = coroutine.create(
+  function()
+    local time_limit = 0.01667 -- maintain 60 FPS
 
-  while true do
-    local time_started = GetTime()
+    while true do
+      local time_started = B_Time.now ()
 
-    while queued_tasks:getSize() > 0 and (GetTime() - time_started <= time_limit) do
-      backbone.executeTask(queued_tasks:removeElement(1) --[[@as Task]])
+      while queued_tasks:getSize () > 0 and (B_Time.now () - time_started <= time_limit) do
+        backbone.executeTask (queued_tasks:removeElement (1) --[[@as Task]])
+      end
+
+      coroutine.yield ()
     end
-
-    coroutine.yield()
   end
-end)
+)
 
 ---
 --- ?
 ---
-context.frame:HookScript('OnUpdate', function()
-  if queued_tasks:getSize() > 0 then
-    if coroutine.status(task_process) == 'suspended' then coroutine.resume(task_process) end
+context.frame:HookScript('OnUpdate',
+  function()
+    if queued_tasks:getSize () > 0 then
+      if coroutine.status(task_process) == 'suspended' then
+        coroutine.resume(task_process)
+      end
+    end
   end
-end)
+)

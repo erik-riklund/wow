@@ -4,7 +4,7 @@
 ## Title: Backbone (framework)
 ## Notes: A framework that simplifies addon development with an intuitive API for interacting with game systems.
 
-core.lua
+initialize.lua
 
 library/object-factory.lua
 library/error.lua
@@ -19,8 +19,16 @@ enums/item-quality.lua
 enums/loot-slot-type.lua
 enums/tradeskill-subtype.lua
 
+utilities/item-handler.lua
+utilities/loot-handler.lua
+utilities/time-handler.lua
+utilities/unit-handler.lua
+utilities/widget-handler.lua
+
 components/listenable.lua
 primitives/channel.lua
+
+core.lua
 
 modules/task-handler.lua
 modules/plugin-manager.lua
@@ -29,8 +37,5 @@ modules/event-handler.lua
 modules/channel-manager.lua
 modules/storage-handler.lua
 modules/config-handler.lua
-
-utilities/item-info.lua
-utilities/loot-info.lua
 
 plugins/garbage-collector.lua
