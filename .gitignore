@@ -2,7 +2,8 @@
 *.min.lua
 *.zip
 *.png
-!.vscode/
+
+!.vscode/backbone.code-snippets
 
 !Backbone/
 !Backbone_*/
