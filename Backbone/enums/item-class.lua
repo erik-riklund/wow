@@ -1,13 +1,8 @@
----@diagnostic disable: undefined-global
+
 --[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
 
----
---- ?
----
 ---@enum ITEM_CLASS
----
-ENUM_ITEM_CLASS = 
-{
+ENUM_ITEM_CLASS = {
   CONSUMABLE = Enum.ItemClass.Consumable,
   CONTAINER  = Enum.ItemClass.Container,
       WEAPON = Enum.ItemClass.Weapon,

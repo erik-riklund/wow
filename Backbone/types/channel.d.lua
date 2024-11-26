@@ -2,38 +2,15 @@
 
 ---
 ---@class Channel : ChannelOptions, Listenable
----
-local channel = {}
+---Represents a communication channel that allows plugins to manage and notify listeners.
+---* Inherits from `ChannelOptions` and `Listenable`.
+local channel =
+{
+  ---@type Plugin
+  ---The plugin that owns this channel.
+  owner = nil,
 
----
---- ?
----
----@type Plugin
----
-channel.owner = nil
-
----
---- ?
---- 
----@type string
----
-channel.name = nil
-
----
----@class ChannelOptions
----
-local channel_options = {}
-
----
---- ?
----
----@type boolean?
----
-channel_options.internal = nil
-
----
---- ?
----
----@type boolean?
----
-channel_options.async = nil
+  ---@type string
+  ---The unique name of the channel.
+  name = nil
+}

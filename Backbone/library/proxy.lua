@@ -1,26 +1,17 @@
 
 --[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
 
----
---- ?
----
-local blockModification = function()
-  error('Attempt to modify an immutable proxy', 3) --
-end
+---Prevents modifications to an immutable proxy.
+---* Called when a write operation is attempted on a proxy.
+local block_change = function() error ('Attempt to modify an immutable proxy', 3) end
 
----
---- ?
----
 ---@param source table
----
-Proxy = function(source)
-  local returnValue = function(_, key)
-    if type(source[key]) == 'table' then
-      return new('Proxy', source[key]) --
-    end
-
-    return source[key]
+---Creates a read-only proxy for a source table.
+---* Accessing nested tables automatically creates proxies for them.
+Proxy = function (source)
+  local access_value = function (_, key)
+    return type (source[key]) == 'table' and new ('Proxy', source[key]) or source[key]
   end
 
-  return setmetatable({}, { __index = returnValue, __newindex = blockModification })
+  return setmetatable ({}, { __index = access_value, __newindex = block_change })
 end

@@ -1,24 +1,18 @@
 
 --[[~ Updated: 2024/11/26 | Author(s): Gopher ]]
 
----
---- ?
----
+---A utility module for interacting with item data in the game.
 B_Item = {}
 
----
---- Returns the item ID from the provided item link.
----
----@param link string
----@return number
----
+---@param link string The item link string.
+---@return number item_id The extracted item ID.
+--- Extracts the item ID from an item link.
 B_Item.getID = function (link) return link:match 'item:(%d+)' end
 
----
+---@param item number|string The item ID or link.
+---@return ItemData item_info A table containing detailed information about the item.
 --- Retrieves detailed information about an item specified by its ID or link.
----
----@param item number|string
----
+---* Combines basic and detailed item data into a structured format.
 B_Item.getInfo = function (item)
   ---@class ItemData
   local info = {}
@@ -49,11 +43,6 @@ B_Item.getInfo = function (item)
   return info
 end
 
----
---- ?
----
----@param info ItemInfo
----
-B_Item.getLevel = function (info)
-  return C_Item.GetDetailedItemLevelInfo (info)
-end
+---@param info ItemInfo The item link or ID for which to retrieve the item level.
+--- Retrieves the detailed item level of the specified item.
+B_Item.getLevel = function (info) return C_Item.GetDetailedItemLevelInfo (info) end

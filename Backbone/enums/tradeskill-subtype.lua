@@ -1,13 +1,8 @@
 
 --[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
 
----
---- ?
----
 ---@enum TRADESKILL_SUBTYPE
----
-ENUM_TRADESKILL_SUBTYPE =
-{
+ENUM_TRADESKILL_SUBTYPE = {
                PARTS = 1,
        JEWELCRAFTING = 4,
                CLOTH = 5,

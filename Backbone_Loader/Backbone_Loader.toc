@@ -6,5 +6,5 @@
 ## Notes: ?
 
 initialize.lua
-
-#handlers/on-event.lua
+handlers/on-event.lua
+process-addons.lua
