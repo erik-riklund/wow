@@ -57,5 +57,7 @@
     "LE_FRAME_TUTORIAL_MOUNT_EQUIPMENT_SLOT_FRAME",
     "LE_FRAME_TUTORIAL_UPGRADEABLE_ITEM_IN_SLOT",
     "BackpackTokenFrame"
-  ]
+  ],
+  "Lua.workspace.library": ["C:/Users/gophe/wow-types"],
+  "Lua.workspace.checkThirdParty": true
 }

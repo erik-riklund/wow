@@ -34,22 +34,6 @@ end
 ---
 context.plugin:onLoad(
   function ()
-    for index = 1, C_AddOns.GetNumAddOns() do
-      local name = C_AddOns.GetAddOnInfo(index)
-      
-      context.tags:forEach(
-        ---@param tag string
-        function (_, tag)
-          local content = C_AddOns.GetAddOnMetadata(name, 'X-Load-' .. tag)
-          
-          if content then
-            context.handlers:getEntry(tag) --[[@as fun(addon: string, content: string)]](name, content)
-          end
-        end
-      )
-    end
-
-    context.handlers = nil
-    context.tags = nil
+    
   end
 )

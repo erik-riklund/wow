@@ -1,9 +1,9 @@
 ## Version: 1.0
 ## Interface: 110002
-## RequiredDeps: Backbone, Backbone_Templates
 ## LoadOnDemand: 1
 
-## X-Load-After?: Scavenger
+## X-Dependencies: Backbone, Backbone_Templates
+## X-Dependencies?: Scavenger
 ## X-Load-OnEvent: LOOT_OPENED
 
 ## Title: Spoils (Backbone plugin)
