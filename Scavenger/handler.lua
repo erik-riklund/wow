@@ -32,7 +32,7 @@ local remaining_slots
 local handlers =
 {
   ---@type LootHandler
-  [E_LOOT_SLOT_TYPE.ITEM] = function(slot_info)
+  [ENUM_LOOT_SLOT_TYPE.ITEM] = function(slot_info)
     ---@type LootFilters
     local filters = context.plugin:getSetting 'FILTERS'
     local item_info = backbone.getItemInfo(slot_info.link)
@@ -56,7 +56,7 @@ local handlers =
 
     -- Poor quality items are looted if they are within the specified minimum and maximum value range.
 
-    if item_info.quality == E_ITEM_QUALITY.POOR then
+    if item_info.quality == ENUM_ITEM_QUALITY.POOR then
       ---@type JunkLootOptions
       local options = context.plugin:getSetting 'JUNK'
 
@@ -66,7 +66,7 @@ local handlers =
     -- Tradeskill items are looted if their subtype is listed as lootable
     -- and the item quality is below the set quality cap.
 
-    if item_info.itemTypeId == E_ITEM_CLASS.TRADEGOODS then
+    if item_info.itemTypeId == ENUM_ITEM_CLASS.TRADEGOODS then
       ---@type TradeskillLootOptions
       local options = context.plugin:getSetting 'TRADESKILL'
 
@@ -79,7 +79,7 @@ local handlers =
     -- * Gear from the current expansion is only looted if explicitly enabled (default: disabled).
     -- * When `ONLY_KNOWN` is enabled, the item's appearance must be known (default: enabled).
 
-    if item_info.itemTypeId == E_ITEM_CLASS.ARMOR or item_info.itemTypeId == E_ITEM_CLASS.WEAPON then
+    if item_info.itemTypeId == ENUM_ITEM_CLASS.ARMOR or item_info.itemTypeId == ENUM_ITEM_CLASS.WEAPON then
       ---@type GearLootOptions
       local options = context.plugin:getSetting 'GEAR'
 
@@ -93,7 +93,7 @@ local handlers =
   end,
 
   ---@type LootHandler
-  [E_LOOT_SLOT_TYPE.MONEY] = function(slot_info)
+  [ENUM_LOOT_SLOT_TYPE.MONEY] = function(slot_info)
     --
     -- If enabled, coins are looted when the value is below the set threshold.
 
@@ -109,7 +109,7 @@ local handlers =
   end,
 
   ---@type LootHandler
-  [E_LOOT_SLOT_TYPE.CURRENCY] = function(slot_info)
+  [ENUM_LOOT_SLOT_TYPE.CURRENCY] = function(slot_info)
     -- Currencies are looted if enabled and not listed in the ignore list.
 
     ---@type CurrencyLootOptions
@@ -141,7 +141,7 @@ context.plugin:registerEventListener(
       for index = 1, item_count do
         local slot_info = backbone.getLootSlotInfo(index)
   
-        if not slot_info.isLocked and slot_info.slotType ~= E_LOOT_SLOT_TYPE.NONE then
+        if not slot_info.isLocked and slot_info.slotType ~= ENUM_LOOT_SLOT_TYPE.NONE then
           if autoloot or (not autoloot and handlers[slot_info.slotType](slot_info)) then
             LootSlot(index) -- loot the current slot.
           else

@@ -6,7 +6,7 @@
 ---
 ---@enum TRADESKILL_SUBTYPE
 ---
-E_TRADESKILL_SUBTYPE =
+ENUM_TRADESKILL_SUBTYPE =
 {
                PARTS = 1,
        JEWELCRAFTING = 4,

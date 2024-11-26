@@ -16,11 +16,10 @@ context.frame:RegisterEvent 'ADDON_LOADED'
 ---
 --- ?
 ---
-context.frame:HookScript(
-  'OnEvent',
-  ---@param event WowEvent
+context.frame:HookScript('OnEvent',
+  ---@param event string
   ---@param ... unknown
-  function(_, event, ...)
+  function (_, event, ...)
     local arguments = new('Vector', { ... })
     local event_id = event --[[@as string]]
 
@@ -38,7 +37,7 @@ context.frame:HookScript(
         active_events:dropEntry(event_id)
       end
 
-      if event == 'ADDON_LOADED' then active_events:dropEntry(event_id) end
+      if event == 'ADDON_LOADED' then active_events:dropEntry (event_id) end
     end
   end
 )
@@ -53,56 +52,56 @@ local events_api = {}
 ---
 ---@param callback function
 ---
-events_api.onLoad = function(self, callback)
+events_api.onLoad = function (self, callback)
   local event = 'ADDON_LOADED/' .. self.identifier
 
-  if not active_events:hasEntry(event) then
-    active_events:setEntry(event, new 'Listenable')
+  if not active_events:hasEntry (event) then
+    active_events:setEntry (event, new 'Listenable')
   end
 
   local listener = { callback = callback, persistent = false };
-  (active_events:getEntry(event) --[[@as Listenable]]):registerListener(listener)
+  (active_events:getEntry (event) --[[@as Listenable]]):registerListener (listener)
 end
 
 ---
---- ?
+-- ?
 ---
----@param event WowEvent
+---@param event string
 ---@param listener Listener
 ---
-events_api.registerEventListener = function(self, event, listener)
-  if not active_events:hasEntry(event) then
-    active_events:setEntry(event, new 'Listenable')
-    context.frame:RegisterEvent(event)
+events_api.registerEventListener = function (self, event, listener)
+  if not active_events:hasEntry (event) then
+    active_events:setEntry (event, new 'Listenable')
+    context.frame:RegisterEvent (event)
   end
 
   if listener.identifier then
     listener.identifier = self.identifier .. '/' .. listener.identifier
   end
 
-  (active_events:getEntry(event) --[[@as Listenable]]):registerListener(listener)
+  (active_events:getEntry (event) --[[@as Listenable]]):registerListener (listener)
 end
 
 ---
 --- ?
 ---
----@param event WowEvent
+---@param event string
 ---@param identifier string
 ---
-events_api.removeEventListener = function(self, event, identifier)
-  if not active_events:hasEntry(event) then
-    new('Error', 'No registered listeners available for the event ' .. event)
+events_api.removeEventListener = function (self, event, identifier)
+  if not active_events:hasEntry (event) then
+    new ('Error', 'No registered listeners available for the event ' .. event)
   end
 
-  (active_events:getEntry(event) --[[@as Listenable]])
-    :removeListener(self.identifier .. '/' .. identifier)
+  (active_events:getEntry (event) --[[@as Listenable]])
+    :removeListener (self.identifier .. '/' .. identifier)
 end
 
 ---
 --- ?
 ---
 context.registerPluginExtension(
-  function(plugin)
+  function (plugin)
     plugin.onLoad = events_api.onLoad
     
     plugin.registerEventListener = events_api.registerEventListener

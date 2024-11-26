@@ -1,4 +1,4 @@
-
+---@diagnostic disable: undefined-global
 --[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
 
 ---
@@ -6,7 +6,7 @@
 ---
 ---@enum ITEM_QUALITY
 ---
-E_ITEM_QUALITY =
+ENUM_ITEM_QUALITY =
 {
        POOR = Enum.ItemQuality.Poor,
      COMMON = Enum.ItemQuality.Common,

@@ -6,7 +6,7 @@
 ---
 ---@enum ANCHOR_POINT
 ---
-E_ANCHOR_POINT =
+ENUM_ANCHOR_POINT =
 {
       TOPLEFT = 1,
      TOPRIGHT = 2,

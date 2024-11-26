@@ -1,4 +1,4 @@
-
+---@diagnostic disable: undefined-global
 --[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
 
 ---
@@ -6,7 +6,7 @@
 ---
 ---@enum ITEM_BIND
 ---
-E_ITEM_BIND =
+ENUM_ITEM_BIND =
 {
               NONE = Enum.ItemBind.None,
         ON_ACQUIRE = Enum.ItemBind.OnAcquire,
