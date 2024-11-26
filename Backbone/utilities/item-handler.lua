@@ -4,7 +4,7 @@
 ---
 --- ?
 ---
-_G.B_Item = {}
+B_Item = {}
 
 ---
 --- Returns the item ID from the provided item link.

@@ -4,7 +4,7 @@
 ---
 --- ?
 ---
-_G.B_Loot = {}
+B_Loot = {}
 
 ---
 --- Returns the number of items in the loot window.

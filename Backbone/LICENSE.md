@@ -3,9 +3,10 @@
 **Version 1.0**
 
 ## Preamble
-This license applies to the Backbone framework (the "Software"). By using, modifying, or distributing the
-Software, you agree to the terms and conditions outlined in this license. If you do not agree, you must not
-use, modify, or distribute the Software.
+This license applies to the Backbone framework (the "Software"). By using,
+modifying, or distributing the Software, you agree to the terms and conditions
+outlined in this license. If you do not agree, you must not use, modify,
+or distribute the Software.
 
 ---
 

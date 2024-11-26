@@ -4,4 +4,14 @@
 ---
 --- ?
 ---
-_G.System = {}
+System = {}
+
+---
+--- ?
+---
+System.getExpansion = function () return GetExpansionLevel () end
+
+---
+--- ?
+---
+System.getLocale = function () return GetLocale () end
