@@ -3,7 +3,6 @@
 ## LoadOnDemand: 1
 
 ## X-Dependencies: Backbone, Backbone_Templates
-## X-Dependencies?: Scavenger
 ## X-Load-OnEvent: LOOT_OPENED
 
 ## Title: Spoils (Backbone plugin)

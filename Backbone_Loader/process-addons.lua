@@ -11,31 +11,27 @@ context.addons = new 'Dictionary'
 ---?
 context.getAddonMetadata = function (index, key)
   local metadata = C_AddOns.GetAddOnMetadata (index, key)
-  return metadata and explode(metadata, ', ') or nil
+  return metadata and explode(metadata, ',') or nil
 end
 
 ---?
 context.plugin:onLoad(
   function ()
-    local addon_count = C_AddOns.GetNumAddOns ()
-    
+    local addon_count = C_AddOns.GetNumAddOns()
     for index = 1, addon_count do
       ---@class AddonState
-      local addon = {}
+      local addon = { loadable = C_AddOns.IsAddOnLoadOnDemand (index) }
 
-      if C_AddOns.IsAddOnLoadOnDemand (index) then
+      if addon.loadable then
         addon.dependencies = context.getAddonMetadata (index, 'X-Dependencies')
-        addon.optional_dependencies = context.getAddonMetadata (index, 'X-Dependencies?')
-
         context.handlers:forEach(function (_, handler) handler(index) end)  
       end
 
       addon.name = C_AddOns.GetAddOnInfo (index)
       addon.loaded = select (2, C_AddOns.IsAddOnLoaded (index)) --[[@as boolean]]
-      
       context.addons:setEntry (addon.name, addon)
-
-      DevTools_Dump { [addon.name] = context.addons:getEntry (addon.name) }
     end
+
+    --DevTools_Dump (context.addons)
   end
 )

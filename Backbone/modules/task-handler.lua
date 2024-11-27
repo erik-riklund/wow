@@ -10,7 +10,7 @@ local queued_tasks = new 'Vector'
 ---* Captures and logs errors if the task's callback fails.
 backbone.executeTask = function (task)
   local success, result = pcall(
-    task.callback, (task.arguments and task.arguments:unpackElements ()) or nil
+    task.callback, (task.arguments and task.arguments:unpackElements()) or nil
   )
   if not success then print (result) end -- TODO: implement better error handling!
 end
@@ -26,12 +26,12 @@ local task_process = coroutine.create(
     local time_limit = 0.01667 -- Time budget per frame (60 FPS cap).
 
     while true do
-      local time_started = B_Time.now ()
-      while queued_tasks:getSize () > 0 and (B_Time.now () - time_started <= time_limit) do
-        backbone.executeTask (queued_tasks:removeElement (1) --[[@as Task]])
+      local time_started = B_Time.precise()
+      while queued_tasks:getSize() > 0 and (B_Time.precise() - time_started <= time_limit) do
+        backbone.executeTask (queued_tasks:removeElement(1) --[[@as Task]])
       end
 
-      coroutine.yield () -- Pause execution until the next frame.
+      coroutine.yield() -- Pause execution until the next frame.
     end
   end
 )
@@ -40,7 +40,7 @@ local task_process = coroutine.create(
 ---* Resumes the task-processing coroutine if there are tasks in the queue.
 context.frame:HookScript(
   'OnUpdate', function ()
-    if queued_tasks:getSize () > 0 then
+    if queued_tasks:getSize() > 0 then
       if coroutine.status(task_process) == 'suspended' then coroutine.resume(task_process) end
     end
   end

@@ -52,7 +52,7 @@ local handlers =
       ---@type QuestLootOptions
       local options = context.plugin:getSetting 'QUEST'
 
-      return (options.LOOT_ALL or B_Loot.getItemCount () == 1)
+      return (options.LOOT_ALL or B_Loot.getItemCount() == 1)
     end
 
     -- Poor quality items are looted if they are within the specified minimum and maximum value range.
@@ -138,7 +138,7 @@ context.plugin:registerEventListener(
     ---@param autoloot boolean
     callback = function (autoloot)
       slots_cleared = 0
-      item_count = B_Loot.getItemCount ()
+      item_count = B_Loot.getItemCount()
 
       remaining_slots = new 'Vector'
 
@@ -157,7 +157,7 @@ context.plugin:registerEventListener(
         end
       end
 
-      if remaining_slots:getSize () == item_count then
+      if remaining_slots:getSize() == item_count then
         context.plugin:invokeChannelListeners ('LOOT_PROCESSED', remaining_slots)
       end
     end
@@ -174,7 +174,7 @@ context.plugin:registerEventListener(
     callback = function ()
       slots_cleared = slots_cleared + 1
 
-      local remaining_slots_count = remaining_slots:getSize ()
+      local remaining_slots_count = remaining_slots:getSize()
       if remaining_slots_count > 0 and item_count - slots_cleared == remaining_slots_count then
         context.plugin:invokeChannelListeners ('LOOT_PROCESSED', remaining_slots)
       end

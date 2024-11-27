@@ -6,7 +6,7 @@ B_Loot = {}
 
 ---@return number item_count The total count of lootable items.
 ---Returns the number of items currently available in the loot window.
-B_Loot.getItemCount = function () return GetNumLootItems () end
+B_Loot.getItemCount = function () return GetNumLootItems() end
 
 ---@param slot number The index of the loot slot (1-based).
 ---@return LootSlotInfo slot_info A table containing detailed information about the specified loot slot.

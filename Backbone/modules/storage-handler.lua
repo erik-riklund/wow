@@ -10,11 +10,11 @@ local storage = new 'Dictionary'
 ---Retrieves the storage dictionary for a given plugin.
 ---* Throws an error if the plugin storage is not initialized.
 local getPluginStorage = function (plugin)
-  if not storage:hasEntry (plugin:getIdentifier ()) then
+  if not storage:hasEntry (plugin:getIdentifier()) then
     new ('Error', 'Storage variables are not available until the plugin '
-      .. 'has been fully loaded (%s)', plugin:getIdentifier ())
+      .. 'has been fully loaded (%s)', plugin:getIdentifier())
   end
-  return storage:getEntry (plugin:getIdentifier ()) --[[@as Dictionary]]
+  return storage:getEntry (plugin:getIdentifier()) --[[@as Dictionary]]
 end
 
 ---@param plugin Plugin The plugin for which to retrieve the variable.
@@ -73,11 +73,11 @@ context.registerPluginExtension(
       function ()
         local plugin_storage = new 'Dictionary'
         for _, scope in ipairs { 'account', 'character' } do
-          local variable = string.format ('%s_%s_storage', plugin:getIdentifier (), scope)
+          local variable = string.format ('%s_%s_storage', plugin:getIdentifier(), scope)
           _G[variable] = (type (_G[variable]) == 'table' and _G[variable]) or {}
           plugin_storage:setEntry (scope, new ('Dictionary', _G[variable]))
         end
-        storage:setEntry (plugin:getIdentifier (), plugin_storage)
+        storage:setEntry (plugin:getIdentifier(), plugin_storage)
       end
     )
   end

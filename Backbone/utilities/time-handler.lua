@@ -6,4 +6,7 @@ _G.B_Time = {}
 
 ---@return number seconds The current time in seconds.
 ---Retrieves the current in-game time in seconds since the client started.
-B_Time.now = function () return GetTime () end
+B_Time.now = function () return GetTime() end
+
+---?
+B_Time.precise = function () return GetTimePreciseSec() end

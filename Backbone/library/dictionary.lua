@@ -34,7 +34,7 @@ dictionary.dropEntry = function (self, key) self.content[key] = nil end
 ---Iterates through all key-value pairs and applies a callback function.
 ---* Updates entries if the callback returns a non-nil value.
 dictionary.forEach = function (self, callback)
-  for index, value in self:getIterator () do
+  for index, value in self:getIterator() do
     local result = callback (index, value)
     if result ~= nil then self:setEntry (index, result) end
   end

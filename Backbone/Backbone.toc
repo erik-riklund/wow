@@ -32,11 +32,12 @@ primitives/channel.lua
 
 resources.lua
 
-modules/task-handler.lua
 modules/plugin-manager.lua
 primitives/plugin.lua
-modules/event-handler.lua
+
+modules/task-handler.lua
 modules/channel-manager.lua
+modules/event-handler.lua
 modules/storage-handler.lua
 modules/config-handler.lua
 

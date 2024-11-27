@@ -36,10 +36,18 @@ vector.removeElement = function (self, index) return table.remove (self.values, 
 ---Iterates over all elements in the vector and applies a callback function.
 ---* Updates elements if the callback returns a non-nil value.
 vector.forEach = function (self, callback)
-  for index, element in self:getIterator () do
+  for index, element in self:getIterator() do
     local result = callback (index, element)
     if result ~= nil then self.values[index] = result end
   end
+end
+
+---?
+vector.contains = function (self, search_value)
+  for _, value in ipairs(self.values) do
+    if value == search_value then return true end
+  end
+  return false
 end
 
 ---Unpacks and returns all elements in the vector.

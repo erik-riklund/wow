@@ -11,7 +11,7 @@ listenable.listeners = nil
 
 ---Returns the current number of registered listeners.
 listenable.getListenerCount = function (self)
-  return self.listeners:getSize ()
+  return self.listeners:getSize()
 end
 
 ---Registers a new listener to receive notifications.
@@ -23,7 +23,7 @@ end
 ---Removes a listener identified by a unique identifier.
 ---@param identifier string
 listenable.removeListener = function (self, identifier)
-  for index, listener in self.listeners:getIterator () do
+  for index, listener in self.listeners:getIterator() do
     ---@cast listener Listener
     if listener.identifier == identifier then
       self.listeners:removeElement (index)

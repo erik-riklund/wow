@@ -22,7 +22,7 @@ context.plugin:registerEventListener(
 
     callback = function()
       frame_position = {
-        LootFrame:GetPoint(E_ANCHOR_POINT.TOPLEFT)
+        LootFrame:GetPoint(ENUM.ANCHOR_POINT.TOPLEFT)
       }
 
       LootFrame:ClearAllPoints()
