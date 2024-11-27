@@ -3,7 +3,7 @@
 ## LoadOnDemand: 1
 
 ## X-Dependencies: Backbone, Backbone_Templates
-## X-Load-OnEvent: LOOT_OPENED
+## X-Load-OnEvent: LOOT_READY
 
 ## Title: Spoils (Backbone plugin)
 ## Notes: ?
