@@ -20,17 +20,22 @@ context.plugin:onLoad(
     local addon_count = C_AddOns.GetNumAddOns ()
     
     for index = 1, addon_count do
-      if C_AddOns.IsAddOnLoadOnDemand (index) then
-        ---@class AddonState
-        local addon = {}
+      ---@class AddonState
+      local addon = {}
 
+      if C_AddOns.IsAddOnLoadOnDemand (index) then
         addon.dependencies = context.getAddonMetadata (index, 'X-Dependencies')
         addon.optional_dependencies = context.getAddonMetadata (index, 'X-Dependencies?')
-        addon.loaded = select (2, C_AddOns.IsAddOnLoaded (index)) --[[@as boolean]]
 
-        context.handlers:forEach(function (_, handler) handler(index) end)
-        context.addons:setEntry (C_AddOns.GetAddOnInfo (index), addon)
+        context.handlers:forEach(function (_, handler) handler(index) end)  
       end
+
+      addon.name = C_AddOns.GetAddOnInfo (index)
+      addon.loaded = select (2, C_AddOns.IsAddOnLoaded (index)) --[[@as boolean]]
+      
+      context.addons:setEntry (addon.name, addon)
+
+      DevTools_Dump { [addon.name] = context.addons:getEntry (addon.name) }
     end
   end
 )
