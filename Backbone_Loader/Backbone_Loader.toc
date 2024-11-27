@@ -1,10 +1,11 @@
 ## Version: 1.0
 ## Interface: 110002
-## RequiredDeps: Backbone
+## RequiredDeps: Backbone, Backbone_Templates
 
 ## Title: Backbone (loader)
 ## Notes: ?
 
 initialize.lua
+load-handler.lua
 handlers/on-event.lua
 process-addons.lua

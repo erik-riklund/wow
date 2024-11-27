@@ -11,6 +11,7 @@ library/error.lua
 library/dictionary.lua
 library/vector.lua
 library/proxy.lua
+library/explode.lua
 
 enums/anchor-point.lua
 enums/item-bind.lua
