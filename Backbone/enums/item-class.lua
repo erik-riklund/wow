@@ -1,8 +1,9 @@
 
---[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/27 | Author(s): Gopher ]]
 
 ---@enum ITEM_CLASS
-ENUM_ITEM_CLASS = {
+---Represents the main categories of items in the game.
+ENUM.ITEM_CLASS = {
   CONSUMABLE = Enum.ItemClass.Consumable,
   CONTAINER  = Enum.ItemClass.Container,
       WEAPON = Enum.ItemClass.Weapon,

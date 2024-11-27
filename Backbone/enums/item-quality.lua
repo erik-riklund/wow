@@ -1,8 +1,9 @@
 
---[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/27 | Author(s): Gopher ]]
 
 ---@enum ITEM_QUALITY
-ENUM_ITEM_QUALITY = {
+---Represents the quality levels of items in the game.
+ENUM.ITEM_QUALITY = {
        POOR = Enum.ItemQuality.Poor,
      COMMON = Enum.ItemQuality.Common,
    UNCOMMON = Enum.ItemQuality.Uncommon,

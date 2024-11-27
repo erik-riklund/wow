@@ -1,8 +1,9 @@
 
---[[~ Updated: 2024/11/21 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/27 | Author(s): Gopher ]]
 
 ---@enum ANCHOR_POINT
-ENUM_ANCHOR_POINT = {
+---Represents anchor points for positioning UI elements.
+ENUM.ANCHOR_POINT = {
       TOPLEFT = 1,
      TOPRIGHT = 2,
    BOTTOMLEFT = 3,

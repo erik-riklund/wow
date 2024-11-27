@@ -31,16 +31,15 @@ context.plugin:registerDefaultSettings(
     TRADESKILL =
     {
       -- Determines the quality cap for lootable tradeskill items.
-      QUALITY_CAP = ENUM_ITEM_QUALITY.RARE,
+      QUALITY_CAP = ENUM.ITEM_QUALITY.RARE,
 
       -- Determines the tradeskill item subtypes that should be looted.
-      LOOTABLE_SUBTYPES =
-      {
-        [ENUM_TRADESKILL_SUBTYPE.ENCHANTING]      = true,
-        [ENUM_TRADESKILL_SUBTYPE.HERB]            = true,
-        [ENUM_TRADESKILL_SUBTYPE.INSCRIPTION]     = true,
-        [ENUM_TRADESKILL_SUBTYPE.LEATHER]         = true,
-        [ENUM_TRADESKILL_SUBTYPE.METAL_AND_STONE] = true
+      LOOTABLE_SUBTYPES = {
+        [ENUM.TRADESKILL_SUBTYPE.ENCHANTING]  = true,
+        [ENUM.TRADESKILL_SUBTYPE.HERB]        = true,
+        [ENUM.TRADESKILL_SUBTYPE.INSCRIPTION] = true,
+        [ENUM.TRADESKILL_SUBTYPE.LEATHER]     = true,
+        [ENUM.TRADESKILL_SUBTYPE.METALS]      = true
       }
     },
 
