@@ -39,7 +39,12 @@ context.loadAddon = function (identifier)
   end
 end
 
----?
-context.frame:HookScript('OnUpdate', function ()
-  -- TODO: implement the actual loader logic!
-end)
+context.frame:HookScript(
+  'OnUpdate', function ()
+    local load_count = addons_loading:getSize()
+      
+    if load_count > 0 then
+      -- TODO: implement the actual loader logic!
+    end
+  end
+)
