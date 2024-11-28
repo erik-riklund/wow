@@ -3,9 +3,6 @@ local context = select(2, ...)
 
 --[[~ Updated: 2024/11/21 | Author(s): Gopher ]]
 
----
---- Defines the default settings for the plugin.
----
 context.plugin:registerDefaultSettings(
   new('Dictionary',
   {

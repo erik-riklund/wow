@@ -3,18 +3,12 @@
 ---@class Scavenger
 local context = select(2, ...)
 
---[[~ Updated: 2024/11/21 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/28 | Author(s): Gopher ]]
 
----
---- ?
---- 
 ---@type table
----
 local frame_position
 
----
 --- ?
----
 context.plugin:registerEventListener(
   'LOOT_OPENED',
   {
@@ -33,9 +27,7 @@ context.plugin:registerEventListener(
   }
 )
 
----
 --- ?
----
 context.plugin:registerChannelListener(
   'LOOT_PROCESSED',
   {

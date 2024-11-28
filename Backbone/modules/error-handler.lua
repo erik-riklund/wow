@@ -6,9 +6,8 @@
 ---?
 backbone.throw = function(message, ...)
   if backbone.getEnvironment() == 'development' then
-    error(... and string.format(message, ...) or message, 3)
+    error(... and string.format (message, ...) or message, 3)
   end
   
-  --TODO: handle errors in production mode.
-  --backbone.print ('A generic error message')
+  backbone.print ('/error/Hello world//')
 end

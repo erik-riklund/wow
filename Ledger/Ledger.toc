@@ -1,0 +1,7 @@
+## Version: 1.0
+## Interface: 110002
+## RequiredDeps: Backbone
+## LoadOnDemand: 1
+
+## Title: Ledger (Backbone plugin)
+## Notes: ?

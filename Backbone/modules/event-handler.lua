@@ -27,10 +27,6 @@ context.frame:HookScript(
         end
       end
     end
-
-    if backbone.getEnvironment() == 'development' then
-      --?
-    end
   end
 )
 GetTime()

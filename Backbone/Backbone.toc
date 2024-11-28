@@ -4,18 +4,18 @@
 ## Title: Backbone (framework)
 ## Notes: A framework that simplifies addon development with an intuitive API for interacting with game systems.
 
-initialize.lua
-environment.lua
-
-modules/output-handler.lua
-modules/error-handler.lua
-
 library/object-factory.lua
 library/dictionary.lua
 library/vector.lua
 library/proxy.lua
 library/explode.lua
 library/integrate-table.lua
+
+initialize.lua
+environment.lua
+
+modules/output-handler.lua
+modules/error-handler.lua
 
 enums/anchor-point.lua
 enums/item-bind.lua
@@ -44,5 +44,7 @@ modules/channel-manager.lua
 modules/event-handler.lua
 modules/storage-handler.lua
 modules/config-handler.lua
+
+plugin.lua
 
 plugins/garbage-collector.lua

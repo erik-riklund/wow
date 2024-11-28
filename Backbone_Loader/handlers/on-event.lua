@@ -12,7 +12,10 @@ context.registerHandler (
         ---@param event_name string
         function (_, event_name)
           context.plugin:registerEventListener(
-            event_name, { callback = function () context.loadAddon (addon_index) end }
+            event_name, { 
+              persistent = false,
+              callback = function () context.loadAddon (addon_index) end
+            }
           )
         end
       )

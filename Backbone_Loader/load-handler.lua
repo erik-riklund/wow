@@ -14,4 +14,8 @@ end
 
 ---@param addon uiAddon The addon to be loaded.
 ---Loads the specified addon using the game's addon management system.
-context.loadAddon = function (addon) C_AddOns.LoadAddOn (addon) end
+context.loadAddon = function (addon)
+  C_AddOns.LoadAddOn (addon)
+  
+  context.plugin:debug ('Loading addon "%s".', C_AddOns.GetAddOnInfo (addon))
+end
