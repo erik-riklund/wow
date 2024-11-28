@@ -20,14 +20,20 @@ end
 ---@class Plugin
 local output_api = {}
 
+---@param message string
+---@param ... string|number
 ---?
-output_api.print = function (self) end
+output_api.print = function (self, message, ...) end
 
+---@param message string
+---@param ... string|number
 ---?
-output_api.debug = function (self) end
+output_api.debug = function (self, message, ...) end
 
+---@param message string
+---@param ... string|number
 ---?
-output_api.error = function (self) end
+output_api.error = function (self, message, ...) end
 
 ---?
 context.registerPluginExtension(

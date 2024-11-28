@@ -3,6 +3,6 @@
 
 local environment = 'development'
 
----@return 'development'|'production'
----?
+---@return 'development'|'production' mode A string indicating whether the environment is in development or production mode.
+---Returns the current runtime environment of the application.
 backbone.getEnvironment = function () return environment end
