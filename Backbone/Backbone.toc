@@ -15,6 +15,7 @@ library/dictionary.lua
 library/vector.lua
 library/proxy.lua
 library/explode.lua
+library/integrate-table.lua
 
 enums/anchor-point.lua
 enums/item-bind.lua

@@ -72,11 +72,6 @@ end
 ---* Initializes storage for account and character scopes upon plugin load.
 context.registerPluginExtension(
   function (plugin)
-    plugin.getAccountVariable = storage_api.getAccountVariable
-    plugin.getCharacterVariable = storage_api.getCharacterVariable
-    plugin.setAccountVariable = storage_api.setAccountVariable
-    plugin.setCharacterVariable = storage_api.setCharacterVariable
-
     plugin:onLoad(
       function ()
         local plugin_storage = new 'Dictionary'
@@ -89,5 +84,7 @@ context.registerPluginExtension(
         storage:setEntry (plugin:getIdentifier(), plugin_storage)
       end
     )
+
+    integrateTable (plugin, storage_api)
   end
 )

@@ -3,13 +3,7 @@ local context = select(2, ...)
 
 --[[~ Updated: 2024/11/25 | Author(s): Gopher ]]
 
-local extensions = new 'Vector'
 local plugins = new 'Dictionary'
-
----@param callback fun(plugin: Plugin) The function to apply to each plugin.
----Registers a callback to be executed for each new plugin.
----These callbacks are used to extend plugin functionality.
-context.registerPluginExtension = function (callback) extensions:insertElement (callback) end
 
 ---@param name string The name of the plugin to create.
 ---@return Plugin plugin A new plugin instance wrapped in a proxy for immutability.
@@ -22,9 +16,10 @@ backbone.createPlugin = function (name)
   end
 
   local plugin = { identifier = identifier, name = name }
-  extensions:forEach (function(_, extension) extension (plugin) end)
+  context.plugin_extensions:forEach (
+    function(_, extension) extension (plugin) end
+  )
   plugins:setEntry (identifier, plugin)
-
   return new ('Proxy', plugin) --[[@as Plugin]]
 end
 

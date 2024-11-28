@@ -87,9 +87,5 @@ end
 
 ---Extends the plugin with event management API methods.
 context.registerPluginExtension(
-  function (plugin)
-    plugin.onLoad = events_api.onLoad
-    plugin.registerEventListener = events_api.registerEventListener
-    plugin.removeEventListener = events_api.removeEventListener
-  end
+  function (plugin) integrateTable (plugin, events_api) end
 )

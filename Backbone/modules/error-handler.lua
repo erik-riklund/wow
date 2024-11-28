@@ -9,5 +9,6 @@ backbone.throw = function(message, ...)
     error(... and string.format(message, ...) or message, 3)
   end
   
-  backbone.print ('Backbone', 'A generic error message')
+  --TODO: handle errors in production mode.
+  --backbone.print ('A generic error message')
 end

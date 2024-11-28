@@ -72,10 +72,5 @@ end
 
 ---Extends the plugin with network API functionalities for managing channels.
 context.registerPluginExtension(
-  function (plugin)
-    plugin.createChannel = network_api.createChannel
-    plugin.invokeChannelListeners = network_api.invokeChannelListeners
-    plugin.registerChannelListener = network_api.registerChannelListener
-    plugin.removeChannelListener = network_api.removeChannelListener
-  end
+  function (plugin) integrateTable (plugin, network_api) end
 )

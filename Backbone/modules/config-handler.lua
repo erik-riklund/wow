@@ -69,9 +69,5 @@ end
 
 ---Extends the plugin with configuration management API methods.
 context.registerPluginExtension(
-  function (plugin)
-    plugin.getSetting = config_api.getSetting
-    plugin.setSetting = config_api.setSetting
-    plugin.registerDefaultSettings = config_api.registerDefaultSettings
-  end
+  function (plugin) integrateTable (plugin, config_api) end
 )
