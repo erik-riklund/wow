@@ -17,19 +17,13 @@ local item_count
 ---
 local slots_cleared
 
----
+---@type Vector
 --- A list containing information about the slots that was not auto-looted,
 --- transmitted on the 'LOOT_PROCESSED' channel when the loot have been processed.
----
----@type Vector
----
 local remaining_slots
 
----
---- Handlers responsible for processing different types of loot slots.
---- 
 ---@type table<LOOT_SLOT_TYPE, LootHandler>
----
+---Handlers responsible for processing different types of loot slots.
 local handlers =
 {
   ---@type LootHandler
@@ -38,15 +32,15 @@ local handlers =
     local filters = context.plugin:getSetting 'FILTERS'
     local item_info = B_Item.getInfo (slot_info.link)
 
-    -- Items listed in the ignore filter should not be looted.
+    --Items listed in the ignore filter should not be looted.
 
     if filters.IGNORE[item_info.id] then return false end
 
-    -- Items listed in the custom loot filter will be looted.
+    --Items listed in the custom loot filter will be looted.
 
     if filters.LOOT[item_info.id] then return true end
 
-    -- Quest items are looted if `LOOT_ALL` is enabled, or if it's the only item that dropped.
+    --Quest items are looted if `LOOT_ALL` is enabled, or if it's the only item that dropped.
 
     if slot_info.quest_item then
       ---@type QuestLootOptions
@@ -55,7 +49,7 @@ local handlers =
       return (options.LOOT_ALL or B_Loot.getItemCount() == 1)
     end
 
-    -- Poor quality items are looted if they are within the specified minimum and maximum value range.
+    --Poor quality items are looted if they are within the specified minimum and maximum value range.
 
     if item_info.quality == ENUM.ITEM_QUALITY.POOR then
       ---@type JunkLootOptions
@@ -64,21 +58,22 @@ local handlers =
       return (item_info.sell_price >= options.MINIMUM_VALUE and item_info.sell_price <= options.MAXIMUM_VALUE)
     end
 
-    -- Tradeskill items are looted if their subtype is listed as lootable
-    -- and the item quality is below the set quality cap.
+    --Tradeskill items are looted if their subtype is listed as lootable or if it's a cooking reagent
+    --from fishing (with fishing loot enabled), and the item quality is below the set quality cap.
 
     if item_info.type_id == ENUM.ITEM_CLASS.TRADEGOODS then
       ---@type TradeskillLootOptions
       local options = context.plugin:getSetting 'TRADESKILL'
 
-      return (options.LOOTABLE_SUBTYPES[item_info.subtype_id] and item_info.quality < options.QUALITY_CAP)
+      return (options.LOOTABLE_SUBTYPES[item_info.subtype_id] or (item_info.subtype_id == ENUM.TRADESKILL_SUBTYPE.COOKING
+        and B_Loot.isFishing() and options.LOOT_FISH)) and item_info.quality < options.QUALITY_CAP
     end
 
-    -- Soulbound armor and weapons are looted based on a number of variables.
+    --Soulbound armor and weapons are looted based on a number of variables.
     --
-    -- * The player's level must be at or above the specified required level (default: 60).
-    -- * Gear from the current expansion is only looted if explicitly enabled (default: disabled).
-    -- * When `ONLY_KNOWN` is enabled, the item's appearance must be known (default: enabled).
+    --* The player's level must be at or above the specified required level (default: 60).
+    --* Gear from the current expansion is only looted if explicitly enabled (default: disabled).
+    --* When `ONLY_KNOWN` is enabled, the item's appearance must be known (default: enabled).
 
     if
       (item_info.type_id == ENUM.ITEM_CLASS.ARMOR or item_info.type_id == ENUM.ITEM_CLASS.WEAPON)
@@ -93,13 +88,13 @@ local handlers =
       end
     end
 
-    return false -- the item did not match any of the required criteria.
+    return false --the item did not match any of the required criteria.
   end,
 
   ---@type LootHandler
   [ENUM.LOOT_SLOT_TYPE.MONEY] = function(slot_info)
     --
-    -- If enabled, coins are looted when the value is below the set threshold.
+    --If enabled, coins are looted when the value is below the set threshold.
 
     ---@type CurrencyLootOptions
     local options = context.plugin:getSetting 'CURRENCY'

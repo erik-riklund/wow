@@ -32,6 +32,9 @@ B_Loot.getSlotInfo = function (slot)
   return info
 end
 
+---?
+B_Loot.isFishing = function () return IsFishingLoot() end
+
 ---@param slot number The index of the loot slot to loot (1-based).
 --- Loots the specified slot in the loot window.
 ---* Calls the underlying `LootSlot` API to claim the loot.
