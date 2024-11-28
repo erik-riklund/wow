@@ -3,5 +3,7 @@
 ## RequiredDeps: Backbone
 ## LoadOnDemand: 1
 
-## Title: Stitch (Backbone plugin)
+## Title: Backbone (configuration UI)
 ## Notes: ?
+
+initialize.lua

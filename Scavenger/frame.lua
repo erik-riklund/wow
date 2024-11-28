@@ -35,8 +35,8 @@ context.plugin:registerChannelListener(
 
     callback = function()
       if backbone.hasPlugin 'Spoils' then
-        print 'Spoils is not completed, uncomment this section when it is.'
-        -- context.plugin:removeChannelListener('LOOT_PROCESSED', 'SHOW_LOOT_FRAME')
+        --Spoils is not completed, uncomment this section when it is.
+        --context.plugin:removeChannelListener('LOOT_PROCESSED', 'SHOW_LOOT_FRAME')
       end
 
       LootFrame:ClearAllPoints()
