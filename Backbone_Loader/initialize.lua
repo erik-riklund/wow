@@ -5,6 +5,3 @@ local context = select(2, ...)
 
 ---?
 context.plugin = backbone.createPlugin 'Backbone_Loader'
-
----?
-context.frame = B_Widget.createFrame 'Frame'
