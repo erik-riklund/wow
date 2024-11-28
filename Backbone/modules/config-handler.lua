@@ -13,7 +13,11 @@ local default_settings = new 'Dictionary'
 local getDefaultSetting = function (plugin, key)
   ---@type Dictionary?
   local plugin_settings = default_settings:getEntry (plugin:getIdentifier())
-  if not plugin_settings then new ('Error', 'No default settings registered (%s)', plugin:getIdentifier()) end
+
+  if not plugin_settings then
+    backbone.throw ('No default settings registered (%s)', plugin:getIdentifier())
+  end
+  
   return (plugin_settings --[[@as Dictionary]]):getEntry (key)
 end
 
@@ -24,8 +28,9 @@ local config_api = {}
 ---Registers default settings for a plugin.
 config_api.registerDefaultSettings = function (self, settings)
   if default_settings:hasEntry (self:getIdentifier()) then
-    new ('Error', 'Cannot register duplicate default settings (%s)', self:getIdentifier())
+    backbone.throw ('Cannot register duplicate default settings (%s)', self:getIdentifier())
   end
+  
   default_settings:setEntry (self:getIdentifier(), settings)
 end
 
@@ -40,7 +45,7 @@ config_api.getSetting = function (self, key)
   local default_setting = getDefaultSetting (self, key)
   if default_setting ~= nil then return default_setting end
 
-  new ('Error', 'Unknown setting "%s" (%s)', key, self:getIdentifier())
+  backbone.throw ('Unknown setting "%s" (%s)', key, self:getIdentifier())
 end
 
 ---@param key string
@@ -50,10 +55,15 @@ end
 ---* Throws an error if the setting is unknown or if the type mismatches.
 config_api.setSetting = function (self, key, value)
   local default_setting = getDefaultSetting(self, key)
-  if default_setting == nil then new ('Error', 'Unknown setting "%s" (%s)', key, self:getIdentifier()) end
-  if type (value) ~= type (default_setting) then
-    new ('Error', 'Type mismatch for setting "%s", expected %s (%s)', key, type (default_setting), self:getIdentifier())
+  if default_setting == nil then
+    backbone.throw ('Unknown setting "%s" (%s)', key, self:getIdentifier())
   end
+
+  if type (value) ~= type (default_setting) then
+    backbone.throw ('Type mismatch for setting "%s", expected %s (%s)',
+                     key, type (default_setting), self:getIdentifier())
+  end
+
   self:setAccountVariable (config_prefix .. key, value)
 end
 

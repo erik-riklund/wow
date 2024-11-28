@@ -27,6 +27,10 @@ context.frame:HookScript(
         end
       end
     end
+
+    if backbone.getEnvironment() == 'development' then
+      --?
+    end
   end
 )
 GetTime()
@@ -74,7 +78,7 @@ end
 ---* Throws an error if no listeners are registered for the event.
 events_api.removeEventListener = function (self, event, identifier)
   if not active_events:hasEntry (event) then
-    new ('Error', 'No registered listeners available for the event ' .. event)
+    backbone.throw ('No registered listeners available for the event ' .. event)
   end
 
   (active_events:getEntry (event) --[[@as Listenable]])

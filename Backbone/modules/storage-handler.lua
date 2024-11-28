@@ -11,8 +11,8 @@ local storage = new 'Dictionary'
 ---* Throws an error if the plugin storage is not initialized.
 local getPluginStorage = function (plugin)
   if not storage:hasEntry (plugin:getIdentifier()) then
-    new ('Error', 'Storage variables are not available until the plugin '
-      .. 'has been fully loaded (%s)', plugin:getIdentifier())
+    backbone.throw ('Storage variables are not available until the plugin '
+                 .. 'has been fully loaded (%s)', plugin:getIdentifier())
   end
   return storage:getEntry (plugin:getIdentifier()) --[[@as Dictionary]]
 end
@@ -43,22 +43,30 @@ local storage_api = {}
 ---@param key string The key of the variable to retrieve.
 ---@return unknown value The value of the variable.
 ---Retrieves an account-wide storage variable for the plugin.
-storage_api.getAccountVariable = function (self, key) return getStorageVariable (self, 'account', key) end
+storage_api.getAccountVariable = function (self, key)
+  return getStorageVariable (self, 'account', key)
+end
 
 ---@param key string The key of the variable to set.
 ---@param value unknown The value to assign to the variable.
 ---Sets an account-wide storage variable for the plugin.
-storage_api.setAccountVariable = function (self, key, value) setStorageVariable (self, 'account', key, value) end
+storage_api.setAccountVariable = function (self, key, value)
+  setStorageVariable (self, 'account', key, value)
+end
 
 ---@param key string The key of the variable to retrieve.
 ---@return unknown value The value of the variable.
 ---Retrieves a character-specific storage variable for the plugin.
-storage_api.getCharacterVariable = function (self, key) return getStorageVariable (self, 'character', key) end
+storage_api.getCharacterVariable = function (self, key)
+  return getStorageVariable (self, 'character', key)
+end
 
 ---@param key string The key of the variable to set.
 ---@param value unknown The value to assign to the variable.
 ---Sets a character-specific storage variable for the plugin.
-storage_api.setCharacterVariable = function (self, key, value) setStorageVariable (self, 'character', key, value) end
+storage_api.setCharacterVariable = function (self, key, value)
+  setStorageVariable (self, 'character', key, value)
+end
 
 ---Extends the plugin with storage management functionality.
 ---* Initializes storage for account and character scopes upon plugin load.
@@ -75,6 +83,7 @@ context.registerPluginExtension(
         for _, scope in ipairs { 'account', 'character' } do
           local variable = string.format ('%s_%s_storage', plugin:getIdentifier(), scope)
           _G[variable] = (type (_G[variable]) == 'table' and _G[variable]) or {}
+          
           plugin_storage:setEntry (scope, new ('Dictionary', _G[variable]))
         end
         storage:setEntry (plugin:getIdentifier(), plugin_storage)
