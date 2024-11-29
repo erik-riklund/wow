@@ -20,7 +20,7 @@ backbone.createPlugin = function (name)
     function(_, extension) extension (plugin) end
   )
   plugins:setEntry (identifier, plugin)
-  return new ('Proxy', plugin) --[[@as Plugin]]
+  return Proxy (plugin) --[[@as Plugin]]
 end
 
 ---@param name string The name of the plugin to check.

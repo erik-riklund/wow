@@ -1,7 +1,7 @@
 ## Version: 1.0
 ## Interface: 110002
 ## RequiredDeps: Backbone, Backbone_Settings
-# LoadOnDemand: 1
+## LoadOnDemand: 1
 ## X-Load-OnEvent: LOOT_READY
 
 ## Title: Scavenger (Backbone plugin)

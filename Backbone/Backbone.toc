@@ -3,6 +3,7 @@
 
 ## Title: Backbone (framework)
 ## Notes: A framework that simplifies addon development with an intuitive API for interacting with game systems.
+## SavedVariables: backbone_account_storage
 
 library/object-factory.lua
 library/dictionary.lua
@@ -44,7 +45,9 @@ modules/channel-manager.lua
 modules/event-handler.lua
 modules/storage-handler.lua
 modules/config-handler.lua
+modules/locale-handler.lua
 
 plugin.lua
+config.lua
 
 plugins/garbage-collector.lua

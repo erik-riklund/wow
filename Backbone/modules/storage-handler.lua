@@ -79,7 +79,7 @@ context.registerPluginExtension(
           local variable = string.format ('%s_%s_storage', plugin:getIdentifier(), scope)
           _G[variable] = (type (_G[variable]) == 'table' and _G[variable]) or {}
           
-          plugin_storage:setEntry (scope, new ('Dictionary', _G[variable]))
+          plugin_storage:setEntry (scope, Dictionary (_G[variable]))
         end
         storage:setEntry (plugin:getIdentifier(), plugin_storage)
       end

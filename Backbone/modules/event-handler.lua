@@ -13,7 +13,7 @@ context.frame:HookScript(
   ---@param event_name string
   ---@param ... unknown
   function (_, event_name, ...)
-    local arguments = new ('Vector', { ... })
+    local arguments = Vector { ... }
 
     if active_events:hasEntry (event_name) then
       local event_handler = active_events:getEntry (event_name) --[[@as Listenable]]

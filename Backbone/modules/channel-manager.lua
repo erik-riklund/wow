@@ -34,7 +34,7 @@ network_api.createChannel = function (self, name, options)
   if channels:hasEntry (normalized_name) then
     backbone.throw ('Channel creation failed, duplicate name "%s" (%s)', normalized_name, self:getIdentifier())
   end
-  channels:setEntry (normalized_name, new ('Channel', self, normalized_name, options))
+  channels:setEntry (normalized_name, Channel (self, normalized_name, options))
 end
 
 ---@param channel_name string
@@ -67,7 +67,7 @@ network_api.invokeChannelListeners = function (self, channel_name, payload)
   if channel.owner:getIdentifier() ~= self:getIdentifier() then
     backbone.throw ('Cannot invoke listeners on channel "%s" (%s)', channel.name, self:getIdentifier())
   end
-  channel:invokeListeners (new ('Vector', { payload }), channel.async)
+  channel:invokeListeners (Vector { payload }, channel.async)
 end
 
 ---Extends the plugin with network API functionalities for managing channels.

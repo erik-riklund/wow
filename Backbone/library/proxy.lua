@@ -10,7 +10,7 @@ local block_change = function() error ('Attempt to modify an immutable proxy', 3
 ---* Accessing nested tables automatically creates proxies for them.
 Proxy = function (source)
   local access_value = function (_, key)
-    return type (source[key]) == 'table' and new ('Proxy', source[key]) or source[key]
+    return (type (source[key]) == 'table' and Proxy(source[key])) or source[key]
   end
 
   return setmetatable ({}, { __index = access_value, __newindex = block_change })

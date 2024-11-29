@@ -5,4 +5,6 @@
 ## Title: Backbone (settings)
 ## Notes: ?
 
-initialize.lua
+debug.lua
+classes/category.lua
+classes/manager.lua
