@@ -21,10 +21,8 @@ context.frame:HookScript(
       if event_handler:getListenerCount() > 0 then 
         event_handler:invokeListeners (arguments)
       else
-        if event_name ~= 'ADDON_LOADED' then
-          context.frame:UnregisterEvent (event_name)
-          active_events:dropEntry (event_name)
-        end
+        context.frame:UnregisterEvent (event_name)
+        active_events:dropEntry (event_name)
       end
     end
   end
@@ -36,19 +34,7 @@ local events_api = {}
 ---@param callback function
 ---Registers a one-time callback to be executed when the plugin is loaded.
 events_api.onLoad = function (self, callback)
-  local identifier = tostring (B_Time.precise())
-  
-  self:registerEventListener('ADDON_LOADED', {
-    identifier = identifier,
-    callback = function (addon_name)
-      ---@cast addon_name string
-
-      if string.lower (addon_name) == self:getIdentifier() then
-        backbone.executeTask { identifier = identifier, callback = callback }
-        self:removeEventListener('ADDON_LOADED', identifier)
-      end
-    end
-  })
+  EventUtil.ContinueOnAddOnLoaded(self.name, callback)
 end
 
 ---@param event string
@@ -56,6 +42,10 @@ end
 --- Registers a listener for a specific event.
 ---* Automatically registers the event with the frame if it isn't already registered.
 events_api.registerEventListener = function (self, event, listener)
+  if event == 'ADDON_LOADED' then
+    backbone.throw ('Use the native `EventUtil.ContinueOnAddOnLoaded() instead.')
+  end
+
   if not active_events:hasEntry (event) then
     active_events:setEntry (event, new 'Listenable')
     context.frame:RegisterEvent (event)

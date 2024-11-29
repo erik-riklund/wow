@@ -75,3 +75,7 @@ context.plugin:registerDefaultSettings(
     FILTERS = { LOOT = context.loot, IGNORE = context.ignore }
   })
 )
+
+--development of the new `Settings` module:
+
+context.settings = new ('SettingsManager', context.plugin)

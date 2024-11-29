@@ -9,10 +9,10 @@ local queued_tasks = new 'Vector'
 ---Executes a task immediately in a blocking manner.
 ---* Captures and logs errors if the task's callback fails.
 backbone.executeTask = function (task)
-  local success, result = pcall(
+  local success, exception = pcall(
     task.callback, (task.arguments and task.arguments:unpackElements()) or nil
   )
-  if not success then print (result) end -- TODO: implement better error handling!
+  if not success then context.plugin:error (exception) end
 end
 
 ---@param task Task The task object to schedule for later execution.

@@ -1,9 +1,8 @@
 ## Version: 1.0
 ## Interface: 110002
 ## RequiredDeps: Backbone
-## LoadOnDemand: 1
 
-## Title: Backbone (configuration UI)
+## Title: Backbone (settings)
 ## Notes: ?
 
 initialize.lua
