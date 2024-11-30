@@ -251,7 +251,7 @@ Contributions and suggestions are encouraged! For major changes, please open an 
 
 ## 9. License
 
-This project is licensed under the GNU GPL License. See the [LICENSE](LICENSE) file for more information.
+This project is licensed under the GNU GPL License. See the [LICENSE](LICENSE.md) file for more information.
 
 ## 10. Acknowledgements
 
