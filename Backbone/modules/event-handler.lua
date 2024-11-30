@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/11/19 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/30 | Author(s): Gopher ]]
 
 local active_events = new 'Dictionary'
 
@@ -27,14 +27,21 @@ context.frame:HookScript(
     end
   end
 )
-GetTime()
+
+---@param addon string
+---@param callback function
+---Registers a one-time callback to be executed when the specified addon is loaded.
+backbone.onAddonLoaded = function (addon, callback)
+  EventUtil.ContinueOnAddOnLoaded (addon, callback)
+end
+
 ---@class Plugin
 local events_api = {}
 
 ---@param callback function
 ---Registers a one-time callback to be executed when the plugin is loaded.
 events_api.onLoad = function (self, callback)
-  EventUtil.ContinueOnAddOnLoaded(self.name, callback)
+  EventUtil.ContinueOnAddOnLoaded (self.name, callback)
 end
 
 ---@param event string
@@ -43,7 +50,7 @@ end
 ---* Automatically registers the event with the frame if it isn't already registered.
 events_api.registerEventListener = function (self, event, listener)
   if event == 'ADDON_LOADED' then
-    backbone.throw ('Use the native `EventUtil.ContinueOnAddOnLoaded() instead.')
+    backbone.throw ('Use `backbone.onAddonLoaded` to listen to load events.')
   end
 
   if not active_events:hasEntry (event) then

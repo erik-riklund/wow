@@ -6,7 +6,7 @@
 ---@param pieces? number The maximum number of splits to perform. If not provided, all possible splits are performed.
 ---@return Vector components A `Vector` object containing the split components of the string.
 ---Splits a string into parts based on a given separator, and returns the result as a `Vector` object.
-_G.explode = function (target, separator, pieces)
+_G.split = function (target, separator, pieces)
   local components = Vector { string.split(separator, target, pieces) }
   components:forEach(function (_, element) return string.trim(element) end)
 

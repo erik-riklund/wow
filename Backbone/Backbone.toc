@@ -6,11 +6,14 @@
 ## SavedVariables: backbone_account_storage
 
 library/object-factory.lua
-library/dictionary.lua
-library/vector.lua
-library/proxy.lua
-library/explode.lua
-library/integrate-table.lua
+
+library/classes/dictionary.lua
+library/classes/vector.lua
+library/classes/proxy.lua
+
+library/functions/split-string.lua
+library/functions/integrate-table.lua
+library/functions/traverse-table.lua
 
 initialize.lua
 environment.lua

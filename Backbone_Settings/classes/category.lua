@@ -1,5 +1,5 @@
 
---[[~ Updated: 2024/11/29 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/30 | Author(s): Gopher ]]
 
 ---@class SettingsCategory
 local category = {}
@@ -39,7 +39,7 @@ category.createCheckbox = function (self, options)
 
   local setting = Settings.RegisterProxySetting(
     self.object, options.variable, Settings.VarType.Boolean, options.label, default_value,
-    function () return plugin:getSetting (options.variable) end,
+    function () return plugin:getSetting (options.variable) --[[@as boolean]] end,
     function (value) plugin:setSetting (options.variable, value) end
   )
 

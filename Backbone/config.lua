@@ -5,13 +5,15 @@ local context = select(2, ...)
 
 context.plugin:registerDefaultSettings { development = false }
 
-EventUtil.ContinueOnAddOnLoaded(
+backbone.onAddonLoaded (
   'Backbone_Settings', function ()
     local _, category = SettingsManager (context.plugin)
     
     category:createCheckbox {
       variable = 'development', label = 'Development mode',
       tooltip = 'Development mode enables more detailed error reporting and debugging.'
+      
+      -- TODO: replace the explicit strings with localized versions.
     }
   end
 )

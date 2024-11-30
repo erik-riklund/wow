@@ -9,7 +9,7 @@ local context = select(2, ...)
 ---Retrieves metadata for a specific addon and splits it into a `Vector` if applicable.
 context.getAddonMetadata = function (index, key)
   local metadata = C_AddOns.GetAddOnMetadata (index, key)
-  return metadata and explode(metadata, ',') or nil
+  return (metadata and split(metadata, ',')) or nil
 end
 
 ---A callback triggered when the plugin loads, registering load-on-demand addons.
