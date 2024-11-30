@@ -6,15 +6,6 @@ local context = select(2, ...)
 local config_prefix = '__config'
 local default_settings = new 'Dictionary'
 
----@param path string
----?
-local splitPath = function (path)
-  local parents = split (path, '/')
-  local variable = parents:removeElement()
-
-  return parents, variable
-end
-
 ---@class Plugin
 local config_api = {}
 
@@ -23,19 +14,22 @@ context.registerPluginExtension(
 )
 
 ---@param settings table
----Registers default settings for the plugin.
+---Registers a set of default settings for the plugin.
+---* Throws an error if settings for the plugin are already registered.
 config_api.registerDefaultSettings = function (self, settings)
   local identifier = self:getIdentifier()
   if default_settings:hasEntry (identifier) then
     backbone.throw ('Cannot register duplicate default settings (%s)', identifier)
   end
 
-  default_settings:setEntry (identifier, settings)
+  default_settings:setEntry (identifier, flattenTable (settings))
 end
 
 ---@param path string
 ---@return unknown?
----?
+---Retrieves a specific default setting for the plugin by its path.
+---* Throws an error if no default settings are registered for the plugin.
+---* Throws an error if the requested path does not exist in the default settings.
 config_api.getDefaultSetting = function (self, path)
   local identifier = self:getIdentifier()
 
@@ -46,8 +40,7 @@ config_api.getDefaultSetting = function (self, path)
   end
 
   ---@cast settings table
-  local parents, variable = splitPath (path)
-  local value = (parents:getSize() > 0 and traverseTable (settings, parents)) or settings[variable]
+  local value = settings[path]
 
   if value == nil then
     backbone.throw ('Unknown default setting "%s" requested (%s)', path, identifier)
@@ -63,11 +56,10 @@ end
 ---* Throws an error if the setting is unknown.
 config_api.getSetting = function (self, path)
   local settings = self:getAccountVariable (config_prefix)
+  
   if type (settings) == 'table' then
-    local parents, variable = splitPath (path)
-    local setting = (parents:getSize() > 0 and traverseTable (settings, parents)) or settings[variable]
-    
-    if setting ~= nil then return setting end -- return the stored setting.
+    local value = settings[path]
+    if value ~= nil then return value end -- return the stored setting.
   end
 
   local default_setting = self:getDefaultSetting (path)
@@ -83,7 +75,7 @@ end
 ---* Throws an error if the setting is unknown or if the type mismatches.
 config_api.setSetting = function (self, path, value)
   local identifier = self:getIdentifier()
-
+  
   local default_setting = self:getDefaultSetting (path)
   if default_setting == nil then
     backbone.throw ('Unknown setting "%s" (%s)', path, identifier)
@@ -100,7 +92,5 @@ config_api.setSetting = function (self, path, value)
     settings = self:getAccountVariable (config_prefix)
   end
 
-  local parents, variable = splitPath (path)
-  settings = (parents:getSize() and traverseTable (settings, parents, 'build')) or settings
-  settings[variable] = value -- updates the internal config table by reference.
+  settings[path] = value
 end

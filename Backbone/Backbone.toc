@@ -13,7 +13,7 @@ library/classes/proxy.lua
 
 library/functions/split-string.lua
 library/functions/integrate-table.lua
-library/functions/traverse-table.lua
+library/functions/flatten-table.lua
 
 initialize.lua
 environment.lua

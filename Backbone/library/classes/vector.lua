@@ -4,6 +4,15 @@
 ---@class Vector
 local vector = {}
 
+---Prototype for creating new `Vector` instances.
+local prototype = { __index = vector }
+
+---@param initial_values? table<number, unknown>
+---Creates a new `Vector` instance with optional initial values.
+Vector = function (initial_values)
+  return setmetatable ({ values = initial_values or {} }, prototype)
+end
+
 ---@protected
 ---@type table<number, unknown>
 vector.values = nil
@@ -53,11 +62,10 @@ end
 ---Unpacks and returns all elements in the vector.
 vector.unpackElements = function (self) return unpack (self.values) end
 
----Prototype for creating new `Vector` instances.
-local prototype = { __index = vector }
-
----@param initial_values? table<number, unknown>
----Creates a new `Vector` instance with optional initial values.
-Vector = function (initial_values)
-  return setmetatable ({ values = initial_values or {} }, prototype)
+---@param separator string
+---@param from? number
+---@param to? number
+---?
+vector.joinElements = function (self, separator, from, to)
+  return table.concat (self, separator, from, to)
 end

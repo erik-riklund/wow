@@ -13,6 +13,8 @@ filters/ignore.lua
 filters/loot.lua
 
 initialize.lua
-config.lua
+settings/default.lua
+settings/interface.lua
+
 frame.lua
 handler.lua
