@@ -22,6 +22,7 @@ modules/output-handler.lua
 modules/error-handler.lua
 
 enums/anchor-point.lua
+enums/expansion-level.lua
 enums/item-bind.lua
 enums/item-class.lua
 enums/item-quality.lua

@@ -9,5 +9,3 @@ local locales_api = {}
 context.registerPluginExtension(
   function (plugin) integrateTable (plugin, locales_api) end
 )
-
-
