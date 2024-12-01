@@ -31,10 +31,6 @@ enums/tradeskill-subtype.lua
 
 utilities/item-handler.lua
 utilities/loot-handler.lua
-utilities/system-handler.lua
-utilities/time-handler.lua
-utilities/unit-handler.lua
-utilities/widget-handler.lua
 
 components/listenable.lua
 primitives/channel.lua

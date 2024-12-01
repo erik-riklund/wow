@@ -16,7 +16,7 @@ plugin:registerEventListener(
   'PLAYER_FLAGS_CHANGED', {
     identifier = 'PLAYER_FLAGS_CHANGED',
     callback = function (unit)
-      if unit == 'player' and B_Unit.isAFK 'player' then collectgarbage 'collect' end
+      if unit == 'player' and UnitIsAFK 'player' then collectgarbage 'collect' end
     end
   }
 )
@@ -26,7 +26,7 @@ plugin:registerEventListener(
   'UNIT_ENTERED_VEHICLE', {
     identifier = 'UNIT_ENTERED_VEHICLE',
     callback = function (unit)
-      if unit == 'player' and B_Unit.onTaxi 'player' then collectgarbage 'collect' end
+      if unit == 'player' and UnitOnTaxi 'player' then collectgarbage 'collect' end
     end
   }
 )

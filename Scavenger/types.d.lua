@@ -3,5 +3,5 @@
 ---
 --- ?
 ---
----@alias LootHandler fun(slotInfo: LootSlotInfo): lootable: boolean
+---@alias LootHandler fun(slotInfo: LootslotInfo): lootable: boolean
 ---

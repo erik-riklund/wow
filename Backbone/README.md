@@ -1,82 +1,118 @@
 # Backbone
-*Version 1.0.0*
+*Version ? (work in progress)*
 ### A World of Warcraft Addon Development Framework
 
-Backbone is a lightweight, modular framework designed to simplify the development of World of Warcraft addons. It provides developers with a powerful toolkit for building robust, efficient, and maintainable addons.
+Backbone is a lightweight framework designed to simplify the development of World of Warcraft addons. It provides developers with a powerful toolkit for building robust, efficient, and maintainable addons.
 
 ## Table of contents
 
 1. [Introduction](#1-introduction)
-2. [Features](#2-features)
-3. [Getting started](#3-getting-started)
-4. [Usage](#4-usage)
-5. [Framework API reference](#5-framework-api-reference)
-    - 5.1 [Static resources](#51-static-resources)
-    - 5.2 [Enumerations](#52-enumerations)
-    - 5.3 [Methods](#53-methods)
-6. [Plugin API reference](#6-plugin-api-reference)
-7. [Developer resources](#7-developer-resources)
-8. [Contributing](#8-contributing)
-9. [License](#9-license)
-10. [Acknowledgements](#10-acknowledgements)
+    - [Features](#features)
+    - [Getting started](#getting-started)
+    - [Usage examples](#usage-examples)
+      - [Hello world](#hello-world)
+      - [Event listeners](#event-listeners)
+2. [Framework API reference](#2-framework-api-reference)
 
 ## 1. Introduction
 
-Backbone is built to streamline the process of addon development for World of Warcraft by offering:
+Backbone is built to streamline the process of addon development by offering:
 
 - A clean, intuitive and performant structure.
 - Utilities for common tasks such as event handling, configuration, and data storage.
 - Compatibility with the latest versions of World of Warcraft.
 
-Whether you're creating your first addon or enhancing an existing one, Backbone helps you focus on functionality instead of boilerplate code. [TODO: Extend and enhance the introduction]
+Whether you're creating your first addon or enhancing an existing one, Backbone helps you focus on functionality instead of boilerplate code.
 
-## 2. Features
+*Extend and enhance the introduction to make it interesting!*
 
+### Features
+
+- **Lightweight**: Minimal overhead to ensure your addon remains performant.
 - **Performance**: The framework is designed with performance in mind, enabling and encouraging developers to create addons that load dynamically when needed, optimizing gameplay by minimizing initial loading times.
+- **Inter-addon cooperation**: Designed to promote seamless interaction between addons, enabling developers to build collaborative and interconnected features.
 - **Event handling**: Simplified registration and handling of WoW API events to streamline event-driven programming.
 - **State management**: Built-in support for managing and persisting addon data (saved variables).
 - **Configuration handling**: Offers robust tools for managing addon configuration, along with a simplified API for seamlessly integrating settings into the standard WoW interface.
 - **Localization support**: Provides efficient handling of localized strings, making it easy to create addons that support multiple languages and regions.
-- **Lightweight**: Minimal overhead to ensure your addon remains performant.
-- **Inter-addon cooperation**: Designed to promote seamless interaction between addons, enabling developers to build collaborative and interconnected features.
 
 The framework not only emphasizes performance but also fosters a cooperative ecosystem where addons can communicate and integrate efficiently. Developers can leverage shared data through services and channels, enabling richer experiences for players while maintaining compatibility.
 
-## 3. Getting started
+### Getting started
 
-?
+#### Setting up your IDE
 
-### .TOC file
+*Provide information about extensions to enable full typing during development.*
+
+#### The .TOC file
 
 *Describe the basics for the table of contents file.*
 
-## 4. Usage
+### Usage examples
 
-### Hello world
+#### Hello world
 
-As per programming standards, here's a "Hello world" example.
+As per programming standards, here is a basic "Hello world" example.
 
 ```lua
 --The name of the plugin must match the name of your addon folder.
-local plugin = backbone.createPlugin 'HelloWorld'
+local plugin = backbone.createPlugin 'MyAddon'
 plugin:onLoad(function () print 'Hello world' end)
 ```
 
-## 5. Framework API reference
+#### Event listeners
 
-### 5.1 Static resources
+This example demonstrates how to register an event listener in Backbone using the [`plugin:registerEventListener`](#pluginregistereventlistenerevent-string-listener-listener) method. The `PLAYER_ENTERING_WORLD` event triggers a welcome message that includes the player's name.
+
+```lua
+local plugin = backbone.createPlugin 'MyAddon'
+
+plugin:registerEventListener(
+  'PLAYER_ENTERING_WORLD', {
+    --The function that is executed when the event occur.
+    callback = function() print ('Welcome '.. UnitName ('player')) end
+
+    --The identifier is used for error reporting and removing listeners.
+    identifier = 'PlayerGreeting', -- (optional)
+
+    --If explicitly set to `false`, the listener is removed after being invoked.
+    persistent = false -- (optional, default = true)
+  }
+)
+```
+
+#### Using network channels
+
+*Add a description of what the example demonstrates.*
+
+```lua
+local plugin = backbone.createPlugin 'MyAddon'
+
+```
+
+## 2. Framework API reference
+
+### Static resources
 
 #### `backbone.activeLocale`
 
-The active locale of the game client, represented as a string (e.g., "enUS", "deDE").
+The active locale of the game client, represented as a string (e.g., `enUS`, `deDE`).
 
 #### `backbone.currentExpansion`
 
-The current expansion level of the game, represented as a number (see [EXPANSION_LEVEL](#enumexpansion_level)).
+The current expansion level of the game, represented as a number (see [`EXPANSION_LEVEL`](#enumexpansion_level)).
 
-### 5.2 Enumerations
+### Framework methods
 
-The framework provides both new enumerations and an abstraction layer on top of some of World of Warcraft’s standard game enumerations. This abstraction simplifies code maintenance by shielding developers from changes in the underlying enumerations that may occur in future game updates.
+#### `backbone.createPlugin(name: string): Plugin`
+
+?
+
+- `name` (string): 
+
+### Enumerations
+
+The framework provides both new enumerations and an abstraction layer on top of some of the game’s standard  enumerations. This abstraction simplifies code maintenance by shielding developers from changes in the underlying enumerations that may occur in future game updates.
 
 #### `ENUM.ANCHOR_POINT`
 
@@ -217,43 +253,81 @@ ENUM.TRADESKILL_SUBTYPE = {
 }
 ```
 
-### 5.3 Methods
+### Object types
 
-#### `backbone.createPlugin(name): Plugin`
+*Add a description of this section.*
 
-Initializes a new plugin with the specified name. Returns a `Plugin` object.
-
-- `name` (string): The name of your plugin. *Must match the actual addon folder name.*
-
-#### `backbone.hasPlugin(name): boolean`
-
-Checks if a plugin with the given name is registered. Returns true if the plugin exists, false otherwise.
-
-- `name` (string): The name of the plugin to check.
-
-#### `backbone.getEnvironment(): 'development'|'production'`
+#### `Channel`
 
 ?
 
-## 6. Plugin API reference
-
-#### `plugin:onLoad(callback)`
+#### `ChannelOptions`
 
 ?
 
-## 7. Developer resources
+#### `Listener`
 
 ?
 
-## 8. Contributing
+#### `Task`
 
-Contributions and suggestions are encouraged! For major changes, please open an issue prior to forking and branching the repository to discuss what you’d like to add or modify.
+Represents a unit of work to be executed, either synchronously or asynchronously.
 
-## 9. License
+
+
+## 3. Plugin API reference
+
+#### `plugin:onLoad(callback: function)`
+
+Registers a function to be executed when the plugin is loaded. This method is ideal for centralizing and organizing addon startup logic, ensuring that your code runs at the correct time during the game's loading process. Can be used any number of times; the registered functions are executed in the order they were added.
+
+- `callback`: A function that will be invoked when the plugin is loaded. The function can be used to set up initial states, register event listeners, or perform other setup tasks. The callback does not take any arguments by default but can leverage closures or external variables for context.
+
+#### `plugin:registerEventListener(event: string, listener: Listener)`
+
+Registers a listener for a specified game event.
+
+- `event`: The name of the event to listen for (e.g., `PLAYER_ENTERING_WORLD`, `CHAT_MSG_SAY`). This is case-sensitive and must match the game's standard event names.
+- `listener`: A table defining the behavior of the listener. See [`Listener`](#listener) for details on its structure and options.
+
+#### `plugin:removeEventListener(event: string, identifier: string)`
+
+Removes a previously registered event listener for a specified event.
+
+- `event`: The name of the event associated with the listener you want to remove.
+- `identifier`: The unique identifier assigned to the listener when it was registered. This is required to precisely target and remove the specific listener.
+
+## 4. Settings API reference
+
+*Add a description of this section.*
+
+#### `SettingsManager`
+
+*List the available methods here.*
+
+#### `SettingsCategory`
+
+*List the available methods here.*
+
+## 5. Developer resources
+
+### Download locations
+
+*Links to download locations and the Discord server.*
+
+### Discord
+
+https://discord.gg/JaHq2wWweS
+
+## 6. Contributing
+
+Contributions and suggestions are encouraged! For major changes, please open an issue prior to forking and branching the repository to discuss what you would like to add or modify.
+
+## 7. License
 
 This project is licensed under the GNU GPL License. See the [LICENSE](LICENSE.md) file for more information.
 
-## 10. Acknowledgements
+## 8. Acknowledgements
 
 - Inspired by the simplicity of frameworks in other environments.
 - Thanks to the World of Warcraft developer community for documentation and inspiration.

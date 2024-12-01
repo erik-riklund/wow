@@ -26,8 +26,8 @@ local task_process = coroutine.create(
     local time_limit = 0.01667 -- Time budget per frame (60 FPS cap).
 
     while true do
-      local time_started = B_Time.precise()
-      while queued_tasks:getSize() > 0 and (B_Time.precise() - time_started <= time_limit) do
+      local time_started = GetTimePreciseSec()
+      while queued_tasks:getSize() > 0 and (GetTimePreciseSec() - time_started <= time_limit) do
         backbone.executeTask (queued_tasks:removeElement(1) --[[@as Task]])
       end
 
