@@ -3,6 +3,17 @@ local context = select(2, ...)
 
 --[[~ Updated: 2024/11/19 | Author(s): Gopher ]]
 
+--Backbone - A World of Warcraft Addon Framework
+--Copyright (C) 2024 Erik Riklund (Gopher)
+--
+--This program is free software: you can redistribute it and/or modify it under the terms
+--of the GNU General Public License as published by the Free Software Foundation, either
+--version 3 of the License, or (at your option) any later version.
+--
+--This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+--without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+--See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
+
 local queued_tasks = new 'Vector'
 
 ---@param task Task The task object containing a callback and optional arguments.
@@ -12,7 +23,7 @@ backbone.executeTask = function (task)
   local success, exception = pcall(
     task.callback, (task.arguments and task.arguments:unpackElements()) or nil
   )
-  if not success then context.plugin:error (exception) end
+  if not success then print (exception) end -- TODO: improved error handling.
 end
 
 ---@param task Task The task object to schedule for later execution.

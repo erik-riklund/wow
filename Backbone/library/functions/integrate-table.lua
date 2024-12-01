@@ -1,6 +1,17 @@
 
 --[[~ Updated: 2024/11/28 | Author(s): Gopher ]]
 
+--Backbone - A World of Warcraft Addon Framework
+--Copyright (C) 2024 Erik Riklund (Gopher)
+--
+--This program is free software: you can redistribute it and/or modify it under the terms
+--of the GNU General Public License as published by the Free Software Foundation, either
+--version 3 of the License, or (at your option) any later version.
+--
+--This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+--without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+--See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
+
 ---@param base table The target table to which the contents of the source table will be added.
 ---@param source table The table containing the data to merge into the base table.
 ---@param overwrite? boolean Determines whether existing keys in the base table can be overwritten (default: false)

@@ -1,17 +1,19 @@
 
---[[~ Updated: 2024/11/18 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/01 | Author(s): Gopher ]]
+
+--Backbone - A World of Warcraft Addon Framework
+--Copyright (C) 2024 Erik Riklund (Gopher)
+--
+--This program is free software: you can redistribute it and/or modify it under the terms
+--of the GNU General Public License as published by the Free Software Foundation, either
+--version 3 of the License, or (at your option) any later version.
+--
+--This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+--without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+--See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@class Vector
 local vector = {}
-
----Prototype for creating new `Vector` instances.
-local prototype = { __index = vector }
-
----@param initial_values? table<number, unknown>
----Creates a new `Vector` instance with optional initial values.
-Vector = function (initial_values)
-  return setmetatable ({ values = initial_values or {} }, prototype)
-end
 
 ---@protected
 ---@type table<number, unknown>
@@ -52,9 +54,9 @@ vector.forEach = function (self, callback)
 end
 
 ---?
-vector.contains = function (self, search_value)
-  for _, value in ipairs(self.values) do
-    if value == search_value then return true end
+vector.containsElement = function (self, searchValue)
+  for _, value in ipairs (self.values) do
+    if value == searchValue then return true end
   end
   return false
 end
@@ -66,6 +68,13 @@ vector.unpackElements = function (self) return unpack (self.values) end
 ---@param from? number
 ---@param to? number
 ---?
-vector.joinElements = function (self, separator, from, to)
-  return table.concat (self, separator, from, to)
+vector.joinElements = function (self, separator, from, to) return table.concat (self, separator, from, to) end
+
+---Prototype for creating new `Vector` instances.
+local prototype = { __index = vector }
+
+---@param initialValues? table<number, unknown>
+---Creates a new `Vector` instance with optional initial values.
+Vector = function (initialValues)
+  return setmetatable ({ values = initialValues or {} }, prototype)
 end

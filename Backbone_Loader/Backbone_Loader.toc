@@ -5,7 +5,6 @@
 ## Title: Backbone (loader)
 ## Notes: ?
 
-initialize.lua
-load-handler.lua
+main.lua
 handlers/on-event.lua
 process-addons.lua

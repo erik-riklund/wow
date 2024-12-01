@@ -12,7 +12,19 @@ Backbone is a lightweight framework designed to simplify the development of Worl
     - [Usage examples](#usage-examples)
       - [Hello world](#hello-world)
       - [Event listeners](#event-listeners)
-2. [Framework API reference](#2-framework-api-reference)
+2. [Framework reference](#2-framework-reference)
+    - [Static resources](#static-resources)
+    - [Methods](#methods)
+    - [Classes](#classes)
+    - [Enumerations](#enumerations)
+3. [Plugin API reference](#3-plugin-api-reference)
+4. [Settings API reference](#4-settings-api-reference)
+    - [Manager](#settingsmanager)
+    - [Category](#settingscategory)
+5. [Developer resources](#5-developer-resources)
+6. [Contributing](#6-contributing)
+7. [License](#7-license)
+8. [Acknowledgements](#8-acknowledgements)
 
 ## 1. Introduction
 
@@ -38,16 +50,12 @@ Whether you're creating your first addon or enhancing an existing one, Backbone 
 
 The framework not only emphasizes performance but also fosters a cooperative ecosystem where addons can communicate and integrate efficiently. Developers can leverage shared data through services and channels, enabling richer experiences for players while maintaining compatibility.
 
+---
 ### Getting started
-
-#### Setting up your IDE
 
 *Provide information about extensions to enable full typing during development.*
 
-#### The .TOC file
-
-*Describe the basics for the table of contents file.*
-
+---
 ### Usage examples
 
 #### Hello world
@@ -60,6 +68,7 @@ local plugin = backbone.createPlugin 'MyAddon'
 plugin:onLoad(function () print 'Hello world' end)
 ```
 
+---
 #### Event listeners
 
 This example demonstrates how to register an event listener in Backbone using the [`plugin:registerEventListener`](#pluginregistereventlistenerevent-string-listener-listener) method. The `PLAYER_ENTERING_WORLD` event triggers a welcome message that includes the player's name.
@@ -81,6 +90,7 @@ plugin:registerEventListener(
 )
 ```
 
+---
 #### Using network channels
 
 *Add a description of what the example demonstrates.*
@@ -90,25 +100,91 @@ local plugin = backbone.createPlugin 'MyAddon'
 
 ```
 
-## 2. Framework API reference
+## 2. Framework reference
 
 ### Static resources
 
 #### `backbone.activeLocale`
 
-The active locale of the game client, represented as a string (e.g., `enUS`, `deDE`).
+The active locale of the game client, represented as a string (`enUS`, `deDE`, etc.).
 
 #### `backbone.currentExpansion`
 
 The current expansion level of the game, represented as a number (see [`EXPANSION_LEVEL`](#enumexpansion_level)).
 
-### Framework methods
+### Methods
 
-#### `backbone.createPlugin(name: string): Plugin`
+#### `backbone.createPlugin(name: string) -> plugin: Plugin`
+Creates a new plugin with the specified name. Throws an error if a plugin with that name already exists.
+- `name` The desired name of the plugin. *Must match the folder name of your addon.*
+
+---
+#### `backbone.executeTask(task: Task)`
+Executes a task immediately in a blocking manner.
+- `task` A task object (see [`Task`](#task)).
+
+---
+#### `backbone.executeTaskAsync(task: Task)`
+Schedules a task for asynchronous execution.
+- `task` A task object (see [`Task`](#task)).
+
+---
+#### `backbone.onAddonLoaded(addon: string, callback: function)`
+?
+
+---
+#### `backbone.getItemId(link: string) -> itemId: string`
+Extracts the item ID from an item link.
+- `link` The item link.
+
+---
+#### `backbone.getItemInfo(item: number|string) -> itemInfo: ItemData`
+Retrieves detailed information about an item specified by its ID or link. Combines basic and detailed item data into a structured format (see [`ItemData`](#itemdata)).
+- `item` An item ID or link.
+
+---
+#### `backbone.getItemLevel(info: number|string) -> actualItemLevel: number`
+Retrieves the actual item level of the specified item.
+- `info` The item link or ID for which to retrieve the item level.
+
+---
+#### `backbone.getLootCount() -> itemCount: number`
+Returns the number of items currently available in the loot window.
+
+---
+#### `backbone.getLootslotInfo(slot: number) -> slotInfo: LootslotInfo`
+Retrieves detailed information about a specific loot slot. Combines data from multiple APIs into a structured format (see [`LootslotInfo`](#lootslotinfo)).
+- `slot` The index of the loot slot (1-based).
+
+---
+#### `backbone.isFishingLoot() -> boolean`
+Returns true if the loot window is related to fishing.
+
+---
+#### `backbone.lootSlot(slot: number)`
+Loots the specified slot in the loot window.
+- `slot` The index of the loot slot (1-based).
+
+---
+#### `backbone.throw(exception: string, ...: string)`
+Throws a formatted exception with the specified message, formatting it if additional arguments are provided, and raises an error with a stack trace at level 3 for better debugging.
+- `exception` The exception message to throw. Supports formatting placeholders.
+- `...` Additional arguments to format the exception message. *`optional`*
+
+---
+### Classes
+
+#### `Dictionary`
 
 ?
 
-- `name` (string): 
+#### `Listenable`
+
+?
+
+#### `Vector`
+
+?
 
 ### Enumerations
 
@@ -218,12 +294,12 @@ ENUM.ITEM_QUALITY = {
 }
 ```
 
-#### `ENUM.LOOT_SLOT_TYPE`
+#### `ENUM.LOOTSLOT_TYPE`
 
 Represents the different types of loot slots in the game.
 
 ```lua
-ENUM.LOOT_SLOT_TYPE = {
+ENUM.LOOTSLOT_TYPE = {
       NONE = Enum.LootSlotType.None,
       ITEM = Enum.LootSlotType.Item,
      MONEY = Enum.LootSlotType.Money,
@@ -257,32 +333,85 @@ ENUM.TRADESKILL_SUBTYPE = {
 
 *Add a description of this section.*
 
-#### `Channel`
+#### `ItemData`
 
-?
+Represents a data structure containing detailed information about an item.
 
-#### `ChannelOptions`
+- `id: number` The item's ID.
+- `name: string` The localized name of the item.
+- `link: string` The localized link of the item.
+- `quality: number` The [`ITEM_QUALITY`](#enumitem_quality) code for the item.
+- `itemLevel: number` The actual item level of the item.
+- `baseItemLevel: number` The base item level, not including upgrades.
+- `requiredPlayerLevel: number` The minimum level required to use the item, or `0` if there is no level requirement
+- `localizedType: string` The localized type name of the item: Armor, Weapon, Quest, etc.
+- `localizedSubtype: string` The localized sub-type name of the item: Bows, Guns, Staves, etc.
+- `stackCount: number` The max amount of an item per stack, e.g. 200 for Runecloth.
+- `equipLocation: string` The inventory equipment location in which the item may be equipped (e.g. `INVTYPE_HEAD`), or an empty string if it cannot be equipped.
+- `textureId: number` The texture ID for the item icon.
+- `sellPrice: number` The vendor price in copper, or `0` for items that cannot be sold.
+- `typeId: number` The numeric ID of `localizedType`.
+- `subtypeId: number` The numeric ID of `localizedSubtype`.
+- `bindType: number` When the item becomes soulbound (see [`ITEM_BIND`](#enumitem_bind)).
+- `expansionId: number` The expansion ID (see [`EXPANSION_LEVEL`](#enumexpansion_level))
+- `setId: number?` The ID of the set that the item belong to, if any.
+- `isCraftingReagent: boolean` Whether the item can be used as a crafting reagent.
 
-?
+---
+#### `LootslotInfo`
 
+Represents a data structure containing detailed information about a loot slot.
+
+- `icon: string` The path of the graphical icon for the item.
+- `name: string` The localized name of the item.
+- `link: string` The localized link of the item.
+- `slotType: number` Numerical representation of the loot type for a given loot slot (see [`LOOTSLOT_TYPE`](#enumlootslot_type)).
+- `quantity: number` The quantity of the item in a stack. *Note: Quantity for coin is always 0.*
+- `currencyId: number?` The identifying number of the currency loot in slot, if applicable. *Note: Returns nil for slots with coin and regular items.*
+- `quality: number` The [`ITEM_QUALITY`](#enumitem_quality) code for the item.
+- `locked: boolean` Whether the player is eligible to loot this item or not. Locked items are by default shown tinted red.
+- `isQuestItem: boolean` Self-explanatory.
+- `questId: number` The identifying number for the quest.
+- `isQuestActive: boolean` True if the item starts a quest that the player is not currently on.
+
+---
 #### `Listener`
 
-?
+Represents an entity that observes and responds to events or updates from a [`Listenable`](#listenable) object, such as events or channels.
 
+- `callback` The callback function to be invoked when the listener is triggered.
+- `identifier?` A unique identifier for the listener.
+  - If omitted, the listener will be anonymous (not eligible for targeted removal).
+- `persistent?` Indicates whether the listener should persist after being invoked.
+  - If true, the listener remains active; if false, it is automatically removed after one invocation.
+  - Defaults to true if not specified.
+
+---
 #### `Task`
 
 Represents a unit of work to be executed, either synchronously or asynchronously.
 
-
+- `callback` The callback function to be executed when the task runs.
+- `arguments?` Arguments to pass to the callback function.
+- `identifier?` A unique identifier for the task, used for debugging.
 
 ## 3. Plugin API reference
 
+#### `plugin:getId() -> id: string`
+Retrieves the unique identifier of the plugin.
+
+---
+#### `plugin:getName() -> name: string`
+Retrieves the display name of the plugin.
+
+---
 #### `plugin:onLoad(callback: function)`
 
 Registers a function to be executed when the plugin is loaded. This method is ideal for centralizing and organizing addon startup logic, ensuring that your code runs at the correct time during the game's loading process. Can be used any number of times; the registered functions are executed in the order they were added.
 
 - `callback`: A function that will be invoked when the plugin is loaded. The function can be used to set up initial states, register event listeners, or perform other setup tasks. The callback does not take any arguments by default but can leverage closures or external variables for context.
 
+---
 #### `plugin:registerEventListener(event: string, listener: Listener)`
 
 Registers a listener for a specified game event.
@@ -290,6 +419,7 @@ Registers a listener for a specified game event.
 - `event`: The name of the event to listen for (e.g., `PLAYER_ENTERING_WORLD`, `CHAT_MSG_SAY`). This is case-sensitive and must match the game's standard event names.
 - `listener`: A table defining the behavior of the listener. See [`Listener`](#listener) for details on its structure and options.
 
+---
 #### `plugin:removeEventListener(event: string, identifier: string)`
 
 Removes a previously registered event listener for a specified event.

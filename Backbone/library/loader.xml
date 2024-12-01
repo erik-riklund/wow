@@ -1,0 +1,19 @@
+<Ui>
+  <Include file="object-factory.lua" />
+  <!-- CLASSES -->
+  <Include file="classes/dictionary.lua" />
+  <Include file="classes/listenable.lua" />
+  <Include file="classes/vector.lua" />
+  <!-- ENUMERATIONS -->
+  <Include file="enums/anchor-point.lua" />
+  <Include file="enums/expansion-level.lua" />
+  <Include file="enums/item-bind.lua" />
+  <Include file="enums/item-class.lua" />
+  <Include file="enums/item-quality.lua" />
+  <Include file="enums/lootslot-type.lua" />
+  <Include file="enums/tradeskill-subtype.lua" />
+  <!-- FUNCTIONS -->
+  <Include file="functions/flatten-table.lua" />
+  <Include file="functions/integrate-table.lua" />
+  <Include file="functions/split-string.lua" />
+</Ui>

@@ -1,53 +1,8 @@
 ## Version: 1.0
 ## Interface: 110002
+# SavedVariables: BackboneVariables
 
 ## Title: Backbone (framework)
-## Notes: A framework that simplifies addon development with an intuitive API for interacting with game systems.
-## SavedVariables: backbone_account_storage
+## Notes: ?
 
-library/object-factory.lua
-
-library/classes/dictionary.lua
-library/classes/vector.lua
-library/classes/proxy.lua
-
-library/functions/split-string.lua
-library/functions/integrate-table.lua
-library/functions/flatten-table.lua
-
-initialize.lua
-environment.lua
-
-modules/output-handler.lua
-modules/error-handler.lua
-
-enums/anchor-point.lua
-enums/expansion-level.lua
-enums/item-bind.lua
-enums/item-class.lua
-enums/item-quality.lua
-enums/loot-slot-type.lua
-enums/tradeskill-subtype.lua
-
-utilities/item-handler.lua
-utilities/loot-handler.lua
-
-components/listenable.lua
-primitives/channel.lua
-
-resources.lua
-
-modules/plugin-manager.lua
-primitives/plugin.lua
-
-modules/task-handler.lua
-modules/channel-manager.lua
-modules/event-handler.lua
-modules/storage-handler.lua
-modules/config-handler.lua
-modules/locale-handler.lua
-
-plugin.lua
-config.lua
-
-plugins/garbage-collector.lua
+loader.xml
