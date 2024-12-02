@@ -1,8 +1,7 @@
 <Ui>
   <Include file="framework.lua" />
   <Include file="library/loader.xml" />
-  <Include file="utilities/item-handler.lua" />
-  <Include file="utilities/loot-handler.lua" />
+  <Include file="utilities/loader.xml" />
   <Include file="plugin-api.lua" />
   <Include file="plugins.lua" />
   <Include file="modules/loader.xml" />

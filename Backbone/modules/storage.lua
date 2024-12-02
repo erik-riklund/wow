@@ -14,4 +14,14 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
+local storage = new 'Dictionary'
+
+
+
+--- PLUGIN API METHODS ---
+
+---@class Plugin
+local eventsApi = context.pluginApi
+
+---?
 

@@ -15,3 +15,8 @@ local context = select(2, ...)
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 
+
+--- PLUGIN API METHODS ---
+
+---@class Plugin
+local eventsApi = context.pluginApi

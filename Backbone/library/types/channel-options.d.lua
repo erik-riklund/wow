@@ -1,3 +1,4 @@
+---@meta
 
 --[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
@@ -12,23 +13,14 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@param base table
----@param source table
----@param overwrite? boolean
----@return table base
----Merges the contents of a source table into a base table, with optional
----overwrite protection for existing keys.
-_G.integrateTable = function (base, source, overwrite)
-  if type (base) ~= 'table' or type (source) ~= 'table' then
-    error('Expected both `base` and `source` to be tables.', 3)
-  end
+---@class ChannelOptions
+---?
+local options = {}
 
-  for key, value in pairs (source) do
-    if base[key] ~= nil and overwrite ~= true then
-      error('The base table already contains the key "'.. key ..'".', 3)
-    end
-    base[key] = value
-  end
+---@type boolean?
+---?
+options.internal = nil
 
-  return base
-end
+---@type boolean?
+---?
+options.async = nil

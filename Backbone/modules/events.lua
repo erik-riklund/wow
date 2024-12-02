@@ -102,16 +102,16 @@ context.frame:HookScript(
   end
 )
 
---- THE SECTION BELOW CONTAINS PLUGIN API METHODS ---
+--- PLUGIN API METHODS ---
 
 ---@class Plugin
 local eventsApi = context.pluginApi
 
 ---@param callback function
----Registers a function to be executed when the plugin is loaded. Can be used any number
----of times; the registered functions are executed in the order they were added.
-eventsApi.onLoad = function (self, callback)
-  backbone.onAddonLoaded (self.name, callback)
+---Registers a function to be executed when the plugin is fully initialized. Can be used
+---any number of times; the registered functions are executed in the order they were added.
+eventsApi.onReady = function (self, callback)
+  self:registerChannelListener ('PLUGIN_READY', { callback = callback })
 end
 
 ---@param event WowEvent

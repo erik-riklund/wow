@@ -58,24 +58,26 @@ The framework not only emphasizes performance but also fosters a cooperative eco
 ---
 ### Usage examples
 
-#### Hello world
-
-As per programming standards, here is a basic "Hello world" example.
+Each example use the variable `plugin` to represent an active plugin.
 
 ```lua
 --The name of the plugin must match the name of your addon folder.
 local plugin = backbone.createPlugin 'MyAddon'
-plugin:onLoad(function () print 'Hello world' end)
+```
+
+---
+#### Hello world
+As per programming standards, here is a basic "Hello world" example.
+
+```lua
+plugin:onReady(function () print 'Hello world' end)
 ```
 
 ---
 #### Event listeners
-
-This example demonstrates how to register an event listener using the [`plugin:registerEventListener`](#pluginregistereventlistenerevent-string-listener-listener) method. The `PLAYER_ENTERING_WORLD` event triggers a welcome message that includes the player's name.
+This example demonstrates how to register an event listener using the [`registerEventListener`](#pluginregistereventlistenerevent-string-listener-listener) method. The `PLAYER_ENTERING_WORLD` event triggers a welcome message that includes the player's name.
 
 ```lua
-local plugin = backbone.createPlugin 'MyAddon'
-
 plugin:registerEventListener(
   'PLAYER_ENTERING_WORLD', {
     --The function that is executed when the event occur.
@@ -92,13 +94,37 @@ plugin:registerEventListener(
 
 ---
 #### Using network channels
+*Add a description of what the example demonstrates.*
+
+```lua
+--The second parameter (options) is optional. This example simply
+--demonstrates the default values for the channel options.
+
+plugin:createChannel ('A_CUSTOM_CHANNEL', { async = true, internal = false })
+```
 
 *Add a description of what the example demonstrates.*
 
 ```lua
-local plugin = backbone.createPlugin 'MyAddon'
+local firstArg = true
+local secondArg = 'Eh?'
+
+plugin:invokeChannelListeners ('A_CUSTOM_CHANNEL', firstArg, secondArg)
 ```
 
+*Add a description of what the example demonstrates.*
+
+```lua
+plugin:registerChannelListener (
+  'A_CUSTOM_CHANNEL', {
+    callback = function() --[[ do something... ]] end
+    identifier = 'ChannelExample', -- (optional)
+    persistent = false -- (optional, default = true)
+  }
+)
+```
+
+---
 ## 2. Framework reference
 
 ### Static resources
@@ -394,6 +420,7 @@ Represents a unit of work to be executed, either synchronously or asynchronously
 - `arguments?` Arguments to pass to the callback function.
 - `identifier?` A unique identifier for the task, used for debugging.
 
+---
 ## 3. Plugin API reference
 
 #### `plugin:getId() -> id: string`
@@ -404,28 +431,25 @@ Retrieves the unique identifier of the plugin.
 Retrieves the display name of the plugin.
 
 ---
-#### `plugin:onLoad(callback: function)`
+#### `plugin:onReady(callback: function)`
 
-Registers a function to be executed when the plugin is loaded. This method is ideal for centralizing and organizing addon startup logic, ensuring that your code runs at the correct time during the game's loading process. Can be used any number of times; the registered functions are executed in the order they were added.
+Registers a function to be executed when the plugin is fully initialized. This method is ideal for centralizing and organizing addon startup logic, ensuring that your code runs at the correct time during the game's loading process. Can be used any number of times; the registered functions are executed in the order they were added.
 
 - `callback`: A function that will be invoked when the plugin is loaded. The function can be used to set up initial states, register event listeners, or perform other setup tasks. The callback does not take any arguments by default but can leverage closures or external variables for context.
 
 ---
 #### `plugin:registerEventListener(event: string, listener: Listener)`
-
 Registers a listener for a specified game event.
-
 - `event`: The name of the event to listen for (e.g., `PLAYER_ENTERING_WORLD`, `CHAT_MSG_SAY`). This is case-sensitive and must match the game's standard event names.
 - `listener`: A table defining the behavior of the listener. See [`Listener`](#listener) for details on its structure and options.
 
 ---
 #### `plugin:removeEventListener(event: string, identifier: string)`
-
 Removes a previously registered event listener for a specified event.
-
 - `event`: The name of the event associated with the listener you want to remove.
 - `identifier`: The unique identifier assigned to the listener when it was registered. This is required to precisely target and remove the specific listener.
 
+---
 ## 4. Settings API reference
 
 *Add a description of this section.*
