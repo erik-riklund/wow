@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/12/01 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -38,6 +38,10 @@ backbone.createPlugin = function (name)
 
   return plugin
 end
+
+---@param name string
+---Checks if a plugin with the specified name exists.
+backbone.hasPlugin = function (name) return plugins:hasEntry (string.lower (name)) end
 
 ---Create the plugin used internally by the framework.
 context.plugin = backbone.createPlugin 'Backbone'

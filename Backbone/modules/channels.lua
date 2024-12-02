@@ -19,7 +19,6 @@ local channels = new 'Dictionary'
 ---@param owner Plugin
 ---@param name string
 ---@param options? ChannelOptions
----?
 local createChannel = function (owner, name, options)
   options = options or {}
 
@@ -39,7 +38,6 @@ end
 ---@param owner Plugin
 ---@param channelName string
 ---@param listener Listener
----?
 local registerListener = function (owner, channelName, listener)
   local channelId = string.upper (channelName)
   if not channels:hasEntry (channelId) then
@@ -58,7 +56,6 @@ end
 ---@param caller Plugin
 ---@param channelName string
 ---@param listenerId string
----?
 local removeListener = function (caller, channelName, listenerId)
   local channelId = string.upper (channelName)
   if not channels:hasEntry (channelId) then
@@ -77,7 +74,6 @@ end
 ---@param caller Plugin
 ---@param channelName string
 ---@param arguments? Vector
----?
 local invokeListeners = function (caller, channelName, arguments)
   local channelId = string.upper (channelName)
   if not channels:hasEntry (channelId) then
@@ -93,19 +89,19 @@ local invokeListeners = function (caller, channelName, arguments)
   channel:invokeListeners (arguments, channel.async)
 end
 
---- PLUGIN API METHODS ---
+--- PLUGIN API ---
 
 ---@class Plugin
 local networkApi = context.pluginApi
 
 ---@param name string
 ---@param options? ChannelOptions
----?
+---Creates a new communication channel with the specified name and optional configuration.
 networkApi.createChannel = function (self, name, options) createChannel (self, name, options) end
 
 ---@param channel string
 ---@param listener Listener
----?
+---Registers a listener to the specified channel.
 networkApi.registerChannelListener = function (self, channel, listener)
   if listener.id then
     listener.id = string.format ('%s/%s', self.name, listener.id)
@@ -116,14 +112,14 @@ end
 
 ---@param channel string
 ---@param id string
----?
+---Removes a previously registered listener from the specified channel.
 networkApi.removeChannelListener = function (self, channel, id)
   removeListener (self, channel, string.format ('%s/%s', self.name, id))
 end
 
 ---@param channel string
 ---@param ... unknown
----?
+---Invokes all listeners registered to a specified channel with the provided arguments.
 networkApi.invokeChannelListeners = function (self, channel, ...)
   invokeListeners (self, channel, (... and Vector {...}) or nil)
 end

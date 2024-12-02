@@ -1,27 +1,34 @@
 
 --[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
+--Backbone - A World of Warcraft Addon Framework
+--Copyright (C) 2024 Erik Riklund (Gopher)
+--
+--This program is free software: you can redistribute it and/or modify it under the terms
+--of the GNU General Public License as published by the Free Software Foundation, either
+--version 3 of the License, or (at your option) any later version.
+--
+--This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+--without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+--See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
+
 ---@class Listenable
----Provides functionality for managing and notifying listeners.
 local listenable = {}
+local prototype = { __index = listenable }
 
 ---@protected
 ---@type Vector
 listenable.listeners = nil
 
----Returns the current number of registered listeners.
-listenable.getListenerCount = function (self)
-  return self.listeners:getSize()
-end
+---Returns the total number of listeners registered to the `Listenable` instance.
+listenable.getListenerCount = function (self) return self.listeners:getSize() end
 
----Registers a new listener to receive notifications.
 ---@param listener Listener
-listenable.registerListener = function (self, listener)
-  self.listeners:insertElement (listener)
-end
+---Registers a new listener.
+listenable.registerListener = function (self, listener) self.listeners:insertElement (listener) end
 
----Removes a listener identified by a unique identifier.
 ---@param id string
+---Removes a listener by its identifier.
 listenable.removeListener = function (self, id)
   for index, listener in self.listeners:getIterator() do
     ---@cast listener Listener
@@ -33,10 +40,10 @@ listenable.removeListener = function (self, id)
   end
 end
 
----Invokes all registered listeners with the provided arguments.
----Non-persistent listeners are removed after execution.
 ---@param arguments? Vector
 ---@param async? boolean
+---Invokes all registered listeners, passing the provided arguments to their callback functions.
+---* Non-persistent listeners are automatically removed after execution.
 listenable.invokeListeners = function (self, arguments, async)
   local nonpersistent_listeners = new 'Vector'
   local execute = (async == false and backbone.executeTask) or backbone.executeTaskAsync
@@ -45,8 +52,15 @@ listenable.invokeListeners = function (self, arguments, async)
     function (index, listener)
       ---@cast listener Listener
       
-      execute { callback = listener.callback, identifier = listener.id, arguments = arguments }
-      if listener.persistent == false then nonpersistent_listeners:insertElement (index) end
+      execute {
+        callback = listener.callback,
+        identifier = listener.id,
+        arguments = arguments
+      }
+      
+      if listener.persistent == false then
+        nonpersistent_listeners:insertElement (index)
+      end
     end
   )
 
@@ -55,10 +69,7 @@ listenable.invokeListeners = function (self, arguments, async)
   end
 end
 
----Prototype object for creating new `Listenable` instances.
-local prototype = { __index = listenable }
-
----Creates a new Listenable instance.
+---Creates a new `Listenable` instance.
 Listenable = function ()
   return setmetatable ({ listeners = new 'Vector' }, prototype)
 end

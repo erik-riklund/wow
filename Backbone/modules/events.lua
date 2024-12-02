@@ -19,7 +19,6 @@ local loadEvents = new 'Dictionary'
 
 ---@param eventName string
 ---@param listener Listener
----?
 local registerListener = function (eventName, listener)
   if eventName == 'ADDON_LOADED' then
     backbone.throw 'Use `backbone.onAddonLoaded` instead.'
@@ -40,7 +39,6 @@ end
 
 ---@param eventName string
 ---@param identifier string
----?
 local removeListener = function (eventName, identifier)
   if eventName == 'ADDON_LOADED' then
     backbone.throw '`ADDON_LOADED` listeners are removed automatically.'
@@ -48,7 +46,6 @@ local removeListener = function (eventName, identifier)
 
   ---@type Listenable?
   local event = events:getEntry (eventName)
-
   if event ~= nil then
     return event:removeListener (identifier) -- remove the listener and cancel execution.
   end
@@ -56,19 +53,6 @@ local removeListener = function (eventName, identifier)
   backbone.throw ('The event "%s" have no active listeners.', eventName)
 end
 
----@param addon string
----@param callback function
----?
-backbone.onAddonLoaded = function (addon, callback)
-  if not loadEvents:hasEntry (addon) then
-    loadEvents:setEntry (addon, new 'Listenable')
-  end
-
-  (loadEvents:getEntry (addon) --[[@as Listenable]]):
-    registerListener({ callback = callback, persistent = false })
-end
-
----?
 context.frame:RegisterEvent 'ADDON_LOADED'
 context.frame:HookScript(
   'OnEvent', function (_, eventName, ...)
@@ -102,7 +86,21 @@ context.frame:HookScript(
   end
 )
 
---- PLUGIN API METHODS ---
+--- FRAMEWORK API ---
+
+---@param addon string
+---@param callback function
+---Registers a callback to be invoked when the specified addon is fully loaded.
+backbone.onAddonLoaded = function (addon, callback)
+  if not loadEvents:hasEntry (addon) then
+    loadEvents:setEntry (addon, new 'Listenable')
+  end
+
+  (loadEvents:getEntry (addon) --[[@as Listenable]]):
+    registerListener({ callback = callback, persistent = false })
+end
+
+--- PLUGIN API ---
 
 ---@class Plugin
 local eventsApi = context.pluginApi

@@ -16,12 +16,53 @@ local context = select(2, ...)
 
 local storage = new 'Dictionary'
 
+---@param plugin Plugin
+---@param scope 'account'|'character'
+---@param key string
+local getVariable = function (plugin, scope, key)
+  
+end
 
+---@param plugin Plugin
+---@param scope 'account'|'character'
+---@param key string
+---@param value unknown
+local setVariable = function (plugin, scope, key, value)
+  
+end
 
---- PLUGIN API METHODS ---
+--- PLUGIN API ---
 
 ---@class Plugin
-local eventsApi = context.pluginApi
+local storageApi = context.pluginApi
 
 ---?
+storageApi.getAccountVariable = function (self, key)
+  
+end
 
+---?
+storageApi.setAccountVariable = function (self, key, value)
+  
+end
+
+---?
+storageApi.getCharacterVariable = function (self, key)
+  
+end
+
+---?
+storageApi.setCharacterVariable = function (self, key, value)
+  
+end
+
+--- PLUGIN STORAGE INITIALIZATION ---
+
+context.plugin:registerChannelListener(
+  'PLUGIN_LOADED', {
+    ---@param plugin Plugin
+    callback = function (plugin)
+      print 'Eh?'
+    end
+  }
+)

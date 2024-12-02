@@ -1,5 +1,5 @@
 
---[[~ Updated: 2024/12/01 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -11,11 +11,6 @@
 --This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
-
----@return number itemCount The total count of lootable items.
----Returns the number of items currently available in the loot window.
----* Calls the underlying `GetNumLootItems` API.
-backbone.getLootCount = function () return GetNumLootItems() end
 
 ---@param slot number The index of the loot slot (1-based).
 ---@return LootslotInfo slotInfo A table containing detailed information about the specified loot slot.
@@ -40,12 +35,3 @@ backbone.getLootslotInfo = function (slot)
 
   return info
 end
-
----Returns true if the loot window is related to fishing.
----* Calls the underlying `IsFishingLoot` API.
-backbone.isFishingLoot = function () return IsFishingLoot() end
-
----@param slot number The index of the loot slot to loot (1-based).
----Loots the specified slot in the loot window.
----* Calls the underlying `LootSlot` API to claim the loot.
-backbone.lootSlot = function (slot) LootSlot (slot) end
