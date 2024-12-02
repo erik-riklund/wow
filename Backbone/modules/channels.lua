@@ -1,4 +1,4 @@
----@class Backbone_Loader
+---@class Backbone
 local context = select(2, ...)
 
 --[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
@@ -14,13 +14,4 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
-context.handlers = new 'Vector'
-context.plugin = backbone.createPlugin 'Backbone_Loader'
 
----@param handler fun(addon_index: number)
----Registers a handler function responsible for a specific loading trigger.
-context.registerHandler = function (handler) context.handlers:insertElement (handler) end
-
----@param addon number|string
----Loads the specified addon using the game's addon management system.
-context.loadAddon = function (addon) C_AddOns.LoadAddOn (addon) end

@@ -1,5 +1,5 @@
 
---[[~ Updated: 2024/11/20 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
 ---@class Listenable
 ---Provides functionality for managing and notifying listeners.
@@ -21,11 +21,11 @@ listenable.registerListener = function (self, listener)
 end
 
 ---Removes a listener identified by a unique identifier.
----@param identifier string
-listenable.removeListener = function (self, identifier)
+---@param id string
+listenable.removeListener = function (self, id)
   for index, listener in self.listeners:getIterator() do
     ---@cast listener Listener
-    if listener.identifier == identifier then
+    if listener.id == id then
       self.listeners:removeElement (index)
 
       return -- halt execution once the listener is removed.
@@ -45,7 +45,7 @@ listenable.invokeListeners = function (self, arguments, async)
     function (index, listener)
       ---@cast listener Listener
       
-      execute { callback = listener.callback, identifier = listener.identifier, arguments = arguments }
+      execute { callback = listener.callback, identifier = listener.id, arguments = arguments }
       if listener.persistent == false then nonpersistent_listeners:insertElement (index) end
     end
   )

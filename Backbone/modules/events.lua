@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/12/01 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -14,21 +14,46 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
+local events = new 'Dictionary'
 local loadEvents = new 'Dictionary'
-local activeEvents = new 'Dictionary'
 
 ---@param eventName string
 ---@param listener Listener
 ---?
 local registerListener = function (eventName, listener)
-  
+  if eventName == 'ADDON_LOADED' then
+    backbone.throw 'Use `backbone.onAddonLoaded` instead.'
+  end
+
+  ---@type Listenable?
+  local event = events:getEntry (eventName)
+
+  if event == nil then
+    event = new 'Listenable'
+
+    context.frame:RegisterEvent (eventName)
+    events:setEntry (eventName, event)
+  end
+
+  event:registerListener (listener)
 end
 
 ---@param eventName string
 ---@param identifier string
 ---?
 local removeListener = function (eventName, identifier)
-  
+  if eventName == 'ADDON_LOADED' then
+    backbone.throw '`ADDON_LOADED` listeners are removed automatically.'
+  end
+
+  ---@type Listenable?
+  local event = events:getEntry (eventName)
+
+  if event ~= nil then
+    return event:removeListener (identifier) -- remove the listener and cancel execution.
+  end
+
+  backbone.throw ('The event "%s" have no active listeners.', eventName)
 end
 
 ---@param addon string
@@ -41,8 +66,6 @@ backbone.onAddonLoaded = function (addon, callback)
 
   (loadEvents:getEntry (addon) --[[@as Listenable]]):
     registerListener({ callback = callback, persistent = false })
-
-    DevTools_Dump (loadEvents)
 end
 
 ---?
@@ -55,16 +78,56 @@ context.frame:HookScript(
       local addon = arguments:removeElement(1)
 
       if loadEvents:hasEntry (addon) then
-        (loadEvents:getEntry (addon) --[[@as Listenable]]):invokeListeners (arguments)
+        ---@type Listenable
+        local event = loadEvents:getEntry (addon)
+        
+        event:invokeListeners (arguments)
         loadEvents:dropEntry (addon)
       end
-    else
-      -- TODO: implement event handling.
+
+      return -- stop execution.
+    end
+
+    if events:hasEntry (eventName) then
+      ---@type Listenable
+      local event = events:getEntry (eventName)
+
+      -- TODO: invoke listeners.
+
+      if event:getListenerCount() == 0 then
+        context.frame:UnregisterEvent (eventName)
+        events:dropEntry (eventName)
+      end
     end
   end
 )
 
+--- THE SECTION BELOW CONTAINS PLUGIN API METHODS ---
+
 ---@class Plugin
 local eventsApi = context.pluginApi
 
+---@param callback function
+---Registers a function to be executed when the plugin is loaded. Can be used any number
+---of times; the registered functions are executed in the order they were added.
+eventsApi.onLoad = function (self, callback)
+  backbone.onAddonLoaded (self.name, callback)
+end
 
+---@param event WowEvent
+---@param listener Listener
+---Registers a listener for a specified game event.
+eventsApi.registerEventListener = function (self, event, listener)
+  if listener.id then
+    listener.id = string.format ('%s/%s', self.name, listener.id)
+  end
+
+  registerListener (event, listener)
+end
+
+---@param event WowEvent
+---@param id string
+---Removes a previously registered event listener for a specified event.
+eventsApi.removeEventListener = function (self, event, id)
+  removeListener (event, string.format ('%s/%s', self.name, id))
+end

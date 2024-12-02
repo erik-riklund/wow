@@ -71,7 +71,7 @@ plugin:onLoad(function () print 'Hello world' end)
 ---
 #### Event listeners
 
-This example demonstrates how to register an event listener in Backbone using the [`plugin:registerEventListener`](#pluginregistereventlistenerevent-string-listener-listener) method. The `PLAYER_ENTERING_WORLD` event triggers a welcome message that includes the player's name.
+This example demonstrates how to register an event listener using the [`plugin:registerEventListener`](#pluginregistereventlistenerevent-string-listener-listener) method. The `PLAYER_ENTERING_WORLD` event triggers a welcome message that includes the player's name.
 
 ```lua
 local plugin = backbone.createPlugin 'MyAddon'
@@ -97,7 +97,6 @@ plugin:registerEventListener(
 
 ```lua
 local plugin = backbone.createPlugin 'MyAddon'
-
 ```
 
 ## 2. Framework reference
@@ -105,13 +104,13 @@ local plugin = backbone.createPlugin 'MyAddon'
 ### Static resources
 
 #### `backbone.activeLocale`
-
 The active locale of the game client, represented as a string (`enUS`, `deDE`, etc.).
 
+---
 #### `backbone.currentExpansion`
-
 The current expansion level of the game, represented as a number (see [`EXPANSION_LEVEL`](#enumexpansion_level)).
 
+---
 ### Methods
 
 #### `backbone.createPlugin(name: string) -> plugin: Plugin`

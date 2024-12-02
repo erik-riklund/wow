@@ -7,7 +7,7 @@ local listener =
   ---@type string?
   ---A unique identifier for the listener. (optional)
   ---* If omitted, the listener will be anonymous (not eligible for targeted removal).
-  identifier = nil,
+  id = nil,
 
   ---@type function
   ---The callback function to be invoked when the listener is triggered.

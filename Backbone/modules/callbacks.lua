@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/11/19 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -16,7 +16,7 @@ local context = select(2, ...)
 
 local queued_tasks = new 'Vector'
 
----@param task Task The task object containing a callback and optional arguments.
+---@param task Task
 ---Executes a task immediately in a blocking manner.
 ---* Captures and logs errors if the task's callback fails.
 backbone.executeTask = function (task)
@@ -26,7 +26,7 @@ backbone.executeTask = function (task)
   if not success then print (exception) end -- TODO: improved error handling.
 end
 
----@param task Task The task object to schedule for later execution.
+---@param task Task
 ---Schedules a task for asynchronous execution by adding it to the task queue.
 backbone.executeTaskAsync = function (task) queued_tasks:insertElement (task) end
 

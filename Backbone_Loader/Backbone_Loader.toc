@@ -3,7 +3,7 @@
 ## RequiredDeps: Backbone
 
 ## Title: Backbone (loader)
-## Notes: ?
+## Notes: Enables conditional loading of addons for increased performance.
 
 main.lua
 handlers/on-event.lua
