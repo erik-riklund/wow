@@ -14,7 +14,6 @@
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@class Task
----Represents a unit of work to be executed, either synchronously or asynchronously.
 local task =
 {
   ---@type string?

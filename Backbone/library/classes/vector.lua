@@ -53,7 +53,7 @@ vector.forEach = function (self, callback)
   end
 end
 
----?
+---Checks whether the vector contains the specified value.
 vector.containsElement = function (self, searchValue)
   for _, value in ipairs (self.values) do
     if value == searchValue then return true end
@@ -67,8 +67,12 @@ vector.unpackElements = function (self) return unpack (self.values) end
 ---@param separator string
 ---@param from? number
 ---@param to? number
----?
-vector.joinElements = function (self, separator, from, to) return table.concat (self, separator, from, to) end
+---Concatenates elements of the vector into a single string using the specified separator.
+---* The concatenation starts from the optional `from` index and ends at the optional `to` index.
+---* If `from` and `to` are not specified, the entire vector is concatenated.
+vector.joinElements = function (self, separator, from, to)
+  return table.concat (self, separator, from, to)
+end
 
 ---Prototype for creating new `Vector` instances.
 local prototype = { __index = vector }

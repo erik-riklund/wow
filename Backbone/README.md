@@ -61,7 +61,7 @@ The framework not only emphasizes performance but also fosters a cooperative eco
 ---
 ### Usage examples
 
-*Extend this introduction.* Each example use the variable `plugin` to represent an active plugin.
+Each example use the variable `plugin` to represent an active plugin, which is an instance of the `Plugin` class. The `Plugin` class is the central class that represents a plugin in the Backbone framework. It contains methods for registering event listeners, creating channels, and more. The examples will demonstrate how to use the different methods and features of the `Plugin` class.
 
 ```lua
 --The name of the plugin must match the name of your addon folder.

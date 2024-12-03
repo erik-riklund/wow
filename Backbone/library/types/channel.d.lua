@@ -17,5 +17,5 @@
 local channel = {}
 
 ---@type Plugin
----?
+---The plugin that owns the channel, used to enforce that only the owner may invoke it.
 channel.owner = nil

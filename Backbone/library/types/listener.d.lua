@@ -14,7 +14,6 @@
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@class Listener
----Represents an object that listens to a `Listenable` object (events, channels, etc.).
 local listener =
 {
   ---@type string?

@@ -39,24 +39,30 @@ end
 ---@class Plugin
 local storageApi = context.pluginApi
 
+---@param key string
 ---?
 storageApi.getAccountVariable = function (self, key)
-  
+  return getVariable (self, 'account', key)
 end
 
+---@param key string
+---@param value unknown
 ---?
 storageApi.setAccountVariable = function (self, key, value)
-  
+  setVariable (self, 'account', key, value)
 end
 
+---@param key string
 ---?
 storageApi.getCharacterVariable = function (self, key)
-  
+  getVariable (self, 'character', key)
 end
 
+---@param key string
+---@param value unknown
 ---?
 storageApi.setCharacterVariable = function (self, key, value)
-  
+  setVariable (self, 'character', key, value)
 end
 
 --- PLUGIN STORAGE INITIALIZATION ---

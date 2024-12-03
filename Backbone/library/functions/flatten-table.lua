@@ -15,7 +15,8 @@
 ---@param target table
 ---@param parents? string
 ---@param result? table
----?
+---Flattens a table with nested tables into a single table, using a
+---nested key scheme to represent the original table's structure.
 _G.flattenTable = function (target, parents, result)
   if type (target) ~= 'table' then
     error('Expected a table for argument #1 (target).', 3)

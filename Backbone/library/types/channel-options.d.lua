@@ -14,13 +14,13 @@
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@class ChannelOptions
----?
 local options = {}
 
 ---@type boolean?
----?
+---Determines whether channel access is restricted to the current plugin.
 options.internal = nil
 
 ---@type boolean?
----?
+---Indicates whether the channel is invoked asynchronously.
+---* Defaults to `true` if not specified.
 options.async = nil

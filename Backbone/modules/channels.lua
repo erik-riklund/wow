@@ -126,5 +126,5 @@ end
 
 --- FRAMEWORK CHANNELS ---
 
-context.plugin:createChannel 'PLUGIN_LOADED'
+context.plugin:createChannel ('PLUGIN_LOADED', { internal = true })
 context.plugin:createChannel 'PLUGIN_READY'
