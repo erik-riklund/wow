@@ -14,7 +14,10 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
-local storage = new 'Dictionary'
+local storage = {
+  account = new 'Dictionary',
+  character = new 'Dictionary'
+}
 
 ---@param plugin Plugin
 ---@param scope 'account'|'character'
@@ -62,7 +65,8 @@ context.plugin:registerChannelListener(
   'PLUGIN_LOADED', {
     ---@param plugin Plugin
     callback = function (plugin)
-      print 'Eh?'
+      -- TODO: implement loading of saved variables.
+      context.plugin:invokeChannelListeners('PLUGIN_READY', plugin:getName())
     end
   }
 )

@@ -30,12 +30,12 @@ vector.getIterator = function (self) return ipairs (self.values) end
 ---Retrieves an element from the vector by index.
 vector.getElement = function (self, index) return self.values[index] end
 
----@param element unknown
----@param index? number
+---@param value unknown
+---@param position? number
 ---Inserts an element into the vector at the specified position.
 ---* If no index is provided, the element is added to the end.
-vector.insertElement = function (self, element, index)
-  table.insert (self.values, index or (#self.values + 1), element)
+vector.insertElement = function (self, value, position)
+  table.insert (self.values, position or (#self.values + 1), value)
 end
 
 ---@param index? number

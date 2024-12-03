@@ -109,7 +109,19 @@ local eventsApi = context.pluginApi
 ---Registers a function to be executed when the plugin is fully initialized. Can be used
 ---any number of times; the registered functions are executed in the order they were added.
 eventsApi.onReady = function (self, callback)
-  self:registerChannelListener ('PLUGIN_READY', { callback = callback })
+  local listenerId = tostring (GetTimePreciseSec())
+
+  self:registerChannelListener ('PLUGIN_READY', {
+    id = listenerId,
+
+    ---@param pluginName string
+    callback = function (pluginName)
+      if pluginName == self:getName() then
+        callback() -- invoke the provided callback.
+        context.plugin:removeChannelListener('PLUGIN_READY', listenerId)
+      end
+    end
+  })
 end
 
 ---@param event WowEvent

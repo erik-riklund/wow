@@ -1,13 +1,6 @@
 /*/
 *.min.lua
-*.zip
-*.png
-
 !.vscode/backbone.code-snippets
 
 !Backbone/
 !Backbone_*/
-!Ledger/
-!Scavenger/
-!Spoils/
-!Stitch/

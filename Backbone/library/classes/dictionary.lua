@@ -54,8 +54,8 @@ end
 ---Prototype for creating new `Dictionary` instances.
 local prototype = { __index = dictionary }
 
----@param initial_content? table<string|table, unknown>
+---@param initialContent? table<string|table, unknown>
 ---Creates a new `Dictionary` instance with optional initial content.
-Dictionary = function (initial_content)
-  return setmetatable ({ content = initial_content or {} }, prototype)
+Dictionary = function (initialContent)
+  return setmetatable ({ content = initialContent or {} }, prototype)
 end

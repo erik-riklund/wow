@@ -33,7 +33,7 @@ Backbone is a lightweight framework designed to simplify the development of Worl
 
 Backbone is built to streamline the process of addon development by offering:
 
-- A clean, easy-to-use and performant structure.
+- An easy-to-use and performant structure.
 - Utilities for common tasks such as event handling, configuration, and data storage.
 - Compatibility with the latest versions of World of Warcraft.
 
@@ -43,7 +43,7 @@ Whether you're creating your first addon or enhancing an existing one, Backbone 
 
 ### Features
 
-- **Lightweight**: Minimal overhead to ensure addons remains performant.
+- **Lightweight**: Minimal overhead to ensure addons remain performant.
 - **Performance**: The framework is designed with performance in mind, enabling and encouraging developers to create addons that load dynamically when needed, optimizing gameplay by minimizing initial loading times.
 - **Inter-addon cooperation**: Designed to promote seamless interaction between addons, enabling developers to build collaborative and interconnected features.
 - **Event handling**: Simplified registration and handling of WoW API events to streamline event-driven programming.
@@ -139,7 +139,7 @@ Checks if a plugin with the specified name exists.
 - `name` The name of the addon.
 
 #### `backbone.onAddonLoaded(addon: string, callback: function)`
-Registers a callback to be invoked when the specified addon is fully loaded.
+Registers a callback to be executed when the specified addon has fully loaded. For a plugin’s own loading event, the [`onReady`](#pluginonreadycallback-function) method should be used instead to guarantee that the plugin is fully initialized before the callback is invoked.
 - `addon` The name of the addon.
 - `callback` The function to be executed.
 
@@ -183,7 +183,37 @@ Each class listed below features a constructor, which is a globally accessible f
 ---
 #### Dictionary
 
-*Add a description of the class.*
+The `Dictionary` class provides a flexible and efficient way to manage key-value pairs. It offers methods to add, retrieve, update, and remove entries, as well as iterate through all key-value pairs. This class is useful for managing dynamic collections of data where keys need to be associated with specific values in a structured manner.
+
+##### `Dictionary(initialContent?: table) -> Dictionary`
+Creates a new `Dictionary` instance with optional initial content.
+- `initialContent?` A table containing key-value pairs to initialize the dictionary.
+  - If omitted, the dictionary starts empty.
+
+##### `Dictionary:getIterator() -> iterator: function, content: table`
+Returns an iterator function and the dictionary's content table for looping through key-value pairs.
+
+##### `Dictionary:hasEntry(key: string|table) -> entryExists: boolean`
+Checks whether the dictionary contains an entry with the specified key.
+- `key` The key to check for in the dictionary.
+
+##### `Dictionary:getEntry(key: string|table) -> value: unknown`
+Retrieves the value associated with the specified key in the dictionary.
+- `key` The key whose associated value is to be retrieved.
+
+##### `Dictionary:setEntry(key: string|table, value: unknown)`
+Adds or updates an entry in the dictionary with the specified key and value.
+- `key` The key to associate with the given value.
+- `value` The value to associate with the specified key.
+
+##### `Dictionary:dropEntry(key: string|table)`
+Removes an entry from the dictionary by its key.
+- `key` The key of the entry to be removed.
+
+##### `Dictionary:forEach(callback: function)`
+Applies a callback function to each key-value pair in the dictionary.
+- `callback` A function that is invoked for each key-value pair in the dictionary, receiving the key and its associated value as arguments.
+  - If the callback returns a non-nil value, the key is updated with the returned value.
 
 ---
 #### Listenable
@@ -209,9 +239,50 @@ Invokes all registered listeners, passing the provided arguments to their callba
 ---
 #### Vector
 
-*Add a description of the class.*
+The `Vector` class provides a dynamic array-like structure for managing ordered collections of values. It includes methods for adding, retrieving, updating, and removing elements, as well as iterating through the collection. This class is particularly useful for managing sequential data or lists in a structured and efficient manner.
 
 ##### `Vector(initialValues?: table) -> Vector`
+Creates a new `Vector` instance with optional initial values.
+- `initialValues?` A table containing the initial values for the vector.
+  - If omitted, the vector starts empty.
+
+##### `Vector:getSize() -> size: number`
+Returns the number of elements in the vector.
+
+##### `Vector:getIterator() -> iterator: function, values: table, size: number`
+Provides an iterator function, the underlying table of values, and the size of the vector for iteration using for loops.
+
+##### `Vector:getElement(index: number) -> unknown`
+Retrieves the element at the specified index in the vector.
+- `index` The position of the element to retrieve, starting from 1.
+
+##### `Vector:insertElement(value: unknown, position?: number)`
+Inserts a value into the vector at the specified position.
+- `value` The value to be inserted into the vector.
+- `position?` The index where the value should be inserted.
+  - If omitted, the value is appended to the end.
+
+##### `Vector:removeElement(index: number) -> unknown`
+Removes and returns the element at the specified index in the vector.
+- `index` The position of the element to remove, starting from 1.
+
+##### `Vector:forEach(callback: function)`
+Applies a callback function to each element in the vector.
+- `callback` A function that is invoked for each element in the vector, receiving the element and its index as arguments.
+  - If the callback returns a non-nil value, the key is updated with the returned value.
+
+##### `Vector:containsElement(searchValue: unknown) -> boolean`
+Checks whether the vector contains the specified value.
+- `searchValue` The value to search for in the vector.
+
+##### `Vector:joinElements(separator: string, from?: number, to?: number) -> joinedElements: string`
+Joins elements of the vector into a string, separated by the specified separator.
+- `separator` The string to use as a delimiter between elements.
+- `from?` The starting index of the range to join. Defaults to 1.
+- `to?` The ending index of the range to join. Defaults to the vector's size.
+
+##### `Vector:unpackElements() -> ...unknown`
+Unpacks and returns all elements of the vector as multiple return values.
 
 ---
 ### Enumerations
