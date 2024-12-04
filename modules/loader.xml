@@ -1,8 +1,0 @@
-<Ui>
-  <Include file="callbacks.lua" />
-  <Include file="events.lua" />
-  <Include file="channels.lua" />
-  <Include file="storage.lua" />
-  <Include file="settings.lua" />
-  <Include file="locales.lua" />
-</Ui>

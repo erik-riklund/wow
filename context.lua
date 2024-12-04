@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/12/01 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/04 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -14,13 +14,13 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
+context.frame = CreateFrame 'Frame'
+
 ---@class Plugin
 context.pluginApi = {}
 
---- Retrieves the unique identifier of the plugin.
---- @return string id The unique ID of the plugin.
-context.pluginApi.getId = function (self) return self.id end
+---Returns the unique identifier of the plugin.
+context.pluginApi.getId = function(self) return self.id end
 
---- Retrieves the display name of the plugin.
---- @return string name The name of the plugin.
-context.pluginApi.getName = function (self) return self.name end
+---Returns the name of the plugin.
+context.pluginApi.getName = function(self) return self.name end

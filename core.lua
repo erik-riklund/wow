@@ -1,5 +1,5 @@
 
---[[~ Updated: 2024/11/27 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/04 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -12,11 +12,16 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@enum LOOTSLOT_TYPE
----Represents the different types of loot slots in the game.
-ENUM.LOOTSLOT_TYPE = {
-      NONE = Enum.LootSlotType.None,
-      ITEM = Enum.LootSlotType.Item,
-     MONEY = Enum.LootSlotType.Money,
-  CURRENCY = Enum.LootSlotType.Currency
-}
+---Enumerations provided by the Backbone framework.
+_G.ENUM = {}
+
+---The main API for the Backbone framework.
+_G.backbone = {}
+
+---@type LocaleCode
+---The current active locale.
+backbone.activeLocale = GetLocale()
+
+---@type EXPANSION_LEVEL
+---The current expansion level.
+backbone.currentExpansion = GetExpansionLevel()

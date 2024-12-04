@@ -1,6 +1,5 @@
----@meta
 
---[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/04 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -13,9 +12,11 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Channel : Listenable, ChannelOptions
-local channel = {}
-
----@type Plugin
----The plugin that owns the channel, used to enforce that only the owner may invoke it.
-channel.owner = nil
+---@enum LOOT_SLOT_TYPE
+---Represents the different types of loot slots in the game.
+ENUM.LOOT_SLOT_TYPE = {
+      NONE = Enum.LootSlotType.None,
+      ITEM = Enum.LootSlotType.Item,
+     MONEY = Enum.LootSlotType.Money,
+  CURRENCY = Enum.LootSlotType.Currency
+}

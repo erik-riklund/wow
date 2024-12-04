@@ -1,4 +1,0 @@
-<Ui>
-  <Include file="utilities/item-handler.lua" />
-  <Include file="utilities/loot-handler.lua" />
-</Ui>

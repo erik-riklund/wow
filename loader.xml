@@ -1,8 +1,0 @@
-<Ui>
-  <Include file="framework.lua" />
-  <Include file="library/loader.xml" />
-  <Include file="utilities/loader.xml" />
-  <Include file="plugin-api.lua" />
-  <Include file="plugins.lua" />
-  <Include file="modules/loader.xml" />
-</Ui>

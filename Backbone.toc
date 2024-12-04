@@ -5,4 +5,9 @@
 ## Title: Backbone (framework)
 ## Notes: ?
 
-loader.xml
+core.lua
+context.lua
+
+library/library.xml
+modules/modules.xml
+plugins/plugins.xml
