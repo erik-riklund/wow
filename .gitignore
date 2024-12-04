@@ -1,6 +1,0 @@
-/*/
-*.min.lua
-!.vscode/backbone.code-snippets
-
-!Backbone/
-!Backbone_*/
