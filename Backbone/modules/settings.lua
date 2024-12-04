@@ -39,8 +39,12 @@ local getDefaultSetting = function (plugin, key)
     backbone.throw ('Default settings are not registered (%s).', plugin:getName())
   end
   
-  local value = traverseTable (settings:getEntry (plugin), split (key, '/'):toArray())
-  if value == nil then backbone.throw ('Setting "%s" does not exist (%s).', key, plugin:getName()) end
+  local value = traverseTable (
+    settings:getEntry (plugin), split (key, '/'):toArray()
+  )
+  if value == nil then
+    backbone.throw ('Setting "%s" does not exist (%s).', key, plugin:getName())
+  end
 
   return value
 end

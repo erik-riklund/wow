@@ -14,20 +14,30 @@
 
 ---@param base table
 ---@param source table
----@param overwrite? boolean
----@return table base
----Merges the contents of a source table into a base table, with optional
----overwrite protection for existing keys.
-_G.integrateTable = function (base, source, overwrite)
-  if type (base) ~= 'table' or type (source) ~= 'table' then
-    error('Expected both `base` and `source` to be tables.', 3)
+---@param mode? 'skip'|'replace'|'strict'
+---Integrates the source table into the base table.
+---* `strict` (default): Throws an error if the key already exists in the base table.
+---* `skip`: Does not overwrite the key if it already exists in the base table.
+---* `replace`: Overwrites the key if it already exists in the base table.
+_G.integrateTable = function (base, source, mode)
+  mode = mode or 'strict'
+
+  if type (base) ~= 'table' then
+    error('Expected a table for argument #1 (base).', 3)
+  end
+  if type (source) ~= 'table' then
+    error('Expected a table for argument #2 (source).', 3)
+  end
+  if mode ~= 'skip' and mode ~= 'replace' and mode ~= 'strict' then
+    error('Expected "skip", "replace" or "strict" for argument #3 (mode).', 3)
   end
 
   for key, value in pairs (source) do
-    if base[key] ~= nil and overwrite ~= true then
-      error('The base table already contains the key "'.. key ..'".', 3)
+    if mode == 'replace' or base[key] == nil then
+      base[key] = value
+    elseif mode == 'strict' then
+      backbone.throw ('The key "%s" already exists in the base table.', key)
     end
-    base[key] = value
   end
 
   return base

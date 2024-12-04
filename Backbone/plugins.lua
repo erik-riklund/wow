@@ -32,7 +32,7 @@ backbone.createPlugin = function (name)
   local plugin = { id = id, name = name }
   plugins:setEntry (id, setmetatable (plugin, prototype))
   
-  backbone.onAddonLoaded (plugin:getName(), function ()
+  EventUtil.ContinueOnAddOnLoaded (plugin:getName(), function ()
     context.plugin:invokeChannelListeners ('PLUGIN_LOADED', plugin)
   end)
 
