@@ -14,6 +14,8 @@ Backbone is a lightweight framework designed to simplify the development of Worl
     - [Usage examples](#usage-examples)
       - [Event listeners](#event-listeners)
       - [Network channels](#using-network-channels)
+      - [Saved variables](#saved-variables)
+      - [Managing settings](#managing-settings)
 2. [Framework reference](#2-framework-reference)
     - [Static resources](#static-resources)
     - [Methods](#methods)
@@ -23,6 +25,7 @@ Backbone is a lightweight framework designed to simplify the development of Worl
     - [Event handling](#event-handling)
     - [Network channels](#network-channels)
     - [State management](#state-management)
+    - [Configuration management](#configuration-management)
 4. [Settings API reference](#4-settings-api-reference)
 5. [Developer resources](#5-developer-resources)
 6. [Contributing](#6-contributing)
@@ -116,6 +119,29 @@ plugin:registerChannelListener (
   }
 )
 ```
+
+---
+#### Saved variables
+
+The example below demonstrates retrieving and modifying saved variables. It is important to use the `onReady` method to ensure that the saved variables are loaded before accessing them.
+
+```lua
+plugin:onReady(
+  function ()
+    local accountValue = plugin:getAccountVariable 'VARIABLE_NAME'
+    local characterValue = plugin:getCharacterVariable 'OTHER_VARIABLE'
+
+    -- Perform operations using the retrieved values...
+
+    plugin:setAccountVariable ('VARIABLE_NAME', 42)
+  end
+)
+```
+
+---
+#### Managing settings
+
+?
 
 ## 2. Framework reference
 
@@ -525,7 +551,7 @@ Removes a previously registered event listener for a specified event.
 ---
 ### Network channels
 
-*Add a description of this section.*
+Network channels facilitate the creation and maintenance of communication pathways for message or data exchange. These channels can operate within a single addon or span multiple addons. By default, channels are not restricted to internal use and their listeners execute asynchronously, allowing for efficient message handling.
 
 #### `plugin:createChannel(name: string, options?: ChannelOptions)`
 Creates a new network channel with the specified name and configuration options.
@@ -550,18 +576,33 @@ Invokes all listeners registered to a specified channel, passing arguments to th
 ---
 ### State management
 
-*Add a description of this section.*
+The state management methods provides a convenient way to store and retrieve data associated with the plugin, such as settings or cached values. These methods are designed to be simple and easy to use, while also providing a robust and reliable way to manage state across different game sessions.
+
+> **Important**: The state management methods should be wrapped inside an [`onReady`](#pluginonreadycallback-function) call to ensure that the variables have been loaded. If the methods are called before the variables have been loaded, they will not be available.
 
 #### `plugin:getAccountVariable(key: string) -> value: unknown`
-?
+Retrieves a value from the plugin's account-wide saved variables, or `nil` if the key does not exist.
+- `key` The key of the variable to retrieve.
 
 #### `plugin:setAccountVariable(key: string, value: unknown)`
-?
+Sets a value in the plugin's account-wide saved variables.
+- `key` The key of the variable to set.
+- `value` The value to be stored.
 
 #### `plugin:getCharacterVariable(key: string) -> value: unknown`
-?
+Retrieves a value from the plugin's character-specific saved variables, or `nil` if the key does not exist.
+- `key` The key of the variable to retrieve.
 
 #### `plugin:setCharacterVariable(key: string, value: unknown)`
+Sets a value in the plugin's character-specific saved variables.
+- `key` The key of the variable to set.
+- `value` The value to be stored.
+
+---
+### Configuration management
+
+*Add a description of this section.*
+
 ?
 
 ## 4. Settings API reference

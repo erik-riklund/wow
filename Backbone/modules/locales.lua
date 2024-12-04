@@ -1,5 +1,7 @@
+---@class Backbone
+local context = select(2, ...)
 
---[[~ Updated: 2024/11/30 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/04 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -12,18 +14,11 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@enum EXPANSION_LEVEL
----Represents the expansion levels in the game, mapping each expansion to its corresponding numerical identifier.
-ENUM.EXPANSION_LEVEL = {
-          CLASSIC = 0,
-  BURNING_CRUSADE = 1,
-        LICH_KING = 2,
-        CATACLYSM = 3,
-         PANDARIA = 4,
-          DRAENOR = 5,
-           LEGION = 6,
-          AZEROTH = 7,
-      SHADOWLANDS = 8,
-     DRAGONFLIGHT = 9,
-       WAR_WITHIN = 10
-}
+local locales = new 'Dictionary'
+
+--- FRAMEWORK API ---
+
+--- PLUGIN API ---
+
+---@class Plugin
+local localesApi = context.pluginApi

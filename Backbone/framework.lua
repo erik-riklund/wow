@@ -23,9 +23,9 @@ context.frame = CreateFrame 'Frame'
 ---The API for the Backbone framework.
 _G.backbone = {
   ---The active locale of the game client, represented as a string (e.g., `enUS`, `deDE`).
-  activeLocale = GetLocale(),
+  activeLocale = GetLocale() --[[@as LocaleCode]],
   ---The current expansion level of the game, represented as a number.
-  currentExpansion = GetExpansionLevel()
+  currentExpansion = GetExpansionLevel() --[[@as EXPANSION_LEVEL]],
 }
 
 ---?
@@ -33,8 +33,8 @@ backbone.getEnvironment = function ()
   print 'backbone.getEnvironment not implemented.'
 end
 
----@param exception string The exception message to throw. Supports formatting placeholders.
----@param ... string Additional arguments to format the exception message.
+---@param exception string
+---@param ... string
 ---Throws a formatted exception with the specified message.
 ---* Formats the exception message if additional arguments are provided.
 ---* Raises an error with a stack trace at level 3 for better debugging.

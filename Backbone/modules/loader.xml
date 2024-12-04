@@ -4,4 +4,5 @@
   <Include file="channels.lua" />
   <Include file="storage.lua" />
   <Include file="settings.lua" />
+  <Include file="locales.lua" />
 </Ui>
