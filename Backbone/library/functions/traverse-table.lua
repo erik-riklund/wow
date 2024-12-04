@@ -14,11 +14,11 @@
 
 ---@param target table
 ---@param steps table
----@param mode? 'exit'|'build'
----@return table?
+---@param mode? 'exit'|'build'|'strict'
+---@return unknown
 ---Traverses a table by following the provided steps and returns the result.
 ---* In build mode, missing steps will be created. In exit mode, missing steps will return `nil`.
----* If any step is a non-table value, the function will return `nil`.
+---* If any step (except the last) is a non-table value, the function will throw an error in strict mode, otherwise `nil` will be returned.
 _G.traverseTable = function (target, steps, mode)
   mode = mode or 'exit'
 
@@ -33,14 +33,20 @@ _G.traverseTable = function (target, steps, mode)
   end
 
   local result = target
-  for _, step in ipairs (steps) do
+  for index, step in ipairs (steps) do
     if result[step] == nil  then
       if mode == 'exit' then return nil else result[step] = {} end
     end
 
-    if type (result[step]) ~= 'table' then return nil end
+    if type (result[step]) ~= 'table' and index < #steps then
+      if mode == 'strict' then
+        backbone.throw ('The step "%s" is not a table.', step)
+      end
+
+      return nil
+    end
     
-    result = result[step] --[[@as table]]
+    result = result[step]
   end
 
   return result

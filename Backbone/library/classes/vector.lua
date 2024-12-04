@@ -74,6 +74,9 @@ vector.joinElements = function (self, separator, from, to)
   return table.concat (self, separator, from, to)
 end
 
+---Returns the underlying table of elements in the vector.
+vector.toArray = function (self) return self.values end
+
 ---Prototype for creating new `Vector` instances.
 local prototype = { __index = vector }
 
