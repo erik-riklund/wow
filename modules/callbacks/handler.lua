@@ -23,7 +23,7 @@ backbone.executeTask = function (task)
   local success, exception = pcall(
     task.callback, (task.arguments and task.arguments:unpackElements()) or nil
   )
-  if not success then print (exception) end -- TODO: improved error handling.
+  if not success then print (string.format ('Callback failed (%s): %s', task.identifier, exception)) end
 end
 
 ---@param task Task

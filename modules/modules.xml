@@ -1,3 +1,4 @@
 <Ui>
   <Include file="callbacks/handler.lua" />
+  <Include file="events/handler.lua" />
 </Ui>

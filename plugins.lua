@@ -14,14 +14,29 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
-context.frame = CreateFrame 'Frame'
-context.frame:RegisterEvent 'ADDON_LOADED'
+local plugins = new 'Dictionary'
+local prototype = { __index = context.pluginApi }
 
----@class Plugin
-context.pluginApi = {}
+---@param name string
+---@return Plugin
+---Creates a new plugin within the Backbone framework.
+backbone.createPlugin = function (name)
+  local id = string.lower (name)
 
----Returns the unique identifier of the plugin.
-context.pluginApi.getId = function(self) return self.id end
+  if plugins:hasEntry (id) then
+    backbone.throw ('The plugin "%s" already exists.', name)
+  end
 
----Returns the name of the plugin.
-context.pluginApi.getName = function(self) return self.name end
+  ---@class Plugin
+  ---@field protected id string
+  ---@field protected name string
+  local plugin = { id = id, name = name }
+  plugins:setEntry (id, setmetatable (plugin, prototype))
+
+  -- TODO: implement channel broadcast.
+
+  return plugin
+end
+
+--- Registers an internal plugin with the framework.
+context.plugin = backbone.createPlugin 'Backbone'

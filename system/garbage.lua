@@ -15,29 +15,29 @@ local context = select(2, ...)
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---Triggers a garbage collection pass whenever the player enters the world.
--- context.plugin:registerEventListener(
---   'PLAYER_ENTERING_WORLD', {
---     identifier = 'PLAYER_ENTERING_WORLD',
---     callback = function() collectgarbage 'collect' end
---   }
--- )
+context.plugin:registerEventListener(
+  'PLAYER_ENTERING_WORLD', {
+    identifier = 'GARBAGE:PLAYER_ENTERING_WORLD',
+    callback = function() collectgarbage 'collect' end
+  }
+)
 
 ---Triggers a garbage collection pass if the player switches to AFK status.
--- context.plugin:registerEventListener(
---   'PLAYER_FLAGS_CHANGED', {
---     identifier = 'PLAYER_FLAGS_CHANGED',
---     callback = function (unit)
---       if unit == 'player' and UnitIsAFK 'player' then collectgarbage 'collect' print 'collecting' end
---     end
---   }
--- )
+context.plugin:registerEventListener(
+  'PLAYER_FLAGS_CHANGED', {
+    identifier = 'GARBAGE:PLAYER_FLAGS_CHANGED',
+    callback = function (unit)
+      if unit == 'player' and UnitIsAFK 'player' then collectgarbage 'collect' end
+    end
+  }
+)
 
 ---Triggers a garbage collection pass if the player enters a vehicle or taxi.
--- context.plugin:registerEventListener(
---   'UNIT_ENTERED_VEHICLE', {
---     identifier = 'UNIT_ENTERED_VEHICLE',
---     callback = function (unit)
---       if unit == 'player' and UnitOnTaxi 'player' then collectgarbage 'collect' end
---     end
---   }
--- )
+context.plugin:registerEventListener(
+  'UNIT_ENTERED_VEHICLE', {
+    identifier = 'GARBAGE:UNIT_ENTERED_VEHICLE',
+    callback = function (unit)
+      if unit == 'player' and UnitOnTaxi 'player' then collectgarbage 'collect' end
+    end
+  }
+)

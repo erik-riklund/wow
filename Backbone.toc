@@ -7,7 +7,7 @@
 
 core.lua
 context.lua
-
 library/library.xml
+plugins.lua
 modules/modules.xml
-plugins/plugins.xml
+system/system.xml

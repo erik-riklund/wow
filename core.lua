@@ -25,3 +25,12 @@ backbone.activeLocale = GetLocale()
 ---@type EXPANSION_LEVEL
 ---The current expansion level.
 backbone.currentExpansion = GetExpansionLevel()
+
+---@param message string
+---@param ... string
+---Throws an error with the specified message.
+---* If additional arguments are provided, they will be used to format the message.
+---* Error reporting level is 3 for easier debugging.
+backbone.throw = function (message, ...)
+  error (... and string.format (message, ...) or message, 3)
+end
