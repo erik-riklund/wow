@@ -54,12 +54,16 @@ backbone.onAddonLoaded = function (name, callback)
   local isLoaded = select(2, C_AddOns.IsAddOnLoaded (name))
   if isLoaded then return callback() end -- exit early if the addon is already loaded.
 
+  local listenerId = string.format('ADDON_READY/%s/%s', name, GetTimePreciseSec())
   context.plugin:registerChannelListener('ADDON_READY', {
     callback = function(addon)
-      -- TODO: add identifier.
+      if addon == name then
+        callback() -- invoke the callback.
+        context.plugin:removeChannelListener('ADDON_READY', listenerId)
+      end
     end, 
-    identifier = string.format('ADDON_READY/%s/%s', name, GetTimePreciseSec()),
-    persistent = false,
+
+    identifier = listenerId, persistent = false,
   })
 end
 
