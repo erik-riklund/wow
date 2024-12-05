@@ -1,6 +1,6 @@
 ## Version: 1.0
 ## Interface: 110002
-# SavedVariables: BackboneVariables
+# SavedVariables: BackboneAccountVariables
 
 ## Title: Backbone (framework)
 ## Notes: ?
@@ -8,6 +8,9 @@
 core.lua
 context.lua
 library/library.xml
+modules/callbacks/handler.lua
+modules/events/handler.lua
+modules/channels/handler.lua
 plugins.lua
-modules/modules.xml
+modules/events/load-handler.lua
 system/system.xml

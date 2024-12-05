@@ -16,7 +16,11 @@ local context = select(2, ...)
 
 local channels = new 'Dictionary'
 
-
+---@param owner Plugin
+---@param name string
+---@param options ChannelOptions
+---
+local createChannel = function (owner, name, options) end
 
 -- PLUGIN API --
 
@@ -25,10 +29,24 @@ local networkAPI = context.pluginApi
 
 ---@param name string
 ---@param options? ChannelOptions
+---?
 ---
 networkAPI.createChannel = function (self, name, options) end
 
--- FRAMEWORK CHANNELS --
+---@param channelName string
+---@param listener Listener
+---?
+---
+networkAPI.registerChannelListener = function (self, channelName, listener) end
 
-context.plugin:createChannel ('PLUGIN_READY')
-context.plugin:createChannel ('PLUGIN_LOADED', { internal = true })
+---@param channelName string
+---@param listenerId string
+---?
+---
+networkAPI.removeChannelListener = function (self, channelName, listenerId) end
+
+---@param channelName string
+---@param ... unknown
+---?
+---
+networkAPI.invokeChannelListeners = function (self, channelName, ...) end

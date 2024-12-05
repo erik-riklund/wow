@@ -1,6 +1,0 @@
-<Ui>
-  <Include file="callbacks/handler.lua" />
-  <Include file="events/handler.lua" />
-  <Include file="channels/handler.lua" />
-  <Include file="events/load-handler.lua" />
-</Ui>

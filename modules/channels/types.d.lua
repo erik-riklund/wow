@@ -14,9 +14,29 @@
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@class ChannelOptions
----@field internal? boolean
----@field executeAsync? boolean
+local channelOptions =
+{
+  ---@type boolean?
+  ---Indicates whether the channel is internal (optional).
+  ---
+  internal = nil,
+
+  ---@type boolean?
+  ---Specifies if listeners should be executed asynchronously (optional, default:`true`).
+  ---
+  executeAsync = nil
+}
 
 ---@class Channel : Listenable, ChannelOptions
----@field owner Plugin
----@field name string
+local channel =
+{
+  ---@type Plugin
+  ---The plugin that owns the channel.
+  ---
+  owner = nil,
+
+  ---@type string
+  ---The name of the channel.
+  ---
+  name = nil
+}

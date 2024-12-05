@@ -33,10 +33,16 @@ backbone.createPlugin = function (name)
   local plugin = { id = id, name = name }
   plugins:setEntry (id, setmetatable (plugin, prototype))
 
-  -- TODO: implement channel broadcast.
-
   return plugin
 end
 
---- Registers an internal plugin with the framework.
+---@param name string
+---Checks whether a plugin with the specified name exists.
+---
+backbone.hasPlugin = function (name)
+  return plugins:hasEntry (string.lower (name))
+end
+
+-- INTERNAL PLUGIN --
+
 context.plugin = backbone.createPlugin 'Backbone'

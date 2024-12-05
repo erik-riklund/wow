@@ -44,9 +44,9 @@ local eventsAPI = context.pluginApi
 
 ---@param eventName string
 ---@param listener Listener
----
 ---Registers a callback function to be executed when the specified event is fired.
 ---* A unique identifier will be automatically assigned to the listener if one is not provided.
+---
 eventsAPI.registerEventListener = function (self, eventName, listener)
   listener.id = string.format (
     '%s/%s', self.name, listener.id or string.format ('%s/%s', eventName, GetTimePreciseSec())
@@ -56,8 +56,8 @@ end
 
 ---@param eventName string
 ---@param listenerId string
----
 ---Removes a previously registered event listener.
+---
 eventsAPI.removeEventListener = function (self, eventName, listenerId)
   removeListener (eventName, string.format ('%s/%s', self.name, listenerId))
 end

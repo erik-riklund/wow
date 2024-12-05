@@ -17,7 +17,7 @@
 local task =
 {
   ---@type string?
-  ---A unique identifier for the task.
+  ---A unique identifier for the task (optional).
   identifier = nil,
 
   ---@type function
@@ -25,6 +25,6 @@ local task =
   callback = nil,
 
   ---@type Vector?
-  ---Optional arguments to pass to the callback function when the task is executed.
+  ---Arguments to pass to the callback function when the task is executed (optional).
   arguments = nil
 }
