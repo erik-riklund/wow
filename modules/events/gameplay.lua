@@ -37,6 +37,27 @@ local removeListener = function (eventName, listenerId)
   if listeners then listeners:removeListener (listenerId) end
 end
 
+-- EVENT HANDLER --
+
+context.frame:HookScript(
+  'OnEvent', function (frame, eventName, ...)
+    ---@cast eventName string
+    
+    if eventName ~= 'ADDON_LOADED' then
+      local event = events:getEntry (eventName) --[[@as Listenable]]
+
+      if event then
+        event:invokeListeners (Vector {...})
+        
+        if event:getListenerCount() == 0 then
+          events:dropEntry (eventName)
+          context.frame:UnregisterEvent (eventName)
+        end
+      end
+    end
+  end
+)
+
 --- PLUGIN API ---
 
 ---@class Plugin
@@ -61,25 +82,3 @@ end
 eventsAPI.removeEventListener = function (self, eventName, listenerId)
   removeListener (eventName, string.format ('%s/%s', self.name, listenerId))
 end
-
---- EVENT HANDLER ---
-
-context.frame:HookScript(
-  'OnEvent', function (frame, eventName, ...)
-    ---@cast eventName string
-    
-    if eventName ~= 'ADDON_LOADED' then
-      local event = events:getEntry (eventName) --[[@as Listenable]]
-
-      if event then
-        event:invokeListeners (Vector {...})
-        
-        if event:getListenerCount() == 0 then
-          
-          events:dropEntry (eventName)
-          context.frame:UnregisterEvent (eventName)
-        end
-      end
-    end
-  end
-)

@@ -8,9 +8,5 @@
 core.lua
 context.lua
 library/library.xml
-modules/callbacks/handler.lua
-modules/events/handler.lua
-modules/channels/handler.lua
-plugins.lua
-modules/events/load-handler.lua
+modules/modules.xml
 system/system.xml

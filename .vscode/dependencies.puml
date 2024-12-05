@@ -1,0 +1,8 @@
+@startuml Test
+component "Callbacks" as callbacks
+component "Events" as events
+component "Channels" as channels
+
+events -up-> callbacks
+channels -up-> callbacks
+@enduml

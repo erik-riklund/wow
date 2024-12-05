@@ -43,6 +43,14 @@ backbone.hasPlugin = function (name)
   return plugins:hasEntry (string.lower (name))
 end
 
--- INTERNAL PLUGIN --
+-- INTERNAL PLUGIN HANDLING --
 
 context.plugin = backbone.createPlugin 'Backbone'
+
+---?
+---@param name string
+---@return Plugin
+---
+context.getPlugin = function (name)
+  return plugins:getEntry (string.lower (name))
+end

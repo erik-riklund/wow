@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/12/04 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/05 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -18,9 +18,35 @@ local channels = new 'Dictionary'
 
 ---@param owner Plugin
 ---@param name string
----@param options ChannelOptions
+---@param options? ChannelOptions
 ---
-local createChannel = function (owner, name, options) end
+local createChannel = function (owner, name, options)
+  print 'createChannel not implemented'
+end
+
+---@param caller Plugin
+---@param channel string
+---@param ... unknown
+---
+local invokeChannel = function (caller, channel, ...)
+  print 'invokeChannel not implemented'
+end
+
+---@param caller Plugin
+---@param channel string
+---@param listener Listener
+---
+local registerListener = function (caller, channel, listener)
+  print 'registerListener not implemented'
+end
+
+---@param caller Plugin
+---@param channel string
+---@param listenerId string
+---
+local removeListener = function (caller, channel, listenerId)
+  print 'removeListener not implemented'
+end
 
 -- PLUGIN API --
 
@@ -29,24 +55,32 @@ local networkAPI = context.pluginApi
 
 ---@param name string
 ---@param options? ChannelOptions
----?
+---Creates a new channel with the specified name and options.
 ---
-networkAPI.createChannel = function (self, name, options) end
-
----@param channelName string
----@param listener Listener
----?
----
-networkAPI.registerChannelListener = function (self, channelName, listener) end
-
----@param channelName string
----@param listenerId string
----?
----
-networkAPI.removeChannelListener = function (self, channelName, listenerId) end
+networkAPI.createChannel = function (self, name, options)
+  createChannel (self, name, options)
+end
 
 ---@param channelName string
 ---@param ... unknown
----?
+---Invokes the specified channel. Provided arguments are passed to the listeners (optional).
 ---
-networkAPI.invokeChannelListeners = function (self, channelName, ...) end
+networkAPI.invokeChannel = function (self, channelName, ...)
+  invokeChannel (self, channelName, ...)
+end
+
+---@param channelName string
+---@param listener Listener
+---Registers a callback function to be executed when the specified channel is invoked.
+---
+networkAPI.registerChannelListener = function (self, channelName, listener)
+  registerListener (self, channelName, listener)
+end
+
+---@param channelName string
+---@param listenerId string
+---Removes the specified listener from the channel.
+---
+networkAPI.removeChannelListener = function (self, channelName, listenerId)
+  removeListener (self, channelName, listenerId)
+end

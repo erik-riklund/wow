@@ -19,6 +19,7 @@ local queued_tasks = new 'Vector'
 ---@param task Task
 ---Executes a task immediately in a blocking manner.
 ---* Captures and logs errors if the task's callback fails.
+---
 backbone.executeTask = function (task)
   local success, exception = pcall(
     task.callback, (task.arguments and task.arguments:unpackElements()) or nil
@@ -28,10 +29,12 @@ end
 
 ---@param task Task
 ---Schedules a task for asynchronous execution by adding it to the task queue.
+---
 backbone.executeTaskAsync = function (task) queued_tasks:insertElement (task) end
 
 ---A coroutine that processes tasks in the queue.
 ---* Limits execution time per frame to maintain a target of 60 FPS.
+---
 local task_process = coroutine.create(
   function ()
     local time_limit = 0.01667 -- Time budget per frame (60 FPS cap).
