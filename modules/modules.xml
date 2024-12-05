@@ -1,6 +1,3 @@
 <Ui>
-  <Include file="callbacks/handler.lua" />
-  <Include file="channels/handler.lua" />
-  <Include file="events/startup.lua" />
-  <Include file="events/gameplay.lua" />
+  <!-- <Include file="" /> -->
 </Ui>

@@ -41,3 +41,6 @@ context.plugin:registerEventListener(
     end
   }
 )
+
+backbone.onAddonLoaded('Backbone', function() print 'Hello world!' end)
+context.plugin:onReady(function() print 'Hello world from plugin!' end)

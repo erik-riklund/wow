@@ -28,6 +28,7 @@ end
 context.plugin:onReady(
   function ()
     local addon_count = C_AddOns.GetNumAddOns()
+    print 'Hello world!'
 
     for index = 1, addon_count do
       if C_AddOns.IsAddOnLoadOnDemand (index) then

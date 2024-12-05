@@ -2,9 +2,7 @@
 *Version ? (work in progress)*
 ### A World of Warcraft addon development framework
 
-Backbone is a lightweight framework designed to simplify the development of World of Warcraft addons. It provides a powerful toolkit that can be utilized to build robust, efficient, and maintainable addons.
-
-*Extend the summary?*
+Backbone is a lightweight framework designed to provide a solid foundation for World of Warcraft addon development. It comes with a powerful toolkit that can be utilized to build robust, efficient, and maintainable addons. The framework was created by [Gopher](https://github.com/erik-riklund), with the goal to build a framework that is easy to use, maintainable, and supports a thriving community around it.
 
 ## Table of contents
 
@@ -14,13 +12,11 @@ Backbone is a lightweight framework designed to simplify the development of Worl
 
 ## 1. Introduction
 
-Backbone is built to streamline the process of addon development by offering:
+Backbone is built to streamline the process of addon development by offering
 
-- An easy-to-use and performant structure.
-- Utilities for common tasks such as event handling, configuration, and data storage.
-- Compatibility with the latest versions of World of Warcraft.
+- ?
 
-Backbone facilitates addon development by allowing you to concentrate on core functionalities rather than repetitive setup tasks, whether you are developing a new addon or improving an existing one.
+?
 
 ### Features
 
