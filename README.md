@@ -114,180 +114,176 @@ Each class provided by the framework includes a globally accessible constructor 
 
 A dictionary is a data structure that stores key-value pairs. It is a mutable collection of entries, each consisting of a unique key and an associated value. The dictionary provides methods for adding, removing, and iterating over entries, as well as checking for the existence of a key. The dictionary is a key component of the framework's data model, and is used extensively in plugin development.
 
-`Dictionary (initialContent?: table<string|table, unknown>) -> Dictionary`
-- `initialContent` An optional table containing the initial key-value pairs for the dictionary.
-  - If omitted, the dictionary starts empty.
+- `Dictionary (initialContent?: table<string|table, unknown>) -> Dictionary`
+  - `initialContent` An optional table containing the initial key-value pairs for the dictionary.
+    - If omitted, the dictionary starts empty.
 
-Creates a new `Dictionary` instance with the optional initial content.
+  Creates a new `Dictionary` instance with optional initial content.
 
----
-`Dictionary:getEntry (key: string|table) -> unknown`
-- `key` The key for which the associated value should be retrieved.
+- `Dictionary:getEntry (key: string|table) -> unknown`
+  - `key` The key for which the associated value should be retrieved.
 
-Retrieves the value associated with the given key. If the key does not exist in the dictionary, `nil` is returned.
+  Retrieves the value associated with the given key. If the key does not exist in the dictionary, `nil` is returned.
 
----
-`Dictionary:setEntry (key: string|table, value: unknown)`
-- `key` The key for which the associated value should be set.
-- `value` The value to be associated with the given key.
+- `Dictionary:setEntry (key: string|table, value: unknown)`
+  - `key` The key for which the associated value should be set.
+  - `value` The value to be associated with the given key.
 
-Sets a key-value pair in the dictionary. If the key already exists, its associated value is updated.
+  Sets a key-value pair in the dictionary. If the key already exists, its associated value is updated.
 
----
-`Dictionary:hasEntry (key: string|table) -> boolean`
-- `key` The key for which the existence of an associated value should be checked.
+- `Dictionary:hasEntry (key: string|table) -> boolean`
+  - `key` The key for which the existence of an associated value should be checked.
 
-Determines whether a key exists in the dictionary. Returns `true` if the key exists, `false` otherwise.
+  Determines whether a key exists in the dictionary. Returns `true` if the key exists, `false` otherwise.
 
----
-`Dictionary:dropEntry (key: string|table)`
-- `key` The key for which the associated value should be removed.
+- `Dictionary:dropEntry (key: string|table)`
+  - `key` The key for which the associated value should be removed.
 
-Removes an entry from the dictionary by key. If the key does not exist in the dictionary, this method does nothing.
+  Removes an entry from the dictionary by key. If the key does not exist in the dictionary, this method does nothing.
 
----
-`Dictionary:forEach (callback: (key: string|table, value: unknown) -> unknown?)`
-- `callback` A function that will be called for each key-value pair in the dictionary.
-  - The function should accept two arguments: `key` and `value`. If the function returns a value, it will be used to update the dictionary; if it returns `nil`, the entry remains unchanged.
+- `Dictionary:forEach (callback: (key: string|table, value: unknown) -> unknown?)`
+  - `callback` A function that will be called for each key-value pair in the dictionary.
+    - The function should accept two arguments: `key` and `value`. If the function returns a value, it will be used to update the dictionary; if it returns `nil`, the entry remains unchanged.
 
----
-`Dictionary:getIterator () -> function, table<string|table, unknown>`
+  Iterates through all key-value pairs in the dictionary and applies a callback function. Updates entries if the callback returns a non-nil value.
 
-Returns an iterator function that can be used with a `for` loop to traverse the dictionary's key-value pairs. The iterator returns the key and value for each iteration.
+- `Dictionary:getIterator () -> function, table<string|table, unknown>`
+
+  Returns an iterator function that can be used with a `for` loop to traverse the dictionary's key-value pairs. The iterator returns the key and value for each iteration.
 
 ---
 #### Listenable
 
 A listenable is an object that can be registered for events of various types. Listeners can be registered to be notified when an event of interest occurs. Listeners can be either persistent or non-persistent; persistent listeners remain active until explicitly removed, while non-persistent listeners are removed once they have been invoked.
 
-`Listenable:getListenerCount () -> number`
+- `Listenable:getListenerCount () -> number`
 
-Returns the total number of registered listeners.
+  Returns the total number of registered listeners.
 
----
-`Listenable:registerListener (listener: Listener)`
-- `listener` A table containing the following properties:
+- `Listenable:registerListener (listener: Listener)`
+  - `listener` A table containing the following properties:
 
-  - `id` A unique identifier for the listener. This is optional, but useful for debugging and required for targeted removal.
-  - `callback` A function that will be called when the event is invoked. This function should not return a value but can leverage closures or externally defined variables. Any errors raised by this function will be printed to the chat frame.
-  - `persistent` A boolean indicating whether the listener is persistent or non-persistent. This property is optional, and defaults to `true`.
-    - If `false`, the listener is removed after being invoked.
+    - `id` A unique identifier for the listener. This is optional, but useful for debugging and required for targeted removal.
+    - `callback` A function that will be called when the event is invoked. This function should not return a value but can leverage closures or externally defined variables. Any errors raised by this function will be printed to the chat frame.
+    - `persistent` A boolean indicating whether the listener is persistent or non-persistent. This property is optional, and defaults to `true`.
+      - If `false`, the listener is removed after being invoked.
 
-Registers a new listener whose callback function will be invoked when the `Listenable` object is triggered. If the listener is persistent, it will remain active until explicitly removed; if it is non-persistent, it will be removed after being invoked.
+  Registers a new listener whose callback function will be invoked when the `Listenable` object is triggered. If the listener is persistent, it will remain active until explicitly removed; if it is non-persistent, it will be removed after being invoked.
 
----
-`Listenable:removeListener (id: string)`
-- `id` The identifier of the listener to be removed.
+- `Listenable:removeListener (id: string)`
+  - `id` The identifier of the listener to be removed.
 
-Removes a listener by its identifier.
+  Removes a listener by its identifier.
 
----
-`Listenable:invokeListeners (arguments?: Vector, executeAsync?: boolean)`
-- `arguments` A `Vector` containing the arguments that will be passed to the listeners' callback functions. 
-  - This is optional, and can be omitted if no arguments are needed.
-- `executeAsync` A boolean indicating whether the listeners' callback functions should be executed asynchronously.
-  - If omitted, defaults to `true`.
+- `Listenable:invokeListeners (arguments?: Vector, executeAsync?: boolean)`
+  - `arguments` A `Vector` containing the arguments that will be passed to the listeners' callback functions. 
+    - This is optional, and can be omitted if no arguments are needed.
+  - `executeAsync` A boolean indicating whether the listeners' callback functions should be executed asynchronously.
+    - If omitted, defaults to `true`.
 
-Invokes all registered listeners, passing the provided arguments to their callback functions. Non-persistent listeners are automatically removed after execution. The invocation is asynchronous by default, but can be made synchronous by setting `executeAsync` to `false`.
+  Invokes all registered listeners, passing the provided arguments to their callback functions. Non-persistent listeners are automatically removed after execution. The invocation is asynchronous by default, but can be made synchronous by setting `executeAsync` to `false`.
 
 ---
 #### Vector
 
 A vector is a mutable array-like data structure that supports indexed access. It is a key component of the framework's data model, and is used extensively in plugin development.
 
-`Vector (initialValues?: table) -> Vector`
-- `initialValues` An optional table containing the initial values for the vector.
+- `Vector (initialValues?: table) -> Vector`
+  - `initialValues` An optional table containing the initial values for the vector.
   - If omitted, the vector starts empty.
 
-Creates a new `Vector` instance with the optional initial values.
+  Creates a new `Vector` instance with the optional initial values.
 
----
-`Vector:getSize () -> number`
+- `Vector:getSize () -> number`
 
-Returns the number of elements in the vector.
+  Returns the number of elements in the vector.
 
----
-`Vector:getIterator () -> function, table<number, unknown>`
+- `Vector:getIterator () -> function, table<number, unknown>`
 
-Returns an iterator function that can be used with a `for` loop to traverse the vector elements. The iterator returns the index and value for each iteration.
+  Returns an iterator function that can be used with a `for` loop to traverse the vector elements. The iterator returns the index and value for each iteration.
 
----
-`Vector:getElement (index: number) -> unknown`
-- `index` The index of the element to retrieve.
+- `Vector:getElement (index: number) -> unknown?`
+  - `index` The index of the element to retrieve.
 
-Returns the value at the specified index. If the index does not exist in the vector, `nil` is returned.
+  Returns the value at the specified index. If the index does not exist in the vector, `nil` is returned.
 
----
-`Vector:insertElement (element: unknown, position?: number)`
-- `element` The element to insert into the vector.
-- `position` The position at which to insert the element.
-  - If omitted, the element is inserted at the end of the vector.
+- `Vector:insertElement (element: unknown, position?: number)`
+  - `element` The element to insert into the vector.
+  - `position` The position at which to insert the element.
+    - If omitted, the element is inserted at the end of the vector.
 
-Inserts an element into the vector at the specified position. If the position is omitted, the element is inserted at the end of the vector.
+  Inserts an element into the vector at the specified position. If the position is omitted, the element is inserted at the end of the vector.
 
----
-`Vector:removeElement (index?: number)`
-- `index` The index of the element to remove.
-  - If omitted, the last element is removed.
+- `Vector:removeElement (index?: number)`
+  - `index` The index of the element to remove.
+    - If omitted, the last element is removed.
 
-Removes an element from the vector at the specified index. If the index is omitted, the last element is removed.
+  Removes an element from the vector at the specified index. If the index is omitted, the last element is removed.
 
----
-`Vector:forEach (callback: (index: number, value: unknown) -> unknown?)`
-- `callback` A function that will be called for each element in the vector.
-  - The function should accept two arguments: `index` and `value`. If the function returns a value, it will be used to update the vector; if it returns `nil`, the element remains unchanged.
+- `Vector:forEach (callback: (index: number, value: unknown) -> unknown?)`
+  - `callback` A function that will be called for each element in the vector.
+    - The function should accept two arguments: `index` and `value`. If the function returns a value, it will be used to update the vector; if it returns `nil`, the element remains unchanged.
 
-Iterates over all elements in the vector and applies a callback function. Updates elements if the callback returns a non-nil value.
+  Iterates over all elements in the vector and applies a callback function. Updates elements if the callback returns a non-nil value.
+
+- `Vector:containsElement (searchValue: unknown) -> boolean`
+  - `searchValue` The value to search for in the vector.
+
+  Checks whether the vector contains the specified value. Returns `true` if the value is found, `false` otherwise.
+
+- `Vector:unpackElements () -> ...`
+
+  Unpacks and returns all elements in the vector.
+
+- `Vector:toArray () -> table<number, unknown>`
+
+  Returns the vector values as a table. The returned table is a copy of the original vector's values.
 
 ---
 ### Functions
 
 This section details the various utility functions provided by the framework. These functions are designed to facilitate addon development by offering a variety of common operations. Each function is exposed to the global namespace and can be directly invoked from within your plugin or addon.
 
----
-`flattenTable (target: table) -> table`
-- `target` The table that should be flattened.
+- `flattenTable (target: table) -> table`
+  - `target` The table that should be flattened.
 
-Flattens a table recursively into a single table, using a nested key scheme to represent the original table's structure. Returns a new table with the flattened structure.
+  Flattens a table recursively into a single table, using a nested key scheme to represent the original table's structure. Returns a new table with the flattened structure.
 
-> If a key starts with `$`, it acts as a breaking point. The value of that key, and any nested tables, will be stored in their original forms.
+  > If a key starts with `$`, it acts as a breaking point. The value of that key, and any nested tables, will be stored in their original forms.
 
----
-`integrateTable (base: table, source: table, mode: string) -> table`
-- `base` The base table into which the source table should be integrated.
-- `source` The source table to be integrated into the base table.
-- `mode` The integration mode, which can be `skip`, `replace` or `strict`.
-  - If omitted, the default mode is `strict`.
+- `integrateTable (base: table, source: table, mode: string) -> table`
+  - `base` The base table into which the source table should be integrated.
+  - `source` The source table to be integrated into the base table.
+  - `mode` The integration mode, which can be `skip`, `replace` or `strict`.
+    - If omitted, the default mode is `strict`.
 
-Integrates the source table into the base table, using the specified mode to handle key collisions. Returns the modified base table.
+  Integrates the source table into the base table, using the specified mode to handle key collisions. Returns the modified base table.
 
->The `mode` parameter controls how the source table is integrated:
->
->  - `skip` Existing keys in the base table will not be overwritten.
->  - `replace` Existing keys in the base table are overwritten with values from the source table.
->  - `strict` Key collisions result in an error being raised.
+  >The `mode` parameter controls how the source table is integrated:
+  >
+  >  - `skip` Existing keys in the base table will not be overwritten.
+  >  - `replace` Existing keys in the base table are overwritten with values from the source table.
+  >  - `strict` Key collisions result in an error being raised.
 
----
-`split (target: string, separator: string, pieces?: number) -> Vector`
-- `target` The string to be split.
-- `separator` The string to use as the separator.
-- `pieces` The number of pieces to split the string into (optional).
-  - If omitted, an unbounded number of pieces is returned.
+- `split (target: string, separator: string, pieces?: number) -> Vector`
+  - `target` The string to be split.
+  - `separator` The string to use as the separator.
+  - `pieces` The number of pieces to split the string into (optional).
+    - If omitted, an unbounded number of pieces is returned.
 
-Splits a string into a set of substrings based on the specified separator. Returns the resulting substrings as a `Vector` object.
+  Splits a string into a set of substrings based on the specified separator. Returns the resulting substrings as a `Vector` object.
 
----
-`traverseTable (target: table, steps: table, mode?: string) -> unknown`
-- `target` The table to be traversed.
-- `steps` A table containing the sequence of keys to traverse.
-- `mode` The traversal mode, which can be `exit`, `build` or `strict`.
+- `traverseTable (target: table, steps: table, mode?: string) -> unknown`
+  - `target` The table to be traversed.
+  - `steps` A table containing the sequence of keys to traverse.
+  - `mode` The traversal mode, which can be `exit`, `build` or `strict`.
 
-This function allows for the recursive traversal of a table by following a sequence of keys provided in the `steps` table. It returns the value found at the end of this traversal. The behavior of the traversal is determined by the optional `mode` parameter. Throws an error if a non-table value is encountered prior to the last step.
+  This function allows for the recursive traversal of a table by following a sequence of keys provided in the `steps` table. It returns the value found at the end of this traversal. The behavior of the traversal is determined by the optional `mode` parameter. Throws an error if a non-table value is encountered prior to the last step.
 
-> The `mode` parameter controls the behavior of the traversal:
-> - `exit` The traversal will stop when the specified key is not found, returning `nil`.
-> - `build` The traversal will create any missing tables in the path, returning the final value.
-> - `strict` The traversal will raise an error if any key in the path is not found.
+  > The `mode` parameter controls the behavior of the traversal:
+  > - `exit` The traversal will stop when the specified key is not found, returning `nil`.
+  > - `build` The traversal will create any missing tables in the path, returning the final value.
+  > - `strict` The traversal will raise an error if any key in the path is not found.
 
 ---
 ### Enumerations
