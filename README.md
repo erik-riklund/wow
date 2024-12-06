@@ -191,6 +191,20 @@ Removes a listener by its identifier.
 Invokes all registered listeners, passing the provided arguments to their callback functions. Non-persistent listeners are automatically removed after execution. The invocation is asynchronous by default, but can be made synchronous by setting `executeAsync` to `false`.
 
 ---
+#### Vector
+
+A vector is a mutable array-like data structure that supports indexed access. It is a key component of the framework's data model, and is used extensively in plugin development.
+
+`Vector (initialValues?: table) -> Vector`
+- `initialValues` An optional table containing the initial values for the vector.
+  - If omitted, the vector starts empty.
+
+Creates a new `Vector` instance with the optional initial values.
+
+---
+?
+
+---
 ### Functions
 
 This section details the various utility functions provided by the framework. These functions are designed to facilitate addon development by offering a variety of common operations. Each function is exposed to the global namespace and can be directly invoked from within your plugin or addon.
