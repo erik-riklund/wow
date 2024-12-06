@@ -202,7 +202,42 @@ A vector is a mutable array-like data structure that supports indexed access. It
 Creates a new `Vector` instance with the optional initial values.
 
 ---
-?
+`Vector:getSize () -> number`
+
+Returns the number of elements in the vector.
+
+---
+`Vector:getIterator () -> function, table<number, unknown>`
+
+Returns an iterator function that can be used with a `for` loop to traverse the vector elements. The iterator returns the index and value for each iteration.
+
+---
+`Vector:getElement (index: number) -> unknown`
+- `index` The index of the element to retrieve.
+
+Returns the value at the specified index. If the index does not exist in the vector, `nil` is returned.
+
+---
+`Vector:insertElement (element: unknown, position?: number)`
+- `element` The element to insert into the vector.
+- `position` The position at which to insert the element.
+  - If omitted, the element is inserted at the end of the vector.
+
+Inserts an element into the vector at the specified position. If the position is omitted, the element is inserted at the end of the vector.
+
+---
+`Vector:removeElement (index?: number)`
+- `index` The index of the element to remove.
+  - If omitted, the last element is removed.
+
+Removes an element from the vector at the specified index. If the index is omitted, the last element is removed.
+
+---
+`Vector:forEach (callback: (index: number, value: unknown) -> unknown?)`
+- `callback` A function that will be called for each element in the vector.
+  - The function should accept two arguments: `index` and `value`. If the function returns a value, it will be used to update the vector; if it returns `nil`, the element remains unchanged.
+
+Iterates over all elements in the vector and applies a callback function. Updates elements if the callback returns a non-nil value.
 
 ---
 ### Functions
