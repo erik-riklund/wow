@@ -13,6 +13,7 @@
   <Include file="enums/loot-slot-type.lua" />
   <Include file="enums/tradeskill-subtype.lua" />
   
+  <Include file="functions/copy-table.lua" />
   <Include file="functions/flatten-table.lua" />
   <Include file="functions/integrate-table.lua" />
   <Include file="functions/split-string.lua" />

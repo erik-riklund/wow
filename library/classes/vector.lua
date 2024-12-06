@@ -33,6 +33,7 @@ end
 
 
 ---@param index number
+---@return unknown? value
 ---Retrieves an element from the vector by index.
 ---
 vector.getElement = function (self, index)
@@ -93,9 +94,12 @@ vector.joinElements = function (self, separator, from, to)
   return table.concat (self, separator, from, to)
 end
 
----Returns the underlying table of elements in the vector.
+---@return table values
+---Returns a copy of the vector's values as an array.
 ---
-vector.toArray = function (self) return self.values end
+vector.toArray = function (self)
+  return copyTable (self.values)
+end
 
 ---Prototype for creating new `Vector` instances.
 ---

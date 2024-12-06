@@ -2,12 +2,13 @@
 Version `1.0.0` (*work in progress*)
 ### A World of Warcraft addon development framework
 
-Backbone is a World of Warcraft addon development framework that provides a solid foundation for building robust, efficient, and maintainable addons. With a powerful toolkit at its core, the framework is designed to be easy to use, maintainable, and foster a thriving community around it. Its lightweight footprint and modular design make it an ideal choice for developers of all skill levels.
+Backbone is a World of Warcraft addon development framework that provides a solid foundation for building robust, efficient, and maintainable addons. Featuring a powerful and intuitive toolkit, the framework is designed to be user-friendly, highly maintainable, and to foster a thriving developer community. Whether you're a beginner or a seasoned addon developer, Backbone empowers you to focus on crafting unique functionality and standout features, eliminating the need for repetitive tasks and boilerplate code.
 
 ## Table of contents
 
 1. [Introduction](#1-introduction)
     - [Features](#features)
+    - [Developer community](#developer-community)
 2. [Usage examples](#2-usage-examples)
 3. [Framework reference](#3-framework-reference)
     - [Static resources](#static-resources)
@@ -19,16 +20,19 @@ Backbone is a World of Warcraft addon development framework that provides a soli
 
 ## 1. Introduction
 
-Backbone is built to streamline the process of addon development by offering
-- ?
-
 ?
+
+The framework not only emphasizes performance but also fosters a cooperative ecosystem where addons can communicate and integrate efficiently. Developers can leverage shared data through services and channels, enabling richer experiences for players while maintaining compatibility.
 
 ### Features
 
 - ?
 
-The framework not only emphasizes performance but also fosters a cooperative ecosystem where addons can communicate and integrate efficiently. Developers can leverage shared data through services and channels, enabling richer experiences for players while maintaining compatibility.
+### Developer community
+
+The Backbone developer community is where we come together to connect, share ideas, and learn from one another. It’s a space where we can discuss the development process, announce new plugins, share code snippets, collaborate on projects, and help each other troubleshoot problems. Whether we’re swapping tips, sharing experiences, or picking up new skills, the community is a place for growth and support. Built on a culture of teamwork, empowerment, and respect, we can achieve amazing things together. By building on each other’s work, we’re shaping a bigger, better, and more diverse ecosystem of World of Warcraft addons.
+
+> [Join the Backbone community on Discord](https://discord.gg/JaHq2wWweS)
 
 ## 2. Usage examples
 
@@ -39,63 +43,65 @@ The examples in this section use the `plugin` variable to represent an instance 
 local plugin = backbone.createPlugin 'MyPlugin'
 ```
 
+?
+
 ## 3. Framework reference
 
 The following methods are part of the global `backbone` table and can be accessed directly from within your addon. These methods provide a way to interact with the framework and its underlying components.
 
 ---
-`backbone.createPlugin (name: string) -> Plugin`
-- `name` A string specifying the name of the plugin to be created.
+- `backbone.createPlugin (name: string) -> Plugin`
+  - `name` A string specifying the name of the plugin to be created.
 
-Creates and returns a new plugin with the specified name. A plugin encapsulates a suite of services and communication channels that facilitate interaction with the framework and other plugins. If a plugin with the specified name already exists, an error is raised.
+  Creates and returns a new plugin with the specified name. A plugin encapsulates a suite of services and communication channels that facilitate interaction with the framework and other plugins. If a plugin with the specified name already exists, an error is raised.
 
-> For details on available plugin methods, see the [Plugin reference](#4-plugin-reference).
+  > For details on available plugin methods, see the [Plugin reference](#4-plugin-reference).
 
----
-`backbone.executeTask (task: table)`
-- `task` A table containing the following properties:
+- `backbone.executeTask (task: table)`
+  - `task` A table containing the following properties:
 
-  - `id` A unique identifier for the task. This is optional, but useful for debugging.
-  - `callback` A function that will be called when the task is executed. This function should not return a value but can leverage closures or externally defined variables. Any errors raised by this function will be printed to the chat frame.
-  - `arguments` A `Vector` containing the arguments that will be passed to the `callback` function when the task is executed. This is optional, and can be omitted if no arguments are needed.
+    - `id` A unique identifier for the task.
+      - May be omitted, but it is useful for debugging.
+    - `callback` A function that will be called when the task is executed. This function should not return a value but can leverage closures or externally defined variables.
+      - Any errors raised by this function will be printed to the chat frame.
+    - `arguments` A `Vector` containing the arguments that will be passed to the `callback` function when the task is executed. This is optional, and can be omitted if no arguments are needed.
 
-This function executes a given task synchronously on the main thread. During its execution, the main thread is paused until the task completes, potentially impacting the responsiveness of the game.
+  This function executes a given task synchronously on the main thread. During its execution, the main thread is paused until the task completes, potentially impacting the responsiveness of the game.
 
----
-`backbone.executeBackgroundTask (task: table)`
-- `task` A table containing the following properties:
+- `backbone.executeBackgroundTask (task: table)`
+  - `task` A table containing the following properties:
 
-  - `id` A unique identifier for the task. This is optional, but useful for debugging.
-  - `callback` A function that will be called when the task is executed. This function should not return a value but can leverage closures or externally defined variables. Any errors raised by this function will be printed to the chat frame.
-  - `arguments` A `Vector` containing the arguments that will be passed to the `callback` function when the task is executed. This is optional, and can be omitted if no arguments are needed.
+    - `id` A unique identifier for the task.
+      - May be omitted, but it is useful for debugging.
+    - `callback` A function that will be called when the task is executed. This function should not return a value but can leverage closures or externally defined variables.
+      - Any errors raised by this function will be printed to the chat frame.
+    - `arguments` A `Vector` containing the arguments that will be passed to the `callback` function when the task is executed. This is optional, and can be omitted if no arguments are needed.
 
-This function executes a given task asynchronously using a coroutine. During its execution, the main thread should not be affected, which can be useful for long-running tasks that do not need to be executed immediately. Background tasks are executed in the order they were added.
+  This function executes a given task asynchronously using a coroutine. During its execution, the main thread should not be affected, which can be useful for long-running tasks that do not need to be executed immediately. Background tasks are executed in the order they were added.
 
----
-`backbone.hasPlugin (name: string) -> boolean`
-- `name` A string specifying the name of the plugin to be checked.
+- `backbone.hasPlugin (name: string) -> boolean`
+  - `name` A string specifying the name of the plugin to be checked.
 
-Determines whether a plugin with the specified name has been registered with the framework. Returns `true` if the plugin exists, `false` otherwise.
+  Determines whether a plugin with the specified name has been registered with the framework. Returns `true` if the plugin exists, `false` otherwise.
 
----
-`backbone.throw (error: string, ...string)`
-- `error` A string specifying the error message to be thrown.
-- `...` Optional arguments to be used for formatting the error message.
+- `backbone.throw (error: string, ...string)`
+  - `error` A string specifying the error message to be thrown.
+  - `...` Optional arguments to be used for formatting the error message.
 
-Throws an error with the given message, optionally formatting it with the provided arguments. This function is intended to be used to throw errors when invalid operations are attempted. The error is thrown with a stack trace at level 3, pointing to the location where the error originated from.
+  Throws an error with the given message, optionally formatting it with the provided arguments. This function is intended to be used to throw errors when invalid operations are attempted. The error is thrown with a stack trace at level 3, pointing to the location where the error originated from.
 
 ---
 ### Static resources
 
 The following section lists static resources that are exposed by the framework. These resources are available globally and can be accessed by any plugin or addon.
 
-`backbone.activeLocale`
+- `backbone.activeLocale`
 
-The currently active locale, represented as a string (e.g., `enUS`, `frFR`, `deDE`).
+  The currently active locale, represented as a string (e.g., `enUS`, `frFR`, `deDE`).
 
-`backbone.currentExpansion`
+- `backbone.currentExpansion`
 
-The currently active expansion level, represented as an `ENUM.EXPANSION_LEVEL` value.
+  The currently active expansion level, represented as an `ENUM.EXPANSION_LEVEL` value.
 
 ## 4. Plugin reference
 
@@ -103,13 +109,12 @@ The currently active expansion level, represented as an `ENUM.EXPANSION_LEVEL` v
 
 ## 5. Framework library
 
-?
+The framework library is a collection of classes andfunctions that are made available to all plugins and addons. It provides a variety of utility functions and data structures that can be used to write robust and efficient code. The library is divided into two main sections: classes and functions. It also provides a set of enumerations that can be used to represent different types of data.
 
 ### Classes
 
 Each class provided by the framework includes a globally accessible constructor function. The constructor functions are named after the class they instantiate, and can be called directly to initialize new objects with any necessary initial parameters. If a constructor function is not explicitly documented below, no initial parameters are required; these objects can be initialized using the shorthand `new 'ClassName'` syntax for convenience.
 
----
 #### Dictionary
 
 A dictionary is a data structure that stores key-value pairs. It is a mutable collection of entries, each consisting of a unique key and an associated value. The dictionary provides methods for adding, removing, and iterating over entries, as well as checking for the existence of a key. The dictionary is a key component of the framework's data model, and is used extensively in plugin development.
@@ -154,7 +159,7 @@ A dictionary is a data structure that stores key-value pairs. It is a mutable co
 ---
 #### Listenable
 
-A listenable is an object that can be registered for events of various types. Listeners can be registered to be notified when an event of interest occurs. Listeners can be either persistent or non-persistent; persistent listeners remain active until explicitly removed, while non-persistent listeners are removed once they have been invoked.
+A `Listenable` is an object that enables other objects (listeners) to register themselves and receive notifications when specific events occur. Listeners can be either persistent or non-persistent: persistent listeners remain active until explicitly removed, while non-persistent listeners are automatically removed after they are invoked.
 
 - `Listenable:getListenerCount () -> number`
 
@@ -163,7 +168,8 @@ A listenable is an object that can be registered for events of various types. Li
 - `Listenable:registerListener (listener: Listener)`
   - `listener` A table containing the following properties:
 
-    - `id` A unique identifier for the listener. This is optional, but useful for debugging and required for targeted removal.
+    - `id` An (optional) unique identifier for the listener.
+      - Useful for debugging and required for targeted removal.
     - `callback` A function that will be called when the event is invoked. This function should not return a value but can leverage closures or externally defined variables. Any errors raised by this function will be printed to the chat frame.
     - `persistent` A boolean indicating whether the listener is persistent or non-persistent. This property is optional, and defaults to `true`.
       - If `false`, the listener is removed after being invoked.
@@ -288,7 +294,14 @@ This section details the various utility functions provided by the framework. Th
 ---
 ### Enumerations
 
-The `ANCHOR_POINT` enumeration provides numerical representations of anchor points used for positioning UI elements.
+This section provides a description of the enumeration constants used within the framework, which are accessible through the global `ENUM` variable. Enumerations are a way of defining a set of named values, which can represent various states or options within the framework. By using enumerations, the code gains clarity and maintainability, as these named values are more descriptive than using arbitrary numbers or strings. 
+
+The purpose of defining these enumerations is to create an abstraction layer that shields the framework, and the plugins that rely on it, from potential changes in the underlying values. This abstraction allows for future modifications to be made with minimal impact on the existing codebase, ensuring that any changes in these values are centralized and do not require extensive refactoring of the code that relies on them.
+
+---
+`ENUM.ANCHOR_POINT`
+
+Provides numerical representations of anchor points used for positioning UI elements.
 
 ```lua
 ENUM.ANCHOR_POINT = {
@@ -304,7 +317,10 @@ ENUM.ANCHOR_POINT = {
 }
 ```
 
-The `EXPANSION_LEVEL` enumeration provides numerical representations of expansion levels.
+---
+`ENUM.EXPANSION_LEVEL`
+
+Provides numerical representations of expansion levels.
 
 ```lua
 ENUM.EXPANSION_LEVEL = {
@@ -322,7 +338,10 @@ ENUM.EXPANSION_LEVEL = {
 }
 ```
 
-The `ITEM_BIND` enumeration provides numerical representations of item bindings.
+---
+`ENUM.ITEM_BIND`
+
+Provides numerical representations of item bindings.
 
 ```lua
 ENUM.ITEM_BIND = {
@@ -337,7 +356,10 @@ ENUM.ITEM_BIND = {
 }
 ```
 
-The `ITEM_CLASS` enumeration provides numerical representations of item types.
+---
+`ENUM.ITEM_CLASS`
+
+Provides numerical representations of item types.
 
 ```lua
 ENUM.ITEM_CLASS = {
@@ -358,7 +380,10 @@ ENUM.ITEM_CLASS = {
 }
 ```
 
-The `ITEM_QUALITY` enumeration provides numerical representations of item qualities.
+---
+`ENUM.ITEM_QUALITY`
+
+Provides numerical representations of item qualities.
 
 ```lua
 ENUM.ITEM_QUALITY = {
@@ -374,7 +399,10 @@ ENUM.ITEM_QUALITY = {
 }
 ```
 
-The `LOOT_SLOT_TYPE` enumeration provides numerical representations of loot slot types.
+---
+`ENUM.LOOT_SLOT_TYPE`
+
+Provides numerical representations of loot slot types.
 
 ```lua
 ENUM.LOOT_SLOT_TYPE = {
@@ -385,7 +413,10 @@ ENUM.LOOT_SLOT_TYPE = {
 }
 ```
 
-The `TRADESKILL_SUBTYPE` enumeration provides numerical representations of tradeskill item subtypes.
+---
+`ENUM.TRADESKILL_SUBTYPE`
+
+Provides numerical representations of tradeskill item subtypes.
 
 ```lua
 ENUM.TRADESKILL_SUBTYPE = {
