@@ -22,16 +22,6 @@
 _G.integrateTable = function (base, source, mode)
   mode = mode or 'strict'
 
-  if type (base) ~= 'table' then
-    error('Expected a table for argument #1 (base).', 3)
-  end
-  if type (source) ~= 'table' then
-    error('Expected a table for argument #2 (source).', 3)
-  end
-  if mode ~= 'skip' and mode ~= 'replace' and mode ~= 'strict' then
-    error('Expected "skip", "replace" or "strict" for argument #3 (mode).', 3)
-  end
-
   for key, value in pairs (source) do
     if mode == 'replace' or base[key] == nil then
       base[key] = value
@@ -39,6 +29,20 @@ _G.integrateTable = function (base, source, mode)
       backbone.throw ('The key "%s" already exists in the base table.', key)
     end
   end
+
+  return base
+end
+
+---@param base table
+---@param sources table
+---@param mode? 'skip'|'replace'|'strict'
+---
+_G.integrateTables = function (base, sources, mode)
+  Vector (sources):forEach (
+    function (index, source)
+      integrateTable (base, source, mode)
+    end
+  )
 
   return base
 end

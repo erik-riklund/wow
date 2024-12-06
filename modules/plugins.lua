@@ -59,3 +59,7 @@ end
 backbone.hasPlugin = function (name)
   return context.plugins:hasEntry (string.lower (name))
 end
+
+-- INTERNAL PLUGIN --
+
+context.plugin = backbone.createPlugin 'Backbone'

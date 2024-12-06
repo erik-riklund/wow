@@ -1,8 +1,8 @@
 ---@meta
 
---[[~ Updated: 2024/12/05 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/06 | Author(s): Gopher ]]
 
---Backbone - A World of Warcraft Addon Framework
+--Backbone - A World of Warcraft addon framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
 --
 --This program is free software: you can redistribute it and/or modify it under the terms
@@ -13,7 +13,10 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Task
----@field id string?
----@field callback function
----@field arguments Vector?
+---@class ChannelOptions
+---@field internal boolean?
+---@field executeAsync boolean?
+
+---@class Channel : Listenable, ChannelOptions
+---@field name string
+---@field owner Plugin
