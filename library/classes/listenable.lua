@@ -1,5 +1,4 @@
-
---[[~ Updated: 2024/12/02 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/06 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft Addon Framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -13,22 +12,30 @@
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@class Listenable
+---
 local listenable = {}
 local prototype = { __index = listenable }
 
 ---@protected
 ---@type Vector
+---
 listenable.listeners = nil
 
----Returns the total number of listeners registered to the `Listenable` instance.
-listenable.getListenerCount = function (self) return self.listeners:getSize() end
+---Returns the total number of registered listeners.
+---
+listenable.getListenerCount = function (self)
+  return self.listeners:getSize()
+end
 
 ---@param listener Listener
 ---Registers a new listener.
-listenable.registerListener = function (self, listener) self.listeners:insertElement (listener) end
+listenable.registerListener = function (self, listener)
+  self.listeners:insertElement (listener)
+end
 
 ---@param id string
 ---Removes a listener by its identifier.
+---
 listenable.removeListener = function (self, id)
   for index, listener in self.listeners:getIterator() do
     ---@cast listener Listener
@@ -41,12 +48,14 @@ listenable.removeListener = function (self, id)
 end
 
 ---@param arguments? Vector
----@param async? boolean
+---@param executeAsync? boolean
 ---Invokes all registered listeners, passing the provided arguments to their callback functions.
 ---* Non-persistent listeners are automatically removed after execution.
-listenable.invokeListeners = function (self, arguments, async)
-  local nonpersistent_listeners = new 'Vector'
-  local execute = (async == false and backbone.executeTask) or backbone.executeTaskAsync
+---
+listenable.invokeListeners = function (self, arguments, executeAsync)
+  local nonpersistentListeners = new 'Vector'
+  local execute = (executeAsync == false and backbone.executeTask)
+                    or backbone.executeBackgroundTask
 
   self.listeners:forEach(
     function (index, listener)
@@ -59,17 +68,18 @@ listenable.invokeListeners = function (self, arguments, async)
       }
       
       if listener.persistent == false then
-        nonpersistent_listeners:insertElement (index)
+        nonpersistentListeners:insertElement (index)
       end
     end
   )
 
-  for i = nonpersistent_listeners:getSize(), 1, -1 do
-    self.listeners:removeElement (nonpersistent_listeners:getElement (i))
+  for i = nonpersistentListeners:getSize(), 1, -1 do
+    self.listeners:removeElement (nonpersistentListeners:getElement (i))
   end
 end
 
 ---Creates a new `Listenable` instance.
+---
 Listenable = function ()
   return setmetatable ({ listeners = new 'Vector' }, prototype)
 end
