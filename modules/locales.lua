@@ -16,15 +16,53 @@ local context = select(2, ...)
 
 local locales = new 'Dictionary'
 
--- FRAMEWORK API --
+---@param plugin Plugin
+---@param locale LocaleCode
+---@param strings table
+---
+local registerStrings = function (plugin, locale, strings)
+  if not locales:hasEntry (plugin) then
+    locales:setEntry (plugin, {})
+  end
+  
+  local registeredStrings = locales:getEntry (plugin) --[[@as table]]
+  registeredStrings[locale] = registeredStrings[locale] or {}
+
+  integrateTable (registeredStrings[locale], strings, 'strict')
+end
+
+---@param plugin Plugin
+---@param key string
+---
+local getLocalizedString = function (plugin, key)
+  if not locales:hasEntry (plugin) then
+    return string.format (
+      'No strings registered for plugin "%s".', plugin:getName ()
+    )
+  end
+  local registeredStrings = locales:getEntry (plugin) --[[@as table]]
+
+  return (registeredStrings[backbone.activeLocale] and registeredStrings[backbone.activeLocale][key])
+      or (registeredStrings.enUS and registeredStrings.enUS[key])
+      or string.format('The string "%s" is not registered for plugin "%s".', key, plugin:getName ())
+end
 
 -- PLUGIN API --
 
 ---@class Plugin
-local localesAPI = context.pluginAPI 
+local localesAPI = context.pluginAPI
+
+---@param locale LocaleCode
+---@param strings table
+---Registers the provided strings for the specified locale.
+---
+localesAPI.registerLocalizedStrings = function (self, locale, strings)
+  registerStrings (self, locale, strings)
+end
 
 ---@param key string
----@return string
 ---Returns the localized string for the specified key.
 ---
-localesAPI.getLocalizedString = function (key) end
+localesAPI.getLocalizedString = function (self, key)
+  return getLocalizedString (self, key)
+end

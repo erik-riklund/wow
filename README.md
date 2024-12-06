@@ -2,7 +2,7 @@
 Version `1.0.0` (*work in progress*)
 ### A World of Warcraft addon development framework
 
-Backbone is a World of Warcraft addon development framework that provides a solid foundation for building robust, efficient, and maintainable addons. Featuring a powerful and intuitive toolkit, the framework is designed to be user-friendly, highly maintainable, and to foster a thriving developer community. Whether you're a beginner or a seasoned addon developer, Backbone empowers you to focus on crafting unique functionality and standout features, eliminating the need for repetitive tasks and boilerplate code.
+Backbone is a comprehensive World of Warcraft addon development framework that simplifies the process of creating robust, efficient, and maintainable addons. By providing a user-friendly and intuitive toolkit, Backbone allows developers to focus on crafting unique features and functionalities, while automating tedious tasks and reducing boilerplate code. Whether you are a seasoned developer or just starting out, Backbone offers a solid foundation for building high-quality addons.
 
 ## Table of contents
 
@@ -30,7 +30,7 @@ The framework not only emphasizes performance but also fosters a cooperative eco
 
 ### Developer community
 
-The Backbone developer community is where we come together to connect, share ideas, and learn from one another. It’s a space where we can discuss the development process, announce new plugins, share code snippets, collaborate on projects, and help each other troubleshoot problems. Whether we’re swapping tips, sharing experiences, or picking up new skills, the community is a place for growth and support. Built on a culture of teamwork, empowerment, and respect, we can achieve amazing things together. By building on each other’s work, we’re shaping a bigger, better, and more diverse ecosystem of World of Warcraft addons.
+The Backbone community is a collaborative space where developers can share knowledge, solve problems, and create new things together. We believe that by fostering an open and inclusive environment, we can create a more vibrant and diverse ecosystem of World of Warcraft addons. The community is built on a culture of mutual respect, empowerment, and open communication. It is meant to be a place where you can connect with other developers, get help when you need it, or share your latest project. By discussing and collaborating with like-minded individuals, we can achieve amazing things.
 
 > [Join the Backbone community on Discord](https://discord.gg/JaHq2wWweS)
 
@@ -104,6 +104,37 @@ The following section lists static resources that are exposed by the framework. 
   The currently active expansion level, represented as an `ENUM.EXPANSION_LEVEL` value.
 
 ## 4. Plugin reference
+
+*Describe the purpose of the `Plugin` class.*
+
+### Channels
+
+?
+
+### Events
+
+?
+
+### Locales
+
+Locales enable support for multiple languages and the customization of text elements based on the user’s active locale. With this feature, you can create a more inclusive and accessible user experience, catering to a diverse audience. The framework provides methods for registering localized strings for specific locales and retrieving them dynamically, ensuring that your plugin’s text aligns seamlessly with the user’s language settings.
+
+- `plugin:registerLocalizedStrings (locale: LocaleCode, strings: table)`
+  - `locale` A string specifying the locale for which the strings should be registered.
+  - `strings` A table containing the strings to be registered for the specified locale.
+
+  Registers strings for a specific locale. These strings can be used in the plugin's UI or other user-facing elements, allowing for locale-specific customization of the plugin's text.
+
+  > This method can be called multiple times to register strings for different locales or to update existing ones. When a locale is already registered, the new strings are merged with the existing ones. However, any key collisions will result in an error.
+
+- `plugin:getLocalizedString (key: string) -> string`
+  - `key` A string specifying the key of the string to be retrieved.
+
+  Retrieves a localized string for the specified key. The string will be returned in the active locale, falling back to the default locale (`enUS`) if no localized string is available for the active locale.
+
+  > If the key is not found in any of the registered locales, an error string is returned.
+
+### Settings
 
 ?
 

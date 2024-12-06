@@ -17,6 +17,14 @@ local context = select(2, ...)
 ---@class Plugin
 context.pluginAPI = {}
 
+---Returns the identifier of the plugin.
+---
+context.pluginAPI.getId = function (self) return self.id end
+
+---Returns the name of the plugin.
+---
+context.pluginAPI.getName = function (self) return self.name end
+
 ---Stores all registered plugins, indexed by their identifiers.
 ---
 context.plugins = new 'Dictionary'
@@ -38,7 +46,7 @@ backbone.createPlugin = function (name)
   local plugin = { id = pluginId, name = name }
 
   context.plugins:setEntry (pluginId,
-    setmetatable (plugin, { __index = backbone.pluginAPI })
+    setmetatable (plugin, { __index = context.pluginAPI })
   )
 
   return plugin

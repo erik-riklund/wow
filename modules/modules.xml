@@ -1,5 +1,6 @@
 <Ui>
   <Include file="plugins.lua" />
   <Include file="callbacks.lua" />
+  <Include file="locales.lua" />
   <!-- <Include file="" /> -->
 </Ui>
