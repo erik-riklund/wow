@@ -87,8 +87,13 @@ end
 ---Registers a callback to be executed when the specified addon is loaded.
 ---
 backbone.onAddonReady = function (addon, callback)
+  local isLoaded = select (2, C_AddOns.IsAddOnLoaded (addon)) --[[@as boolean]]
+
+  if isLoaded then
+    return callback () -- execute the callback function and exit early.
+  end
+
   local listenerId = string.format ('%s/%s', addon, GetTimePreciseSec())
-  print (listenerId)
 
   context.plugin:registerChannelListener (
     'ADDON_READY', {

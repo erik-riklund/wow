@@ -28,7 +28,7 @@ local registerStrings = function (plugin, locale, strings)
   local registeredStrings = locales:getEntry (plugin) --[[@as table]]
   registeredStrings[locale] = registeredStrings[locale] or {}
 
-  integrateTable (registeredStrings[locale], strings, 'strict')
+  integrateTable (registeredStrings[locale], strings, 'skip')
 end
 
 ---@param plugin Plugin
@@ -45,6 +45,40 @@ local getLocalizedString = function (plugin, key)
   return (registeredStrings[backbone.activeLocale] and registeredStrings[backbone.activeLocale][key])
       or (registeredStrings.enUS and registeredStrings.enUS[key])
       or string.format('The string "%s" is not registered for plugin "%s".', key, plugin:getName ())
+end
+
+-- FRAMEWORK API --
+
+---@param pluginName string
+---@param locale LocaleCode
+---@param strings table
+---Registers the provided strings for the specified plugin and locale.
+---
+backbone.registerLocalizedStrings = function (pluginName, locale, strings)
+  local isLoaded = select (2, C_AddOns.IsAddOnLoaded (pluginName)) --[[@as boolean]]
+
+  if isLoaded then
+    local plugin = context.plugins:getEntry (string.lower (pluginName)) --[[@as Plugin]]
+    return registerStrings (plugin, locale, strings) -- exit early.
+  end
+
+  local listenerId = string.format (
+    '%s/%s/%s', pluginName, locale, GetTimePreciseSec()
+  )
+
+  context.plugin:registerChannelListener (
+    'PLUGIN_LOADED', {
+      id = listenerId,
+      callback = function (loadedPlugin)
+        ---@cast loadedPlugin Plugin
+        
+        if loadedPlugin:getName () == pluginName then
+          registerStrings (loadedPlugin, locale, strings)
+          context.plugin:removeChannelListener ('PLUGIN_LOADED', listenerId)
+        end
+      end
+    }
+  )
 end
 
 -- PLUGIN API --

@@ -1,8 +1,9 @@
 <Ui>
   <Include file="plugins.lua" />
   <Include file="callbacks.lua" />
-  <Include file="locales.lua" />
   <Include file="network.lua" />
   <Include file="events.lua" />
+  <Include file="locales.lua" />
+  <Include file="storage.lua" />
   <!-- <Include file="" /> -->
 </Ui>
