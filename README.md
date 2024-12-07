@@ -21,7 +21,7 @@ Backbone is a framework designed to simplify the addon development process. Its 
 
 The Backbone community is a collaborative space built on respect and empowerment. Whether you are seeking help, sharing your latest project, or simply want to connect with others, the community is here to support you. Together, through collaboration and open communication, we can create a diverse and supportive environment where developers can learn, grow, and thrive.
 
-> [Join the Backbone community on Discord](https://discord.gg/JaHq2wWweS)
+> [Join the Backbone community on Discord](https://discord.gg/JaHq2wWweS) 💬
 
 ## Getting started and beyond
 
@@ -224,8 +224,29 @@ print (plugin:getLocalizedString 'HELLO_WORLD3')
 ---
 ### State management
 
+The framework provides tools for managing state, allowing you to store and retrieve data across game sessions using saved variables. To enable this feature, you need to include the variable definitions in the `.toc` file, as shown in the example below:
+
+```toc
+## SavedVariables: MyPluginAccountVariables
+## SavedVariablesPerCharacter: MyPluginCharacterVariables
+```
+
+> Replace `MyPlugin` with the name of your addon. You can choose to enable account-wide variables, character-specific variables, or neither, depending on your requirements.
+
+#### Retrieving saved variables
+
 ?
 
+#### Setting the value of a saved variable
+
+?
+
+---
 ### Plugin configuration
+
+?
+
+---
+### ?
 
 ?
