@@ -53,11 +53,11 @@ backbone.createPlugin = function (name)
 end
 
 ---@param name string
----Checks if a plugin with the specified name exists.
----* Returns `true` if the plugin exists, `false` otherwise.
+---Checks whether the specified plugin is loaded.
+---* Returns `true` if the plugin is loaded, `false` otherwise.
 ---
 backbone.hasPlugin = function (name)
-  return context.plugins:hasEntry (string.lower (name))
+  return context.plugins:hasEntry (string.lower (name)) and backbone.isAddonLoaded (name)
 end
 
 -- INTERNAL PLUGIN --

@@ -1,43 +1,53 @@
 # Backbone
 Version `1.0.0` (*work in progress*)
-### A World of Warcraft addon development framework
 
 ---
-## Table of contents
 
 - [Introduction](#introduction)
 - [Developer community](#developer-community)
 - [Getting started and beyond](#getting-started-and-beyond)
 
+  - [Initialization](#initialization)
+  - [Event handling](#event-handling)
+  - [Framework channels](#framework-channels)
+  - [Localization](#localization)
+  - [State management](#state-management)
+  - [Plugin configuration](#plugin-configuration)
+  - [Configuration - user interface integration](#configuration---user-interface-integration)
+
 ## Introduction
 
-Backbone is a framework designed to simplify the addon development process. Its toolkit allows you to focus on creating features, while the framework manages repetitive tasks and boilerplate code. Whether you are an experienced developer or new to addon development, Backbone provides a foundation for building robust and maintainable addons.
+Backbone is a framework designed to simplify the addon development process. It allows you to focus on the creation of features and functionality, while the framework manages repetitive tasks and boilerplate code. The framework was created to provide a consistent and streamlined approach to addon development, with a focus on simplicity and ease of use. The end goal is to foster a collaborative and inclusive community, where developers can share their knowledge, collaborate on projects, and learn from each other.
 
 ### Features
 
-- ?
+- Streamlined plugin initialization
+- Dynamic event handling
+- Channels for communication between addons
+- Efficient state management
+- Comprehensive localization support
+- Settings and configuration management
 
 ## Developer community
 
-The Backbone community is a collaborative space built on respect and empowerment. Whether you are seeking help, sharing your latest project, or simply want to connect with others, the community is here to support you. Together, through collaboration and open communication, we can create a diverse and supportive environment where developers can learn, grow, and thrive.
+The Backbone community is built on a foundation of respect, collaboration, and empowerment. Whether you’re seeking assistance, showcasing your latest project, or connecting with like-minded developers, the community is here to support you every step of the way. By fostering open communication and teamwork, we aim to create a vibrant, inclusive environment where developers can learn, grow, and share knowledge.
 
 > [Join the Backbone community on Discord](https://discord.gg/JaHq2wWweS) 💬
 
 ## Getting started and beyond
 
-The `Plugin` class is a critical component of the Backbone framework, providing a set of features and tools for managing the lifecycle of a World of Warcraft addon. It is responsible for managing the addon's saved variables, providing access to configuration settings, acting as a central hub for managing events and channels, and more. By using the `Plugin` class, you can focus on creating features and functionality for your addon, while the framework handles the underlying plumbing.
+The `Plugin` class serves as the foundation of the framework, offering a comprehensive suite of tools to simplify addon development. By managing the core lifecycle and underlying processes, it frees you to focus on creating innovative features and functionality.
 
 ```lua
 -- The name of the plugin must match the name of the addon folder.
 local plugin = backbone.createPlugin 'MyPlugin'
 ```
 
-> All examples use the `plugin` variable to represent an active plugin.
+> In all examples throughout this guide, the `plugin` variable represents an active plugin instance.
 
----
-### Initialization
+## Initialization
 
-The initialization process ensures that your plugin is fully set up and ready to use before executing any code. This is achieved through the `onReady` method, which guarantees that all necessary components — such as saved variables — are loaded and initialized. This step is crucial for features like the storage manager and configuration handler, as they rely on access to saved data to function correctly.
+The initialization process is a crucial part of the plugin lifecycle, ensuring that your addon is fully prepared and ready to function before any code is executed. This step is particularly important for modules such as the state manager or configuration handler, which depend on saved variables to operate correctly.
 
 ```lua
 plugin:onReady(
@@ -47,7 +57,7 @@ plugin:onReady(
 )
 ```
 
-The second example highlights the `backbone.onAddonReady` method, which allows you to execute a callback when another addon is fully loaded. This can be useful when your plugin interacts with or depends on another addon, ensuring that it is available before executing any related code:
+If your plugin interacts with another addon, you can use `backbone.onAddonReady` to ensure that the target addon is completely loaded before executing related code.
 
 ```lua
 backbone.onAddonReady(
@@ -57,16 +67,24 @@ backbone.onAddonReady(
 )
 ```
 
-By leveraging these methods, you can ensure that your plugin and any dependencies are properly initialized, avoiding issues caused by missing or incomplete data during execution.
+> By utilizing these methods, you can ensure that your plugin and its dependencies are initialized correctly, preventing errors caused by incomplete or missing data. This approach guarantees a smooth and seamless experience for players.
 
----
-### Event handling
+## Event handling
 
-Event handling is a core feature of the framework, enabling your plugin to respond to game events dynamically. By registering listeners, you can define specific behaviors that are triggered when events occur, such as user actions or game state changes. This approach ensures that your plugin reacts seamlessly to the game's environment.
+Event handling is a fundamental feature of the framework, enabling your plugin to respond dynamically to in-game events. By registering event listeners, you can define actions to execute when specific events occur, such as player interactions or changes in game state. This ensures seamless integration with the game's ecosystem.
 
-#### Registering an event listener
+### Registering an event listener
 
-The `registerEventListener` method allows you to register a listener for a specific event. The following example demonstrates how to register a persistent event listener for `SOME_EVENT`. The callback function will be executed whenever the event is triggered:
+You can register event listeners using the `registerEventListener` method. This method requires an event name and a `Listener` object with the following properties:
+
+* `callback` The function to execute when the event is triggered.
+  - *The callback should accept parameters relevant to the event.*
+
+* `identifier?` An optional unique identifier for the listener.
+  - *If omitted, the listener will be anonymous (not eligible for targeted removal).*
+
+* `persistent?` Specifies whether the listener remains active after being triggered.
+  - *Defaults to `true`. Set to `false` to remove the listener after it executes once.*
 
 ```lua
 plugin:registerEventListener (
@@ -81,31 +99,27 @@ plugin:registerEventListener (
 )
 ```
 
-- `callback` The function to execute when the event is triggered. This function can accept arguments specific to the event.
-- `identifier?` A unique identifier for the listener. This is useful for debugging or selectively removing listeners.
-  - If omitted, the listener will be anonymous (not eligible for targeted removal).
-- `persistent?` Determines whether the listener remains active after being triggered.
-  - If explicitly set to `false`, the listener will be removed after it is executed once.
-  - If omitted, the listener will be persistent.
+### Removing an event listener
 
-#### Removing an event listener
-
-To remove an event listener, use the `removeEventListener` method. Specify the event name and the identifier of the listener you want to remove:
+To remove an event listener, use the `removeEventListener` method. Provide the event name and the identifier of the listener you want to remove:
 
 ```lua
 plugin:removeEventListener ('SOME_EVENT', 'MyEventListener')
 ```
 
-This ensures that the listener is no longer active, which is useful when you need to manage resources or dynamically update the plugin's behavior based on changing game conditions.
+## Framework channels
 
----
-### Framework channels
+Framework channels are a versatile feature of the Backbone framework, allowing you to establish communication pathways between different parts of your plugin or interact with other addons. These channels can be used to exchange data, trigger actions, and much more.
 
-Framework channels are an important feature of Backbone, enabling both internal and inter-addon communication. Channels provide a structured way to invoke custom logic dynamically, either synchronously or asynchronously, based on your needs.
+### Creating a framework channel
 
-#### Creating a framework channel
+To create a new channel, use the `createChannel` method. This method requires a channel name and accepts an optional `ChannelOptions` object with the following properties:
 
-The `createChannel` method is used to create a new channel. Channels can be configured to be either internal or public, and support both synchronous and asynchronous execution. Here's an example:
+* `internal?` Specifies whether the channel is restricted to the owning plugin.
+  - *Defaults to `false`, making the channel accessible to all plugins.*
+
+* `executeAsync?` Determines whether listeners on this channel are executed in the background (asynchronously) or immediately.
+  - *Defaults to `true`, enabling background execution.*
 
 ```lua
 plugin:createChannel (
@@ -116,14 +130,18 @@ plugin:createChannel (
 )
 ```
 
-- `internal?` Determines whether the channel is internal to the owning plugin.
-  - If omitted, the channel is open to all plugins.
-- `executeAsync?` Determines whether the channel listeners are executed asynchronously or synchronously.
-  - If omitted, the channel listeners are executed asynchronously.
+### Registering a channel listener
 
-#### Registering a channel listener
+Listeners can be registered to a channel using the `registerChannelListener` method. This method requires the channel name and a `Listener` object with the following properties:
 
-You can register listeners to a channel using the `registerChannelListener` method. This allows you to define a callback function that is triggered whenever the channel is invoked:
+* `callback` The function to execute when the channel is invoked.
+  - *The callback should accept parameters specific to the channel.*
+
+* `identifier?` An optional unique identifier for the listener.
+  - *If omitted, the listener will be anonymous (not eligible for targeted removal).*
+
+* `persistent?` Specifies whether the listener remains active after being invoked.
+  - *Defaults to `true`. Set to `false` to remove the listener after one execution.*
 
 ```lua
 plugin:registerChannelListener (
@@ -137,43 +155,31 @@ plugin:registerChannelListener (
 )
 ```
 
-- `callback` The function to execute when the channel is invoked.
-  - The callback should accept arguments specific to the channel.
-- `identifier?` A unique identifier for the listener.
-  - This is useful for debugging and required for targeted removal.
-  - If omitted, the listener will be anonymous (not eligible for targeted removal).
-- `persistent?` Determines whether the listener remains active after being invoked.
-  - If explicitly set to `false`, the listener will be removed after it is executed once.
-  - If omitted, the listener will be persistent.
+### Removing a channel listener
 
-#### Removing a channel listener
-
-To remove a listener from a channel, use the `removeChannelListener` method. Specify the channel name and the identifier of the listener to be removed:
+To remove a listener from a channel, use the `removeChannelListener` method. Provide the channel name and the identifier of the listener to remove:
 
 ```lua
 plugin:removeChanneListener ('MY_CHANNEL', 'MyChannelListener')
 ```
 
-This ensures that the listener is no longer active, which is helpful when you need to dynamically manage the behavior of your plugin in response to changing game conditions.
+### Invoking channel listeners
 
-#### Invoking channel listeners
-
-The `invokeChannelListeners` method is used to trigger all listeners registered to a specific channel. You can pass any number of arguments to the listeners during invocation:
+To trigger all listeners registered to a specific channel, use the `invokeChannelListeners` method. This method requires the channel name and can accept additional arguments specific to the channel.
 
 ```lua
-plugin:invokeChannelListeners ('MY_CHANNEL', --[[ channel-specific arguments ]])
+plugin:invokeChannelListeners ('MY_CHANNEL', --[[ channel-specific argument, ... ]])
 ```
 
-> If the channel is meant for communication with other addons, it is important to clearly document the arguments that is passed to the channel listeners.
+> When using channels to communicate with other addons, it is important to clearly document the arguments expected by the channel listeners.
 
----
-### Localization
+## Localization
 
-Localization is the process of translating text into different languages to make content accessible to a broader audience. The framework includes tools for managing localized strings, enabling you to define and retrieve text in multiple languages with ease.
+Localization enables your addon to reach a broader audience by translating text into different languages. The framework provides tools to manage localized strings, making it simple to define and retrieve text in multiple languages.
 
-#### Registering localized strings
+### Registering localized strings
 
-The `registerLocalizedStrings` method enables you to register localized strings for a specific language. You can add strings to the same locale multiple times, but each set of strings must have unique keys. If key collisions occur, the existing strings will not be overwritten.
+To register localized strings for a specific language, use the `registerLocalizedStrings` method. This method allows you to add unique keys and their corresponding translations. If you register the same key multiple times, the framework will retain the original value and ignore subsequent additions.
 
 ```lua
 plugin:registerLocalizedStrings (
@@ -186,11 +192,11 @@ plugin:registerLocalizedStrings (
 )
 ```
 
-> The `enUS` locale is the default locale for the framework.
+> The `enUS` locale serves as the default language for the framework.
 
-#### Adding external translations
+### Adding external translations
 
-Translations for strings can be added by external addons using the `backbone.registerLocalizedStrings` method. This approach allows addons to contribute translations for various languages to other plugins, enhancing the overall localization process while fostering a collaborative ecosystem.
+External addons can contribute translations using the `backbone.registerLocalizedStrings` method. This fosters collaboration by allowing developers to expand language support for plugins created by someone else.
 
 ```lua
 backbone.registerLocalizedStrings (
@@ -203,28 +209,27 @@ backbone.registerLocalizedStrings (
 )
 ```
 
-> Strings from external sources are loaded last to ensure that keys registered by the plugin itself take priority.
+> External translations are loaded after the addon's own translations, and will not overwrite them.
 
-#### Retrieving a localized string
+### Retrieving a localized string
 
-The `getLocalizedString` method allows you to retrieve a localized string based on its key.
+To retrieve a localized string, use the `getLocalizedString` method with the string’s unique key.
 
 ```lua
 print (plugin:getLocalizedString 'HELLO_WORLD')
 ```
 > output: `Hello world!`
 
-If the string is not defined for the active locale, the method will fall back to the `enUS` locale. If the string is also missing in the fallback locale, the method will return an error message.
+If the string is not available in the current locale, the method falls back to the `enUS` locale. If the string is also missing in the fallback locale, an error message is returned.
 
 ```lua
-print (plugin:getLocalizedString 'HELLO_WORLD3')
+print (plugin:getLocalizedString 'MISSING_KEY')
 ```
-> output: `The string "HELLO_WORLD3" is not registered for plugin "MyPlugin".`
+> output: `The string "MISSING_KEY" is not registered for plugin "MyPlugin".`
 
----
-### State management
+## State management
 
-The framework provides tools for managing state, allowing you to store and retrieve data across game sessions using saved variables. To enable this feature, you need to include the variable definitions in the `.toc` file, as shown in the example below:
+State management is a core feature of the framework, providing tools to store and retrieve data across game sessions using saved variables. To enable this functionality, you must define the saved variable names in your addon's `.toc` file.
 
 ```toc
 ## SavedVariables: MyPluginAccountVariables
@@ -233,20 +238,93 @@ The framework provides tools for managing state, allowing you to store and retri
 
 > Replace `MyPlugin` with the name of your addon. You can choose to enable account-wide variables, character-specific variables, or neither, depending on your requirements.
 
-#### Retrieving saved variables
+Attempting to access or modify a variable before the plugin is fully initialized will result in an error. To avoid this, ensure all state-dependent code is executed within an `onReady` callback (see [Initialization](#initialization)).
 
-?
+### Retrieving saved variables
 
-#### Setting the value of a saved variable
+Use the `getAccountVariable` or `getCharacterVariable` methods to retrieve the value of a saved variable. You can specify a single key or a slash-separated path to access nested data.
 
-?
+```lua
+local accountVariable = plugin:getAccountVariable 'myVariable'
+local characterVariable = plugin:getCharacterVariable 'myVariable'
 
----
-### Plugin configuration
+local nestedAccountVariable = plugin:getAccountVariable 'topLevel/myNestedVariable'
+local nestedCharacterVariable = plugin:getCharacterVariable 'topLevel/anotherLevel/myVariable'
+```
 
-?
+### Setting the value of a saved variable
 
----
-### ?
+The `setAccountVariable` and `setCharacterVariable` methods allow you to update saved variables. Like retrieval, these methods support single keys and slash-separated paths.
+
+```lua
+plugin:setAccountVariable ('myVariable', true)
+plugin:setCharacterVariable ('myVariable', true)
+
+plugin:setAccountVariable ('topLevel/myNestedVariable', true)
+plugin:setCharacterVariable ('topLevel/anotherLevel/myVariable', true)
+```
+
+> When setting nested variables, any missing intermediate tables will be created automatically.
+
+## Plugin settings
+
+The framework provides tools to manage plugin settings, enabling your addon to adapt dynamically to user preferences. This feature empowers players to customize how your addon behaves, enhancing its flexibility and delivering a more personalized user experience.
+
+> Settings are persistently stored using saved variables, ensuring that user preferences are retained across game sessions for a seamless and consistent experience (see [State management](#state-management)).
+
+### Registering default settings
+
+To establish a baseline configuration for your addon, use the `registerDefaultSettings` method. This ensures default values are available, even if the user has not explicitly configured the settings. User-defined values will override these defaults when provided.
+
+```lua
+plugin:registerDefaultSettings {
+  displayMode = 'compact',
+  colorTheme = 'dark',
+  
+  --[[ add more settings as needed ... ]]
+}
+```
+
+You can define nested settings for more organized and modular configuration. These can be accessed using a slash-separated path of keys, such as `frame/windowWidth`.
+
+```lua
+plugin:registerDefaultSettings {
+  displayMode = 'compact',
+  colorTheme = 'dark',
+  
+  --[[ add more settings as needed ... ]]
+  
+  frame = {
+    windowWidth = 800,
+    windowHeight = 600,
+    
+    --[[ add more frame settings as needed ... ]]
+  }
+}
+```
+
+### Retrieving the value of a setting
+
+To access the current value of a setting, use the `getSetting` method. This method returns the user-defined value, if available, or the default value otherwise.
+
+```lua
+local displayMode = plugin:getSetting 'displayMode'
+local windowWidth = plugin:getSetting 'frame/windowWidth'
+```
+
+> If the specified setting does not exist, an error will be thrown to ensure reliable access to valid keys.
+
+### Changing the value of a setting
+
+To update a setting dynamically, use the `setSetting` method. This saves the new value persistently, ensuring it is retained across sessions.
+
+```lua
+plugin:setSetting ('displayMode', 'expanded')
+plugin:setSetting ('frame/windowWidth', 1200)
+```
+
+> If the value type does not match the default type, an error will be thrown to enforce type consistency and prevent misconfiguration.
+
+## Configuration - user interface integration
 
 ?

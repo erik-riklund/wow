@@ -1,7 +1,7 @@
 ---@class Backbone
 local context = select(2, ...)
 
---[[~ Updated: 2024/12/07 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/08 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft addon framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -22,7 +22,14 @@ local storage = new 'Dictionary'
 ---@return unknown?
 ---
 local getVariable = function (plugin, scope, key)
-  print 'getVariable not implemented'
+  local pluginData = storage:getEntry (plugin) --[[@as table?]]
+
+  if not pluginData then
+    backbone.throw ('The plugin "%s" is not fully initialized.', plugin:getName())
+  end
+
+  ---@cast pluginData table
+  return traverseTable (pluginData[scope], split (key, '/'): toArray())
 end
 
 ---@param plugin Plugin
@@ -31,7 +38,17 @@ end
 ---@param value unknown
 ---
 local setVariable = function (plugin, scope, key, value)
-  print 'setVariable not implemented'
+  local pluginData = storage:getEntry (plugin) --[[@as table?]]
+
+  if not pluginData then
+    backbone.throw ('The plugin "%s" is not fully initialized.', plugin:getName())
+  end
+
+  ---@cast pluginData table
+  local parents = split (key, '/')
+  local variable = parents:removeElement() --[[@as string]]
+
+  traverseTable (pluginData[scope], parents, 'build')[variable] = value
 end
 
 -- STORAGE INITIALIZATION --

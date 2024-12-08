@@ -35,12 +35,12 @@ backbone.currentExpansion = GetExpansionLevel() --[[@as EXPANSION_LEVEL]]
 ---
 context.frame = CreateFrame ('Frame', 'BackboneFrame', UIParent)
 
----@param error string
+---@param message string
 ---@param ... string
 ---Throws an error with the provided message.
 ---* Formatting can be used by passing additional arguments.
 ---
-backbone.throw = function (error, ...)
-  local exception = (... and string.format(error, ...)) or error
+backbone.throw = function (message, ...)
+  local exception = (... and string.format(message, ...)) or message
   error (string.format ('[Backbone] %s', exception), 3)
 end

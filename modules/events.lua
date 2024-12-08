@@ -83,13 +83,19 @@ end
 -- FRAMEWORK API --
 
 ---@param addon string
+---Checks whether the specified addon is loaded.
+---* Returns `true` if the addon is loaded, `false` otherwise.
+---
+backbone.isAddonLoaded = function (addon)
+  return select (2, C_AddOns.IsAddOnLoaded (addon)) --[[@as boolean]]
+end
+
+---@param addon string
 ---@param callback function
 ---Registers a callback to be executed when the specified addon is loaded.
 ---
 backbone.onAddonReady = function (addon, callback)
-  local isLoaded = select (2, C_AddOns.IsAddOnLoaded (addon)) --[[@as boolean]]
-
-  if isLoaded then
+  if backbone.isAddonLoaded (addon) then
     return callback () -- execute the callback function and exit early.
   end
 

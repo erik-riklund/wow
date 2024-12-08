@@ -17,5 +17,7 @@
   <Include file="functions/flatten-table.lua" />
   <Include file="functions/integrate-table.lua" />
   <Include file="functions/split-string.lua" />
+  <Include file="functions/switch.lua" />
   <Include file="functions/traverse-table.lua" />
+  <Include file="functions/when.lua" />
 </Ui>
