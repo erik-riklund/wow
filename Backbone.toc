@@ -9,4 +9,5 @@ core.lua
 
 library/library.xml
 modules/modules.xml
+utilities/utilities.xml
 system/system.xml

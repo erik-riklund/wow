@@ -6,14 +6,15 @@ Version `1.0.0` (*work in progress*)
 - [Introduction](#introduction)
 - [Developer community](#developer-community)
 - [Getting started and beyond](#getting-started-and-beyond)
-
   - [Initialization](#initialization)
   - [Event handling](#event-handling)
   - [Framework channels](#framework-channels)
   - [Localization](#localization)
   - [State management](#state-management)
-  - [Plugin configuration](#plugin-configuration)
-  - [Configuration - user interface integration](#configuration---user-interface-integration)
+  - [Plugin settings](#plugin-settings)
+- [Configuration - user interface integration](#configuration---user-interface-integration)
+- [Conditional loading of addons](#conditional-loading-of-addons)
+- [Framework reference](#framework-reference)
 
 ## Introduction
 
@@ -326,5 +327,13 @@ plugin:setSetting ('frame/windowWidth', 1200)
 > If the value type does not match the default type, an error will be thrown to enforce type consistency and prevent misconfiguration.
 
 ## Configuration - user interface integration
+
+?
+
+## Conditional loading of addons
+
+?
+
+## Framework reference
 
 ?

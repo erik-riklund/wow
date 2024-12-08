@@ -1,0 +1,4 @@
+<Ui>
+  <Include file="items.lua"></Include>
+  <Include file="loot.lua"></Include>
+</Ui>
