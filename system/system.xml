@@ -6,5 +6,6 @@
   <Include file="addon-loader/handlers/on-event.lua" />
   <Include file="addon-loader/handlers/on-service-request.lua" />
   
-  <!-- <Include file="" /> -->
+  <!-- GARBAGE COLLECTOR -->
+  <Include file="garbage-collector.lua" />
 </Ui>
