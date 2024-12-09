@@ -25,7 +25,7 @@ _G.backbone = {}
 
 ---The currently active locale, represented as a string.
 ---
-backbone.activeLocale = GetLocale() --[[@as LocaleCode]]
+backbone.activeLocale = GetLocale() --[[@as Backbone.LocaleCode]]
 
 ---The currently active expansion level, represented as an `EXPANSION_LEVEL` enum value.
 ---

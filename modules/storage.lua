@@ -16,7 +16,7 @@ local context = select(2, ...)
 
 local storage = new 'Dictionary'
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param scope 'account'|'character'
 ---@param key string
 ---@return unknown?
@@ -32,7 +32,7 @@ local getVariable = function (plugin, scope, key)
   return traverseTable (pluginData[scope], split (key, '/'): toArray())
 end
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param scope 'account'|'character'
 ---@param key string
 ---@param value unknown
@@ -56,7 +56,7 @@ end
 context.plugin:registerChannelListener (
   'PLUGIN_LOADED', {
     callback = function (plugin)
-      ---@cast plugin Plugin
+      ---@cast plugin Backbone.Plugin
       local pluginData = {}
 
       for _, scope in ipairs {'Account', 'Character'} do
@@ -75,7 +75,7 @@ context.plugin:registerChannelListener (
 
 -- PLUGIN API --
 
----@class Plugin
+---@class Backbone.Plugin
 local storageAPI = context.pluginAPI
 
 ---@param key string

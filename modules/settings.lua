@@ -17,7 +17,7 @@ local context = select(2, ...)
 local prefix = '__settings/'
 local settings = new 'Dictionary'
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param key string
 ---
 local getDefaultSetting = function (plugin, key)
@@ -35,7 +35,7 @@ local getDefaultSetting = function (plugin, key)
   return value
 end
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param defaults table
 ---
 local registerDefaultSettings = function (plugin, defaults)
@@ -46,7 +46,7 @@ local registerDefaultSettings = function (plugin, defaults)
   settings:setEntry (plugin, defaults)
 end
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param key string
 ---
 local getSetting = function (plugin, key)
@@ -61,7 +61,7 @@ local getSetting = function (plugin, key)
   return when (value == nil, defaultValue, value)
 end
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param key string
 ---@param value unknown
 ---
@@ -83,7 +83,7 @@ end
 
 -- PLUGIN API --
 
----@class Plugin
+---@class Backbone.Plugin
 local settingsAPI = context.pluginAPI
 
 ---@param defaults table

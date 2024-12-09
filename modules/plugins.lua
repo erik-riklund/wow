@@ -14,7 +14,7 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Plugin
+---@class Backbone.Plugin
 context.pluginAPI = {}
 
 ---Returns the identifier of the plugin.
@@ -30,7 +30,7 @@ context.pluginAPI.getName = function (self) return self.name end
 context.plugins = new 'Dictionary'
 
 ---@param name string
----@return Plugin
+---@return Backbone.Plugin
 ---Creates a new plugin with the specified name.
 ---* If a plugin with the specified name already exists, an error is raised.
 ---
@@ -40,7 +40,7 @@ backbone.createPlugin = function (name)
     backbone.throw ('The plugin "%s" already exists.', name)
   end
 
-  ---@class Plugin
+  ---@class Backbone.Plugin
   ---@field protected id string
   ---@field protected name string
   local plugin = { id = pluginId, name = name }

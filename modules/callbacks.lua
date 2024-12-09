@@ -18,7 +18,7 @@ local queuedTasks = new 'Vector'
 
 -- FRAMEWORK API --
 
----@param task Task
+---@param task Backbone.Task
 ---Executes a task synchronously. Useful for tasks that need to be executed immediately.
 ---
 backbone.executeTask = function (task)
@@ -30,7 +30,7 @@ backbone.executeTask = function (task)
   end
 end
 
----@param task Task
+---@param task Backbone.Task
 ---Executes a task asynchronously. Useful for tasks that are not required to be executed immediately.
 ---
 backbone.executeBackgroundTask = function (task)
@@ -47,7 +47,7 @@ local process = coroutine.create (
       local started = GetTimePreciseSec()
 
       while queuedTasks:getSize () > 0 and (GetTimePreciseSec() - started < limit) do
-        backbone.executeTask (queuedTasks:removeElement (1) --[[@as Task]])
+        backbone.executeTask (queuedTasks:removeElement (1) --[[@as Backbone.Task]])
       end
 
       coroutine.yield()

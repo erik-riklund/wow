@@ -3,7 +3,7 @@ local context = select(2, ...)
 
 --[[~ Updated: 2024/12/09 | Author(s): Gopher ]]
 
---Backbone - A World of Warcraft Addon Framework
+--Backbone - A World of Warcraft addon framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
 --
 --This program is free software: you can redistribute it and/or modify it under the terms
@@ -14,25 +14,28 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@param index number
----@param key string
----@return string? metadata
----Retrieves metadata for a specific addon.
+local services = new 'Dictionary'
+
+-- FRAMEWORK API --
+
+---@param name string
+---@return boolean
+---Checks whether the specified service exists.
 ---
-context.getAddonMetadata = function (index, key)
-  return C_AddOns.GetAddOnMetadata (index, key)
+backbone.hasService = function (name)
+---@diagnostic disable-next-line: missing-return
 end
 
----A callback triggered when the plugin loads, registering load-on-demand addons.
+---@param name string
+---@param service Backbone.Service
+---Registers a service with the specified name.
 ---
-context.plugin:onReady(
-  function ()
-    local addon_count = C_AddOns.GetNumAddOns()
+backbone.registerService = function (name, service)  end
 
-    for index = 1, addon_count do
-      if C_AddOns.IsAddOnLoadOnDemand (index) then
-        context.addonLoaders:forEach(function (_, handler) handler(index) end)
-      end
-    end
-  end
-)
+---@param name string
+---@return Backbone.Service
+---Returns the service with the specified name.
+---
+backbone.requestService = function (name) 
+---@diagnostic disable-next-line: missing-return
+end

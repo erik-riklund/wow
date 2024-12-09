@@ -6,28 +6,34 @@ Version `1.0.0` (*work in progress*)
 - [Introduction](#introduction)
 - [Developer community](#developer-community)
 - [Getting started and beyond](#getting-started-and-beyond)
+
   - [Initialization](#initialization)
   - [Event handling](#event-handling)
   - [Framework channels](#framework-channels)
   - [Localization](#localization)
   - [State management](#state-management)
   - [Plugin settings](#plugin-settings)
+  - [Services](#services)
+
 - [Configuration - user interface integration](#configuration---user-interface-integration)
 - [Conditional loading of addons](#conditional-loading-of-addons)
 - [Framework reference](#framework-reference)
 
 ## Introduction
 
-Backbone is a framework designed to simplify the addon development process. It allows you to focus on the creation of features and functionality, while the framework manages repetitive tasks and boilerplate code. The framework was created to provide a consistent and streamlined approach to addon development, with a focus on simplicity and ease of use. The end goal is to foster a collaborative and inclusive community, where developers can share their knowledge, collaborate on projects, and learn from each other.
+Backbone is a framework designed to simplify and enhance addon development. By handling repetitive tasks, basic setup, and performance optimizations, it allows you to focus on building the features and functionality that matter most. The framework’s clear and intuitive structure encourages clean, organized code, making it easier to maintain and expand your projects over time.
+
+Whether you're a seasoned developer or just starting out, Backbone supports creating high-quality addons with ease. Beyond the technical tools, it fosters a welcoming community where developers can collaborate, share ideas, and grow together.
 
 ### Features
 
-- Streamlined plugin initialization
-- Dynamic event handling
-- Channels for communication between addons
-- Efficient state management
-- Comprehensive localization support
-- Settings and configuration management
+- Conditional loading of addons to improve performance.
+- Streamlined plugin initialization process for a smooth development experience.
+- Effortless event handling to enable dynamic responses to game events.
+- Framework channels facilitate communication between addons.
+- Efficient state management for persistent data storage across game sessions.
+- Comprehensive localization support to support multiple languages.
+- Easy handling of settings for plugin customization, along with configuration management integrated into the standard UI.
 
 ## Developer community
 
@@ -172,7 +178,7 @@ To trigger all listeners registered to a specific channel, use the `invokeChanne
 plugin:invokeChannelListeners ('MY_CHANNEL', --[[ channel-specific argument, ... ]])
 ```
 
-> When using channels to communicate with other addons, it is important to clearly document the arguments expected by the channel listeners.
+> When your addon use channels to transmit messages and payloads to other addons, it is important to document the arguments that each listener will receive.
 
 ## Localization
 
@@ -197,7 +203,7 @@ plugin:registerLocalizedStrings (
 
 ### Adding external translations
 
-External addons can contribute translations using the `backbone.registerLocalizedStrings` method. This fosters collaboration by allowing developers to expand language support for plugins created by someone else.
+Translations may be contributed by other addons using the `backbone.registerLocalizedStrings` method. This enables collaboration by allowing developers to expand language support for plugins created by someone else.
 
 ```lua
 backbone.registerLocalizedStrings (
@@ -210,7 +216,7 @@ backbone.registerLocalizedStrings (
 )
 ```
 
-> External translations are loaded after the addon's own translations, and will not overwrite them.
+> External translations are loaded after the addon's own translations, and will not overwrite any existing keys.
 
 ### Retrieving a localized string
 
@@ -326,13 +332,47 @@ plugin:setSetting ('frame/windowWidth', 1200)
 
 > If the value type does not match the default type, an error will be thrown to enforce type consistency and prevent misconfiguration.
 
+## Services
+
+?
+
 ## Configuration - user interface integration
 
 ?
 
 ## Conditional loading of addons
 
-?
+With its focus on performance, the framework includes support for conditional loading of addons. This feature allows you to control when your addon should be loaded, reducing the initial load time of the game, thus improving the overall user experience.
+
+> To enable conditional loading, set the `LoadOnDemand` flag in the `.toc` file, and specify the conditions for when the addon should be loaded.
+
+```
+## LoadOnDemand: 1
+```
+
+#### Game events
+
+The `OnEvent` trigger is the simplest and most fundamental conditional loading mechanism. It enables you to define specific events that dictate when your addon should be loaded. By using this trigger, you can tailor your addon's behavior to respond dynamically to game events, ensuring it becomes active only when relevant conditions are met.
+
+```
+## X-Load-OnEvent: FIRST_EVENT, SECOND_EVENT, ...
+```
+
+#### Loading of other addons
+
+The `OnAddonLoaded` trigger allows you to designate another addon as the condition for loading your own addon. This is particularly useful when your addon relies on, extends, or enhances the functionality of another addon. By using this trigger, you can ensure that your addon only loads after the specified addon is fully loaded and operational.
+
+```
+## X-Load-OnAddonLoaded: SomeOtherAddon
+```
+
+#### Service requests
+
+If your addon is a dedicated service to other addons, such as a data provider or a database, you can use the `OnServiceRequest` trigger to ensure that it is loaded only when specifically requested.
+
+```
+## X-Load-OnServiceRequest: MyService
+```
 
 ## Framework reference
 

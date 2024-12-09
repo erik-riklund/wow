@@ -38,7 +38,7 @@ context.frame:HookScript (
 
       if backbone.hasPlugin (addon) then
         local pluginId = string.lower (addon)
-        local plugin = context.plugins:getEntry (pluginId) --[[@as Plugin]]
+        local plugin = context.plugins:getEntry (pluginId) --[[@as Backbone.Plugin]]
 
         context.plugin:invokeChannelListeners ('PLUGIN_LOADED', plugin)
       end
@@ -118,10 +118,10 @@ end
 
 -- PLUGIN API --
 
----@class Plugin
+---@class Backbone.Plugin
 local eventsAPI = context.pluginAPI
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param eventName string
 ---@param listenerId string
 ---

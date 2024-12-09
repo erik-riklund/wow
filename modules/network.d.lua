@@ -13,10 +13,12 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class ChannelOptions
----@field internal boolean?
----@field executeAsync boolean?
+---@class Backbone.ChannelOptions
+---Represents the options for a channel.
+---@field internal boolean? Specifies whether the channel is internal or not.
+---@field executeAsync boolean? Specifies whether listeners on this channel are executed in the background (asynchronously) or immediately.
 
----@class Channel : Listenable, ChannelOptions
----@field name string
----@field owner Plugin
+---@class Backbone.Channel : Listenable, Backbone.ChannelOptions
+---Represents a channel for communication between addons or plugins.
+---@field name string The name of the channel.
+---@field owner Backbone.Plugin The owner of the channel.

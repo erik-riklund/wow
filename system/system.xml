@@ -1,3 +1,10 @@
 <Ui>
+  <!-- ADDON LOADER -->
+  <Include file="addon-loader/initialize.lua" />
+  <Include file="addon-loader/load-handler.lua" />
+  <Include file="addon-loader/handlers/on-addon-loaded.lua" />
+  <Include file="addon-loader/handlers/on-event.lua" />
+  <Include file="addon-loader/handlers/on-service-request.lua" />
+  
   <!-- <Include file="" /> -->
 </Ui>

@@ -16,9 +16,9 @@ local context = select(2, ...)
 
 local channels = new 'Dictionary'
 
----@param owner Plugin
+---@param owner Backbone.Plugin
 ---@param name string
----@param options? ChannelOptions
+---@param options? Backbone.ChannelOptions
 ---
 local createChannel = function (owner, name, options)
   options = options or {}
@@ -28,19 +28,19 @@ local createChannel = function (owner, name, options)
     backbone.throw ('The channel "%s" already exists.', name)
   end
 
-  local channel = new 'Listenable' --[[@as Channel]]
+  local channel = new 'Listenable' --[[@as Backbone.Channel]]
   channels:setEntry(channelId, integrateTables(
     channel, { options, { name = name, owner = owner } }
   ))
 end
 
----@param caller Plugin
+---@param caller Backbone.Plugin
 ---@param channelName string
 ---@param listener Listener
 ---
 local registerListener = function (caller, channelName, listener)
   local channelId = string.upper (channelName)
-  local channel = channels:getEntry (channelId) --[[@as Channel]]
+  local channel = channels:getEntry (channelId) --[[@as Backbone.Channel]]
 
   if not channel then
     backbone.throw ('The channel "%s" does not exist.', channelName)
@@ -56,13 +56,13 @@ local registerListener = function (caller, channelName, listener)
   channel:registerListener (listener)
 end
 
----@param caller Plugin
+---@param caller Backbone.Plugin
 ---@param channelName string
 ---@param listenerId string
 ---
 local removeListener = function (caller, channelName, listenerId)
   local channelId = string.upper (channelName)
-  local channel = channels:getEntry (channelId) --[[@as Channel]]
+  local channel = channels:getEntry (channelId) --[[@as Backbone.Channel]]
 
   if not channel then
     backbone.throw ('The channel "%s" does not exist.', channelName)
@@ -73,13 +73,13 @@ local removeListener = function (caller, channelName, listenerId)
   end
 end
 
----@param caller Plugin
+---@param caller Backbone.Plugin
 ---@param channelName string
 ---@param ... unknown
 ---
 local invokeListeners = function (caller, channelName, ...)
   local channelId = string.upper (channelName)
-  local channel = channels:getEntry (channelId) --[[@as Channel]]
+  local channel = channels:getEntry (channelId) --[[@as Backbone.Channel]]
 
   if not channel then
     backbone.throw ('The channel "%s" does not exist.', channelName)
@@ -94,10 +94,10 @@ end
 
 -- PLUGIN API --
 
----@class Plugin
+---@class Backbone.Plugin
 local networkAPI = context.pluginAPI
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param channelName string
 ---@param id string
 ---
@@ -106,7 +106,7 @@ local createListenerId = function (plugin, channelName, id)
 end
 
 ---@param name string
----@param options? ChannelOptions
+---@param options? Backbone.ChannelOptions
 ---Creates a new channel with the specified name and options.
 ---
 networkAPI.createChannel = function (self, name, options)

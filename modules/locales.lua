@@ -16,8 +16,8 @@ local context = select(2, ...)
 
 local locales = new 'Dictionary'
 
----@param plugin Plugin
----@param locale LocaleCode
+---@param plugin Backbone.Plugin
+---@param locale Backbone.LocaleCode
 ---@param strings table
 ---
 local registerStrings = function (plugin, locale, strings)
@@ -31,7 +31,7 @@ local registerStrings = function (plugin, locale, strings)
   integrateTable (registeredStrings[locale], strings, 'skip')
 end
 
----@param plugin Plugin
+---@param plugin Backbone.Plugin
 ---@param key string
 ---
 local getLocalizedString = function (plugin, key)
@@ -50,7 +50,7 @@ end
 -- FRAMEWORK API --
 
 ---@param pluginName string
----@param locale LocaleCode
+---@param locale Backbone.LocaleCode
 ---@param strings table
 ---Registers the provided strings for the specified plugin and locale.
 ---
@@ -58,7 +58,9 @@ backbone.registerLocalizedStrings = function (pluginName, locale, strings)
   local isLoaded = select (2, C_AddOns.IsAddOnLoaded (pluginName)) --[[@as boolean]]
 
   if isLoaded then
-    local plugin = context.plugins:getEntry (string.lower (pluginName)) --[[@as Plugin]]
+    ---@type Backbone.Plugin
+    local plugin = context.plugins:getEntry (string.lower (pluginName))
+
     return registerStrings (plugin, locale, strings) -- exit early.
   end
 
@@ -70,7 +72,7 @@ backbone.registerLocalizedStrings = function (pluginName, locale, strings)
     'PLUGIN_LOADED', {
       id = listenerId,
       callback = function (loadedPlugin)
-        ---@cast loadedPlugin Plugin
+        ---@cast loadedPlugin Backbone.Plugin
         
         if loadedPlugin:getName () == pluginName then
           registerStrings (loadedPlugin, locale, strings)
@@ -83,10 +85,10 @@ end
 
 -- PLUGIN API --
 
----@class Plugin
+---@class Backbone.Plugin
 local localesAPI = context.pluginAPI
 
----@param locale LocaleCode
+---@param locale Backbone.LocaleCode
 ---@param strings table
 ---Registers the provided strings for the specified locale.
 ---

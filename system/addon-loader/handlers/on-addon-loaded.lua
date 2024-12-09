@@ -1,8 +1,9 @@
----@meta
+---@class Backbone
+local context = select(2, ...)
 
---[[~ Updated: 2024/12/05 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/09 | Author(s): Gopher ]]
 
---Backbone - A World of Warcraft Addon Framework
+--Backbone - A World of Warcraft addon framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
 --
 --This program is free software: you can redistribute it and/or modify it under the terms
@@ -13,8 +14,16 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Backbone.Task
----Represents a unit of work to be executed.
----@field id string? A unique identifier for the task.
----@field callback function The callback function to execute.
----@field arguments Vector? Arguments to pass to the callback function.
+context.registerAddonLoader (
+  function (addonIndex)
+    local dependency = context.getAddonMetadata (
+      addonIndex, 'X-Load-OnAddonLoaded'
+    )
+
+    if type (dependency) == 'string' then
+      backbone.onAddonReady (string.trim (dependency), 
+        function () context.loadAddon (addonIndex) end
+      )
+    end
+  end
+)
