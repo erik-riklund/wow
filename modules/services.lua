@@ -16,6 +16,50 @@ local context = select(2, ...)
 
 local services = new 'Dictionary'
 
+---@param name string
+---@return string
+---
+local getServiceId = function (name)
+  return string.lower (name)
+end
+
+---@param owner Backbone.Plugin
+---@param name string
+---@param initializer Backbone.ServiceInitializer
+---
+local registerService = function (owner, name, initializer)
+  local serviceId = getServiceId (name)
+
+  if services:hasEntry (serviceId) then
+    ---@type Backbone.Service
+    local service = services:getEntry (serviceId)
+
+    if service.initializer ~= nil or service.provider ~= owner:getName() then
+      backbone.throw ('The service "%s" is already registered.', name)
+    end
+
+    service.initializer = initializer
+    return -- exit early as the service was loaded on demand.
+  end
+
+  ---@type Backbone.Service
+  local service = { provider = owner:getName(), initializer = initializer }
+
+  services:setEntry (serviceId, service)
+end
+
+---@param pluginName string
+---@param serviceName string
+---
+context.registerLoadableService = function(pluginName, serviceName)
+  local serviceId = getServiceId (serviceName)
+  if services:hasEntry (serviceId) then
+    backbone.throw ('The service "%s" is already registered.', serviceName)
+  end
+
+  services:setEntry (serviceId,  { provider = pluginName } --[[@as Backbone.Service]])
+end
+
 -- FRAMEWORK API --
 
 ---@param name string
@@ -23,19 +67,40 @@ local services = new 'Dictionary'
 ---Checks whether the specified service exists.
 ---
 backbone.hasService = function (name)
----@diagnostic disable-next-line: missing-return
+  return services:hasEntry (getServiceId (name))
 end
 
----@param name string
----@param service Backbone.Service
----Registers a service with the specified name.
+---@generic T
+---@param name `T`
+---@param ... unknown
+---@return T
+---Invokes the service with the specified name.
 ---
-backbone.registerService = function (name, service)  end
+backbone.requestService = function (name, ...)
+  local serviceId = getServiceId (name)
+  if not services:hasEntry (serviceId) then
+    backbone.throw ('The service "%s" does not exist.', name)
+  end
+
+  ---@type Backbone.Service
+  local service = services:getEntry (serviceId)
+  
+  if service.initializer == nil then
+    context.loadAddon (service.provider)
+  end
+
+  return service.initializer(...)
+end
+
+-- PLUGIN API --
+
+---@class Backbone.Plugin
+local serviceAPI = context.pluginAPI
 
 ---@param name string
----@return Backbone.Service
----Returns the service with the specified name.
+---@param service Backbone.ServiceInitializer
+---Registers a service with the specified name.
 ---
-backbone.requestService = function (name) 
----@diagnostic disable-next-line: missing-return
+serviceAPI.registerService = function (self, name, service)
+  registerService (self, name, service)
 end

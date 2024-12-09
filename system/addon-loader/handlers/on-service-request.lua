@@ -16,6 +16,13 @@ local context = select(2, ...)
 
 context.registerAddonLoader (
   function (addonIndex)
-    print 'OnServiceRequest not implemented yet'
+    local serviceName = context.getAddonMetadata (
+      addonIndex, 'X-Load-OnServiceRequest'
+    )
+
+    if type (serviceName) == 'string' then
+      local addonName = C_AddOns.GetAddOnInfo (addonIndex)
+      context.registerLoadableService (addonName, serviceName)
+    end
   end
 )

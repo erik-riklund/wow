@@ -1,5 +1,3 @@
----@meta
-
 --[[~ Updated: 2024/12/09 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft addon framework
@@ -13,8 +11,21 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Backbone.Service
----@field provider string The name of the addon that provides the service.
----@field initializer? Backbone.ServiceInitializer The initializer that is invoked on service requests.
+local blocker = function()
+  error ('Attempt to modify an immutable table.', 3)
+end
 
----@alias Backbone.ServiceInitializer function
+---@param target table
+---@return table
+---Creates a read-only proxy for the provided table.
+---
+_G.createImmutableProxy = function(target)
+  ---@param key string
+  local retriever = function (_, key)
+    if type (target[key]) ~= 'table' then return target[key] end
+
+    return createImmutableProxy (target[key])
+  end
+
+  return setmetatable ({}, { __index = retriever, __newindex = blocker })
+end

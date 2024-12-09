@@ -15,6 +15,7 @@
   
   <Include file="functions/copy-table.lua" />
   <Include file="functions/flatten-table.lua" />
+  <Include file="functions/immutable-table.lua" />
   <Include file="functions/integrate-table.lua" />
   <Include file="functions/split-string.lua" />
   <Include file="functions/switch.lua" />

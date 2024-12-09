@@ -17,12 +17,12 @@ local context = select(2, ...)
 ---A `Vector` object storing registered loading handlers.
 context.addonLoaders = new 'Vector'
 
----@param handler fun(addon_index: number) A function accepting the addon index as a parameter.
+---@param handler fun(addonIndex: number) A function accepting the addon index as a parameter.
 ---Registers a handler function responsible for a specific loading trigger.
 context.registerAddonLoader = function (handler)
   context.addonLoaders:insertElement (handler)
 end
 
----@param addon uiAddon The addon to be loaded.
+---@param addon string|number The addon to be loaded.
 ---Loads the specified addon using the game's addon management system.
 context.loadAddon = function (addon) C_AddOns.LoadAddOn (addon) end

@@ -13,8 +13,7 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Backbone.Service
----@field provider string The name of the addon that provides the service.
----@field initializer? Backbone.ServiceInitializer The initializer that is invoked on service requests.
+---@class Backbone.ConfigPanel
+---@field manager Backbone.ConfigManager
+---@field category Backbone.ConfigCategory
 
----@alias Backbone.ServiceInitializer function

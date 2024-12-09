@@ -1,4 +1,5 @@
----@meta
+---@class Backbone
+local context = select(2, ...)
 
 --[[~ Updated: 2024/12/09 | Author(s): Gopher ]]
 
@@ -13,8 +14,9 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Backbone.Service
----@field provider string The name of the addon that provides the service.
----@field initializer? Backbone.ServiceInitializer The initializer that is invoked on service requests.
-
----@alias Backbone.ServiceInitializer function
+context.plugin:registerService (
+  'Backbone.ConfigPanel', function (plugin)
+    local manager, category = ConfigManager (plugin)
+    return { manager = manager, category = category }
+  end
+)

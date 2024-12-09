@@ -1,4 +1,5 @@
----@meta
+---@class Backbone
+local context = select(2, ...)
 
 --[[~ Updated: 2024/12/09 | Author(s): Gopher ]]
 
@@ -13,8 +14,18 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Backbone.Service
----@field provider string The name of the addon that provides the service.
----@field initializer? Backbone.ServiceInitializer The initializer that is invoked on service requests.
+context.plugin:onReady (
+  function ()
+    local config = backbone.requestService (
+      'Backbone.ConfigPanel', context.plugin
+    )
 
----@alias Backbone.ServiceInitializer function
+    config.category:createToggle ({
+      variable = 'DEVELOPMENT_MODE',
+      label = context.plugin:getLocalizedString 'development-mode',
+      tooltip = context.plugin:getLocalizedString 'development-mode-tooltip'
+    })
+
+    print ('[Backbone] Configuration panel constructed!')
+  end
+)

@@ -14,7 +14,7 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
-local prefix = '__settings/'
+local prefix = '__settings'
 local settings = new 'Dictionary'
 
 ---@param plugin Backbone.Plugin
@@ -44,6 +44,14 @@ local registerDefaultSettings = function (plugin, defaults)
   end
 
   settings:setEntry (plugin, defaults)
+
+  plugin:onReady(
+    function ()
+      if not plugin:getAccountVariable (prefix) then
+        plugin:setAccountVariable (prefix, settings:getEntry (plugin))
+      end
+    end
+  )
 end
 
 ---@param plugin Backbone.Plugin
@@ -55,8 +63,10 @@ local getSetting = function (plugin, key)
   end
 
   local defaultValue = getDefaultSetting (plugin, key)
-  local keys = split (prefix .. key, '/'): toArray()
-  local value = traverseTable (settings:getEntry (plugin), keys)
+  local keys = split (key, '/'): toArray()
+
+  local store = plugin:getAccountVariable (prefix) --[[@as table?]]
+  local value = (store and traverseTable (store, keys)) or nil
 
   return when (value == nil, defaultValue, value)
 end
@@ -70,21 +80,36 @@ local setSetting = function (plugin, key, value)
     backbone.throw ('The plugin "%s" has not registered default settings.', plugin:getName())
   end
 
-  local defaultValue = getDefaultSetting (plugin, key)
-  local parents = split (prefix .. key, '/'): toArray()
+  local parents = split (key, '/')
   local variable = parents:removeElement() --[[@as string]]
+  local defaultValue = getDefaultSetting (plugin, key)
 
   if type (defaultValue) ~= type (value) then
     backbone.throw ('The value of the setting "%s" must be of type "%s".', key, type (defaultValue))
   end
 
-  traverseTable (settings:getEntry (plugin), parents, 'build')[variable] = value
+  local store = plugin:getAccountVariable (prefix)
+  
+  if store == nil then
+    plugin:setAccountVariable (prefix, {})
+    store = plugin:getAccountVariable (prefix)
+  end
+
+  traverseTable (store --[[@as table]], parents:toArray(), 'build')[variable] = value
 end
 
 -- PLUGIN API --
 
 ---@class Backbone.Plugin
 local settingsAPI = context.pluginAPI
+
+---@param key string
+---@return unknown
+---Returns the default value of the setting associated with the specified key.
+---
+settingsAPI.getDefaultSetting = function (self, key)
+  return getDefaultSetting (self, key)
+end
 
 ---@param defaults table
 ---Registers the provided default settings for the plugin.

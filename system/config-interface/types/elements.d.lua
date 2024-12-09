@@ -1,6 +1,6 @@
 ---@meta
 
---[[~ Updated: 2024/12/09 | Author(s): Gopher ]]
+--[[~ Updated: 2024/11/29 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft addon framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -13,8 +13,11 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
----@class Backbone.Service
----@field provider string The name of the addon that provides the service.
----@field initializer? Backbone.ServiceInitializer The initializer that is invoked on service requests.
+---@class Backbone.ConfigElement.Header
+---@field text string
+---@field tooltip? string
 
----@alias Backbone.ServiceInitializer function
+---@class Backbone.ConfigElement.Checkbox
+---@field variable string
+---@field label string
+---@field tooltip? string

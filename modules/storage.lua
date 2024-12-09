@@ -25,7 +25,9 @@ local getVariable = function (plugin, scope, key)
   local pluginData = storage:getEntry (plugin) --[[@as table?]]
 
   if not pluginData then
-    backbone.throw ('The plugin "%s" is not fully initialized.', plugin:getName())
+    backbone.throw ('The plugin "%s" is not fully initialized. '
+      .. 'Use an `onReady` wrapper to solve the problem.', plugin:getName()
+    )
   end
 
   ---@cast pluginData table
@@ -41,7 +43,9 @@ local setVariable = function (plugin, scope, key, value)
   local pluginData = storage:getEntry (plugin) --[[@as table?]]
 
   if not pluginData then
-    backbone.throw ('The plugin "%s" is not fully initialized.', plugin:getName())
+    backbone.throw ('The plugin "%s" is not fully initialized. '
+      .. 'Use an `onReady` wrapper to solve the problem.', plugin:getName()
+)
   end
 
   ---@cast pluginData table

@@ -14,4 +14,4 @@ local context = select(2, ...)
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
-
+context.plugin:registerDefaultSettings { DEVELOPMENT_MODE = false }
