@@ -31,7 +31,7 @@ local getVariable = function (plugin, scope, key)
   end
 
   ---@cast pluginData table
-  return traverseTable (pluginData[scope], split (key, '/'): toArray())
+  return traverseTable (pluginData[scope], splitString (key, '/'): toArray())
 end
 
 ---@param plugin Backbone.Plugin
@@ -49,7 +49,7 @@ local setVariable = function (plugin, scope, key, value)
   end
 
   ---@cast pluginData table
-  local parents = split (key, '/')
+  local parents = splitString (key, '/')
   local variable = parents:removeElement() --[[@as string]]
 
   traverseTable (pluginData[scope], parents, 'build')[variable] = value

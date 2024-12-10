@@ -421,7 +421,7 @@ These sections contain comprehensive details about the core components of the fr
 
 - [Utility functions](docs/FUNCTIONS.md)
 
-  Covers the reusable helper functions provided by the framework to simplify common tasks.
+  Covers the various helper functions available for simplifying common tasks.
 
 - [Class reference](docs/CLASSES.md)
 

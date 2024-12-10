@@ -21,7 +21,7 @@ context.registerAddonLoader (
     )
 
     if type (events) == 'string' then
-      local eventList = split (events, ',')
+      local eventList = splitString (events, ',')
 
       eventList:forEach(
         ---@param eventName string

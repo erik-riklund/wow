@@ -17,14 +17,15 @@ end
 
 ---@param target table
 ---@return table
+---
 ---Creates a read-only proxy for the provided table.
 ---
-_G.createImmutableProxy = function(target)
+backbone.createImmutableProxy = function(target)
   ---@param key string
   local retriever = function (_, key)
     if type (target[key]) ~= 'table' then return target[key] end
 
-    return createImmutableProxy (target[key])
+    return backbone.createImmutableProxy (target[key])
   end
 
   return setmetatable ({}, { __index = retriever, __newindex = blocker })

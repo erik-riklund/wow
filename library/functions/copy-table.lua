@@ -12,8 +12,9 @@
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 ---@param source table
----Returns a copy of the source table.
+---@return table
 ---
-_G.copyTable = function (source)
-  return { unpack (source) }
-end
+---Creates and returns a shallow copy of the `source` table.
+---* Note: This function does not recursively copy nested tables.
+---
+backbone.copyTable = function (source) return { unpack (source) } end

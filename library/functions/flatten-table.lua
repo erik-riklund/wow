@@ -15,20 +15,25 @@
 ---@param target table
 ---@param parents? string
 ---@param result? table
+---@return table
+---
 ---Flattens a table with nested tables into a single table, using a
 ---nested key scheme to represent the original table's structure.
-_G.flattenTable = function (target, parents, result)
+---
+backbone.flattenTable = function (target, parents, result)
   if type (target) ~= 'table' then
-    error('Expected a table for argument #1 (target).', 3)
+    error ('Expected a table for argument #1 (target).', 3)
   end
 
-  result = (type (result) == 'table' and result) or {}
+  result = result or {}
   for key, value in pairs (target) do
-    local modified_key = string.gsub(key, '[$]', '')
-    local result_key = (parents and string.format ('%s/%s', parents, modified_key)) or modified_key
-    
+    local modifiedKey = string.gsub (key, '[$]', '')
+    local resultKey = (parents and string.format ('%s/%s', parents, modifiedKey)) or modifiedKey
+
     if type (value) == 'table' and (string.sub (key, 1, 1) ~= '$') then
-      flattenTable (value, result_key, result) else result[result_key] = value
+      backbone.flattenTable (value, resultKey, result)
+    else
+      result[resultKey] = value
     end
   end
 

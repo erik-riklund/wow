@@ -98,7 +98,7 @@ end
 ---Returns a copy of the vector's values as an array.
 ---
 vector.toArray = function (self)
-  return copyTable (self.values)
+  return backbone.copyTable (self.values)
 end
 
 ---Prototype for creating new `Vector` instances.

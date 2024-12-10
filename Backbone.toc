@@ -13,6 +13,4 @@ utilities/utilities.xml
 system/system.xml
 
 locales/enUS.lua
-
 config.lua
-config-ui.lua

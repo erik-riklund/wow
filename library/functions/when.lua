@@ -1,4 +1,4 @@
---[[~ Updated: 2024/12/08 | Author(s): Gopher ]]
+--[[~ Updated: 2024/12/10 | Author(s): Gopher ]]
 
 --Backbone - A World of Warcraft addon framework
 --Copyright (C) 2024 Erik Riklund (Gopher)
@@ -13,17 +13,14 @@
 
 ---@generic T
 ---@param condition boolean
----@param onTrue `T`
+---@param onTrue T
 ---@param onFalse T
 ---@return T
---- Provides a hybrid ternary operator. The return values must be of the same type.
+---Provides a concise way to return one of two values based on a boolean condition.
 ---
---- Explanation of the problem using built-in and-or syntax:
---- ```lua
---- local value = (someValue == nil and variableWithValueFalse) or variableWithValueTrue
---- -- even if `someValue` is nil, `value` will always be assigned `variableWithValueTrue`.
---- ```
----
-_G.when = function (condition, onTrue, onFalse)
-  if condition == true then return onTrue else return onFalse end
+backbone.when = function (condition, onTrue, onFalse)
+  local value = onTrue
+  if condition == false then value = onFalse end
+
+  return value
 end

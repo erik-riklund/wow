@@ -11,4 +11,19 @@
 --without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
+---@param value unknown
+---@param cases table
+---@param ... unknown
+---@return unknown
+---Provides a table-based switch statement operator.
+---* If the resulting case value is a function, it will be called with the provided arguments, and its return value will be returned.
+---
+backbone.switch = function (value, cases, ...)
+  if not type (cases) == 'table' then
+    error ('Expected a table for argument #2 (cases).', 3)
+  end
 
+  ---@type unknown?
+  local case = backbone.when (cases[value] ~= nil, cases[value], cases.default)
+  return (type (case) == 'function' and case (...)) or case
+end

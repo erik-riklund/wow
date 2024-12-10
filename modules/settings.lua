@@ -25,7 +25,7 @@ local getDefaultSetting = function (plugin, key)
     backbone.throw ('The plugin "%s" has not registered default settings.', plugin:getName())
   end
 
-  local keys = split (key, '/'): toArray()
+  local keys = splitString (key, '/'): toArray()
   local value = traverseTable (settings:getEntry (plugin), keys)
 
   if value == nil then
@@ -63,12 +63,12 @@ local getSetting = function (plugin, key)
   end
 
   local defaultValue = getDefaultSetting (plugin, key)
-  local keys = split (key, '/'): toArray()
+  local keys = splitString (key, '/'): toArray()
 
   local store = plugin:getAccountVariable (prefix) --[[@as table?]]
   local value = (store and traverseTable (store, keys)) or nil
 
-  return when (value == nil, defaultValue, value)
+  return backbone.when (value == nil, defaultValue, value)
 end
 
 ---@param plugin Backbone.Plugin
@@ -80,7 +80,7 @@ local setSetting = function (plugin, key, value)
     backbone.throw ('The plugin "%s" has not registered default settings.', plugin:getName())
   end
 
-  local parents = split (key, '/')
+  local parents = splitString (key, '/')
   local variable = parents:removeElement() --[[@as string]]
   local defaultValue = getDefaultSetting (plugin, key)
 

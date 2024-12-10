@@ -16,10 +16,16 @@
 ---@param separator string
 ---@param pieces? number
 ---@return Vector components
----Splits a string into parts based on a given separator, and returns the result as a `Vector` object.
-_G.split = function (target, separator, pieces)
-  local components = Vector { string.split(separator, target, pieces) }
-  components:forEach(function (_, element) return string.trim (element) end)
+---
+---Splits a string into substrings based on a separator.
+---
+_G.splitString = function (target, separator, pieces)
+  local components = Vector {
+    string.split(separator, target, pieces)
+  }
+  components:forEach(
+    function (_, element) return string.trim (element) end
+  )
 
   return components
 end

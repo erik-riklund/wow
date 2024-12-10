@@ -15,3 +15,13 @@ local context = select(2, ...)
 --See the GNU General Public License <https://www.gnu.org/licenses/> for more details.
 
 context.plugin:registerDefaultSettings { DEVELOPMENT_MODE = false }
+
+context.plugin:onReady (
+function ()
+    local configPanel = ConfigPanel (context.plugin)
+
+    configPanel:createToggle { 
+      setting = 'DEVELOPMENT_MODE', label = 'development-mode', tooltip = true
+     }
+  end
+)
