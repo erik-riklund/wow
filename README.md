@@ -17,7 +17,8 @@ Version `1.0.0` (*work in progress*)
 
 - [Configuration - user interface integration](#configuration---user-interface-integration)
 - [Conditional loading of addons](#conditional-loading-of-addons)
-- [Framework reference](#framework-reference)
+- [Developer resources](#developer-resources)
+- [Reference documentation](#reference-documentation)
 
 ## Introduction
 
@@ -32,7 +33,7 @@ Whether you're a seasoned developer or just starting out, Backbone supports crea
 - Effortless event handling to enable dynamic responses to game events.
 - Framework channels facilitate communication between addons.
 - Efficient state management for persistent data storage across game sessions.
-- Comprehensive localization support to support multiple languages.
+- Comprehensive localization support to enable addons to reach a broader audience.
 - Easy handling of settings for plugin customization, along with configuration management integrated into the standard UI.
 
 ## Developer community
@@ -203,7 +204,7 @@ plugin:registerLocalizedStrings (
 
 ### Adding external translations
 
-Translations may be contributed by other addons using the `backbone.registerLocalizedStrings` method. This enables collaboration by allowing developers to expand language support for plugins created by someone else.
+Translations can be contributed by other addons using the `backbone.registerLocalizedStrings` method. This collaborative approach allows developers to extend language support for plugins created by others, helping them reach a broader, more diverse audience. By fostering multilingual support, it enhances accessibility and usability, making plugins more inclusive and user-friendly across different languages and regions.
 
 ```lua
 backbone.registerLocalizedStrings (
@@ -334,15 +335,43 @@ plugin:setSetting ('frame/windowWidth', 1200)
 
 ## Services
 
+A service is a component that provides functionality that is shared across multiple addons. Services allow you to centralize shared logic or data, making it easier to manage and maintain across different addons. The framework provides a simple and efficient way to implement services.
+
+### Registering a service
+
 ?
+
+```lua
+
+```
+
+> If your addon is a dedicated service, such as a data provider, use conditional loading to ensure it is only loaded when needed to optimize performance (see [Service requests](#service-requests)).
+
+### Accessing a service
+
+?
+
+```lua
+
+```
+
+> When using the [Lua Language Server](https://luals.github.io/) — a highly recommended tool for development — the returned object's type is automatically inferred and assigned to match the service's name.
 
 ## Configuration - user interface integration
 
 ?
 
+### Creating a configuration panel
+
+?
+
+```lua
+
+```
+
 ## Conditional loading of addons
 
-With its focus on performance, the framework includes support for conditional loading of addons. This feature allows you to control when your addon should be loaded, reducing the initial load time of the game, thus improving the overall user experience.
+With its focus on performance, the framework includes support for and encourages the use of conditional loading of addons. This feature allows you to control when your addon should be loaded, optimizing memory usage and reducing the initial load time of the game, thus improving the overall user experience.
 
 > To enable conditional loading, set the `LoadOnDemand` flag in the `.toc` file, and specify the conditions for when the addon should be loaded.
 
@@ -350,15 +379,15 @@ With its focus on performance, the framework includes support for conditional lo
 ## LoadOnDemand: 1
 ```
 
-#### Game events
+### Game events
 
 The `OnEvent` trigger is the simplest and most fundamental conditional loading mechanism. It enables you to define specific events that dictate when your addon should be loaded. By using this trigger, you can tailor your addon's behavior to respond dynamically to game events, ensuring it becomes active only when relevant conditions are met.
 
 ```
-## X-Load-OnEvent: FIRST_EVENT, SECOND_EVENT, ...
+## X-Load-OnEvent: FIRST_EVENT [, SECOND_EVENT [, ...]]
 ```
 
-#### Loading of other addons
+### Loading of other addons
 
 The `OnAddonLoaded` trigger allows you to designate another addon as the condition for loading your own addon. This is particularly useful when your addon relies on, extends, or enhances the functionality of another addon. By using this trigger, you can ensure that your addon only loads after the specified addon is fully loaded and operational.
 
@@ -366,7 +395,7 @@ The `OnAddonLoaded` trigger allows you to designate another addon as the conditi
 ## X-Load-OnAddonLoaded: SomeOtherAddon
 ```
 
-#### Service requests
+### Service requests
 
 If your addon is a dedicated service to other addons, such as a data provider or a database, you can use the `OnServiceRequest` trigger to ensure that it is loaded only when specifically requested.
 
@@ -374,6 +403,30 @@ If your addon is a dedicated service to other addons, such as a data provider or
 ## X-Load-OnServiceRequest: MyService
 ```
 
-## Framework reference
+## Developer resources
 
 ?
+
+## Reference documentation
+
+These sections contain comprehensive details about the core components of the framework, including classes, functions, methods, and other essential elements. It is intended as a go-to resource for developers who need precise information about how to use and interact with the framework's features.
+
+- [Framework API](docs/FRAMEWORK.md)
+
+  Describes the methods and static resources provided by the framework.
+
+- [Plugin methods](docs/PLUGIN.md)
+
+  Details the lifecycle methods available for plugins.
+
+- [Utility functions](docs/FUNCTIONS.md)
+
+  Covers the reusable helper functions provided by the framework to simplify common tasks.
+
+- [Class reference](docs/CLASSES.md)
+
+  Describes the available classes, their methods, and intended usage.
+
+- [Enumerations](docs/ENUMS.md)
+
+  Lists the predefined enumerations and their associated values.
