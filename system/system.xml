@@ -9,7 +9,7 @@
   <!-- CONFIGURATION INTERFACE -->
   <Include file="config-interface/category.lua" />
   <Include file="config-interface/manager.lua" />
-  <Include file="config-interface/service.lua" />
+  <Include file="config-interface/panel.lua" />
   
   <!-- GARBAGE COLLECTOR -->
   <Include file="garbage-collector.lua" />

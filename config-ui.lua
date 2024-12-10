@@ -16,16 +16,7 @@ local context = select(2, ...)
 
 context.plugin:onReady (
   function ()
-    local config = backbone.requestService (
-      'Backbone.ConfigPanel', context.plugin
-    )
-
-    config.category:createToggle ({
-      setting = 'DEVELOPMENT_MODE',
-      label = context.plugin:getLocalizedString 'development-mode',
-      tooltip = context.plugin:getLocalizedString 'development-mode-tooltip'
-    })
-
-    print ('[Backbone] Configuration panel constructed!')
+    local configPanel = ConfigPanel (context.plugin)
+    configPanel:createToggle { setting = 'DEVELOPMENT_MODE', label = 'development-mode', tooltip = true }
   end
 )
