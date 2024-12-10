@@ -21,7 +21,7 @@ context.plugin:onReady (
     )
 
     config.category:createToggle ({
-      variable = 'DEVELOPMENT_MODE',
+      setting = 'DEVELOPMENT_MODE',
       label = context.plugin:getLocalizedString 'development-mode',
       tooltip = context.plugin:getLocalizedString 'development-mode-tooltip'
     })

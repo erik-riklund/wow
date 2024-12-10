@@ -39,12 +39,12 @@ end
 ---
 category.createToggle = function (self, options)
   local plugin = self.plugin
-  local defaultValue = self.plugin:getDefaultSetting (options.variable)
+  local defaultValue = self.plugin:getDefaultSetting (options.setting)
 
   local setting = Settings.RegisterProxySetting(
-    self.object, options.variable, Settings.VarType.Boolean, options.label, defaultValue,
-    function () return plugin:getSetting (options.variable) --[[@as boolean]] end,
-    function (value) plugin:setSetting (options.variable, value) end
+    self.object, options.setting, Settings.VarType.Boolean, options.label, defaultValue,
+    function () return plugin:getSetting (options.setting) --[[@as boolean]] end,
+    function (value) plugin:setSetting (options.setting, value) end
   )
 
   Settings.CreateCheckbox (self.object, setting, options.tooltip)

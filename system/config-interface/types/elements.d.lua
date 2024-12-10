@@ -18,6 +18,6 @@
 ---@field tooltip? string
 
 ---@class Backbone.ConfigElement.Checkbox
----@field variable string
+---@field setting string
 ---@field label string
 ---@field tooltip? string
