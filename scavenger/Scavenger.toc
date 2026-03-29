@@ -3,5 +3,16 @@
 ## Version: 0.1.0
 ## Author: Gopher
 
-settings.lua
+## SavedVariablesPerCharacter: scavenger_loot
+
 main.lua
+settings.lua
+
+rules/money.lua
+rules/item-list.lua
+rules/quest-items.lua
+rules/fishing.lua
+rules/reagents.lua
+rules/junk.lua
+
+tracker.lua
