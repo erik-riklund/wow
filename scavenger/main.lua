@@ -6,71 +6,74 @@
 --                                  |___/
 --   github.com/erik-riklund/wow/scavenger (2026)
 
-local event_hooks = {
-  addon_loaded = {},
-  loot_opened = {},
-  loot_closed = {},
-  loot_slot_cleared = {},
-};
-local loot_rules = {};
-local current_loot = nil;
+_G.scavenger = {}; -- the public API.
 
--- Public API --
+--
+-- # ?
+--
+-- ...
+--
 
-scavenger = {
-  add_event_hook = function(event_name, callback)
-    table.insert(event_hooks[string.lower(event_name)], callback);
-  end,
+local frame = CreateFrame("Frame");
+local event_hooks = {}; -- contains the listeners for each event.
 
-  add_loot_rule = function(callback)
-    table.insert(loot_rules, callback);
-  end,
+frame:RegisterEvent("ADDON_LOADED");
+frame:RegisterEvent("LOOT_OPENED");
+frame:RegisterEvent("LOOT_CLOSED");
+frame:RegisterEvent("LOOT_SLOT_CLEARED");
 
-  to_copper = function(amount)
-    local gold = amount.gold or 0;
-    local silver = amount.silver or 0;
-    local copper = amount.copper or 0;
-
-    return copper + (silver * 100) + (gold * 10000);
-  end,
-
-  get_slot_data = function(index)
-    return current_loot and current_loot[index];
+local function invoke_listeners(event_name, ...)
+  if event_hooks[event_name] then
+    for _, callback in ipairs(event_hooks[event_name]) do
+      callback(...); -- invoke each hook in the order they are registered.
+    end
   end
-};
+end
 
--- ? --
-
-local event_frame = CreateFrame("Frame");
-
-event_frame:RegisterEvent("ADDON_LOADED");
-event_frame:RegisterEvent("LOOT_OPENED");
-event_frame:RegisterEvent("LOOT_CLOSED");
-event_frame:RegisterEvent("LOOT_SLOT_CLEARED");
-
-event_frame:SetScript("OnEvent", function(_, event_name, ...)
+frame:SetScript("OnEvent", function(_, event_name, ...)
   if event_name == "ADDON_LOADED" then
     local addon_name = ...;
     if addon_name ~= "Scavenger" then
       return; -- early exit.
     end
   end
-
-  for _, callback in ipairs(event_hooks[string.lower(event_name)]) do
-    callback(...); -- invoke each hook in the order they are registered.
-  end
+  invoke_listeners(event_name, ...);
 end);
 
--- ? --
+function scavenger.add_event_hook(event_name, callback)
+  if not event_hooks[event_name] then
+    event_hooks[event_name] = {};
+  end
+  table.insert(event_hooks[event_name], callback);
+end
+
+--
+-- # ?
+--
+-- ...
+--
+
+local loot_rules = {};    -- ?
+local current_loot = nil; -- used to store data about the current loot.
+
+function scavenger.add_loot_rule(callback)
+  table.insert(loot_rules, callback);
+end
 
 scavenger.add_event_hook("LOOT_OPENED", function()
   local slot_count = GetNumLootItems();
-  current_loot = {}; -- reset the loot registry.
+  current_loot = {}; -- reset the loot data table.
 
   if slot_count > 0 then
     for slot_index = 1, slot_count do
       local slot_type = GetLootSlotType(slot_index);
-      local _, name, quantity, currency_id, _, is_locked, is_quest_item = GetLootSlotInfo(slot_index);
+      local slot_info = { GetLootSlotInfo(slot_index) };
+
+      local name = slot_info[2];
+      local quantity = slot_info[3];
+      local currency_id = slot_info[4];
+      local is_locked = slot_info[6];
+      local is_quest_item = slot_info[7];
 
       if not is_locked and slot_type ~= Enum.LootSlotType.None then
         local slot_data = {
@@ -121,5 +124,68 @@ scavenger.add_event_hook("LOOT_OPENED", function()
         end
       end
     end
+
+    invoke_listeners("LOOT_PROCESSED", current_loot);
+  end
+end);
+
+--
+-- # ?
+--
+-- ...
+--
+
+local handled_slots = {}; -- ?
+
+scavenger.add_event_hook("LOOT_CLOSED",
+  function() handled_slots = {} end
+);
+
+scavenger.add_event_hook("LOOT_SLOT_CLEARED", function(index)
+  if not handled_slots[index] then
+    handled_slots[index] = true;
+    if current_loot then
+      invoke_listeners("SLOT_LOOTED", current_loot[index]);
+    end
+  end
+end);
+
+--
+-- # ?
+--
+-- ...
+--
+
+scavenger.add_event_hook("ADDON_LOADED", function()
+  local variables = __scavenger or {};
+  __scavenger = variables; -- ensures the saved variables are persisted.
+
+  function scavenger.get_variable(path)
+    local steps = { string.split("/", string.sub(path, 2)) };
+    local property = table.remove(steps); -- the last element.
+
+    local reference = variables;
+    for _, current_step in ipairs(steps) do
+      if reference[current_step] == nil then
+        return nil; -- ?
+      end
+      reference = reference[current_step];
+    end
+    return reference[property];
+  end
+
+  function scavenger.set_variable(path, value)
+    local steps = { string.split("/", string.sub(path, 2)) };
+    local property = table.remove(steps); -- the last element.
+
+    local reference = variables;
+    for _, current_step in ipairs(steps) do
+      if reference[current_step] == nil then
+        reference[current_step] = {}; -- ?
+      end
+      reference = reference[current_step];
+    end
+
+    reference[property] = value;
   end
 end);

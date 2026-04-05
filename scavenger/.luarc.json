@@ -1,9 +1,21 @@
 {
-    "diagnostics.disable": [
-        "undefined-global",
-        "trailing-space",
-        "lowercase-global",
-        "undefined-field",
-        "empty-block"
-    ]
+  "diagnostics.disable": [
+    "deprecated",
+    "empty-block",
+    "lowercase-global",
+    "trailing-space",
+    "undefined-field"
+  ],
+  "diagnostics.globals": [
+    "__scavenger",
+    "C_Item",
+    "CreateFrame",
+    "Enum",
+    "GetLootSlotInfo",
+    "GetLootSlotLink",
+    "GetLootSlotType",
+    "GetNumLootItems",
+    "IsFishingLoot",
+    "LootSlot"
+  ]
 }

@@ -6,7 +6,9 @@
 --                                  |___/
 --   github.com/erik-riklund/wow/scavenger (2026)
 
-scavenger_settings = {
+local _, this = ...;
+
+this.settings = {
   --
   -- ?
   --
@@ -58,11 +60,21 @@ scavenger_settings = {
   -- { id = 130267, quantity = { min = 2, max = 3 } }
   --
   items = {
-    -- Classic
+    -- Classic -
     { id = 12363,  action = "ignore" }, -- Arcane Crystal
+    { id = 58787,  action = "ignore" }, -- Crystal Bass (quest item)
     { id = 4235,   action = "ignore" }, -- Heavy Hide
+    { id = 58856,  action = "ignore" }, -- Royal Monkfish (quest item)
 
-    -- Shadowlands
+    -- Northrend -
+    { id = 36908,  action = "ignore" }, -- Frost Lotus
+
+    -- Shadowlands -
     { id = 173204, action = "ignore" }, -- Lightless Silk
   },
+
+  --
+  -- ?
+  --
+  currencies = {}
 };
