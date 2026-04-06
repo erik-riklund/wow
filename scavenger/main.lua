@@ -75,12 +75,13 @@ scavenger.add_event_hook("LOOT_OPENED", function()
       local is_locked = slot_info[6];
       local is_quest_item = slot_info[7];
 
-      if not is_locked and slot_type ~= Enum.LootSlotType.None then
+      if slot_type ~= Enum.LootSlotType.None then
         local slot_data = {
           type = slot_type,
           name = name,
           quantity = quantity,
           currency_id = currency_id,
+          is_locked = is_locked,
           is_quest_item = is_quest_item,
           is_fishing_loot = IsFishingLoot()
         };
@@ -94,6 +95,8 @@ scavenger.add_event_hook("LOOT_OPENED", function()
           slot_data.item = {
             link = item_data[2],
             quality = item_data[3],
+            localized_type = item_data[6],
+            localized_subtype = item_data[7],
             stack_count = item_data[8],
             sell_price = item_data[11],
             type_id = item_data[12],
@@ -104,23 +107,26 @@ scavenger.add_event_hook("LOOT_OPENED", function()
         end
 
         local decision = nil;
-        for _, rule in ipairs(loot_rules) do
-          local result = rule(slot_data);
-          if type(result) == "boolean" then
-            decision = result;
-            break; -- no further processing required.
+        if not is_locked then
+          for _, rule in ipairs(loot_rules) do
+            local result = rule(slot_data);
+            if type(result) == "boolean" then
+              decision = result;
+              break; -- no further processing required.
+            end
           end
         end
 
         current_loot[slot_index] = {
           index = slot_index,
           data = slot_data,
+          is_locked = is_locked,
           autolooted = decision == true,
           ignored = decision == false
         };
 
         if decision == true then
-          LootSlot(slot_index);
+          LootSlot(slot_index); --temporarily disabled.
         end
       end
     end

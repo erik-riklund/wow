@@ -1,0 +1,19 @@
+{
+  "diagnostics.disable": [
+    "deprecated",
+    "empty-block",
+    "lowercase-global",
+    "trailing-space",
+    "undefined-field"
+  ],
+  "diagnostics.globals": [
+    "CreateFrame",
+    "DevTools_Dump",
+    "GameTooltip",
+    "GetLocale",
+    "LootFrame",
+    "scavenger",
+    "SetPortraitTexture",
+    "UIParent"
+  ]
+}

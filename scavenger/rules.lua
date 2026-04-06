@@ -96,7 +96,7 @@ end);
 
 scavenger.add_loot_rule(function(slot)
   if slot.type == Enum.LootSlotType.Item and slot.is_quest_item then
-    return slot.item.stack_count > 1; -- loot non-unique quest items.
+    -- return slot.item.stack_count > 1; -- loot non-unique quest items.
   end
 end);
 
