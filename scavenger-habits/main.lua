@@ -69,8 +69,8 @@ end);
 --
 
 scavenger.add_event_hook("SLOT_LOOTED", function(slot)
-  if slot and not slot.ignored and slot.data.type == Enum.LootSlotType.Item then
-    local item = slot.data.item;
+  if slot and not slot.ignored and slot.type == Enum.LootSlotType.Item then
+    local item = slot.item;
     if item.bind_type == Enum.ItemBind.None then
       if registry[item.link] == nil and not slot.autolooted then
         registry[item.link] = {

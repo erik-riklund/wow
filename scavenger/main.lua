@@ -15,7 +15,7 @@ _G.scavenger = {}; -- the public API.
 --
 
 local frame = CreateFrame("Frame");
-local event_hooks = {}; -- contains the listeners for each event.
+local event_hooks = {}; -- Contains the listeners for each event.
 
 frame:RegisterEvent("ADDON_LOADED");
 frame:RegisterEvent("LOOT_OPENED");
@@ -25,7 +25,9 @@ frame:RegisterEvent("LOOT_SLOT_CLEARED");
 local function invoke_listeners(event_name, ...)
   if event_hooks[event_name] then
     for _, callback in ipairs(event_hooks[event_name]) do
-      callback(...); -- invoke each hook in the order they are registered.
+      if type(callback) == "function" then
+        callback(...); -- Invoke each hook in the order they are registered.
+      end
     end
   end
 end
@@ -34,7 +36,7 @@ frame:SetScript("OnEvent", function(_, event_name, ...)
   if event_name == "ADDON_LOADED" then
     local addon_name = ...;
     if addon_name ~= "Scavenger" then
-      return; -- early exit.
+      return; -- ?
     end
   end
   invoke_listeners(event_name, ...);
@@ -45,6 +47,15 @@ function scavenger.add_event_hook(event_name, callback)
     event_hooks[event_name] = {};
   end
   table.insert(event_hooks[event_name], callback);
+
+  return function()
+    for index, hook in ipairs(event_hooks[event_name]) do
+      if hook == callback then
+        table.remove(event_hooks[event_name], index);
+        break; -- ?
+      end
+    end
+  end
 end
 
 --
@@ -54,7 +65,7 @@ end
 --
 
 local loot_rules = {};    -- ?
-local current_loot = nil; -- used to store data about the current loot.
+local current_loot = nil; -- Stores data about the current loot.
 
 function scavenger.add_loot_rule(callback)
   table.insert(loot_rules, callback);
@@ -62,29 +73,36 @@ end
 
 scavenger.add_event_hook("LOOT_OPENED", function()
   local slot_count = GetNumLootItems();
-  current_loot = {}; -- reset the loot data table.
+  current_loot = {}; -- Reset the loot data table.
 
   if slot_count > 0 then
     for slot_index = 1, slot_count do
       local slot_type = GetLootSlotType(slot_index);
-      local slot_info = { GetLootSlotInfo(slot_index) };
-
-      local name = slot_info[2];
-      local quantity = slot_info[3];
-      local currency_id = slot_info[4];
-      local is_locked = slot_info[6];
-      local is_quest_item = slot_info[7];
 
       if slot_type ~= Enum.LootSlotType.None then
+        local slot_info = {
+          GetLootSlotInfo(slot_index)
+        };
+        local icon = slot_info[1];
+        local name = slot_info[2];
+        local quantity = slot_info[3];
+        local currency_id = slot_info[4];
+        local is_locked = slot_info[6];
+        local is_quest_item = slot_info[7];
+
         local slot_data = {
           type = slot_type,
           name = name,
+          icon = icon,
           quantity = quantity,
           currency_id = currency_id,
+          index = slot_index,
+
           is_locked = is_locked,
           is_quest_item = is_quest_item,
           is_fishing_loot = IsFishingLoot()
         };
+
         local item_link = GetLootSlotLink(slot_index);
 
         if item_link then
@@ -98,11 +116,17 @@ scavenger.add_event_hook("LOOT_OPENED", function()
             localized_type = item_data[6],
             localized_subtype = item_data[7],
             stack_count = item_data[8],
+            equip_location = item_data[9],
             sell_price = item_data[11],
+
             type_id = item_data[12],
             subtype_id = item_data[13],
             bind_type = item_data[14],
-            expansion_id = item_data[15]
+            expansion_id = item_data[15],
+
+            expansion_name = _G["EXPANSION_NAME" .. item_data[15]],
+            actual_level = C_Item.GetDetailedItemLevelInfo(item_link),
+            is_collected = C_TransmogCollection.PlayerHasTransmogByItemInfo(item_link)
           };
         end
 
@@ -112,22 +136,16 @@ scavenger.add_event_hook("LOOT_OPENED", function()
             local result = rule(slot_data);
             if type(result) == "boolean" then
               decision = result;
-              break; -- no further processing required.
+              break; -- No further processing required.
             end
           end
         end
 
-        current_loot[slot_index] = {
-          index = slot_index,
-          data = slot_data,
-          is_locked = is_locked,
-          autolooted = decision == true,
-          ignored = decision == false
-        };
+        slot_data.autolooted = decision == true;
+        slot_data.ignored = decision == false;
 
-        if decision == true then
-          LootSlot(slot_index); --temporarily disabled.
-        end
+        current_loot[slot_index] = slot_data;
+        if decision == true then LootSlot(slot_index) end
       end
     end
 

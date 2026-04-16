@@ -4,11 +4,9 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
---   github.com/erik-riklund/wow/scavenger (2026)
+-- github.com/erik-riklund/wow/scavenger-rules (2026)
 
-local _, this = ...;
-
-this.settings = {
+ScavengerRules_Settings = {
   --
   -- ?
   --

@@ -7,26 +7,40 @@
 -- github.com/erik-riklund/wow/scavenger-lootframe (2026)
 
 local target_frame = LootFrame;
--- target_frame:UnregisterAllEvents();
+-- target_frame:UnregisterAllEvents(); -- disable during development.
 
+-------------------------------------------------------------------------------
+-- # Frame layout constants
 --
--- # ?
---
--- ...
+-- Configuration for the loot window dimensions and structural spacing.
+-- Defines how the UI scales and offsets elements within the container.
 --
 
-local frame_width = 350;
-local frame_base_height = 65;
-local frame_padding_top = 60;
-local pagination_height = 30;
-local items_per_page = 3;
-local button_height = 50;
-local button_spacing = 0;
+local frame_width = 350;      -- Fixed width of the loot window.
+local frame_base_height = 65; -- Starting height before adding item slots.
+local frame_padding_top = 60; -- Offset from the top to account for title/header.
+local pagination_height = 30; -- Reserved vertical space for page navigation.
+local items_per_page = 5;     -- Maximum number of items displayed per view.
 
+-------------------------------------------------------------------------------
+-- # Button visual configuration
 --
+-- Defines the dimensions and interactive state styling for loot slot buttons.
+-- Used to handle hover effects and visual feedback during mouseover.
+--
+
+local button_height = 60;                                -- Height of each individual loot slot button.
+local button_spacing = 1;                                -- Vertical gap between loot buttons.
+local button_idle_background_color = { 0, 0, 0, 0.2 };   -- Default background color (RGBA) when not hovered.
+local button_hover_background_color = { 0, 0, 0, 0.35 }; -- Darkened background color (RGBA) on mouseover.
+local button_icon_idle_alpha = 0.5;                      -- Transparency of the item icon in its default state.
+local button_icon_hover_alpha = 0.85;                    -- Increased opacity for the icon on mouseover.
+
+-------------------------------------------------------------------------------
 -- # Loot frame initialization
 --
--- ...
+-- Defines the core UI container using the standard portrait template.
+-- Handles initial visibility, mouse interaction, and spatial anchoring.
 --
 
 local loot_frame = CreateFrame(
@@ -36,247 +50,221 @@ loot_frame:SetPortraitToAsset("interface/icons/inv_misc_bag_12");
 
 loot_frame:SetShown(false);
 loot_frame:EnableMouse(true);
-loot_frame:SetPoint("CENTER", target_frame);
+loot_frame:SetPoint("TOP", UIParent, "TOP", 0, -200); -- enabled during development.
+-- loot_frame:SetPoint("TOP", target_frame, "TOP"); -- enabled for release.
 loot_frame:SetWidth(frame_width);
 
---
+-------------------------------------------------------------------------------
 -- # ?
 --
 -- ...
 --
 
-local buttons = {};
+-- # Loot button registry
+--
+-- Manages a pool of reusable button frames for the loot interface.
+-- Implements a basic object pooling pattern to minimize frame creation overhead.
+--
 
-local function get_loot_button()
-  for _, button in ipairs(buttons) do
-    if button.busy == false then
-      button.busy = true;
-      return button.frame;
+local button_pool = {
+  -- Each button has an occupied state and the frame itself.
+};
+
+local function get_button()
+  local button;
+  for _, entry in ipairs(button_pool) do
+    if not entry.occupied then
+      entry.occupied = true;
+      button = entry.frame;
+      break;
     end
   end
 
-  local button = CreateFrame("Frame", nil, loot_frame);
-  table.insert(buttons, { busy = true, frame = button });
+  if not button then
+    -- ?
 
-  button:SetWidth(frame_width - 6);
-  button:SetHeight(button_height);
+    button = CreateFrame("Button", nil, loot_frame);
+    table.insert(button_pool, { occupied = true, frame = button });
 
-  button.background = button:CreateTexture(nil, "BACKGROUND");
-  button.background:SetColorTexture(0, 0, 0, 0.3);
-  button.background:SetAllPoints();
+    button:SetSize(frame_width * 0.975, button_height);
+
+    button.background = button:CreateTexture(nil, "BACKGROUND");
+    button.background:SetColorTexture(unpack(button_idle_background_color));
+    button.background:SetAllPoints();
+
+    button.icon = button:CreateTexture(nil, "BACKGROUND");
+    button.icon:SetAlpha(button_icon_idle_alpha);
+    button.icon:SetPoint("LEFT", button, "LEFT", frame_width * 0.025, 0);
+    button.icon:SetSize(button_height * 0.75, button_height * 0.75);
+
+    button.text = {
+      name = button:CreateFontString(nil, "OVERLAY", "Number13Font"),
+      description = button:CreateFontString(nil, "OVERLAY", "Number12Font"),
+      icon_overlay = button:CreateFontString(nil, "OVERLAY", "Game12Font_o1")
+    };
+
+    button.text["name"]:SetAlpha(0.8);
+    button.text["name"]:SetPoint(
+      "TOPLEFT", button.icon, "TOPRIGHT", frame_width * 0.025, -(button_height * 0.05)
+    );
+
+    button.text["description"]:SetAlpha(0.7);
+    button.text["description"]:SetPoint(
+      "TOPLEFT", button.text["name"], "BOTTOMLEFT", 0, -(button_height * 0.05)
+    );
+
+    button.text["icon_overlay"]:SetAlpha(0.8);
+    button.text["icon_overlay"]:SetPoint("BOTTOMRIGHT", button.icon, "BOTTOMRIGHT", -1, 3);
+
+    -- ?
+
+    button.on_event = {
+      mouse_enter = function()
+        if not button.is_disabled then
+          button.icon:SetAlpha(button_icon_hover_alpha);
+          button.background:SetColorTexture(unpack(button_hover_background_color));
+        end
+      end,
+      mouse_leave = function()
+        button.icon:SetAlpha(button_icon_idle_alpha);
+        button.background:SetColorTexture(unpack(button_idle_background_color));
+      end
+    };
+
+    -- ?
+
+    button.meta = {};
+  else
+    -- ?
+
+    button.text["name"]:SetText("");
+    button.text["description"]:SetText("");
+    button.text["icon_overlay"]:SetText("");
+  end
+
+  button:SetScript("OnEnter", button.on_event["mouse_enter"]);
+  button:SetScript("OnLeave", button.on_event["mouse_leave"]);
 
   return button;
 end
 
-local function reset_loot_button(button)
-  button.busy = false;
-  button.frame:ClearAllPoints();
-  button.frame:SetShown(false);
-end
-
---
+-------------------------------------------------------------------------------
 -- # ?
 --
 -- ...
 --
 
-local function render_loot_buttons(slots, offset)
-  local button_count = 0;
-  local initial_slot = offset + 1;
-  for index = initial_slot, math.min(#slots, offset + items_per_page) do
-    local slot = slots[index];
-    local button = get_loot_button();
+local handlers = {};
+local decorators = {};
 
-    button:SetScript("OnEnter", function(self)
-      if slot.data.item["link"] then
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
-        GameTooltip:SetHyperlink(slot.data.item["link"]);
+-- ?
+
+function scavenger.register_slot_handler(handler)
+  table.insert(handlers, handler);
+end
+
+-- ?
+
+function scavenger.register_slot_decorator(decorator)
+  table.insert(decorators, decorator);
+end
+
+-------------------------------------------------------------------------------
+-- # ?
+--
+-- ...
+--
+
+function render_loot_frame(slots)
+  local remaining_slots = {};
+  for _, slot in ipairs(slots) do
+    if not slot.autolooted then
+      table.insert(remaining_slots, slot);
+    end
+  end
+
+  if #remaining_slots > 0 then
+    local buttons = {};
+    local button_count = 0;
+
+    -- todo > sort the slots based on quality and type.
+
+    for _, slot in ipairs(remaining_slots) do
+      local button = get_button();
+      table.insert(buttons, button);
+
+      -- ?
+
+      button.icon:SetTexture(slot.icon);
+      button.text["name"]:SetText(
+        (#slot.name > 40 and (string.sub(slot.name, 1, 40) .. "...") or slot.name)
+      );
+
+      -- ?
+
+      local responsible_handler;
+      for _, handler in ipairs(handlers) do
+        if handler.test(slot) then
+          responsible_handler = handler.run;
+        end
       end
-    end);
-    button:SetScript("OnLeave", function(self)
-      GameTooltip:Hide();
-    end);
 
-    button:SetShown(true);
-    button:SetPoint("TOP", loot_frame, "TOP", 0,
-      -(frame_padding_top + (button_count * (button_height + button_spacing)))
+      if not responsible_handler then
+        responsible_handler = function(slot, button)
+          button.text["description"]:SetText("Rendered using the fallback handler.");
+        end
+      end
+
+      responsible_handler(slot, button);
+
+      -- ?
+
+      for _, decorator in ipairs(decorators) do decorator(slot, button) end
+
+      -- ?
+
+      local vertical_offset = frame_padding_top + (
+        button_count * (button_height + button_spacing)
+      );
+      button:SetPoint("TOP", loot_frame, "TOP", 0, -vertical_offset);
+
+      -- ?
+
+      button_count = button_count + 1;
+      if button_count == items_per_page then button_count = 0 end
+    end
+
+    -- ?
+
+    local function render_buttons(page)
+      local offset = items_per_page * ((page or 1) - 1);
+      local initial_slot = offset + 1;
+      local last_slot = math.min(#buttons, offset + items_per_page);
+
+      for index, button in ipairs(buttons) do
+        button:SetShown(index >= initial_slot and index <= last_slot);
+      end
+    end
+
+    -- ?
+
+    if #buttons > items_per_page then
+      -- todo > implement pagination logic.
+    end
+
+    -- ?
+
+    local has_pagination = #remaining_slots > items_per_page;
+    local visible_item_count = has_pagination and items_per_page or #remaining_slots;
+    local list_height = (visible_item_count * (button_height + button_spacing)) - button_spacing;
+
+    loot_frame:SetHeight(
+      frame_base_height + list_height + (has_pagination and pagination_height or 0)
     );
-    button_count = button_count + 1;
+
+    -- ?
+
+    render_buttons(1);
+    loot_frame:SetShown(true);
   end
-  return button_count;
 end
-
-local function render_loot_frame(slots, page)
-  page = page or 1;
-  local offset = items_per_page * (page - 1);
-  local button_count = render_loot_buttons(slots, offset);
-
-  -- ?
-
-  loot_frame:SetHeight(
-    frame_base_height +
-    (#slots > items_per_page and pagination_height or 0) +
-    (button_count * (button_height + button_spacing))
-  );
-  loot_frame:SetShown(true);
-end
-
---
--- # ?
---
--- ...
---
-
-scavenger.add_event_hook("LOOT_PROCESSED", function(slots)
-  -- local remaining_slots = 0;
-  -- for _, slot in ipairs(slots) do
-  --   if not slot.autolooted then
-  --     local button = get_loot_button();
-  --     button:SetPoint("CENTER");
-  --     button:SetShown(true);
-
-  --     remaining_slots = remaining_slots + 1;
-  --   end
-  -- end
-  -- loot_frame:SetHeight(
-  --   frame_base_height + (button_height * math.min(remaining_slots, items_per_page))
-  -- );
-  -- loot_frame:SetShown(remaining_slots > 0);
-end);
-
-scavenger.add_event_hook("LOOT_CLOSED", function()
-  loot_frame:SetShown(false);
-  for _, button in ipairs(buttons) do
-    reset_loot_button(button);
-  end
-end);
-
---
--- # Dummy loot
---
--- ...
---
-
-local current_loot = {
-  [1] = {
-    index = 1,
-    autolooted = false,
-    ignored = false,
-    data = {
-      type = 1, -- Item
-      name = "Peacebloom",
-      quantity = 2,
-      currency_id = nil,
-      is_locked = false,
-      is_quest_item = false,
-      is_fishing_loot = false,
-      item = {
-        link = "|cffffffff|Hitem:2447::::::::60:::::|h[Peacebloom]|h|r",
-        quality = 1,
-        localized_type = "Consumable",
-        localized_subtype = "Herb",
-        stack_count = 20,
-        sell_price = 10,
-        type_id = 0,
-        subtype_id = 9,
-        bind_type = 0,
-        expansion_id = 0
-      }
-    }
-  },
-  [2] = {
-    index = 2,
-    autolooted = false,
-    ignored = true,
-    data = {
-      type = 1,
-      name = "Broken Fang",
-      quantity = 1,
-      currency_id = nil,
-      is_locked = false,
-      is_quest_item = false,
-      is_fishing_loot = false,
-      item = {
-        link = "|cffffffff|Hitem:1017::::::::60:::::|h[Broken Fang]|h|r",
-        quality = 0,
-        localized_type = "Miscellaneous",
-        localized_subtype = "Junk",
-        stack_count = 10,
-        sell_price = 45,
-        type_id = 15,
-        subtype_id = 0,
-        bind_type = 0,
-        expansion_id = 0
-      }
-    }
-  },
-  [3] = {
-    index = 3,
-    autolooted = false,
-    ignored = false,
-    data = {
-      type = 1,
-      name = "Webbed Mantle",
-      quantity = 1,
-      currency_id = nil,
-      is_locked = false,
-      is_quest_item = false,
-      is_fishing_loot = false,
-      item = {
-        link = "|cff1eff00|Hitem:4715::::::::60:::::|h[Webbed Mantle]|h|r",
-        quality = 2,
-        localized_type = "Armor",
-        localized_subtype = "Cloth",
-        stack_count = 1,
-        sell_price = 850,
-        type_id = 4,
-        subtype_id = 1,
-        bind_type = 2,
-        expansion_id = 0
-      }
-    }
-  },
-  [4] = {
-    index = 4,
-    autolooted = false,
-    ignored = false,
-    data = {
-      type = 2, -- Currency
-      name = "Timeless Coin",
-      quantity = 15,
-      currency_id = 777,
-      is_locked = true,
-      is_quest_item = false,
-      is_fishing_loot = false
-      -- item table is nil because GetLootSlotLink returns nil for currency
-    }
-  },
-  [5] = {
-    index = 5,
-    autolooted = false,
-    ignored = false, -- decision remained nil (no rule matched)
-    data = {
-      type = 1,
-      name = "Glowing Wax Lump",
-      quantity = 1,
-      currency_id = nil,
-      is_locked = false,
-      is_quest_item = true,
-      is_fishing_loot = false,
-      item = {
-        link = "|cffffffff|Hitem:210714::::::::60:::::|h[Glowing Wax Lump]|h|r",
-        quality = 1,
-        localized_type = "Quest",
-        localized_subtype = "Quest",
-        stack_count = 100,
-        sell_price = 0,
-        type_id = 12,
-        subtype_id = 0,
-        bind_type = 1,
-        expansion_id = 10
-      }
-    }
-  }
-}
-
-render_loot_frame(current_loot);

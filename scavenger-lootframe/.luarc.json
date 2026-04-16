@@ -3,17 +3,27 @@
     "deprecated",
     "empty-block",
     "lowercase-global",
+    "redefined-local",
     "trailing-space",
     "undefined-field"
   ],
   "diagnostics.globals": [
+    "C_Item",
+    "C_TransmogCollection",
     "CreateFrame",
     "DevTools_Dump",
+    "Enum",
     "GameTooltip",
+    "GetCoinTextureString",
+    "GetItemQualityColor",
     "GetLocale",
+    "ITEM_BIND_QUEST",
     "LootFrame",
+    "LootSlot",
+    "PROFESSIONS_MODIFIED_CRAFTING_REAGENT_BASIC",
     "scavenger",
     "SetPortraitTexture",
+    "TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN",
     "UIParent"
   ]
 }

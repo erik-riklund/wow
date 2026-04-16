@@ -9,6 +9,7 @@
   "diagnostics.globals": [
     "__scavenger",
     "C_Item",
+    "C_TransmogCollection",
     "CreateFrame",
     "Enum",
     "GetLootSlotInfo",

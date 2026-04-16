@@ -1,0 +1,10 @@
+{
+  "diagnostics.disable": [
+    "deprecated",
+    "empty-block",
+    "lowercase-global",
+    "trailing-space",
+    "undefined-field"
+  ],
+  "diagnostics.globals": ["C_Item", "Enum", "scavenger"]
+}

@@ -4,10 +4,9 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
---   github.com/erik-riklund/wow/scavenger (2026)
+-- github.com/erik-riklund/wow/scavenger-rules (2026)
 
-local _, this = ...;
-local settings = this.settings;
+local settings = ScavengerRules_Settings;
 
 local function to_copper(amount)
   local gold = amount.gold or 0;
@@ -34,13 +33,13 @@ scavenger.add_loot_rule(function(slot)
     end
     local total_value = to_copper(money);
 
-    return (
-      settings.money.min_value == nil
-      or total_value >= to_copper(settings.money.min_value)
-    ) and (
-      settings.money.max_value == nil
-      or total_value <= to_copper(settings.money.max_value)
-    );
+    -- return (
+    --   settings.money.min_value == nil
+    --   or total_value >= to_copper(settings.money.min_value)
+    -- ) and (
+    --   settings.money.max_value == nil
+    --   or total_value <= to_copper(settings.money.max_value)
+    -- );
   end
 end);
 
