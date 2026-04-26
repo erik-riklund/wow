@@ -1,6 +1,6 @@
 ## Interface: 120001
 ## Dependencies: Scavenger
-## Title: Scavenger: Rules
+## Title: Rules
 ## Version: 1.0.0
 ## Author: Gopher (aka Ghuul @ WoW Interface)
 ## IconTexture: interface/icons/inv_scroll_03

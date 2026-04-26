@@ -17,13 +17,24 @@
     "GetCoinTextureString",
     "GetItemQualityColor",
     "GetLocale",
+    "ITEM_BIND_ON_EQUIP",
+    "ITEM_BIND_ON_PICKUP",
+    "ITEM_BIND_ON_USE",
+    "ITEM_BIND_TO_ACCOUNT",
+    "ITEM_BIND_TO_ACCOUNT_UNTIL_EQUIP",
+    "ITEM_BIND_TO_BNETACCOUNT",
     "ITEM_BIND_QUEST",
+    "LOCKED",
+    "LOOT_GONE",
     "LootFrame",
     "LootSlot",
     "PROFESSIONS_MODIFIED_CRAFTING_REAGENT_BASIC",
     "scavenger",
     "SetPortraitTexture",
+    "TRANSMOGRIFY_STYLE_UNCOLLECTED",
     "TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN",
-    "UIParent"
+    "UIParent",
+        "C_Timer",
+        "CloseLoot"
   ]
 }

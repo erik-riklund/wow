@@ -33,13 +33,13 @@ scavenger.add_loot_rule(function(slot)
     end
     local total_value = to_copper(money);
 
-    -- return (
-    --   settings.money.min_value == nil
-    --   or total_value >= to_copper(settings.money.min_value)
-    -- ) and (
-    --   settings.money.max_value == nil
-    --   or total_value <= to_copper(settings.money.max_value)
-    -- );
+    return (
+      settings.money.min_value == nil
+      or total_value >= to_copper(settings.money.min_value)
+    ) and (
+      settings.money.max_value == nil
+      or total_value <= to_copper(settings.money.max_value)
+    );
   end
 end);
 
@@ -95,7 +95,7 @@ end);
 
 scavenger.add_loot_rule(function(slot)
   if slot.type == Enum.LootSlotType.Item and slot.is_quest_item then
-    -- return slot.item.stack_count > 1; -- loot non-unique quest items.
+    return slot.item.stack_count > 1; -- loot non-unique quest items.
   end
 end);
 

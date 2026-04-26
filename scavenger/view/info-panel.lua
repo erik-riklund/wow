@@ -4,4 +4,14 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
--- github.com/erik-riklund/wow/scavenger-lootframe (2026)
+-- github.com/erik-riklund/wow/scavenger/view (2026)
+
+local _, this = ...
+
+---------------------------------------------------------------------
+-- ?
+--
+
+this.set_active_slot = function(slot)
+  print "Not implemented yet"
+end
