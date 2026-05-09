@@ -1,7 +1,7 @@
-## Interface: 120001
+## Interface: 120005
 ## Dependencies: Scavenger
-## Title: View
-## Version: 1.0.0
+## Title: UI
+## Version: 1
 ## Author: Gopher (aka Ghuul @ WoW Interface)
 ## IconTexture: interface/icons/inv_misc_bag_12
 
@@ -17,9 +17,24 @@
 ## Category-zhCN: 战利品
 ## Category-zhTW: 戰利品
 
-constants.lua
-info-panel.lua
-sorter.lua
 main.lua
+settings.lua
 
-handlers/fallback.lua
+localizations/bind-type.lua
+
+helpers/tooltips.lua
+
+widgets/overlay.lua
+widgets/loot-frame.lua
+widgets/pagination.lua
+widgets/slots.lua
+
+process/slots.lua
+process/render.lua
+process/pagination.lua
+process/reset.lua
+
+slot-handlers/money.lua
+slot-handlers/junk.lua
+slot-handlers/reagents.lua
+slot-handlers/fallback.lua

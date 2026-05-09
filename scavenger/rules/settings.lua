@@ -75,4 +75,4 @@ ScavengerRules_Settings = {
   -- ?
   --
   currencies = {}
-};
+}

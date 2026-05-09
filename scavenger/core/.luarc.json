@@ -1,16 +1,14 @@
 {
-  "diagnostics.disable": [
-    "deprecated",
-    "empty-block",
-    "lowercase-global",
-    "trailing-space",
-    "undefined-field"
-  ],
+  "diagnostics.severity": {
+    "undefined-field": "Error"
+  },
+  "diagnostics.disable": ["deprecated", "empty-block", "lowercase-global", "trailing-space"],
   "diagnostics.globals": [
     "__scavenger",
     "C_Item",
     "C_TransmogCollection",
     "CreateFrame",
+    "DevTools_Dump",
     "Enum",
     "GetLootSlotInfo",
     "GetLootSlotLink",

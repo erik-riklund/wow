@@ -1,15 +1,13 @@
 {
-  "diagnostics.disable": [
-    "deprecated",
-    "empty-block",
-    "lowercase-global",
-    "redefined-local",
-    "trailing-space",
-    "undefined-field"
-  ],
+  "diagnostics.severity": {
+    "missing-return": "Error",
+    "undefined-field": "Error"
+  },
+  "diagnostics.disable": ["deprecated", "empty-block", "lowercase-global", "trailing-space"],
   "diagnostics.globals": [
     "C_Item",
     "C_TransmogCollection",
+    "CloseLoot",
     "CreateFrame",
     "DevTools_Dump",
     "Enum",
@@ -25,16 +23,15 @@
     "ITEM_BIND_TO_BNETACCOUNT",
     "ITEM_BIND_QUEST",
     "LOCKED",
-    "LOOT_GONE",
     "LootFrame",
     "LootSlot",
     "PROFESSIONS_MODIFIED_CRAFTING_REAGENT_BASIC",
-    "scavenger",
+    "Scavenger",
+    "ScavengerLootFrame",
+    "ScavengerOverlay",
     "SetPortraitTexture",
     "TRANSMOGRIFY_STYLE_UNCOLLECTED",
     "TRANSMOGRIFY_TOOLTIP_APPEARANCE_UNKNOWN",
-    "UIParent",
-        "C_Timer",
-        "CloseLoot"
+    "UIParent"
   ]
 }

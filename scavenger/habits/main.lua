@@ -19,16 +19,16 @@ local seconds_per_day = 60 * 60 * 24;
 
 local now = GetTime();
 local today = date("%m/%d/%y");
-local last_purge = scavenger.get_variable("/habits/last_purge");
-local registry = scavenger.get_variable("/habits/registry");
+local last_purge = Scavenger.get_variable("/habits/last_purge");
+local registry = Scavenger.get_variable("/habits/registry");
 
 if not registry then
   registry = {}; -- initialize the table used to track looted items.
-  scavenger.set_variable("/habits/registry", registry);
+  Scavenger.set_variable("/habits/registry", registry);
 end
 
 if last_purge ~= today then
-  scavenger.set_variable("/habits/last_purge", today);
+  Scavenger.set_variable("/habits/last_purge", today);
 
   for link, data in pairs(registry) do
     local days_passed = (now - data.last_looted) / seconds_per_day;
@@ -51,7 +51,7 @@ end
 -- ...
 --
 
-scavenger.add_loot_rule(function(slot)
+Scavenger.register_loot_rule(function(slot)
   if slot.type == Enum.LootSlotType.Item then
     local item = slot.item;
     local item_data = registry[item.link];
@@ -68,7 +68,7 @@ end);
 -- ...
 --
 
-scavenger.add_event_hook("SLOT_LOOTED", function(slot)
+Scavenger.add_event_hook("SLOT_LOOTED", function(slot)
   if slot and not slot.ignored and slot.type == Enum.LootSlotType.Item then
     local item = slot.item;
     if item.bind_type == Enum.ItemBind.None then
