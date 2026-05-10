@@ -9,39 +9,58 @@
 ---@class context
 local x = select(2, ...)
 
----------------------------------------------------------------------
--- ?
+--
+-- # Addon API & extensibility
+--
+-- This acts as the internal registry for all public-facing methods.
+-- It features an 'extend' function that allows external modules or other
+-- addons to safely register their own custom callbacks into Scavenger.
+--
 
 x.api = {
-  -- ?
+  --
+  -- Safely registers a new function in the API table, ensuring we don't
+  -- overwrite existing features or accept invalid, non-executable data.
+
   extend = function(key, callback)
     if x.api[key] ~= nil then
-      -- todo > print a warning
+      -- todo > print a warning (attempted to overwrite an existing API key)
     elseif type(callback) ~= "function" then
-      -- todo > print a warning
+      -- todo > print a warning (callback must be a function)
     else
-      x.api[key] = callback -- ?
+      x.api[key] = callback -- Successfully register the new function.
     end
   end
 }
 
----------------------------------------------------------------------
--- ?
+--
+-- # Global API gateway
+--
+-- Exposes a clean, read-only interface to the global environment.
+-- This allows other addons or macros to access Scavenger's API while
+-- protecting our core tables from accidental modification or deletion.
+--
 
-_G.Scavenger = setmetatable(
+_G.scavenger = setmetatable(
   {}, {
-    -- ?
+    --
+    -- Intercepts reads. If an external script requests `scavenger.some_function`,
+    -- we look it up and return it from our validated internal API registry.
+
     __index = function(_, key)
       if x.api[key] == nil then
-        -- todo > print a warning
+        -- todo > print a warning (requested API key does not exist)
       else
-        return x.api[key] -- ?
+        return x.api[key] -- Return the requested function.
       end
     end,
 
-    --?
+    -- Intercepts writes. If an external script tries to assign or overwrite a
+    -- value directly (e.g., `scavenger.foo = bar`), this block catches and 
+    -- ignores it to keep the globally accessible API read-only.
+
     __newindex = function()
-      -- todo > print a warning
+      -- todo > print a warning (direct writes blocked, use scavenger.extend)
     end
   }
 )
