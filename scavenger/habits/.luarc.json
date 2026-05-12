@@ -6,5 +6,11 @@
     "trailing-space",
     "undefined-field"
   ],
-  "diagnostics.globals": ["__scavenger", "date", "Enum", "GetTime", "Scavenger"]
+  "diagnostics.globals": [
+    "__scavenger",
+    "date",
+    "Enum",
+    "GetTime",
+    "scavenger"
+  ]
 }
