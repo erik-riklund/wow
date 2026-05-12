@@ -4,59 +4,47 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
--- github.com/erik-riklund/wow/scavenger-rules (2026)
+-- github.com/erik-riklund/wow/scavenger/rules (2026)
 
-ScavengerRules_Settings = {
+--- @class context
+local x = select(2, ...)
+
+x.settings = {
   --
-  -- ?
+  -- # Poor quality item vendor thresholds
   --
+  -- Defines the acceptable range of vendor sell values for auto-looting grey items.
+  -- Items with a total value below `min_value` or above `max_value` will be bypassed.
+  --
+
   junk = {
     min_value = { silver = 9, copper = 99 },
     max_value = { gold = 9, silver = 99 }
   },
 
   --
-  -- ?
+  -- # Raw money loot thresholds
   --
+  -- Controls the minimum and maximum boundaries for automatically
+  -- scooping up raw coin drops from loot targets.
+  --
+
   money = {
     min_value = { copper = 1 },
     max_value = { gold = 24, silver = 99, copper = 99 }
   },
 
   --
-  -- ?
+  -- # Item blacklist exception registry
   --
-  -- 1.  Parts
-  -- 4.  Jewelcrafting
-  -- 5.  Cloth
-  -- 6.  Leather
-  -- 7.  Metal & Stone
-  -- 8.  Cooking
-  -- 9.  Herb
-  -- 10. Elemental
-  -- 11. Other
-  -- 12. Enchanting
-  -- 16. Inscription
-  -- 18. Optional Reagents
-  -- 19. Finishing Reagents
-  --
-  reagents = {
-    lootable_types = {
-      { id = 4, quantity = { max = 1 } }, -- Jewelcrafting
-      { id = 5, quantity = { max = 9 } }, -- Cloth
-      { id = 6, quantity = { max = 9 } }, -- Leather
-      { id = 7, quantity = { max = 9 } }, -- Metal & Stone
-      { id = 9, quantity = { max = 9 } }, -- Herbs
-    },
-    quality_threshold = Enum.ItemQuality.Uncommon
-  },
-
-  --
-  -- ?
+  -- Hardcoded explicit overrides for specific item IDs.
+  -- Used to enforce a static action (e.g., "ignore") regardless of standard item
+  -- quality, type, or value rules. Supports quantity range validation constraints.
   --
   -- { id = 130267, action = "ignore" }
   -- { id = 130267, quantity = { min = 2, max = 3 } }
   --
+
   items = {
     -- Classic -
     { id = 12363,  action = "ignore" }, -- Arcane Crystal
@@ -72,7 +60,27 @@ ScavengerRules_Settings = {
   },
 
   --
-  -- ?
+  -- # Crafting reagent filtering profile
   --
-  currencies = {}
+  -- Handles auto-loot parameters for specific trade skill materials based on
+  -- their subclass IDs (e.g., 4 for Jewelcrafting, 9 for Herbs).
+  --
+  -- Settings for stack sizes are entirely optional; a reagent profile can be configured
+  -- to restrict filtering strictly to quality requirements. A global quality threshold
+  -- acts as the baseline fallback, but individual entries can specify their own standalone
+  -- quality or quantity constraints.
+  --
+  -- [ https://warcraft.wiki.gg/wiki/ItemType ]
+  --
+
+  reagents = {
+    lootable_types = {
+      { id = 4, quantity = { max = 1 } }, -- Jewelcrafting
+      { id = 5, quantity = { max = 9 } }, -- Cloth
+      { id = 6, quantity = { max = 9 } }, -- Leather
+      { id = 7, quantity = { max = 9 } }, -- Metal & Stone
+      { id = 9, quantity = { max = 9 } }, -- Herbs
+    },
+    quality_threshold = Enum.ItemQuality.Uncommon
+  }
 }

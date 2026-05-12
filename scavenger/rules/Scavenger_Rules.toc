@@ -17,5 +17,12 @@
 ## Category-zhCN: 战利品
 ## Category-zhTW: 戰利品
 
+helpers.lua
 settings.lua
-rules.lua
+
+rules/money.lua
+rules/item-list.lua
+rules/quest-items.lua
+rules/fishing.lua
+rules/reagents.lua
+rules/junk.lua
