@@ -28,11 +28,18 @@ local slot_type_order = {
 --
 
 local item_type_order = {
-  { Enum.ItemClass.Miscellaneous, Enum.ItemMiscellaneousSubclass.Mount },
-  { Enum.ItemClass.Miscellaneous, Enum.ItemMiscellaneousSubclass.CompanionPet },
-  { Enum.ItemClass.Weapon,        nil },
-  { Enum.ItemClass.Armor,         nil },
-  { Enum.ItemClass.Tradeskill,    nil }
+  {
+    Enum.ItemClass.Miscellaneous,
+    Enum.ItemMiscellaneousSubclass.Mount
+  },
+  {
+    Enum.ItemClass.Miscellaneous,
+    Enum.ItemMiscellaneousSubclass.CompanionPet
+  },
+
+  { Enum.ItemClass.Weapon,     nil },
+  { Enum.ItemClass.Armor,      nil },
+  { Enum.ItemClass.Tradeskill, nil }
 }
 
 --
@@ -165,73 +172,54 @@ local score_handlers = {
 }
 
 --
--- # Post-loot processing sorting engine
+-- # Slot comparison comparator
 --
--- Listens for "LOOT_PROCESSED" after the addon finishes auto-looting.
--- It filters out any successfully auto-looted items, executes the scoring chain to
--- sort the remaining slots, and fires "LOOT_SORTED" to hand the layout off to the UI.
+-- Shared sorting function exposed to the context table. It extracts the raw slot data
+-- packets from two wrapper objects and runs them through the score evaluation chain.
+-- Returns true if slot 'a' should be ordered before slot 'b'.
 --
 
-scavenger.add_event_hook(
-  "LOOT_PROCESSED", function(slots)
-    local sorted_slots = {}
+x.compare_slots = function(a, b)
+  local slot_a = a.data
+  local slot_b = b.data
 
-    -- Only keep slots that the player still needs to manually decide on.
+  for _, handler in ipairs(score_handlers) do
+    --
+    -- Run the test condition on both slots. If a slot matches the rule,
+    -- calculate its priority score; otherwise, leave it as nil.
 
-    for _, slot in ipairs(slots) do
-      if not slot.autolooted then
-        table.insert(sorted_slots, slot)
-      end
+    local score_a = nil
+    if handler.test(slot_a) then
+      score_a = handler.calculate(slot_a)
     end
 
-    -- Run our comparison function to sort the remaining active loot slots.
+    local score_b = nil
+    if handler.test(slot_b) then
+      score_b = handler.calculate(slot_b)
+    end
 
-    table.sort(
-      sorted_slots, function(slot_a, slot_b)
-        for _, handler in ipairs(score_handlers) do
-          --
-          -- Run the test condition on both slots. If a slot matches the rule,
-          -- calculate its priority score; otherwise, leave it as nil.
+    -- If at least one slot was evaluated by the current rule:
 
-          local score_a = nil
-          if handler.test(slot_a) then
-            score_a = handler.calculate(slot_a)
-          end
+    if score_a ~= nil or score_b ~= nil then
+      --
+      -- Assign a penalizing default score to an item if it failed
+      -- the rule test while the other item succeeded.
 
-          local score_b = nil
-          if handler.test(slot_b) then
-            score_b = handler.calculate(slot_b)
-          end
+      score_a = score_a or score_b + 1
+      score_b = score_b or score_a + 1
 
-          -- If at least one slot was evaluated by the current rule:
+      -- If this rule establishes a clear winner (different scores),
+      -- sort the item with the lower score to the front.
 
-          if score_a ~= nil or score_b ~= nil then
-            --
-            -- Assign a penalizing default score to an item if it failed
-            -- the rule test while the other item succeeded.
-
-            score_a = score_a or score_b + 1
-            score_b = score_b or score_a + 1
-
-            -- If this rule establishes a clear winner (different scores),
-            -- sort the item with the lower score to the front.
-
-            if score_a ~= score_b then
-              return score_a < score_b
-            end
-          end
-        end
-
-        -- If both items tie across all rules, sort alphabetically by name.
-
-        return (slot_a and slot_b) and (
-          (slot_a.name or "unknown") < (slot_b.name or "unknown")
-        )
+      if score_a ~= score_b then
+        return score_a < score_b
       end
-    )
-
-    -- Dispatch the sorted list of loot items to the UI layer.
-
-    x.invoke_listeners("LOOT_SORTED", sorted_slots)
+    end
   end
-)
+
+  -- If both items tie across all rules, sort alphabetically by name.
+
+  return (slot_a and slot_b) and (
+    (slot_a.name or "unknown") < (slot_b.name or "unknown")
+  )
+end

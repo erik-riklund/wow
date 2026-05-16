@@ -7,6 +7,7 @@
     "__scavenger",
     "C_Item",
     "C_TransmogCollection",
+    "CreateDataProvider",
     "CreateFrame",
     "DevTools_Dump",
     "Enum",
@@ -15,6 +16,13 @@
     "GetLootSlotType",
     "GetNumLootItems",
     "IsFishingLoot",
-    "LootSlot"
+    "LootFrame",
+    "LootSlot",
+        "GetCVarBool",
+        "CanAutoSetGamePadCursorControl",
+        "SetGamePadCursorControl",
+        "GetCursorPosition",
+        "ShowUIPanel",
+        "ScrollingFlatPanelMixin"
   ]
 }

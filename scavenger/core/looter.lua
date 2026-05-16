@@ -177,7 +177,7 @@ scavenger.add_event_hook(
         end
       end
 
-      -- Dispatch our newly processed and compiled list of slots to any active 
+      -- Dispatch our newly processed and compiled list of slots to any active
       -- event listeners (such as our sorting engine or custom logging UI).
 
       x.invoke_listeners("LOOT_PROCESSED", current_loot)
