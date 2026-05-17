@@ -23,7 +23,7 @@ api.lua
 utils.lua
 events.lua
 variables.lua
-settings.lua
+# settings.lua
 looter.lua
 sorter.lua
 frame.lua
