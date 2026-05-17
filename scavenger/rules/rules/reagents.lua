@@ -25,8 +25,12 @@ local settings = x.settings
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Item then
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Item
+    end,
+
+    evaluate = function(slot)
       local item = slot.item
 
       if item.type_id == Enum.ItemClass.Tradegoods then
@@ -65,5 +69,5 @@ scavenger.register_loot_rule(
         end
       end
     end
-  end
+  }
 )

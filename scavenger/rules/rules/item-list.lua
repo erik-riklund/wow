@@ -24,8 +24,12 @@ local settings = x.settings
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Item then
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Item
+    end,
+
+    evaluate = function(slot)
       local item = slot.item
 
       -- Check if the item matches any entries in the explicit exceptions registry.
@@ -44,7 +48,7 @@ scavenger.register_loot_rule(
       if rule ~= nil then
         -- Handle explicit string actions.
         if type(rule.action) == "string" then
-          return rule.action ~= "ignore" -- Returns false if the item should be ignored.
+          return rule.action ~= "ignore"   -- Returns false if the item should be ignored.
         end
 
         -- Handle stack size constraint boundaries.
@@ -56,5 +60,5 @@ scavenger.register_loot_rule(
         end
       end
     end
-  end
+  }
 )

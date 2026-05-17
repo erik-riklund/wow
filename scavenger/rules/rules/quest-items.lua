@@ -19,9 +19,13 @@
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Item and slot.is_quest_item then
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Item and slot.is_quest_item
+    end,
+
+    evaluate = function(slot)
       return slot.item.stack_count > 1 -- Loot non-unique quest items.
     end
-  end
+  }
 )

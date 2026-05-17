@@ -15,14 +15,19 @@
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Item and slot.is_fishing_loot then
-      local item = slot.item
-      local cooking_reagent = 8
+  {
+    test = function(slot)
+      return slot.is_fishing_loot and slot.type == Enum.LootSlotType.Item
+    end,
 
-      if item.type_id == Enum.ItemClass.Tradegoods and item.subtype_id == cooking_reagent then
+    evaluate = function(slot)
+      local item = slot.item
+      local cooking_reagent_id = 8
+
+      if item.type_id == Enum.ItemClass.Tradegoods
+          and item.subtype_id == cooking_reagent_id then
         return true -- Loot edible fish caught while fishing.
       end
     end
-  end
+  }
 )

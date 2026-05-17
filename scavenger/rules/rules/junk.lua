@@ -23,9 +23,13 @@ local settings = x.settings
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Item then
-      local item = slot.item;
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Item
+    end,
+
+    evaluate = function(slot)
+      local item = slot.item
 
       if item.quality == Enum.ItemQuality.Poor then
         -- Skip soulbound items unless they stack,
@@ -44,5 +48,5 @@ scavenger.register_loot_rule(
         end
       end
     end
-  end
+  }
 )

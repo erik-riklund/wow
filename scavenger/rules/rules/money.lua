@@ -25,8 +25,12 @@ local settings = x.settings
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Money then
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Money
+    end,
+
+    evaluate = function(slot)
       local segments = { string.split("\n", slot.name) }
       local money = { gold = 0, silver = 0, copper = 0 }
 
@@ -49,5 +53,6 @@ scavenger.register_loot_rule(
         or total_value <= x.to_copper(settings.money.max_value)
       )
     end
-  end
+
+  }
 )
