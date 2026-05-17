@@ -4,7 +4,7 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
---   github.com/erik-riklund/wow/scavenger/core (2026)
+-- github.com/erik-riklund/wow/scavenger/core (2026)
 
 ---@class context
 local x = select(2, ...)
@@ -19,11 +19,11 @@ local x = select(2, ...)
 local loot_rules = {}
 
 scavenger.extend(
-  "register_loot_rule", function(callback)
-    if type(callback) ~= "function" then
-      -- todo > print a warning (rule must be a function)
+  "register_loot_rule", function(rule)
+    if type(rule) ~= "table" then
+      -- todo > print a warning (rule must be an object)
     else
-      table.insert(loot_rules, callback)
+      table.insert(loot_rules, rule)
     end
   end
 )
@@ -51,7 +51,7 @@ scavenger.add_event_hook(
 
         if slot_type ~= Enum.LootSlotType.None then
           --
-          -- ?
+          -- Retrieve base slot data.
 
           local slot_info = {
             GetLootSlotInfo(slot_index)
@@ -117,11 +117,13 @@ scavenger.add_event_hook(
           local decision = nil
           if not is_locked then
             for _, rule in ipairs(loot_rules) do
-              local result = rule(slot_data)
+              if rule.test(slot_data) then
+                local result = rule.evaluate(slot_data)
 
-              if type(result) == "boolean" then
-                decision = result
-                break -- Exit early as soon as a rule takes ownership of the item.
+                if type(result) == "boolean" then
+                  decision = result
+                  break -- Exit early as soon as a rule takes ownership of the item.
+                end
               end
             end
           end
@@ -159,7 +161,7 @@ scavenger.add_event_hook(
                 -- warning the developer that the slot state is read-only.
 
                 __newindex = function()
-                  -- todo > print warning (tried to write to read-only data)
+                  scavenger.warn("Blocked attempt to modify read-only slot data")
                 end
               }
             )
