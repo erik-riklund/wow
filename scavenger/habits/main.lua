@@ -28,8 +28,8 @@ local seconds_per_day = 60 * 60 * 24 -- Math helper to translate game uptime sec
 
 local now = GetTime()
 local today = date("%m/%d/%y")
-local last_purge = scavenger.get_variable("/habits/last_purge")
-local registry = scavenger.get_variable("/habits/registry")
+local last_purge = scavenger.get_character_variable("/habits/last_purge")
+local registry = scavenger.get_character_variable("/habits/registry")
 
 ---
 -- # Registry initialization
@@ -40,7 +40,7 @@ local registry = scavenger.get_variable("/habits/registry")
 
 if not registry then
   registry = {} -- Initialize the table used to track looted items.
-  scavenger.set_variable("/habits/registry", registry)
+  scavenger.set_character_variable("/habits/registry", registry)
 end
 
 --
@@ -52,7 +52,7 @@ end
 --
 
 if last_purge ~= today then
-  scavenger.set_variable("/habits/last_purge", today)
+  scavenger.set_character_variable("/habits/last_purge", today)
 
   for link, data in pairs(registry) do
     local days_passed = (now - data.last_looted) / seconds_per_day
@@ -78,16 +78,20 @@ end
 --
 
 scavenger.register_loot_rule(
-  function(slot)
-    if slot.type == Enum.LootSlotType.Item then
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Item
+    end,
+
+    evaluate = function(slot)
       local item = slot.item
       local item_data = registry[item.link]
 
-      if item_data and item_data.count >= threshold then
+      if type(item_data) == "table" and item_data.count >= threshold then
         return true -- Instruct the controller to loot the item.
       end
     end
-  end
+  }
 )
 
 --
