@@ -4,7 +4,7 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
---   github.com/erik-riklund/wow/scavenger/core (2026)
+-- github.com/erik-riklund/wow/scavenger/core (2026)
 
 ---@class context
 local x = select(2, ...)
@@ -24,9 +24,9 @@ x.api = {
 
   extend = function(key, callback)
     if x.api[key] ~= nil then
-      -- todo > print a warning (attempted to overwrite an existing API key)
+      error("Attempt to overwrite an existing API key: " .. key, 2)
     elseif type(callback) ~= "function" then
-      -- todo > print a warning (callback must be a function)
+      error("The callback must be a function", 2)
     else
       x.api[key] = callback -- Successfully register the new function.
     end
@@ -49,18 +49,18 @@ _G.scavenger = setmetatable(
 
     __index = function(_, key)
       if x.api[key] == nil then
-        -- todo > print a warning (requested API key does not exist)
+        scavenger.warn("The requested API key '%s' does not exist", key)
       else
         return x.api[key] -- Return the requested function.
       end
     end,
 
     -- Intercepts writes. If an external script tries to assign or overwrite a
-    -- value directly (e.g., `scavenger.foo = bar`), this block catches and 
+    -- value directly (e.g., `scavenger.foo = bar`), this block catches and
     -- ignores it to keep the globally accessible API read-only.
 
     __newindex = function()
-      -- todo > print a warning (direct writes blocked, use scavenger.extend)
+      scavenger.error("Direct writes blocked, use 'scavenger.extend'")
     end
   }
 )
