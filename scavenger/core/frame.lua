@@ -4,7 +4,7 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
---   github.com/erik-riklund/wow/scavenger/core (2026)
+-- github.com/erik-riklund/wow/scavenger/core (2026)
 
 ---@class context
 local x = select(2, ...)
