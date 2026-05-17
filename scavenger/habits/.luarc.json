@@ -7,7 +7,6 @@
     "undefined-field"
   ],
   "diagnostics.globals": [
-    "__scavenger",
     "date",
     "Enum",
     "GetTime",
