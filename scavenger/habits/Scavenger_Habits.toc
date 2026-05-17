@@ -1,7 +1,6 @@
 ## Interface: 120005
 ## Dependencies: Scavenger
 ## Title: Habits
-## Version: 1
 ## Author: Gopher (aka Ghuul @ WoW Interface)
 ## IconTexture: interface/icons/inv_misc_note_01
 
