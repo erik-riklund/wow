@@ -4,75 +4,129 @@
 --  ___) | (_| (_| |\ V /  __/ | | | (_| |  __/ |
 -- |____/ \___\__,_| \_/ \___|_| |_|\__, |\___|_|
 --                                  |___/
---   github.com/erik-riklund/wow/scavenger/core (2026)
+-- github.com/erik-riklund/wow/scavenger/core (2026)
 
 ---@class context
 local x = select(2, ...)
 
 --
--- # Saved variables & nested state management
+-- # Path tokenization helper
 --
--- This module manages the persistence layer of the addon. When the addon is loaded,
--- it binds to WoW's global SavedVariables storage (`__scavenger`) and registers
--- path-based API methods (`get_variable` and `set_variable`) to read and write
--- deeply nested configuration settings safely.
+-- Splits a standardized slash-separated configuration path string into
+-- an array of individual keys, stripping the leading slash character.
+--
+
+local function split_path(path)
+  return { strsplit("/", string.sub(path, 2)) }
+end
+
+--
+-- # Nested table traversal engine
+--
+-- Safely walks through deep table structures matching a sequential key sequence.
+-- If build mode is enabled, missing intermediate tables are created automatically.
+-- If disabled, structural dead-ends cause an immediate early abort returning nil.
+--
+
+local function traverse_table(target, steps, build_mode)
+  local is_build_mode = build_mode == true
+  local property = steps[#steps] -- the last element.
+
+  local reference = target
+
+  if #steps - 1 > 0 then
+    for i = 1, #steps - 1 do
+      local current_step = steps[i]
+
+      if reference[current_step] == nil then
+        if is_build_mode then
+          reference[current_step] = {}
+        else
+          return nil -- Abort and return `nil` because the nested path branch does not exist.
+        end
+      end
+
+      reference = reference[current_step]
+    end
+  end
+
+  -- Ensure the final directory node exists before assignment or retrieval in build mode.
+  if not reference[property] and is_build_mode then reference[property] = {} end
+
+  return reference[property]
+end
+
+--
+-- # Persistent state initialization
+--
+-- Binds global account-wide and character-specific saved variables to local states
+-- on addon load, exposing standard unified path APIs to get and set configuration nodes.
 --
 
 local remove_variables_initializer
 remove_variables_initializer = scavenger.add_event_hook(
   "ADDON_LOADED", function()
-    local variables = __scavenger or {}
-    __scavenger = variables -- ensure that the saved variables are persisted.
+    local variables = ScavengerVariables or {}
+    ScavengerVariables = variables
+
+    local character_variables = ScavengerCharacterVariables or {}
+    ScavengerCharacterVariables = character_variables
 
     --
-    -- # API: Path-based getter
+    -- # API: Account-wide variable getter
     --
-    -- Example path: "/settings/general/enable_sound"
-    -- Safely traverses the nested tables. If any directory in the path does not exist,
-    -- it aborts early and returns `nil` instead of throwing an error.
+    -- Resolves and extracts values from the global account data store.
     --
 
     scavenger.extend(
       "get_variable", function(path)
-        ---@diagnostic disable-next-line: undefined-field
-        local steps = { string.split("/", string.sub(path, 2)) }
-        local property = table.remove(steps) -- the last element.
-
-        local reference = variables
-        for _, current_step in ipairs(steps) do
-          if reference[current_step] == nil then
-            return nil -- Abort and return `nil` because the nested path branch does not exist.
-          end
-          reference = reference[current_step]
-        end
-
-        return reference[property]
+        return traverse_table(variables, split_path(path))
       end
     )
 
     --
-    -- # API: Path-based setter
+    -- # API: Character-specific variable getter
     --
-    -- Example path: "/settings/general/enable_sound"
-    -- Traverses the nesting and dynamically creates any missing intermediate
-    -- tables along the path before assigning the final value.
+    -- Resolves and extracts values from the character-bound data store.
+    --
+
+    scavenger.extend(
+      "get_character_variable", function(path)
+        return traverse_table(character_variables, split_path(path))
+      end
+    )
+
+    --
+    -- # API: Account-wide variable setter
+    --
+    -- Assigns a value to a targeted account-wide path, creating missing child nodes.
     --
 
     scavenger.extend(
       "set_variable", function(path, value)
-        ---@diagnostic disable-next-line: undefined-field
-        local steps = { string.split("/", string.sub(path, 2)) }
-        local property = table.remove(steps) -- the last element.
+        local steps = split_path(path)
+        local property = table.remove(steps)
+        local target = traverse_table(variables, steps, true)
 
-        local reference = variables
-        for _, current_step in ipairs(steps) do
-          if reference[current_step] == nil then
-            reference[current_step] = {} -- Auto-create the nested table if it is missing.
-          end
-          reference = reference[current_step]
-        end
+        target[property] = value
+      end
+    )
 
-        reference[property] = value
+    --
+    -- # API: Character-specific variable setter
+    --
+    -- Assigns a value to a targeted character path, creating missing child nodes.
+    --
+
+    scavenger.extend(
+      "set_character_variable", function(path, value)
+        local steps = split_path(path)
+        local property = table.remove(steps)
+        local target = traverse_table(character_variables, steps, true)
+
+        DevTools_Dump({ steps, property, target })
+
+        target[property] = value
       end
     )
 
