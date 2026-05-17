@@ -1,6 +1,6 @@
 ## Interface: 120005
 ## Title: Scavenger
-## Version: 1
+## Version: B2
 ## Author: Gopher (aka Ghuul @ WoW Interface)
 ## IconTexture: interface/icons/inv_vulturemount_black
 
@@ -16,11 +16,14 @@
 ## Category-zhCN: 战利品
 ## Category-zhTW: 戰利品
 
-## SavedVariablesPerCharacter: __scavenger
+## SavedVariables: ScavengerVariables
+## SavedVariablesPerCharacter: ScavengerCharacterVariables
 
 api.lua
+utils.lua
 events.lua
 variables.lua
+settings.lua
 looter.lua
 sorter.lua
 frame.lua
