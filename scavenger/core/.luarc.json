@@ -4,7 +4,6 @@
   },
   "diagnostics.disable": ["deprecated", "empty-block", "lowercase-global", "trailing-space"],
   "diagnostics.globals": [
-    "__scavenger",
     "C_Item",
     "C_TransmogCollection",
     "CreateDataProvider",
@@ -18,11 +17,15 @@
     "IsFishingLoot",
     "LootFrame",
     "LootSlot",
-        "GetCVarBool",
-        "CanAutoSetGamePadCursorControl",
-        "SetGamePadCursorControl",
-        "GetCursorPosition",
-        "ShowUIPanel",
-        "ScrollingFlatPanelMixin"
+    "GetCVarBool",
+    "CanAutoSetGamePadCursorControl",
+    "SetGamePadCursorControl",
+    "GetCursorPosition",
+    "ShowUIPanel",
+    "ScavengerCharacterVariables",
+    "ScavengerVariables",
+    "ScrollingFlatPanelMixin",
+    "strsplit",
+    "strjoin"
   ]
 }
