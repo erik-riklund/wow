@@ -18,7 +18,7 @@ x.settings = {
   --
 
   junk = {
-    min_value = { silver = 9, copper = 99 },
+    min_value = { copper = 1 },
     max_value = { gold = 9, silver = 99 }
   },
 
