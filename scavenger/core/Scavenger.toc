@@ -21,9 +21,8 @@
 
 api.lua
 utils.lua
-events.lua
-variables.lua
-# settings.lua
-looter.lua
-sorter.lua
-frame.lua
+
+modules/events.lua
+modules/variables.lua
+# modules/settings.lua
+modules/looter.lua
