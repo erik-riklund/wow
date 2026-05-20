@@ -47,7 +47,6 @@ x.settings = {
 
   items = {
     -- Classic -
-    { id = 12363,  action = "ignore" }, -- Arcane Crystal
     { id = 58787,  action = "ignore" }, -- Crystal Bass (quest item)
     { id = 4235,   action = "ignore" }, -- Heavy Hide
     { id = 58856,  action = "ignore" }, -- Royal Monkfish (quest item)
@@ -75,7 +74,12 @@ x.settings = {
 
   reagents = {
     lootable_types = {
-      { id = 4, quantity = { max = 1 } }, -- Jewelcrafting
+      {
+        id = 4, -- Jewelcrafting
+        quantity = { max = 1 },
+        quality_threshold = Enum.ItemQuality.Common
+      },
+
       { id = 5, quantity = { max = 9 } }, -- Cloth
       { id = 6, quantity = { max = 9 } }, -- Leather
       { id = 7, quantity = { max = 9 } }, -- Metal & Stone
