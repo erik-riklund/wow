@@ -1,0 +1,20 @@
+## Interface: 120005
+## Dependencies: Scavenger
+## Title: View
+## Author: Gopher (aka Ghuul @ WoW Interface)
+## IconTexture: interface/icons/inv_gizmo_bronzeframework_01
+
+## Category: Loot
+## Category-deDE: Beute
+## Category-esES: Botín
+## Category-esMX: Botín
+## Category-frFR: Butin
+## Category-itIT: Bottino
+## Category-koKR: 전리품
+## Category-ptBR: Saque
+## Category-ruRU: Добыча
+## Category-zhCN: 战利品
+## Category-zhTW: 戰利品
+
+main.lua
+sorter.lua
