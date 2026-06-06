@@ -9,13 +9,10 @@
 --
 -- # Quest item rule processing
 --
--- Evaluates items explicitly flagged by the game client as quest objectives.
+-- Evaluates items explicitly flagged by the game client as quest items.
 --
--- Items with a maximum stack count of 1 (unique quest-starters or rare drops)
--- are ignored. This leaves them to be looted manually, preserving the rewarding,
--- tactile feeling of clicking a rare item.
---
--- Common, stackable quest items return true to trigger an automated loot action.
+-- Items with a maximum stack count of 1 are ignored. This leaves them to be
+-- looted manually, preserving the rewarding feeling of clicking a rare item.
 --
 
 scavenger.register_loot_rule(
