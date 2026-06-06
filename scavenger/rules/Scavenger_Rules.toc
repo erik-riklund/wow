@@ -18,8 +18,10 @@
 
 helpers.lua
 settings.lua
+validator.lua
 
 rules/money.lua
+rules/currency.lua
 rules/item-list.lua
 rules/quest-items.lua
 rules/fishing.lua
