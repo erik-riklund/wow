@@ -50,6 +50,7 @@ x.settings = {
     { id = 58787,  action = "ignore" }, -- Crystal Bass (quest item)
     { id = 4235,   action = "ignore" }, -- Heavy Hide
     { id = 58856,  action = "ignore" }, -- Royal Monkfish (quest item)
+    { id = 3182,   action = "ignore" }, -- Spider's Silk
 
     -- Northrend -
     { id = 36908,  action = "ignore" }, -- Frost Lotus
@@ -77,14 +78,42 @@ x.settings = {
       {
         id = 4, -- Jewelcrafting
         quantity = { max = 1 },
+
         quality_threshold = Enum.ItemQuality.Common
       },
 
-      { id = 5, quantity = { max = 9 } }, -- Cloth
+      {
+        id = 5, -- Cloth
+        quantity = { max = 9 },
+
+        quality_threshold = Enum.ItemQuality.Common
+      },
+
       { id = 6, quantity = { max = 9 } }, -- Leather
       { id = 7, quantity = { max = 9 } }, -- Metal & Stone
       { id = 9, quantity = { max = 9 } }, -- Herbs
     },
+
     quality_threshold = Enum.ItemQuality.Uncommon
+  },
+
+  --
+  -- # ?
+  --
+  -- ...
+  --
+
+  gear = {
+    -- ...
+  },
+
+  --
+  -- # ?
+  --
+  -- ...
+  --
+
+  currency = {
+    -- ...
   }
 }
