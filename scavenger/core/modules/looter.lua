@@ -16,7 +16,26 @@ local x = select(2, ...)
 -- Rules are processed in the order they were registered.
 --
 
-local loot_rules = {}
+local loot_rules = {
+  {
+    test = function(slot)
+      return slot.type == Enum.LootSlotType.Item
+    end,
+
+    evaluate = function(slot)
+      local free_slot_count = 0
+
+      for bag_number = 0, 4 do
+        if C_Container.GetContainerNumSlots(bag_number) > 0 then
+          local free_slots = C_Container.GetContainerNumFreeSlots(bag_number)
+          free_slot_count = free_slot_count + free_slots
+        end
+      end
+
+      if free_slot_count == 0 then return false end
+    end
+  }
+}
 
 scavenger.extend(
   "register_loot_rule", function(rule)
@@ -105,7 +124,7 @@ scavenger.add_event_hook(
               bind_type = item_data[14],
               expansion_id = item_data[15],
 
-              expansion_name = _G["EXPANSION_NAME" .. item_data[15]],
+              expansion_name = _G["EXPANSION_NAME" .. (item_data[15] or "")],
               actual_level = C_Item.GetDetailedItemLevelInfo(item_link),
               is_collected = C_TransmogCollection.PlayerHasTransmogByItemInfo(item_link)
             }
