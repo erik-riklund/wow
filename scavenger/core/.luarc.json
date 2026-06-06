@@ -2,30 +2,11 @@
   "diagnostics.severity": {
     "undefined-field": "Error"
   },
-  "diagnostics.disable": ["deprecated", "empty-block", "lowercase-global", "trailing-space"],
-  "diagnostics.globals": [
-    "C_Item",
-    "C_TransmogCollection",
-    "CreateDataProvider",
-    "CreateFrame",
-    "DevTools_Dump",
-    "Enum",
-    "GetLootSlotInfo",
-    "GetLootSlotLink",
-    "GetLootSlotType",
-    "GetNumLootItems",
-    "IsFishingLoot",
-    "LootFrame",
-    "LootSlot",
-    "GetCVarBool",
-    "CanAutoSetGamePadCursorControl",
-    "SetGamePadCursorControl",
-    "GetCursorPosition",
-    "ShowUIPanel",
-    "ScavengerCharacterVariables",
-    "ScavengerVariables",
-    "ScrollingFlatPanelMixin",
-    "strsplit",
-    "strjoin"
+  "diagnostics.disable": [
+    "deprecated",
+    "empty-block",
+    "lowercase-global",
+    "trailing-space",
+    "undefined-global"
   ]
 }
