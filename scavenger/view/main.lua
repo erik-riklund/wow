@@ -71,7 +71,7 @@ scavenger.add_event_hook(
         LootFrame:ApplySystemAnchor()
       end
 
-      local skipShow = true;
+      local skipShow = true
       ScrollingFlatPanelMixin.Open(LootFrame, skipShow)
     end
   end
