@@ -152,44 +152,9 @@ scavenger.add_event_hook(
           slot_data.autolooted = decision == true
           slot_data.ignored = decision == false
 
-          -- A utility function that wraps our slot table in a deep proxy metatable.
-          -- This prevents other modules from accidentally mutating the slot data.
+          -- ?
 
-          local function immutable(target)
-            local proxy = setmetatable(
-              {}, {
-                --
-                -- Handles property lookups. If the 'inspect' key is called, we return
-                -- a utility helper to dump the raw table. Otherwise, we return the value,
-                -- recursively wrapping nested child tables in this same read-only proxy.
-
-                __index = function(_, key)
-                  if key == "inspect" then
-                    return function()
-                      DevTools_Dump(target)
-                    end
-                  else
-                    local value = target[key]
-
-                    if type(value) ~= "table" then return value end
-                    return immutable(value) -- Recursively freeze nested tables.
-                  end
-                end,
-
-                -- Intercepts any direct write or edit attempts,
-                -- warning the developer that the slot state is read-only.
-
-                __newindex = function()
-                  scavenger.warn("Blocked attempt to modify read-only slot data")
-                end
-              }
-            )
-            return proxy
-          end
-
-          -- Cache the frozen, read-only slot data in our temporary loot tracker.
-
-          current_loot[slot_index] = immutable(slot_data)
+          current_loot[slot_index] = slot_data
 
           -- If an active auto-loot rule returned true,
           -- instruct the game client to loot the item from this slot.
