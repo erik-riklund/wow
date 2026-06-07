@@ -10,6 +10,10 @@
 local x = select(2, ...)
 local s = x.settings
 
+--
+-- ?
+--
+
 local function validate_currency(path, target)
   if type(target) ~= "table" then
     error(string.format("The '%s' property must be a table", path))
@@ -28,6 +32,10 @@ local function validate_currency(path, target)
   end
 end
 
+--
+-- ?
+--
+
 local function validate_quantity(path, target)
   if target == nil then return end
   if type(target) ~= "table" then
@@ -41,21 +49,43 @@ local function validate_quantity(path, target)
   end
 end
 
+--
+-- ?
+--
+
 if type(s) ~= "table" then
   error("The core settings property must be a table")
 end
 
+--
+-- ?
+--
+
 if s.junk ~= nil then
-  if type(s.junk) ~= "table" then error("The 'junk' property must be a table") end
+  if type(s.junk) ~= "table" then
+    error("The 'junk' property must be a table")
+  end
+
   validate_currency("junk.min_value", s.junk.min_value)
   validate_currency("junk.max_value", s.junk.max_value)
 end
 
+--
+-- ?
+--
+
 if s.money ~= nil then
-  if type(s.money) ~= "table" then error("The 'money' property must be a table") end
+  if type(s.money) ~= "table" then
+    error("The 'money' property must be a table")
+  end
+
   validate_currency("money.min_value", s.money.min_value)
   validate_currency("money.max_value", s.money.max_value)
 end
+
+--
+-- ?
+--
 
 if s.items ~= nil then
   if type(s.items) ~= "table" then
@@ -69,13 +99,17 @@ if s.items ~= nil then
     if type(item.id) ~= "number" then
       error(string.format("Item at index %d is missing a valid numeric 'id'", i))
     end
-    if item.action ~= nil and type(item.action) ~= "string" then
-      error(string.format("Item at index %d has an invalid 'action' type", i))
+    if item.action ~= nil and item.action ~= "loot" and item.action ~= "ignore" then
+      error(string.format("Item '%d' (index: %d) has an invalid 'action' (must be 'loot' or 'ignore')", item.id, i))
     end
 
     validate_quantity(string.format("items[%d].quantity", i), item.quantity)
   end
 end
+
+--
+-- ?
+--
 
 if s.reagents ~= nil then
   if type(s.reagents) ~= "table" then error("The 'reagents' property must be a table") end
@@ -103,8 +137,4 @@ if s.reagents ~= nil then
       validate_quantity(string.format("reagents.lootable_types[%d].quantity", i), reagent.quantity)
     end
   end
-end
-
-if s.gear ~= nil and type(s.gear) ~= "table" then
-  error("The 'gear' property must be a table")
 end
