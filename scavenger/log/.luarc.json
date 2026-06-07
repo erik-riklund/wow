@@ -1,0 +1,9 @@
+{
+  "diagnostics.disable": [
+    "deprecated",
+    "empty-block",
+    "lowercase-global",
+    "trailing-space",
+    "undefined-global"
+  ]
+}
