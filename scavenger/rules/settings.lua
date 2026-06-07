@@ -77,34 +77,36 @@ x.settings = {
     lootable_types = {
       {
         id = 4, -- Jewelcrafting
-        quantity = { max = 1 },
-
-        quality_threshold = Enum.ItemQuality.Common
+        quantity = { max = 1 }
       },
 
       {
         id = 5, -- Cloth
-        quantity = { max = 9 },
-
-        quality_threshold = Enum.ItemQuality.Common
+        quantity = { max = 9 }
       },
 
-      { id = 6, quantity = { max = 9 } }, -- Leather
-      { id = 7, quantity = { max = 9 } }, -- Metal & Stone
-      { id = 9, quantity = { max = 9 } }, -- Herbs
+      {
+        id = 6, -- Leather
+        quantity = { max = 9 }
+      },
+
+      {
+        id = 7, -- Metal & Stone
+        quantity = { max = 9 }
+      },
+
+      {
+        id = 8, -- Cooking
+        quantity = { max = 9 }
+      },
+
+      {
+        id = 9, -- Herbs
+        quantity = { max = 9 }
+      },
     },
 
-    quality_threshold = Enum.ItemQuality.Uncommon
-  },
-
-  --
-  -- # ?
-  --
-  -- ...
-  --
-
-  gear = {
-    -- ...
+    quality_threshold = Enum.ItemQuality.Common
   },
 
   --
