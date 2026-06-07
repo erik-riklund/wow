@@ -1,6 +1,6 @@
 ## Interface: 120005
 ## Title: Scavenger
-## Version: B2
+## Version: B4
 ## Author: Gopher (aka Ghuul @ WoW Interface)
 ## IconTexture: interface/icons/inv_vulturemount_black
 
