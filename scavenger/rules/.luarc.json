@@ -3,7 +3,7 @@
     "deprecated",
     "empty-block",
     "lowercase-global",
-    "trailing-space"
-  ],
-  "diagnostics.globals": ["C_Item", "Enum", "scavenger"] 
+    "trailing-space",
+    "undefined-global"
+  ]
 }
