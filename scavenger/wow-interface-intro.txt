@@ -1,19 +1,17 @@
 [COLOR=Wheat][SIZE=4][B]Stop staring at corpses and get back to the action![/B][/SIZE][/COLOR]
 
 
-The winds sang of the clash of swords and the defeat of mighty foes, but they conveniently left out the part where the legendary savior of the world had to collect pocket change from a gnoll’s pockets, or pluck intact eyeballs out of a murloc. What if you had a personal goblin assistant that handled the mundane task of sorting through the pocket lint and broken teeth, leaving the legendary artifacts and valuable reagents to you?
+The winds sang of the clash of swords and the defeat of mighty foes, but they conveniently left out the part where the legendary savior of the world had to collect pocket change from a gnoll’s pockets, or pluck intact eyeballs out of a murloc. What if you had a personal goblin assistant that handled the task of sorting through the pocket lint and broken teeth, leaving the legendary artifacts and valuable reagents to you?
 
 
-[COLOR=Orange][SIZE=3][B]What is this?[/B][/SIZE][/COLOR]
+[COLOR=Orange][SIZE=3][B]What does it do?[/B][/SIZE][/COLOR]
 
-Scavenger is a lightweight loot system designed to filter the spoils of war. Instead of mindlessly vacuuming everything into your bags, it collects loot based on defined rules. It includes a frequency tracker to enable looting of items based on habits, and sorts items in the loot window based on importance.
+Scavenger is a lightweight loot system designed to filter the spoils of war. Instead of mindlessly vacuuming everything into your bags, it collects loot based on defined rules. The system comes with sensible defaults to handle money, common items, reagents and vendor trash. It also includes a frequency tracker to enable looting of items based on habits, sorts items in the loot window based on importance, and enables a shortcut (LSHIFT) to claim all items in the loot window.
 
 
 [COLOR=Orange][SIZE=3][B]How does it work?[/B][/SIZE][/COLOR]
 
-Out of the box, the system comes with sensible defaults to handle money, common items, reagents and vendor trash. It hooks directly into the game's looting mechanics, processing each available slot through a rule-based decision chain to determine whether it should be looted or skipped.
-
-For the control freaks and engineers among us, you can write custom Lua rules to define how the system behaves. Want to save every drop of Moonberry Juice, or automatically grab every single piece of cheese? Write a rule, register it, and let the addon do the heavy lifting.
+The system hooks directly into the game's looting mechanics, processing each available slot through a rule-based decision chain to determine whether it should be looted or skipped. For the control freaks and engineers among us, you can write custom Lua rules to define how the system behaves. Want to save every drop of Moonberry Juice, or automatically grab every single piece of cheese? Write a rule, register it, and let the addon do the heavy lifting.
 
 [highlight="Lua"]scavenger.register_loot_rule(
   {
@@ -36,27 +34,3 @@ The addon is constantly evolving to live up to the legacy of its spiritual prede
 
 
 [COLOR=Wheat][SIZE=2][B]Thank you for taking an interest in this project. May your adventures generate many legendary drops![/B][/SIZE][/COLOR]
-
-
-
-[COLOR=Orange][SIZE=3][B]Changelog[/B][/SIZE][/COLOR]
-
-
-[SIZE=2]2026/?/? - version B4:[/SIZE]
-
-- fixed a Lua error that occured when an item isn't bound to an expansion ([COLOR=Wheat][SIZE=1]core[/SIZE][/COLOR])
-- added a rule to ensure there is enough bag space to loot an item ([COLOR=Wheat][SIZE=1]core[/SIZE][/COLOR])
-- set the quality threshold for all reagent types to common ([COLOR=Wheat][SIZE=1]rules[/SIZE][/COLOR])
-- added Spider's Silk (id: 3182) to the ignore list ([COLOR=Wheat][SIZE=1]rules[/SIZE][/COLOR])
-- added validation of all settings to ensure they are defined correctly ([COLOR=Wheat][SIZE=1]rules[/SIZE][/COLOR])
-- implemented a gear rule to loot soulbound items with known appearances that are at least 5 item levels below equipped gear ([COLOR=Wheat][SIZE=1]rules[/SIZE][/COLOR])
-
-[SIZE=2]2026/05/20 - version B3:[/SIZE]
-
-- set the quality threshold for jewelcrafting reagents to common ([COLOR=Wheat][SIZE=1]rules[/SIZE][/COLOR])
-- moved the modifications made to the standard loot frame to a separate module ([COLOR=Wheat][SIZE=1]view[/SIZE][/COLOR])
-
-[SIZE=2]2026/05/17 - version B2:[/SIZE]
-
-- fixed the dynamic loot rule structure to adhere to the updated API ([COLOR=Wheat][SIZE=1]habits[/SIZE][/COLOR])
-- lowered the minimum value of junk to 1 copper, effectively looting all junk with a value ([COLOR=Wheat][SIZE=1]rules[/SIZE][/COLOR])
