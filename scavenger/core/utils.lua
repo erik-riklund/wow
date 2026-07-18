@@ -6,11 +6,8 @@
 --                                  |___/
 -- github.com/erik-riklund/wow/scavenger/core (2026)
 
----@class context
 local x = select(2, ...)
 
---
--- # UI styling palette
 --
 -- A centralized hexadecimal color configuration map.
 --
@@ -26,10 +23,8 @@ local palette = {
 }
 
 --
--- # Markup tokenizer parser
---
--- Converts custom pseudo-HTML styling tags inside a string into native UI escape
--- formatting tokens (`|cFFxxxxxx` and `|r`).
+-- Converts custom pseudo-HTML styling tags inside a string into
+-- native UI escape formatting tokens (`|cFFxxxxxx` and `|r`).
 -- 
 -- Resolves either explicit hex sequences (e.g., `<#FFFFFF>`) or mapped palette 
 -- names (e.g., `<success>`), closing strings cleanly via the `</end>` tag wrapper.
@@ -53,8 +48,6 @@ local function colorize_text(input)
 end
 
 --
--- # API: Standard chat printer
---
 -- Intercepts string logs, formatting optional additional string arguments via 
 -- 'string.format'. Enforces standard layout token wrappers and prints to the active 
 -- chat framing layout using the 'normal' palette profile.
@@ -68,8 +61,6 @@ scavenger.extend(
 )
 
 --
--- # API: Attention warning logger
---
 -- Formats and prints warning outputs. Applies the soft golden-yellow 
 -- 'highlight' styling token wrapper before displaying text to draw visibility.
 --
@@ -81,8 +72,6 @@ scavenger.extend(
   end
 )
 
---
--- # API: System error logger
 --
 -- Formats and prints terminal failures or exception warnings. Applies the dark 
 -- red-orange 'error' styling token wrapper to designate critical pipeline operations.

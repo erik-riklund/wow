@@ -6,20 +6,18 @@
 --                                  |___/
 -- github.com/erik-riklund/wow/scavenger/core (2026)
 
----@class context
 local x = select(2, ...)
 
 --
--- # Addon API & extensibility
+-- Acts as the internal registry for all public-facing methods.
 --
--- This acts as the internal registry for all public-facing methods.
--- It features an 'extend' function that allows external modules or other
--- addons to safely register their own custom callbacks into Scavenger.
+-- Features an 'extend' method that allows external modules or
+-- other addons to safely register their own custom callbacks.
 --
 
 x.api = {
   --
-  -- Safely registers a new function in the API table, ensuring we don't
+  -- Safely registers a new method in the API table, ensuring we don't
   -- overwrite existing features or accept invalid, non-executable data.
 
   extend = function(key, callback)
@@ -34,10 +32,9 @@ x.api = {
 }
 
 --
--- # Global API gateway
+-- Exposes a read-only interface to the global environment.
 --
--- Exposes a clean, read-only interface to the global environment.
--- This allows other addons or macros to access Scavenger's API while
+-- This allows external modules and other addons to access the API while
 -- protecting our core tables from accidental modification or deletion.
 --
 
