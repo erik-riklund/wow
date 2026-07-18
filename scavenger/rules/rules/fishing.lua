@@ -7,7 +7,13 @@
 -- github.com/erik-riklund/wow/scavenger/rules (2026)
 
 --
--- # Fishing loot rule: Cooking reagents
+-- ?
+--
+
+local special_fish = {
+  --
+}
+
 --
 -- Evaluates items gathered specifically through fishing. If the item is flagged
 -- as fishing loot and belongs to the Cooking subcategory of tradeskill items,
@@ -27,6 +33,10 @@ scavenger.register_loot_rule(
       if item.type_id == Enum.ItemClass.Tradegoods
           and item.subtype_id == cooking_reagent_id then
         return true -- Loot edible fish caught while fishing.
+      end
+
+      for _, id in ipairs(special_fish) do
+        if item.id == id then return true end
       end
     end
   }
