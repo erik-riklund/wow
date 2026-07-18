@@ -19,7 +19,7 @@ x.settings = {
 
   junk = {
     min_value = { copper = 1 },
-    max_value = { gold = 9, silver = 99 }
+    max_value = { gold = 4, silver = 99 }
   },
 
   --
@@ -45,18 +45,31 @@ x.settings = {
   -- { id = 130267, quantity = { min = 2, max = 3 } }
   --
 
-  items = {
+  items =
+  {
     -- Classic -
     { id = 58787,  action = "ignore" }, -- Crystal Bass (quest item)
     { id = 4235,   action = "ignore" }, -- Heavy Hide
+    { id = 13893,  action = "ignore" }, -- Large Raw Mightfish
+    { id = 783,    action = "ignore" }, -- Light Hide
+    { id = 4232,   action = "ignore" }, -- Medium Hide
     { id = 58856,  action = "ignore" }, -- Royal Monkfish (quest item)
+    { id = 8171,   action = "ignore" }, -- Rugged Hide
+    { id = 10285,  action = "ignore" }, -- Shadow Silk
     { id = 3182,   action = "ignore" }, -- Spider's Silk
+    { id = 8169,   action = "ignore" }, -- Thick Hide
+    { id = 4337,   action = "ignore" }, -- Thick Spider's Silk
 
     -- Northrend -
     { id = 36908,  action = "ignore" }, -- Frost Lotus
 
+    -- Legion -
+    { id = 124439, action = "loot" }, -- Unbroken Tooth
+
     -- Shadowlands -
     { id = 173204, action = "ignore" }, -- Lightless Silk
+    { id = 171830, action = "loot" },   -- Oxxein Ore
+    { id = 171841, action = "loot" },   -- Shaded Stone
   },
 
   --
@@ -73,37 +86,22 @@ x.settings = {
   -- [ https://warcraft.wiki.gg/wiki/ItemType ]
   --
 
-  reagents = {
-    lootable_types = {
+  reagents =
+  {
+    lootable_types =
+    {
       {
         id = 4, -- Jewelcrafting
         quantity = { max = 1 }
       },
-
       {
         id = 5, -- Cloth
-        quantity = { max = 9 }
+        quantity = { max = 19 }
       },
 
-      {
-        id = 6, -- Leather
-        quantity = { max = 9 }
-      },
-
-      {
-        id = 7, -- Metal & Stone
-        quantity = { max = 9 }
-      },
-
-      {
-        id = 8, -- Cooking
-        quantity = { max = 9 }
-      },
-
-      {
-        id = 9, -- Herbs
-        quantity = { max = 9 }
-      },
+      { id = 6 },  -- Leather
+      { id = 7 },  -- Metal & Stone
+      { id = 9, }, -- Herbs
     },
 
     quality_threshold = Enum.ItemQuality.Common
@@ -115,7 +113,9 @@ x.settings = {
   -- ...
   --
 
-  currency = {
-    -- ...
+  currency =
+  {
+    -- The War Within
+    { id = 2815, quantity = { max = 50 } } -- Resonance Crystals
   }
 }
