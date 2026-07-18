@@ -1,4 +1,4 @@
-## Interface: 120005
+## Interface: 120007
 ## Dependencies: Scavenger
 ## Title: Rules
 ## Author: Gopher (aka Ghuul @ WoW Interface)
