@@ -24,7 +24,6 @@ rules/money.lua
 rules/currency.lua
 rules/item-list.lua
 rules/quest-items.lua
+rules/junk.lua
 rules/fishing.lua
 rules/reagents.lua
-rules/gear.lua
-rules/junk.lua
