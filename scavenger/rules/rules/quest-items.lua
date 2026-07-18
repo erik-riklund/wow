@@ -15,6 +15,8 @@
 -- looted manually, preserving the rewarding feeling of clicking a rare item.
 --
 
+local looted_items = {}
+
 scavenger.register_loot_rule(
   {
     test = function(slot)
@@ -22,7 +24,18 @@ scavenger.register_loot_rule(
     end,
 
     evaluate = function(slot)
-      return slot.item.stack_count > 1 -- Loot non-unique quest items.
+      return (slot.item and slot.item.link and looted_items[slot.item.link])
+        or (type(slot.item.stack_count) == "number" and slot.item.stack_count > 1)
     end
   }
+)
+
+scavenger.add_event_hook(
+  "SLOT_LOOTED", function(slot)
+    if slot.item and slot.item.link then
+      if not looted_items[slot.item.link] then
+        looted_items[slot.item.link] = true
+      end
+    end
+  end
 )
