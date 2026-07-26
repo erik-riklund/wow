@@ -9,19 +9,13 @@
 local current_loot = nil
 local target_frame = LootFrame
 
---
--- Register the current loot table.
---
-
 scavenger.add_event_hook (
   "LOOT_PROCESSED", function (slots)
     current_loot = slots
   end
 )
 
---
--- Listen for the LSHIFT key being pressed.
---
+target_frame:SetPropagateKeyboardInput(true)
 
 target_frame:HookScript(
   "OnKeyUp", function (_, key)
