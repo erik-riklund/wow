@@ -17,7 +17,7 @@ The system hooks directly into the game's looting mechanics, processing each ava
   {
     test = function(slot)
       -- A quick glance: should the rule evaluate this slot?
-      -- Use `slot.inspect()` if you need to inspect the slot data.
+      -- Use `DevTools_Dump(slot)` if you need to inspect the slot data.
 
       return slot.type == Enum.LootSlotType.Item
     end,
@@ -30,7 +30,7 @@ The system hooks directly into the game's looting mechanics, processing each ava
 )[/highlight]
 
 
-The addon is constantly evolving to live up to the legacy of its spiritual predecessor, "Selective Autoloot". Should your assistant experience a mechanical breakdown or accidentally hoard something it shouldn't, please leave a detailed report of the malfunction in the comments section.
+[I]Should your assistant experience a mechanical breakdown or accidentally hoard something it shouldn't, please leave a detailed report of the malfunction in the comments section.[/I]
 
 
-[COLOR=Wheat][SIZE=2][B]Thank you for taking an interest in this project. May your adventures generate many legendary drops![/B][/SIZE][/COLOR]
+[COLOR=Wheat][SIZE=2][B]Thank you for taking interest in my project. I hope your journey in Azeroth generates many loot-worthy items![/B][/SIZE][/COLOR]
