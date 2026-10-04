@@ -1,7 +1,8 @@
 ## Interface: 120007
 ## Dependencies: Scavenger
-## Title: Rules
-## Author: Gopher (aka Ghuul @ WoW Interface)
+## Title: Loot rules
+## Version: 1.0.0
+## Author: Ghuul (@ wowinterface.com)
 ## IconTexture: interface/icons/inv_scroll_03
 
 ## Category: Loot
@@ -16,14 +17,5 @@
 ## Category-zhCN: 战利品
 ## Category-zhTW: 戰利品
 
-helpers.lua
-settings.lua
-validator.lua
-
-rules/money.lua
-rules/currency.lua
-rules/item-list.lua
-rules/quest-items.lua
-rules/junk.lua
-rules/fishing.lua
-rules/reagents.lua
+config.lua
+main.lua
