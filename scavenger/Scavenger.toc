@@ -1,22 +1,9 @@
 ## Interface: 120007
 ## Title: Scavenger
 ## Version: 1.0.0
-## Author: Ghuul (@ wowinterface.com)
+## Author: Ghuul @ wowinterface.com
 ## IconTexture: interface/icons/inv_vulturemount_black
 
-## Category: Loot
-## Category-deDE: Beute
-## Category-esES: Botín
-## Category-esMX: Botín
-## Category-frFR: Butin
-## Category-itIT: Bottino
-## Category-koKR: 전리품
-## Category-ptBR: Saque
-## Category-ruRU: Добыча
-## Category-zhCN: 战利品
-## Category-zhTW: 戰利品
-
-events.lua
-looter.lua
-keybinds.lua
-view.lua
+main.lua
+loot-frame.lua
+rules.lua

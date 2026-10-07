@@ -1,13 +1,9 @@
-local _, context = ...
-
--- ?
 local slot_type_order = {
   Enum.LootSlotType.Money,
   Enum.LootSlotType.Currency,
   Enum.LootSlotType.Item
 }
 
--- ?
 local item_type_order = {
   {
     Enum.ItemClass.Miscellaneous,
@@ -22,7 +18,6 @@ local item_type_order = {
   { Enum.ItemClass.Armor,      nil },
   { Enum.ItemClass.Tradeskill, nil }
 }
-
 
 local score_handlers =
 {
@@ -109,7 +104,6 @@ local score_handlers =
   }
 }
 
-
 local function compare_slots(a, b)
   local slot_a = a.data
   local slot_b = b.data
@@ -155,33 +149,27 @@ local function compare_slots(a, b)
   )
 end
 
-
 LootFrame:UnregisterEvent("LOOT_OPENED")
 
-
-
-context.add_event_hook(
-  "LOOT_PROCESSED", function(slots)
+table.insert(
+  event_listeners.LOOT_PROCESSED,
+  
+  function(slots)
     local provider = CreateDataProvider()
 
     for _, slot in ipairs(slots) do
       if not slot.autolooted then
-        local quality = (
-          type(slot.item) == "table" and slot.item.quality
-          )
-          or Enum.ItemQuality.Common
-        
         provider:Insert({
           data = slot,
           slotIndex = slot.index,
-          quality = quality
+          quality = (type(slot.item) == "table" and slot.item.quality)
+                 or Enum.ItemQuality.Common
         })
       end
     end
     
     if not provider:IsEmpty() then
       LootFrame:Open()
-      
       if not UnitAffectingCombat("player") then
         provider:SetSortComparator(compare_slots)
         LootFrame.ScrollBox:SetDataProvider(provider)
